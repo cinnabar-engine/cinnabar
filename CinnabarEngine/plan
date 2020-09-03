@@ -1,0 +1,43 @@
+# CEObject: GetID(),Destroy()
+Map: GetCamera(),GetDirLight()
+GameObject: GetComponent<T>(),AddComponent()
+GLObject:bind(),unbind()
+- Shader
+- Mesh
+- Texture
+
+# Component
+Transform
+MeshRenderer
+Material
+Camera
+Collider
+Light
+- DirectionalLight
+-- PointLight
+
+
+
+#System
+MapManager
+Renderer
+- Map Renderer
+- Mesh Renderer
+Physics
+Input
+- Keyboard
+- Mouse
+
+
+#Misc
+EventManager
+AssetManager
+- TextureManager
+- MaterialManager
+ObjectManager: CreateObject<T>()
+Time
+
+#EventType
+Update
+Render
+
