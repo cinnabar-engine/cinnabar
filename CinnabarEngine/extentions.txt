@@ -1,3 +1,0 @@
-VERTEX SHADER: .vert
-FRAGMENT SHADER: .frag
-MATERIAL: .c
