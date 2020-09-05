@@ -3,44 +3,12 @@
 #include <sstream>
 #include <iostream>
 
-#include <SDL.h>
-#include <glad/glad.h>
-#include <SDL_opengl.h>
+#include "rendering/ce_gl.h"
 #include <SDL_log.h>
 
 #include "stb_image.h"
-
-void checkCompileErrors(GLuint shader, GLint shaderType)
-{
-	std::string type;
-	switch (shaderType)
-	{
-	case GL_VERTEX_SHADER: type = "VERTEX"; break;
-	case GL_FRAGMENT_SHADER: type = "FRAGMENT"; break;
-	case GL_GEOMETRY_SHADER: type = "GEOMETRY"; break;
-	default: return;
-	}
-	int success;
-	char infoLog[1024];
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-		std::cout << "SHADER_COMPILATION_ERROR of type: " << type + "\n" << infoLog << "\n-------------------------------------------------------\n";
-	}
-}
-
-void checkCompileErrors(GLuint program)
-{
-	int success;
-	char infoLog[1024];
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(program, 1024, NULL, infoLog);
-		std::cout << "PROGRAM_LINKING_ERROR\n" << &infoLog[0] << "\n-------------------------------------------------------\n";
-	}
-}
+#include "managers/asset_manager.h"
+#include "rendering/shader.h"
 
 
 int main(int argc, char* argv[]) {
@@ -93,55 +61,7 @@ int main(int argc, char* argv[]) {
 	/*
 	 * Shaders
 	 */
-	std::string vertexCode;
-	std::string fragmentCode;
-	std::ifstream vShaderFile;
-	std::ifstream fShaderFile;
-	// ensure ifstream objects can throw exceptions:
-	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	try
-	{
-		vShaderFile.open("shaders/basic.vert");
-		fShaderFile.open("shaders/basic.frag");
-		std::stringstream vShaderStream, fShaderStream;
-		// read file's buffer contents into streams
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
-		vShaderFile.close();
-		fShaderFile.close();
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
-	}
-	catch (std::ifstream::failure e)
-	{
-		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ\n";
-	}
-	const char* vShaderCode = vertexCode.c_str();
-	const char* fShaderCode = fragmentCode.c_str();
-
-	GLuint vertex, fragment;
-	/* Vetex Shader */
-	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, &vShaderCode, NULL);
-	glCompileShader(vertex);
-	checkCompileErrors(vertex, GL_VERTEX_SHADER);
-
-	/* Fragment Shader */
-	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &fShaderCode, NULL);
-	glCompileShader(fragment);
-	checkCompileErrors(fragment, GL_FRAGMENT_SHADER);
-
-	/* Shader Program */
-	GLuint program = glCreateProgram();
-	glAttachShader(program, vertex);
-	glAttachShader(program, fragment);
-	glLinkProgram(program);
-	checkCompileErrors(program);
-
-	glDeleteShader(vertex);
-	glDeleteShader(fragment);
+	ce::Shader* shader = new ce::Shader("basic");
 
 	/*
 	 * Vertices
@@ -223,7 +143,7 @@ int main(int argc, char* argv[]) {
 		glBindTexture(GL_TEXTURE_2D, texture);
 
 		//Shader
-		glUseProgram(program);
+		shader->bind();
 
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -235,6 +155,7 @@ int main(int argc, char* argv[]) {
 
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+	delete shader;
 
 	SDL_DestroyWindow(window);
 	SDL_Quit();
