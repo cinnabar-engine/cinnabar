@@ -1,13 +1,15 @@
 set(NAME engine)
 
-file(GLOB CE_SRC
+file(GLOB_RECURSE CE_SRC
 "*.hpp"
 "*.h"
-"*cpp"
+"*.cpp"
 "*.c"
 )
 
-add_executable(${NAME} WIN32 ${CE_SRC})
+add_executable(${NAME}
+#WIN32
+${CE_SRC})
 
 target_link_libraries(${NAME}
 ${CE_LIBS}
