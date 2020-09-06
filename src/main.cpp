@@ -8,6 +8,8 @@
 
 #include "stb_image.h"
 #include "managers/asset_manager.h"
+#include "rendering/vertex.h"
+
 #include "rendering/shader.h"
 
 
@@ -72,11 +74,21 @@ int main(int argc, char* argv[]) {
 	 1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
 	-1.0f,  1.0f, -1.0f,  0.0f, 1.0f
 	};
+	
+	ce::Vertex v_vertices[] = {
+	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(1.0f,0.0f,0.0f,0.0f),  glm::vec2(0.0f, 0.0f),
+	glm::vec3(0.5f, -0.5f, -0.5f),glm::vec4(1.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 0.0f),
+	glm::vec3(0.5f,  0.5f, -0.5f), glm::vec4(0.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 1.0f),
+	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(0.0f,0.0f,1.0f,1.0f), glm::vec2(0.0f, 1.0f)
+	};
 
-	unsigned int indices[] = {
+	GLuint indices[] = {
 		0, 1, 3, // first triangle
 		1, 2, 3  // second triangle
 	};
+	std::cout << sizeof(v_vertices)/sizeof(ce::Vertex) <<"\n";
+
+
 
 	unsigned int VBO, VAO, EBO;
 	glGenVertexArrays(1, &VAO);
@@ -86,18 +98,16 @@ int main(int argc, char* argv[]) {
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(v_vertices), v_vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	//texcoords attribute
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-
+	///shader->vertexAttribPointer("aPos",3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	shader->vertexAttribPointer("aPos",3,GL_FLOAT,GL_FALSE,sizeof(ce::Vertex),(void*)(offsetof(ce::Vertex,position)));
+	shader->vertexAttribPointer("aColor",4,GL_FLOAT,GL_FALSE,sizeof(ce::Vertex),(void*)(offsetof(ce::Vertex,color)));
+	shader->vertexAttribPointer("aTexCoord",2, GL_FLOAT, GL_FALSE, sizeof(ce::Vertex), (void*)(offsetof(ce::Vertex,texCoord)));
 	/*
 	 * Textures
 	 */
@@ -111,7 +121,7 @@ int main(int argc, char* argv[]) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_REPEAT);
 	// Load and generate texture
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load("textures/uv-map.png", &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load("textures/wall.png", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -136,7 +146,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		/* Render */
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//TextureBinding
 		glActiveTexture(GL_TEXTURE0);
