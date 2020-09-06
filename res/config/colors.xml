@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<color name="black">
+0 0 0 1.0
+</color>
+<color name="white">
+1.0
+</color>
+<color name="red">
+1.0 0 0 1.0
+</color>
+<color name="green">
+0.0 1.0 0 1.0
+</color>
+<color name="blue">
+0.0 0.0 1.0 1.0
+</color>
+<color name="yellow">
+red+green
+</color>
+<color name="cyan">
+green+blue
+</color>
+<color name="magenta">
+blue+red
+</color>
