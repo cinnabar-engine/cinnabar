@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<material>
-	<ambient>0.1 0.1 0.1 1.0</ambient>
-	<diffuse>1.0 1.0 0.0 1.0</diffuse>
-	<specular>1.0 1.0 1.0 1.0</specular>
-	<diffuseTex>wall.png</diffuseTex>
-	<specularTex>missing.png</specularTex>
-	<shader>basic</shader>
-</material>
