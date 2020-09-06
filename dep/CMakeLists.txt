@@ -7,6 +7,8 @@ include_directories( ${OPENGL_INCLUDE_DIRS})
 # glad
 if(MSVC)
 add_subdirectory(glad)
+else()
+add_subdirectory(glew/build/cmake)
 endif()
 
 # SDL
