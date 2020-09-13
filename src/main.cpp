@@ -13,7 +13,7 @@
 
 
 int main(int argc, char* argv[]) {
-	std::cout << "Learning OpenGL" << std::endl;
+	std::cout << "Hello World!" << std::endl;
 	/*
 	 * Init SDL
 	 */
@@ -29,8 +29,8 @@ int main(int argc, char* argv[]) {
 		"Cinnabar",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
-		1366,
-		768,
+		1280,
+		720,
 		SDL_WINDOW_OPENGL
 	);
 	if(window==NULL)
@@ -45,8 +45,16 @@ int main(int argc, char* argv[]) {
 
 	SDL_GLContext mainContext = SDL_GL_CreateContext(window);
 
-
-
+	/*
+	 * GLEW
+	 */
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		/* Problem: glewInit failed, something is seriously wrong. */
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}
+	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	/* OpenGL State */
 	glEnable(GL_DEPTH_TEST);
@@ -60,26 +68,19 @@ int main(int argc, char* argv[]) {
 
 	/*
 	 * Vertices
-	 */
-	float vertices[] = {
-	-1.0f, -1.0f, -1.0f,  0.0f, 0.0f,
-	 1.0f, -1.0f, -1.0f,  1.0f, 0.0f,
-	 1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-	-1.0f,  1.0f, -1.0f,  0.0f, 1.0f
-	};
-	
-	ce::Vertex v_vertices[] = {
-	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(1.0f,0.0f,0.0f,0.0f),  glm::vec2(0.0f, 0.0f),
-	glm::vec3(0.5f, -0.5f, -0.5f),glm::vec4(1.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 0.0f),
-	glm::vec3(0.5f,  0.5f, -0.5f), glm::vec4(0.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 1.0f),
-	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(0.0f,0.0f,1.0f,1.0f), glm::vec2(0.0f, 1.0f)
+	 */	
+	ce::Vertex vertices[] = {
+	glm::vec3(-1.0f, -0.5f, -0.5f), glm::vec4(1.0f,0.0f,0.0f,0.0f),  glm::vec2(0.0f, 0.0f),
+	glm::vec3(0.5f, -1.0f, -0.5f),glm::vec4(1.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 0.0f),
+	glm::vec3(1.0f,  0.5f, -0.5f), glm::vec4(0.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 1.0f),
+	glm::vec3(-0.5f,  1.0f, -0.5f), glm::vec4(0.0f,0.0f,1.0f,1.0f), glm::vec2(0.0f, 1.0f)
 	};
 
 	GLuint indices[] = {
 		0, 1, 3, // first triangle
 		1, 2, 3  // second triangle
 	};
-	std::cout << sizeof(v_vertices)/sizeof(ce::Vertex) <<"\n";
+	std::cout << sizeof(vertices)/sizeof(ce::Vertex) <<"\n";
 
 
 
@@ -91,7 +92,7 @@ int main(int argc, char* argv[]) {
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(v_vertices), v_vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -114,7 +115,7 @@ int main(int argc, char* argv[]) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_REPEAT);
 	// Load and generate texture
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load("textures/wall.png", &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load("textures/uv-map.png", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);

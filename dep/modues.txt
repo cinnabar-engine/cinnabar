@@ -1,0 +1,3 @@
+glew https://github.com/Perlmint/glew-cmake
+SDL2 hg clone http://hg.libsdl.org/SDL
+glm https://github.com/g-truc/glm.git
