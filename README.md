@@ -5,6 +5,7 @@
 Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 
 ```bash
+sudo apt-get install cmake gcc build-essential libsdl2-dev
 mkdir build
 cd build
 cmake ..

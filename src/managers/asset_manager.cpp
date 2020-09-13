@@ -8,7 +8,7 @@ std::string ce::AssetManager::load_text_file(std::string path)
 {
 	std::fstream file;
 	std::string text = "";
-	file.exceptions(std::fstream::failbit || std::fstream::badbit);
+	file.exceptions(std::fstream::failbit | std::fstream::badbit);
 	try
 	{
 		file.open(path);

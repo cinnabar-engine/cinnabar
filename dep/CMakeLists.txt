@@ -5,11 +5,12 @@ include_directories(${OPENGL_INCLUDE_DIRS})
 
 # glew
 add_subdirectory(glew)
-add_subdirectory(glew-include)
+add_library(glew INTERFACE)
+target_include_directories(glew INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/glew/include)
 
 
 # SDL
-add_subdirectory(SDL)
+add_subdirectory(SDL2)
 set_target_properties(SDL2 PROPERTIES FOLDER dep/SDL)
 set_target_properties(SDL2main PROPERTIES FOLDER dep/SDL)
 

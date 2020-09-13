@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <glm/glm.hpp>
 
 #include "ce_gl.h"

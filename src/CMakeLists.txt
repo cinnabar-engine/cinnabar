@@ -15,7 +15,6 @@ target_link_libraries(${NAME}
 ${CE_LIBS}
 )
 
-
 #set_property(TARGET engine PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:engine>")
 add_custom_command(
 	TARGET ${NAME}
