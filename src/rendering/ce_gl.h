@@ -1,18 +1,9 @@
 #ifndef _CE_GL_H_
 #define _CE_GL_H_
 
+#include <GL/glew.h>
+#include <GL/wglew.h>
 #include <SDL.h>
-#ifdef _WIN32
-// #include <glad/glad.h>
-// #include <GL/glew.h>
-#include <gl/GL.h>
-#elif __apple__
-#include <OpenGL/gl.h>
-#elif __linux__
-#include <GL/gl.h>
-#include <glew.h>
-#endif
-
 #ifdef __IPHONEOS__
 #include <SDL_opengles.h> // we want to use OpenGL ES
 #else

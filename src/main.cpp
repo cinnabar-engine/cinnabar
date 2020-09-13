@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "rendering/ce_gl.h"
-#include <SDL_log.h>
 
 #include "stb_image.h"
 #include "managers/asset_manager.h"
@@ -45,14 +44,9 @@ int main(int argc, char* argv[]) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	SDL_GLContext mainContext = SDL_GL_CreateContext(window);
-	/*
-	 * Load GLAD
-	 */
-	if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD\n";
-		return -1;
-	}
+
+
+
 
 	/* OpenGL State */
 	glEnable(GL_DEPTH_TEST);
