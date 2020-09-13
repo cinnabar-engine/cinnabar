@@ -23,9 +23,9 @@ set(CE_LIBS
 ${OPENGL_LIBRARY}
 libglew_shared
 libglew_static
-glm
 SDL2
 SDL2main
+glm
 
 PARENT_SCOPE
 )
