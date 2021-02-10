@@ -24,7 +24,12 @@ sudo dnf install kernel-devel make automake gcc gcc-g++ ninja-build make
 mkdir build
 cd build
 cmake ..
+cmake --build .
 ```
+
+## Running
+Windows: /build/run/(Debug/Release)/engine.exe
+Linux: /build/run/engine
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
