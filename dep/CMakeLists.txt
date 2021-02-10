@@ -1,31 +1,50 @@
 set(BUILD_SHARED_LIBS TRUE)
+find_package(PkgConfig REQUIRED)
+
 # OpenGL
 find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIRS})
+include_directories(${OPENGL_INCLUDE_DIR})
+set(OPENGL_LIBRARY ${OPENGL_opengl_LIBRARY})
+message(NOTICE "OPENGL_LIBRARY " ${OPENGL_LIBRARY})
+message(NOTICE "OPENGL_LIBRARIES " ${OPENGL_LIBRARIES})
+message(NOTICE "OPENGL_INCLUDE_DIR " ${OPENGL_INCLUDE_DIR})
+
 
 # glew
-add_subdirectory(glew)
-add_library(glew INTERFACE)
-target_include_directories(glew INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/glew/include)
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+message(NOTICE "GLEW_LIBRARIES " ${GLEW_LIBRARIES})
+message(NOTICE "GLEW_INCLUDE_DIRS " ${GLEW_INCLUDE_DIRS})
 
 
 # SDL
-add_subdirectory(SDL2)
-set_target_properties(SDL2 PROPERTIES FOLDER dep/SDL)
-set_target_properties(SDL2main PROPERTIES FOLDER dep/SDL)
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+message(NOTICE "SDL2_LIBRARY " ${SDL2_LIBRARY})
+message(NOTICE "SDL2MAIN_LIBRARY " ${SDL2MAIN_LIBRARY})
+message(NOTICE "SDL2_LIBRARIES " ${SDL2_LIBRARIES})
+message(NOTICE "SDL2_INCLUDE_DIR " ${SDL2_INCLUDE_DIR})
+message(NOTICE "SDL2_INCLUDE_DIRS " ${SDL2_INCLUDE_DIRS})
 
 # GLM
-add_subdirectory(glm)
-set_target_properties(glm_shared PROPERTIES FOLDER dep)
+find_package(glm REQUIRED)
+include_directories(${GLM_INCLUDE_DIRS})
+message(NOTICE "GLM_INCLUDE_DIRS " ${GLM_INCLUDE_DIRS})
 
 # Libs
 set(CE_LIBS
 ${OPENGL_LIBRARY}
-libglew_shared
-libglew_static
-SDL2
-SDL2main
-glm
+${GLEW_LIBRARIES}
+${SDL2_LIBRARIES}
 
+PARENT_SCOPE
+)
+
+#Include
+set(CE_INCLUDES
+${OPENGL_INCLUDE_DIR}
+${GLEW_INCLUDE_DIRS}
+${SDL2_INCLUDE_DIRS}
+${GLM_INCLUDE_DIRS}
 PARENT_SCOPE
 )

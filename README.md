@@ -9,7 +9,7 @@ Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)
 ### Debian
 ```bash
-sudo apt-get install build-essential cmake make gcc ninja-build libsdl2-dev
+sudo apt-get install build-essential cmake libsdl2-dev libglew-dev libglm-dev
 ```
 ### Arch
 ```bash
