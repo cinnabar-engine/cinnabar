@@ -5,7 +5,7 @@
 
 #include <SDL.h>
 
-#include "../managers/asset_manager.h"
+#include <managers/asset_manager.h>
 
 namespace ce {
 	class GLObject {

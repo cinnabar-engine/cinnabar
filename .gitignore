@@ -2,4 +2,4 @@ vs/
 build/
 .vs*
 /CMakeSettings.json
-*kdev4
+*kdev*

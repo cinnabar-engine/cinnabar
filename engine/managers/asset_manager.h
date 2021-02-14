@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "../core/logger.h"
-#include "../ce_assets.h"
+#include <core/logger.h>
+#include <ce_assets.h>
 
 namespace ce {
 	class AssetManager {
@@ -17,6 +17,8 @@ namespace ce {
 		static std::string load_text_file(std::string file);
 	public:
 		static ShaderFile getShaderFile(std::string filename);
+		static ce::TextureFile getTextureFile(std::string filename);
+		static void freeTextureFile(ce::TextureFile textureFile);
 	};
 }
 
