@@ -15,6 +15,7 @@ ${CE_LIBS}
 )
 
 include_directories(${NAME}
+${CMAKE_CURRENT_SOURCE_DIR}
 ${CE_INCLUDES}
 )
 

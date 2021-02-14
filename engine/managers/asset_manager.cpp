@@ -1,8 +1,12 @@
 #include "asset_manager.h"
+#include <algorithm>
 
 //TEXT FILES
 #include <fstream>
 #include <sstream>
+
+//TEXTURES
+#include "stb_image.h"
 
 std::string ce::AssetManager::load_text_file(std::string path)
 {
@@ -24,7 +28,7 @@ std::string ce::AssetManager::load_text_file(std::string path)
 	}
 	catch (std::fstream::failure e)
 	{
-		logger->Error("FILE_NOT_SUCCESSFULLY_READ: " + std::string(e.what()));
+		logger->Error("FILE_NOT_SUCCESSFULLY_READ: ("+ path +") "  + std::string(e.what()));
 	}
 	return text;
 }
@@ -41,4 +45,22 @@ ce::ShaderFile ce::AssetManager::getShaderFile(std::string filename)
 	shaderFile.geometry = load_text_file(path + ".geom");
 	if (shaderFile.geometry == "") shaderFile.geometry = load_text_file(path + ".gs");
 	return shaderFile;
+}
+
+
+ce::TextureFile ce::AssetManager::getTextureFile(std::string filename)
+{
+	std::string path = TEXTURE_FOLDER + "/" + filename;
+	//stbi_set_flip_vertically_on_load(1);
+	logger->Log("LOADED_TEXTURE " + path);
+
+	TextureFile textureFile;
+	textureFile.name = filename;
+	textureFile.data = stbi_load(path.c_str(), &textureFile.width, &textureFile.height, &textureFile.channelCount, 0);
+	return textureFile;
+}
+
+void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile)
+{
+	stbi_image_free(textureFile.data);
 }

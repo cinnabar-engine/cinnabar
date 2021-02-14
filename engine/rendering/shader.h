@@ -7,8 +7,8 @@
 #include <glm/glm.hpp>
 
 #include "ce_gl.h"
-#include "../ce_assets.h"
-#include "../core/logger.h"
+#include <ce_assets.h>
+#include <core/logger.h>
 
 using namespace glm;
 
