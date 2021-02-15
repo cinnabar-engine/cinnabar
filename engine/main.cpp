@@ -91,6 +91,7 @@ int main(int argc, char* argv[]) {
 		SDL_Quit();
 		return -1;
 	}
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -108,7 +109,7 @@ int main(int argc, char* argv[]) {
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 	
-	
+	//OpenGL Setup
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -117,6 +118,7 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
+	//Time
 	float
 		deltaTime = 0.0f,
 		last = 0.0f;
@@ -129,18 +131,18 @@ int main(int argc, char* argv[]) {
 	);
 	mesh->sendToShader(shader);
 	ce::Texture* texture = new ce::Texture("uv-map.png");
-	shader->setInt("fText",0);
+	shader->setInt("fTex",0);
 	
+	float
+		mouseSensitivity = 0.1f,
+		cameraPitch = 0.0f,
+		cameraYaw = -90.0f;
 	
 	glm::vec3
-		cameraPos(0.0f, 0.0f, 80.0f),
+		cameraPos(0.0f, 0.0f, 3.0f),
 		cameraFront(0.0f,0.0f,-1.0f),
-		cameraUp(0.0f,1.0f,0.0f);
-		//cameraTarget(0.0f,0.0f,0.0f);
-		//cameraDirection = glm::normalize(cameraPos - cameraTarget),
-		//up(0.0f,1.0f,0.0f);
-		//cameraRight = glm::normalize(glm::cross(up,cameraDirection));
-		//cameraUp = glm::cross(cameraDirection,cameraRight);
+		cameraUp(0.0f,1.0f,0.0f),
+		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
 	
 	glm::mat4 proj = glm::perspective(glm::radians(45.0f), WINDOW.x / WINDOW.y, 0.1f, 100.0f);
 	shader->setMat4("uProj",proj);
@@ -156,47 +158,66 @@ int main(int argc, char* argv[]) {
 			now = (float)SDL_GetTicks()/1000;
 			deltaTime = now-last;
 			last = now;
-		
 		//Events
 		while (SDL_PollEvent(&event)) {
 			switch(event.type) {
+				case SDL_MOUSEMOTION:
+				{
+					glm::vec2 mouseDelta(event.motion.xrel,event.motion.yrel);
+					mouseDelta *= mouseSensitivity;
+					cameraYaw += mouseDelta.x;
+					cameraPitch -= mouseDelta.y;
+					if(cameraPitch>89.0f)
+						cameraPitch = 89.0f;
+					if(cameraPitch<-89.0f)
+						cameraPitch = -89.0f;
+					
+					break;
+				}
 				case SDL_KEYDOWN:
-					std::cout << event.key.keysym.sym << "\n";
-					const float cameraSpeed = 2.5f*deltaTime; // adjust accordingly
+				{
+					float cameraSpeed = 2.5f*deltaTime; // adjust accordingly
 					if (event.key.keysym.sym == SDLK_w)
-						cameraPos += cameraSpeed * cameraFront;
+						cameraPos += cameraFront * cameraSpeed;
 					if (event.key.keysym.sym ==  SDLK_s)
-						cameraPos -= cameraSpeed * cameraFront;
+						cameraPos -= cameraFront * cameraSpeed;
 					if (event.key.keysym.sym == SDLK_a)
-						cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+						cameraPos -= cameraRight * cameraSpeed;
 					if (event.key.keysym.sym == SDLK_d)
-						cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-				break;
+						cameraPos += cameraRight * cameraSpeed;
+					if(event.key.keysym.sym == SDLK_ESCAPE)
+						running = 0;
+					break;
+				}
+				case SDL_QUIT:
+				{
+					running = 0;
+					break;
+				}
 			}
-			if (event.type == SDL_QUIT) {
-				running = 0;
-				break;
-			}
-		}		
+		}
+		
+		
+		glm::vec3
+			cameraDirection(
+				cos(glm::radians(cameraYaw))*cos(glm::radians(cameraPitch)),
+				sin(glm::radians(cameraPitch)),
+				sin(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch))
+			);
+		cameraFront = glm::normalize(cameraDirection);
+		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
+		glm::mat4
+			model(1.0f),
+			//view = glm::lookAt(glm::vec3(camX,0.0f,camZ),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
+		view = glm::lookAt(cameraPos,cameraPos + cameraFront,cameraUp);
+		model = glm::rotate(model, now * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		
+		shader->setMat4("uModel",model);
+		shader->setMat4("uView",view);
 		
 		/* Render */
 		glClearColor(0.0f,0.0f,0.0f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-		
-		/*float
-			radius = 10.0f,
-			camX = sin(gameTime)*radius,
-			camZ = cos(gameTime)*radius;*/
-		glm::mat4
-			model(1.0f),
-			//view = glm::lookAt(glm::vec3(camX,0.0f,camZ),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
-			view = glm::lookAt(cameraPos,cameraPos + cameraFront,cameraUp);
-		model = glm::rotate(model, now * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));  
-		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
-		
-		shader->setMat4("uModel",model);
-		shader->setMat4("uView",view);
 	
 		
 		texture->activate(0);
