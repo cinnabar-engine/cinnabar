@@ -20,10 +20,10 @@ namespace ce {
 
 
 		// Inherited via GLObject
-		virtual Logger* GetLogger();
-		virtual void bind() override;
+		Logger* GetLogger();
+		void bind() override;
+		void unbind() override;
 		void activate(int slot);
-		virtual void unbind() override;
 	};
 }
 

@@ -7,10 +7,14 @@ in vec2 aTexCoord;
 out vec4 vColor;
 out vec2 vTexCoord;
 
+uniform mat4 uModel;
+uniform mat4 uView;
+uniform mat4 uProj;
+
 void main()
 {
 	vColor = aColor;
 	vTexCoord = aTexCoord;
 
-	gl_Position = vec4(aPos, 1.0f)*vec4(1.0,-1.0f,1.0,1.0);
+	gl_Position = uProj * uView * uModel * vec4(aPos, 1.0f);
 }
