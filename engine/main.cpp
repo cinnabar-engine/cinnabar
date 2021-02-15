@@ -24,43 +24,43 @@ glm::vec2 WINDOW(1280.0f,720.0f);
 * Vertices
 */	
 ce::Vertex vertices[] = {
-	glm::vec3(0.5f,  0.5f, -0.5f), glm::vec4(1.0f,0.0f,0.0f,0.0f),  glm::vec2(1.0f, 1.0f),
-	glm::vec3(0.5f, -0.5f, -0.5f),glm::vec4(1.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 0.0f),
-	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(0.0f,1.0f,0.0f,1.0f), glm::vec2(0.0f, 0.0f),
-	glm::vec3(-0.5f,  0.5f, -0.5), glm::vec4(0.0f,0.0f,1.0f,1.0f), glm::vec2(0.0f, 1.0f),
+	glm::vec3(0.5f,  0.5f, -0.5f), glm::vec4(0.0f,0.0f,0.0f,0.0f),  glm::vec2(1.0f, 1.0f),//0
+	glm::vec3(0.5f, -0.5f, -0.5f),glm::vec4(0.0f,0.0f,1.0f,1.0f), glm::vec2(1.0f, 0.0f),//1
+	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(0.0f,1.0f,1.0f,1.0f), glm::vec2(0.0f, 0.0f),//2
+	glm::vec3(-0.5f,  0.5f, -0.5), glm::vec4(0.0f,1.0f,0.0f,1.0f), glm::vec2(0.0f, 1.0f),//3
 	
-	/*glm::vec3(0.5f,  0.5f, 0.5f), glm::vec4(1.0f,0.0f,0.0f,0.0f),  glm::vec2(1.0f, 1.0f),
-	glm::vec3(0.5f, -0.5f, 0.5f),glm::vec4(1.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 0.0f),
-	glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec4(0.0f,1.0f,0.0f,1.0f), glm::vec2(0.0f, 0.0f),
-	glm::vec3(-0.5f,  0.5f, 0.5f), glm::vec4(0.0f,0.0f,1.0f,1.0f), glm::vec2(0.0f, 1.0f)*/
+	glm::vec3(0.5f,  0.5f, 0.5f), glm::vec4(1.0f,0.0f,0.0f,0.0f),  glm::vec2(1.0f, 1.0f),//4
+	glm::vec3(0.5f, -0.5f, 0.5f),glm::vec4(1.0f,1.0f,0.0f,1.0f), glm::vec2(1.0f, 0.0f),//5
+	glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec4(1.0f,0.0f,1.0f,1.0f), glm::vec2(0.0f, 0.0f),//6
+	glm::vec3(-0.5f,  0.5f, 0.5f), glm::vec4(1.0f,1.0f,1.0f,1.0f), glm::vec2(0.0f, 1.0f)//7
 };
 
 /*  7-4
-	9-8
+	6-5
   3-0
   2-1
 */
 unsigned vertexCount = sizeof(vertices)/sizeof(ce::Vertex);
-
+//7<=>5
 GLuint indices [] = {
 	//F
 	0, 1, 3,
 	1, 2, 3,
-	/*//U
+	//U
 	4,0,7,
 	0,3,7,
 	//L
 	3,2,7,
-	2,9,7,
+	2,6,7,
 	//R
-	4,8,0,
-	8,1,0,
+	4,5,0,
+	5,1,0,
 	//D
-	1,8,2,
-	6,9,2,
+	1,5,2,
+	5,6,2,
 	//B
-	7,9,4,
-	9,8,4*/
+	7,6,4,
+	6,5,4
 };
 unsigned indexCount = sizeof(indices)/sizeof(GLuint);
 
@@ -107,6 +107,15 @@ int main(int argc, char* argv[]) {
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+	
+	
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	ce::Shader* shader = new ce::Shader("basic");
 	
@@ -144,6 +153,7 @@ int main(int argc, char* argv[]) {
 				break;
 			}
 		}
+		float gameTime = (float)SDL_GetTicks()/1000;
 		
 		
 		/* Render */
@@ -151,13 +161,13 @@ int main(int argc, char* argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 		
 		const float radius = 10.0f;
-		float camX = sin(SDL_GetTicks()/1000) * radius;
-		float camZ = cos(SDL_GetTicks()/1000) * radius;
+		float camX = sin(gameTime) * radius;
+		float camZ = cos(gameTime) * radius;
 		
 		
-		glm::mat4 model(1.0f);
-		model = glm::rotate(model, glm::radians(10.0f)*SDL_GetTicks()/1000, glm::vec3(0.5f, 1.0f, 0.0f));
-		glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));  
+		glm::mat4 model(1.0f),view(1.0f);
+		model = glm::rotate(model, gameTime * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));  
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 		shader->setMat4("uModel",model);
 		shader->setMat4("uView",view);
 		shader->setMat4("uProj",proj);
