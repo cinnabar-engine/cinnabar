@@ -28,7 +28,7 @@ ce::Mesh::~Mesh()
 
 ce::Logger* ce::Mesh::GetLogger()
 {
-	return new Logger("shader");
+	return new Logger("mesh");
 }
 
 
@@ -44,9 +44,11 @@ void ce::Mesh::unbind()
 
 void ce::Mesh::sendToShader(ce::Shader* shader)
 {
+	bind();
 	shader->vertexAttribPointer("aPos", 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
 	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
 	shader->vertexAttribPointer("aTexCoord", 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, texCoord));
+	unbind();
 }
 
 void ce::Mesh::initVAO(Vertex* vertexArray, GLuint* indexArray)

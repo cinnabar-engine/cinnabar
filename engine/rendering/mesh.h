@@ -26,10 +26,10 @@ namespace ce {
 		void sendToShader(class Shader* shader);
 
 		// Inherited via GLObject
-		virtual Logger* GetLogger();
+		Logger* GetLogger();
 		unsigned GetIndexCount() { return indexCount; };
-		virtual void bind() override;
-		virtual void unbind() override;
+		void bind() override;
+		void unbind() override;
 	};
 }
 

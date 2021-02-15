@@ -13,6 +13,7 @@
 using namespace glm;
 
 namespace ce {
+	
 	class Shader : public GLObject
 	{
 	private:
@@ -23,7 +24,7 @@ namespace ce {
 		std::vector<std::string> uniforms;
 
 
-		virtual Logger* GetLogger();
+		Logger* GetLogger();
 
 		void linkProgram(int vertexShader, int fragmentShader, int geometryShader);
 
@@ -33,8 +34,8 @@ namespace ce {
 		Shader(const char* name);
 		~Shader();
 		
-		virtual void bind() override;
-		virtual void unbind() override;
+		void bind() override;
+		void unbind() override;
 
 		GLuint getShader();
 		GLuint getAttribLocation(const std::string& name);

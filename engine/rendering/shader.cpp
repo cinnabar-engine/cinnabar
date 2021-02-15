@@ -1,6 +1,7 @@
 #include "shader.h"
+#include <iostream>
 
-void checkCompileErrors(ce::Logger* logger, GLuint shader, GLint shaderType)
+void checkCompileErrors(GLuint shader, GLint shaderType)
 {
 	std::string type;
 	switch (shaderType)
@@ -16,11 +17,12 @@ void checkCompileErrors(ce::Logger* logger, GLuint shader, GLint shaderType)
 	if (!success)
 	{
 		glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-		logger->Error("SHADER_COMPILATION_ERROR of type: " + type + "\n" + std::string(infoLog) + "\n-------------------------------------------------------");
+		std::cout << "SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog<<"\n";
+		exit(-1);
 	}
 }
 
-void checkCompileErrors(ce::Logger* logger, GLuint program)
+void checkCompileErrors(GLuint program)
 {
 	int success;
 	char infoLog[1024];
@@ -28,11 +30,12 @@ void checkCompileErrors(ce::Logger* logger, GLuint program)
 	if (!success)
 	{
 		glGetProgramInfoLog(program, 1024, NULL, infoLog);
-		logger->Error("PROGRAM_LINKING_ERROR\n" + std::string(&infoLog[0]) + "\n-------------------------------------------------------");
+		std::cout << "PROGRAM_LINKING_ERROR\n" << infoLog << "\n";
+		exit(-1);
 	}
 }
 
-int createShader(ce::Logger* logger, GLenum type, std::string source)
+int createShader(GLenum type, std::string source)
 {
 	const char* shaderSourceStr = source.c_str();
 	GLuint shader = glCreateShader(type);
@@ -40,7 +43,7 @@ int createShader(ce::Logger* logger, GLenum type, std::string source)
 	glShaderSource(shader, 1, &shaderSourceStr, NULL);
 	glCompileShader(shader);
 
-	checkCompileErrors(logger, shader, type);
+	checkCompileErrors(shader, type);
 	return shader;
 }
 
@@ -53,7 +56,7 @@ void ce::Shader::linkProgram(int vertexShader, int fragmentShader, int geometryS
 	if (fragmentShader != 0) glAttachShader(program, fragmentShader);
 	if (geometryShader != 0) glAttachShader(program, geometryShader);
 	glLinkProgram(program);
-	checkCompileErrors(GetLogger(), program);
+	checkCompileErrors(program);
 }
 
 int ce::Shader::registerAttribute(std::string name)
@@ -90,9 +93,9 @@ ce::Shader::Shader(const char* name ) :
 	int fragmentShader = 0;
 	int geometryShader = 0;
 
-	if (shaderFile.vertex != "") vertexShader = createShader(GetLogger(), GL_VERTEX_SHADER, shaderFile.vertex);
-	if (shaderFile.fragment != "") fragmentShader = createShader(GetLogger(), GL_FRAGMENT_SHADER, shaderFile.fragment);
-	if (shaderFile.geometry != "") geometryShader = createShader(GetLogger(), GL_GEOMETRY_SHADER, shaderFile.geometry);
+	if (shaderFile.vertex != "") vertexShader = createShader(GL_VERTEX_SHADER, shaderFile.vertex);
+	if (shaderFile.fragment != "") fragmentShader = createShader(GL_FRAGMENT_SHADER, shaderFile.fragment);
+	if (shaderFile.geometry != "") geometryShader = createShader(GL_GEOMETRY_SHADER, shaderFile.geometry);
 	linkProgram(vertexShader, fragmentShader, vertexShader);
 	
 	int attrCount=0, uniformCount=0;
