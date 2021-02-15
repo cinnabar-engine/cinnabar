@@ -127,16 +127,6 @@ int main(int argc, char* argv[]) {
 	ce::Texture* texture = new ce::Texture("uv-map.png");
 	shader->setInt("fText",0);
 	
-	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 1.0f);  
-	glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
-	
-	
-	glm::vec3
-		up = glm::vec3(0.0f, 1.0f, 0.0f),
-		cameraRight = glm::normalize(glm::cross(up, cameraDirection)),
-		cameraUp = glm::cross(cameraDirection, cameraRight);
-	
 	glm::mat4 proj = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 		
 	/*
@@ -158,12 +148,7 @@ int main(int argc, char* argv[]) {
 		
 		/* Render */
 		glClearColor(0.0f,0.0f,0.0f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-		
-		const float radius = 10.0f;
-		float camX = sin(gameTime) * radius;
-		float camZ = cos(gameTime) * radius;
-		
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 		
 		
 		glm::mat4 model(1.0f),view(1.0f);
 		model = glm::rotate(model, gameTime * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));  
