@@ -147,12 +147,10 @@ GLuint ce::Shader::getUniformLocation(const std::string& name)
 }
 
 void ce::Shader::vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer) {
-	bind();
 	GLuint location = getAttribLocation(attrib);
 	if (location < (GLuint)Shader::MIN_LOC) return;
 	glVertexAttribPointer(location, size, type, normalized, stride, pointer);
 	glEnableVertexAttribArray(location);
-	unbind();
 }
 
 void ce::Shader::setBool(const std::string& name, bool value)
