@@ -18,9 +18,8 @@ public:
 
 	void update();
 
-	float 
-		getDeltaTime(),
-		getFPS();
+	float getDeltaTime() {return m_dt;}
+	float getFPS() {return m_fps;};
 };
 }
 

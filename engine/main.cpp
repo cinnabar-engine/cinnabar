@@ -2,6 +2,10 @@
 #include <iostream>
 #include <core/tpnt_log.h>
 
+//Core
+#include "core/window.h"
+#include "core/time.h"
+
 //Assets
 #include "stb_image.h"
 #include "managers/asset_manager.h"
@@ -11,7 +15,6 @@
 #include "math/transform.h"
 
 //Rendering
-#include "core/window.h"
 #include "ce_render_fundementals.h"
 
 /*
@@ -84,9 +87,10 @@ int main(int argc, char* argv[]) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	//Time
-	float
+	ce::Time* time = new ce::Time();
+	/*float
 		deltaTime = 0.0f,
-		last = 0.0f;
+		last = 0.0f;*/
 	
 	ce::Transform transform;
 	ce::Shader* shader = new ce::Shader("basic");
@@ -118,10 +122,9 @@ int main(int argc, char* argv[]) {
 	int running = 1;
 	while (running)
 	{
-		float
-			now = (float)SDL_GetTicks()/1000;
-			deltaTime = now-last;
-			last = now;
+		//Time
+		time->update();
+		
 		//Events
 		while (SDL_PollEvent(&event)) {
 			switch(event.type) {
@@ -146,7 +149,7 @@ int main(int argc, char* argv[]) {
 					break;
 				case SDL_KEYDOWN:
 				{
-					float cameraSpeed = 2.5f*deltaTime; // adjust accordingly
+					float cameraSpeed = 2.5f*time->getDeltaTime(); // adjust accordingly
 					if (event.key.keysym.sym == SDLK_w)
 						cameraPos += cameraFront * cameraSpeed;
 					if (event.key.keysym.sym ==  SDLK_s)
@@ -172,9 +175,9 @@ int main(int argc, char* argv[]) {
 		shader->setMat4("transform.proj",proj);
 		
 		// Transform
-		transform.roll(25.0f*deltaTime);
-		transform.yaw(50.0f*deltaTime);
-		transform.pitch(100.0f*deltaTime);
+		transform.roll(25.0f*time->getDeltaTime());
+		transform.yaw(50.0f*time->getDeltaTime());
+		transform.pitch(100.0f*time->getDeltaTime());
 		transform.saveToShader(shader);
 		
 		
