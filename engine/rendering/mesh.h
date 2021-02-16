@@ -10,12 +10,8 @@ namespace ce {
 	{
 
 	private:
-		unsigned vertexCount;
-		unsigned indexCount;
-
-		GLuint VAO;
-		GLuint VBO;
-		GLuint EBO;
+		unsigned vertexCount,indexCount;
+		GLuint VAO, VBO, EBO;
 
 		void initVAO(Vertex* vertexArray, GLuint* indexArray);
 	public:
@@ -25,11 +21,11 @@ namespace ce {
 		);
 		~Mesh();
 		void sendToShader(class Shader* shader);
-
-		// Inherited via GLObject
+		
 		unsigned GetIndexCount() { return indexCount; };
-		void bind();
-		void unbind();
+		void
+			bind(),
+			unbind();
 	};
 }
 

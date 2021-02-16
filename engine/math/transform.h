@@ -13,9 +13,10 @@ namespace ce {
 		 * Roll: Z
 		 * 
 		*/
-		glm::vec3 m_pos;
-		glm::vec3 m_rot;
-		glm::vec3 m_scale;
+		glm::vec3
+			m_pos,
+			m_rot,
+			m_scale;
 	public:
 		Transform();
 		~Transform();
