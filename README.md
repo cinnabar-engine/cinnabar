@@ -1,7 +1,5 @@
 # Cinnabar Engine
 
-
-
 ## Prerequisites
 
 Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
@@ -49,7 +47,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Todo
 * ~~Window Class~~
-* Resize context on window resize
+* ~~Resize context on window resize~~
 * ~~Time Class~~
 * Camera Class
 * Input System
