@@ -8,7 +8,6 @@ Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 
 ### Windows
 [Visual Studio](https://visualstudio.microsoft.com/)
-
 [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)
 ### Debian
 ```bash
@@ -16,13 +15,13 @@ sudo apt-get install build-essential cmake libsdl2-dev libglew-dev libglm-dev
 ```
 ### Arch
 ```bash
-sudo pacman -S base-devel cmaka sdl2  glew glm
+sudo pacman -S base-devel cmake sdl2 glew glm
 ```
 ### Redhat/Fedora
 ```bash
 sudo dnf install kernel-devel cmake sdl 
 ```
-## building instrictions
+## Build Instructions
 ```bash
 mkdir build
 cd build
@@ -73,4 +72,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 * XML based scene graph import
 * Test ON Windows
-* Port to Emscrpten
+* Port to Emscripten
