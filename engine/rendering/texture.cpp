@@ -1,6 +1,7 @@
 #include "texture.h"
 
 #include <managers/asset_manager.h>
+#include <core/tpnt_log.h>
 
 ce::Texture::Texture(std::string filename, GLenum type):
 	width(0),
@@ -25,10 +26,10 @@ ce::Texture::Texture(std::string filename, GLenum type):
 	if (textureFile.data) {
 		glTexImage2D(type, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureFile.data);
 		glGenerateMipmap(type);
-		GetLogger()->Log(textureFile.name + " has been loaded.");
+		LOG_SUCCESS(textureFile.name + " has been loaded.");
 	}
 	else {
-		GetLogger()->Error("TEXTURE_LOADING_FAILED: " + textureFile.name);
+		LOG_ERROR("TEXTURE_LOADING_FAILED: " + textureFile.name);
 	}
 	unbind();
 	ce::AssetManager::freeTextureFile(textureFile);

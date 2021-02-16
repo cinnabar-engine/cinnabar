@@ -1,6 +1,7 @@
 #include "shader.h"
 #include <iostream>
 #include <managers/asset_manager.h>
+#include <core/tpnt_log.h>
 
 void checkCompileErrors(GLuint shader, GLint shaderType)
 {
@@ -18,7 +19,7 @@ void checkCompileErrors(GLuint shader, GLint shaderType)
 	if (!success)
 	{
 		glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-		std::cout << "SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog<<"\n";
+		LOG_ERROR("SHADER_COMPILATION_ERROR of type: " + type + "\n" + infoLog+"\n");
 		exit(-1);
 	}
 }
@@ -31,7 +32,7 @@ void checkCompileErrors(GLuint program)
 	if (!success)
 	{
 		glGetProgramInfoLog(program, 1024, NULL, infoLog);
-		std::cout << "PROGRAM_LINKING_ERROR\n" << infoLog << "\n";
+		LOG_ERROR("PROGRAM_LINKING_ERROR\n" + infoLog + "\n");
 		exit(-1);
 	}
 }
@@ -64,11 +65,11 @@ int ce::Shader::registerAttribute(std::string name)
 {
 	int location = glGetAttribLocation(program, name.c_str());
 	if (location < Shader::MIN_LOC) {
-		GetLogger()->Error("Invalid Attribute: " + name);
+		LOG_ERROR("Invalid Attribute: " + name);
 		return MIN_LOC - 1;
 	}
 	attributes.insert(attributes.begin() + location, name);
-	GetLogger()->Log("Registered Attribute: " + name);
+	LOG_SUCCESS("Registered Attribute: " + name);
 	return location;
 }
 
@@ -76,11 +77,11 @@ int ce::Shader::registerUniform(std::string name)
 {
 	int location = glGetUniformLocation(program, name.c_str());
 	if (location < Shader::MIN_LOC) {
-		GetLogger()->Error("Invalid Uniform: " + name);
+		LOG_ERROR("Invalid Uniform: " + name);
 		return MIN_LOC - 1;
 	}
 	uniforms.insert(uniforms.begin() + location, name);
-	GetLogger()->Log("Registered Uniform: " + name);
+	LOG_SUCCESS("Registered Uniform: " + name);
 	return location;
 }
 
