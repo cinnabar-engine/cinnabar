@@ -63,42 +63,6 @@ int main(int argc, char* argv[]) {
 	
 	ce::Window* window = new ce::Window("Cinnabar");
 
-// 	/*
-// 	 * Init SDL
-// 	 */
-// 	if (SDL_Init(SDL_INIT_VIDEO)) {
-// 		LOG_ERROR("Error Intialising video");
-// 		exit(1);
-// 	}
-// 	LOG_SUCCESS("SDL has been initialized");
-// 	/*
-// 	 * Window Creation
-// 	 */
-// 	SDL_Window* window = SDL_CreateWindow(
-// 		"Cinnabar",
-// 		SDL_WINDOWPOS_UNDEFINED,
-// 		SDL_WINDOWPOS_UNDEFINED,
-// 		WINDOW.x,
-// 		WINDOW.y,
-// 		SDL_WINDOW_OPENGL| SDL_WINDOW_RESIZABLE
-// 	);
-// 	if(window==NULL)
-// 	{
-// 		LOG_ERROR("Failed to create GLFW window");
-// 		SDL_Quit();
-// 		return -1;
-// 	}
-// 	SDL_MaximizeWindow(window);
-// 	int w,h;
-// 	SDL_GetWindowSize(window,&w, &h);
-// 	WINDOW = glm::vec2(w,h);
-// 	SDL_SetRelativeMouseMode(SDL_TRUE);
-// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-// 
-// 	SDL_GLContext mainContext = SDL_GL_CreateContext(window);
-
 	/*
 	 * GLEW
 	 */
@@ -240,16 +204,12 @@ int main(int argc, char* argv[]) {
 		shader->unbind();
 		texture->unbind();
 
-		// check and call events and swap the buffers
 		window->swapBuffers();
-		//SDL_GL_SwapWindow(window);
 	}
 	delete mesh;
 	delete shader;
 	delete texture;
-
-	/*SDL_DestroyWindow(window);
-	SDL_Quit();*/
+	
 	delete window;
 	return 0;
 }
