@@ -59,7 +59,7 @@ glm::vec2 ce::Window::getWindowSize()
 {
 	int w,h;
 	SDL_GetWindowSize(m_window,&w, &h);
-	return glm::vec2(w,h);
+	return glm::vec2((float)w,(float)h);
 }
 float ce::Window::getAspectRatio()
 {

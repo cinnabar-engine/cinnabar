@@ -3,6 +3,7 @@
 
 #include <ce_math.h>
 #include <ce_rendering.h>
+#include <ce_event_handler.h>
 
 namespace ce {
 	class Window {
