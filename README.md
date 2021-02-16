@@ -19,7 +19,7 @@ sudo pacman -S base-devel cmake sdl2 glew glm
 ```
 ### Redhat/Fedora
 ```bash
-sudo dnf install kernel-devel make automake gcc gcc-g++ ninja-build make
+sudo dnf install kernel-devel cmake sdl 
 ```
 ## Build Instructions
 ```bash
