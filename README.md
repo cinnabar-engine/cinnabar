@@ -1,6 +1,7 @@
 # Cinnabar Engine
 
 ## Todo
+* Risize context on window resize
 * Time Class
 * Camera Class
 * Input System
@@ -10,10 +11,18 @@
 * Lights
 * Collision
 * Gravity
+* Text
+* Layers
+* GUI
+* States
+* Map management
+* Make an Actual Game
 
 * Scene Graph
 
 * XML based scene graph import
+* Test ON Windows
+* Port to Emscrpten
 
 ## Prerequisites
 
@@ -21,6 +30,7 @@ Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 
 ### Windows
 [Visual Studio](https://visualstudio.microsoft.com/)
+
 [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)
 ### Debian
 ```bash
