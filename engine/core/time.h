@@ -1,26 +1,19 @@
-#ifndef _CE_TIME_H_
-#define _CE_TIME_H_
+#pragma once
 
 namespace ce {
-class Time
-{
-private:
-	float 
-		m_now,
-		m_last,
-		m_dt,
-		m_fps;
+	class Time {
+	 private:
+		float m_now, m_last, m_dt, m_fps;
 
-	float getTime();
-public:
-	Time();
-	~Time();
+		float getTime();
 
-	void update();
+	 public:
+		Time();
+		~Time();
 
-	float getDeltaTime() {return m_dt;}
-	float getFPS() {return m_fps;};
-};
+		void update();
+
+		float getDeltaTime() { return m_dt; }
+		float getFPS() { return m_fps; };
+	};
 }
-
-#endif // !_CE_TIME_H_

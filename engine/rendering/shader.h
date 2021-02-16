@@ -1,46 +1,41 @@
-#ifndef _SHADER_H_
-#define _SHADER_H_
+#pragma once
 
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <algorithm>
 
+#include <ce_assets.h>
 #include <ce_math.h>
 #include <ce_rendering.h>
-#include <ce_assets.h>
 
 using namespace glm;
 
 namespace ce {
-	
-	class Shader
-	{
-	private:
+
+	class Shader {
+	 private:
 		inline static int MIN_LOC = 0;
 
 		GLuint program;
 		std::vector<std::string> attributes, uniforms;
 
-		void linkProgram(int vertexShader, int fragmentShader, int geometryShader);
+		void linkProgram(
+			int vertexShader, int fragmentShader, int geometryShader);
 
-		int
-			registerAttribute(std::string name),
+		int registerAttribute(std::string name),
 			registerUniform(std::string name);
-	public:
+
+	 public:
 		Shader(const char* name);
 		~Shader();
-		
-		void
-			bind(),
-			unbind();
 
-		GLuint
-			getShader(),
-			getAttribLocation(const std::string name),
+		void bind(), unbind();
+
+		GLuint getShader(), getAttribLocation(const std::string name),
 			getUniformLocation(const std::string name);
 
-		void
-			vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer),
+		void vertexAttribPointer(std::string attrib, GLint size, GLenum type,
+			GLboolean normalized, GLsizei stride, const void*pointer),
 
 			setBool(const std::string name, bool value),
 			setInt(const std::string name, int value),
@@ -60,5 +55,3 @@ namespace ce {
 			setMat4(const std::string name, mat4 mat);
 	};
 }
-
-#endif // !_SHADER_H_

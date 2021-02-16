@@ -1,0 +1,30 @@
+BasedOnStyle: LLVM
+
+IndentWidth: 3
+TabWidth: 3
+AccessModifierOffset: -2
+ConstructorInitializerIndentWidth: 3
+ContinuationIndentWidth: 3
+ObjCBlockIndentWidth: 3
+UseTab: ForContinuationAndIndentation
+IndentCaseLabels: true
+IndentPPDirectives: BeforeHash
+NamespaceIndentation: All
+
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+BreakBeforeBraces: Attach
+BreakAfterJavaFieldAnnotations: true
+BreakBeforeBinaryOperators: None
+
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+#AllowShortEnumsOnASingleLine: true # this breaks things?
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: false
+
+AlignAfterOpenBracket: DontAlign
+FixNamespaceComments: false
