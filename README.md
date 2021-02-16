@@ -56,6 +56,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 * Materials
 * Mesh Importing
 * Lights
+* Skybox
 * Collision
 * Gravity
 * Text
