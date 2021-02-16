@@ -11,14 +11,8 @@
 #include "math/transform.h"
 
 //Rendering
-#include <GL/glew.h>
-#include "rendering/vertex.h"
-#include "rendering/shader.h"
-#include "rendering/mesh.h"
-#include "rendering/texture.h"
-
-glm::vec2 WINDOW(1280.0f,720.0f);
-
+#include "core/window.h"
+#include "ce_render_fundementals.h"
 
 /*
 * Vertices
@@ -66,41 +60,44 @@ unsigned indexCount = sizeof(indices)/sizeof(GLuint);
 
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
-	/*
-	 * Init SDL
-	 */
-	if (SDL_Init(SDL_INIT_VIDEO)) {
-		LOG_ERROR("Error Intialising video");
-		exit(1);
-	}
-	LOG_SUCCESS("SDL has been initialized");
-	/*
-	 * Window Creation
-	 */
-	SDL_Window* window = SDL_CreateWindow(
-		"Cinnabar",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		WINDOW.x,
-		WINDOW.y,
-		SDL_WINDOW_OPENGL| SDL_WINDOW_RESIZABLE
-	);
-	if(window==NULL)
-	{
-		LOG_ERROR("Failed to create GLFW window");
-		SDL_Quit();
-		return -1;
-	}
-	SDL_MaximizeWindow(window);
-	int w,h;
-	SDL_GetWindowSize(window,&w, &h);
-	WINDOW = glm::vec2(w,h);
-	SDL_SetRelativeMouseMode(SDL_TRUE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	
+	ce::Window* window = new ce::Window("Cinnabar");
 
-	SDL_GLContext mainContext = SDL_GL_CreateContext(window);
+// 	/*
+// 	 * Init SDL
+// 	 */
+// 	if (SDL_Init(SDL_INIT_VIDEO)) {
+// 		LOG_ERROR("Error Intialising video");
+// 		exit(1);
+// 	}
+// 	LOG_SUCCESS("SDL has been initialized");
+// 	/*
+// 	 * Window Creation
+// 	 */
+// 	SDL_Window* window = SDL_CreateWindow(
+// 		"Cinnabar",
+// 		SDL_WINDOWPOS_UNDEFINED,
+// 		SDL_WINDOWPOS_UNDEFINED,
+// 		WINDOW.x,
+// 		WINDOW.y,
+// 		SDL_WINDOW_OPENGL| SDL_WINDOW_RESIZABLE
+// 	);
+// 	if(window==NULL)
+// 	{
+// 		LOG_ERROR("Failed to create GLFW window");
+// 		SDL_Quit();
+// 		return -1;
+// 	}
+// 	SDL_MaximizeWindow(window);
+// 	int w,h;
+// 	SDL_GetWindowSize(window,&w, &h);
+// 	WINDOW = glm::vec2(w,h);
+// 	SDL_SetRelativeMouseMode(SDL_TRUE);
+// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+// 
+// 	SDL_GLContext mainContext = SDL_GL_CreateContext(window);
 
 	/*
 	 * GLEW
@@ -128,9 +125,7 @@ int main(int argc, char* argv[]) {
 		last = 0.0f;
 	
 	ce::Transform transform;
-
 	ce::Shader* shader = new ce::Shader("basic");
-	
 	ce::Mesh* mesh = new ce::Mesh(
 		vertices,vertexCount,
 		indices,indexCount
@@ -168,7 +163,7 @@ int main(int argc, char* argv[]) {
 			switch(event.type) {
 				case SDL_MOUSEMOTION:
 				{
-					if(!mouseLocked)break;
+					if(window->mouseVisible())break;
 					glm::vec2 mouseDelta(event.motion.xrel,event.motion.yrel);
 					mouseDelta *= mouseSensitivity;
 					cameraYaw += mouseDelta.x;
@@ -181,9 +176,8 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case SDL_MOUSEBUTTONDOWN:
-					if(!mouseLocked){
-						SDL_SetRelativeMouseMode(SDL_TRUE);
-						mouseLocked = true;
+					if(window->mouseVisible()){
+						window->setMouseVisibility(false);
 					}
 					break;
 				case SDL_KEYDOWN:
@@ -198,9 +192,7 @@ int main(int argc, char* argv[]) {
 					if (event.key.keysym.sym == SDLK_d)
 						cameraPos += cameraRight * cameraSpeed;
 					if(event.key.keysym.sym == SDLK_ESCAPE){
-						SDL_SetRelativeMouseMode(SDL_FALSE);
-						mouseLocked=false;
-						//running = 0;
+						window->setMouseVisibility(true);
 					}
 					break;
 				}
@@ -212,7 +204,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		
-		glm::mat4 proj = glm::perspective(glm::radians(45.0f), WINDOW.x / WINDOW.y, 0.1f, 100.0f);
+		glm::mat4 proj = glm::perspective(glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
 		shader->setMat4("transform.proj",proj);
 		
 		// Transform
@@ -238,28 +230,27 @@ int main(int argc, char* argv[]) {
 		glClearColor(0.0f,0.0f,0.0f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-		//Material
 		texture->activate(0);
 		shader->bind();
-		
 		mesh->bind();
 		
 		glDrawElements(GL_TRIANGLES,mesh->GetIndexCount(),GL_UNSIGNED_INT,0);
 		
 		mesh->unbind();
-		
 		shader->unbind();
 		texture->unbind();
 
 		// check and call events and swap the buffers
-		SDL_GL_SwapWindow(window);
+		window->swapBuffers();
+		//SDL_GL_SwapWindow(window);
 	}
 	delete mesh;
 	delete shader;
 	delete texture;
 
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+	/*SDL_DestroyWindow(window);
+	SDL_Quit();*/
+	delete window;
 	return 0;
 }
 

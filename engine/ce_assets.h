@@ -9,15 +9,17 @@ namespace ce {
 		std::string name = "";
 	};
 	struct ShaderFile :public File {
-		std::string vertex = "";
-		std::string fragment = "";
-		std::string geometry = "";
+		std::string
+			vertex = "",
+			fragment = "",
+			geometry = "";
 	};
 	struct TextureFile :public File {
 		unsigned char* data = NULL;
-		int width = 0;
-		int height = 0;
-		int channelCount = 0;
+		int
+			width = 0,
+			height = 0,
+			channelCount = 0;
 	};
 	struct MaterialFile :public File {
 		glm::vec4

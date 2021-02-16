@@ -43,6 +43,7 @@ Linux: /build/run/engine
 * Image: [STB Image](https://github.com/nothings/stb/blob/master/stb_image.h)
 * Text Files: [std:fstream](https://gcc.gnu.org/onlinedocs/libstdc++/libstdc++-html-USERS-4.2/fstream.html)
 * Logger: [Tumpnt Logger](https://github.com/Tumpnt/TumpntAudio/blob/master/src/core/tpnt_log.h)
+* Time: [TumbleTime](https://github.com/tumble1999/tumble-time)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
