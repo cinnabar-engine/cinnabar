@@ -18,9 +18,7 @@ namespace ce {
 		Texture(std::string filename, GLenum type = GL_TEXTURE_2D);
 		~Texture();
 
-
 		// Inherited via GLObject
-		Logger* GetLogger();
 		void bind();
 		void unbind();
 		void activate(int slot);

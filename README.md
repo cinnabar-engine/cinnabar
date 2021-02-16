@@ -34,7 +34,7 @@ cmake --build .
 Windows: /build/run/(Debug/Release)/engine.exe
 Linux: /build/run/engine
 
-## Livraries
+## Libraries
 * Build Pipeline: [CMake](https://cmake.org/)
 * Window: [Simple Directmedia Layer](https://www.libsdl.org/)
 * Rendering: [OpenGL](https://www.opengl.org/)
