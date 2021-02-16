@@ -1,5 +1,20 @@
 # Cinnabar Engine
 
+## Todo
+* Time Class
+* Camera Class
+* Input System
+* Render System
+* Materials
+* Mesh Importing
+* Lights
+* Collision
+* Gravity
+
+* Scene Graph
+
+* XML based scene graph import
+
 ## Prerequisites
 
 Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.

@@ -215,8 +215,9 @@ int main(int argc, char* argv[]) {
 		shader->setMat4("transform.proj",proj);
 		
 		// Transform
-		transform.yaw(25.0f*deltaTime);
-		transform.pitch(50.0f*deltaTime);
+		transform.roll(25.0f*deltaTime);
+		transform.yaw(50.0f*deltaTime);
+		transform.pitch(100.0f*deltaTime);
 		transform.saveToShader(shader);
 		
 		
