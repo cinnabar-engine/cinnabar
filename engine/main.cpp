@@ -98,6 +98,10 @@ int main(int argc, char* argv[]) {
 	mesh->sendToShader(shader);
 	ce::Texture* texture = new ce::Texture("uv-map.png");
 	shader->setInt("uTex",0);
+	
+	glm::mat4 proj = glm::perspective(glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
+	
+	
 	float
 		mouseSensitivity = 0.1f,
 		cameraPitch = 0.0f,
@@ -167,13 +171,13 @@ int main(int argc, char* argv[]) {
 				{
 					glm::vec2 size = window->getWindowSize();
 					glViewport(0, 0, size.x,size.y);
+					proj = glm::perspective(glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
 					break;
 				}
 			}
 		}
 		
-		glm::mat4 proj = glm::perspective(glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
-		shader->setMat4("transform.proj",proj);
+		
 		
 		// Transform
 		transform.roll(25.0f*time->getDeltaTime());
@@ -192,6 +196,7 @@ int main(int argc, char* argv[]) {
 		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
 		glm::mat4 view = glm::lookAt(cameraPos,cameraPos + cameraFront,cameraUp);
 		shader->setMat4("transform.view",view);
+		shader->setMat4("transform.proj",proj);
 		
 		/* Render */
 		glClearColor(0.0f,0.0f,0.0f,1.0f);
