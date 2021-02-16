@@ -82,7 +82,7 @@ int main(int argc, char* argv[]) {
 		SDL_WINDOWPOS_UNDEFINED,
 		WINDOW.x,
 		WINDOW.y,
-		SDL_WINDOW_OPENGL
+		SDL_WINDOW_OPENGL| SDL_WINDOW_RESIZABLE
 	);
 	if(window==NULL)
 	{
@@ -90,6 +90,10 @@ int main(int argc, char* argv[]) {
 		SDL_Quit();
 		return -1;
 	}
+	SDL_MaximizeWindow(window);
+	int w,h;
+	SDL_GetWindowSize(window,&w, &h);
+	WINDOW = glm::vec2(w,h);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -134,6 +138,7 @@ int main(int argc, char* argv[]) {
 	ce::Texture* texture = new ce::Texture("uv-map.png");
 	shader->setInt("uTex",0);
 	
+	bool mouseLocked = true;
 	float
 		mouseSensitivity = 0.1f,
 		cameraPitch = 0.0f,
@@ -145,8 +150,6 @@ int main(int argc, char* argv[]) {
 		cameraUp(0.0f,1.0f,0.0f),
 		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
 	
-	glm::mat4 proj = glm::perspective(glm::radians(45.0f), WINDOW.x / WINDOW.y, 0.1f, 100.0f);
-	shader->setMat4("transform.proj",proj);
 		
 	/*
 	 * Game Loop
@@ -164,6 +167,7 @@ int main(int argc, char* argv[]) {
 			switch(event.type) {
 				case SDL_MOUSEMOTION:
 				{
+					if(!mouseLocked)break;
 					glm::vec2 mouseDelta(event.motion.xrel,event.motion.yrel);
 					mouseDelta *= mouseSensitivity;
 					cameraYaw += mouseDelta.x;
@@ -175,6 +179,12 @@ int main(int argc, char* argv[]) {
 					
 					break;
 				}
+				case SDL_MOUSEBUTTONDOWN:
+					if(!mouseLocked){
+						SDL_SetRelativeMouseMode(SDL_TRUE);
+						mouseLocked = true;
+					}
+					break;
 				case SDL_KEYDOWN:
 				{
 					float cameraSpeed = 2.5f*deltaTime; // adjust accordingly
@@ -186,8 +196,11 @@ int main(int argc, char* argv[]) {
 						cameraPos -= cameraRight * cameraSpeed;
 					if (event.key.keysym.sym == SDLK_d)
 						cameraPos += cameraRight * cameraSpeed;
-					if(event.key.keysym.sym == SDLK_ESCAPE)
-						running = 0;
+					if(event.key.keysym.sym == SDLK_ESCAPE){
+						SDL_SetRelativeMouseMode(SDL_FALSE);
+						mouseLocked=false;
+						//running = 0;
+					}
 					break;
 				}
 				case SDL_QUIT:
@@ -197,6 +210,15 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
+		
+		glm::mat4 proj = glm::perspective(glm::radians(45.0f), WINDOW.x / WINDOW.y, 0.1f, 100.0f);
+		shader->setMat4("transform.proj",proj);
+		
+		// Transform
+		transform.yaw(25.0f*deltaTime);
+		transform.pitch(50.0f*deltaTime);
+		transform.saveToShader(shader);
+		
 		
 		// Camera
 		glm::vec3
@@ -209,11 +231,6 @@ int main(int argc, char* argv[]) {
 		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
 		glm::mat4 view = glm::lookAt(cameraPos,cameraPos + cameraFront,cameraUp);
 		shader->setMat4("transform.view",view);
-		
-		// Transform
-		transform.yaw(25.0f*deltaTime);
-		transform.pitch(50.0f*deltaTime);
-		transform.saveToShader(shader);
 		
 		/* Render */
 		glClearColor(0.0f,0.0f,0.0f,1.0f);
