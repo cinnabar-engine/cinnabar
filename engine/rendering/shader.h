@@ -9,8 +9,6 @@
 #include <ce_rendering.h>
 #include <ce_assets.h>
 
-#include <core/logger.h>
-
 using namespace glm;
 
 namespace ce {
@@ -23,9 +21,6 @@ namespace ce {
 		GLuint program;
 		std::vector<std::string> attributes;
 		std::vector<std::string> uniforms;
-
-
-		Logger* GetLogger();
 
 		void linkProgram(int vertexShader, int fragmentShader, int geometryShader);
 

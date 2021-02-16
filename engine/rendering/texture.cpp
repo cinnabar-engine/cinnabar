@@ -40,11 +40,6 @@ ce::Texture::~Texture()
 	glDeleteTextures(1, &texture);
 }
 
-ce::Logger* ce::Texture::GetLogger()
-{
-	return new Logger("texture");
-}
-
 void ce::Texture::bind()
 {
 	glBindTexture(type, texture);

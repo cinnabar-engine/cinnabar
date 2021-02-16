@@ -49,10 +49,6 @@ int createShader(GLenum type, std::string source)
 	return shader;
 }
 
-ce::Logger* ce::Shader::GetLogger() {
-	return new Logger("shader");
-}
-
 void ce::Shader::linkProgram(int vertexShader, int fragmentShader, int geometryShader) {
 	if (vertexShader != 0) glAttachShader(program, vertexShader);
 	if (fragmentShader != 0) glAttachShader(program, fragmentShader);

@@ -26,12 +26,6 @@ ce::Mesh::~Mesh()
 	glDeleteBuffers(1, &this->EBO);
 }
 
-ce::Logger* ce::Mesh::GetLogger()
-{
-	return new Logger("mesh");
-}
-
-
 void ce::Mesh::bind()
 {
 	glBindVertexArray(VAO);

@@ -3,8 +3,6 @@
 
 #include <ce_rendering.h>
 
-#include <core/logger.h>
-
 #include "vertex.h"
 
 namespace ce {
@@ -29,7 +27,6 @@ namespace ce {
 		void sendToShader(class Shader* shader);
 
 		// Inherited via GLObject
-		Logger* GetLogger();
 		unsigned GetIndexCount() { return indexCount; };
 		void bind();
 		void unbind();
