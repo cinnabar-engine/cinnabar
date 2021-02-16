@@ -1,5 +1,6 @@
 //Debugging
 #include <iostream>
+#include <core/tpnt_log.h>
 
 //Assets
 #include "stb_image.h"
@@ -64,15 +65,15 @@ GLuint indices [] = {
 unsigned indexCount = sizeof(indices)/sizeof(GLuint);
 
 int main(int argc, char* argv[]) {
-	std::cout << "Hello World!" << std::endl;
+	LOG_INFO("Hello World");
 	/*
 	 * Init SDL
 	 */
 	if (SDL_Init(SDL_INIT_VIDEO)) {
-		std::cout << "Error Intialising video\n";
+		LOG_ERROR("Error Intialising video");
 		exit(1);
 	}
-	std::cout << "SDL has been initialized\n";
+	LOG_SUCCESS("SDL has been initialized");
 	/*
 	 * Window Creation
 	 */
@@ -86,7 +87,7 @@ int main(int argc, char* argv[]) {
 	);
 	if(window==NULL)
 	{
-		std::cout << "Failed to create GLFW window" << std::endl;
+		LOG_ERROR("Failed to create GLFW window");
 		SDL_Quit();
 		return -1;
 	}
@@ -108,9 +109,9 @@ int main(int argc, char* argv[]) {
 	if (GLEW_OK != err)
 	{
 		/* Problem: glewInit failed, something is seriously wrong. */
-		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+		LOG_ERROR((const char*)glewGetErrorString(err));
 	}
-	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+	LOG_INFO("Status: Using GLEW "+ (const char*)glewGetString(GLEW_VERSION));
 	
 	//OpenGL Setup
 	glEnable(GL_DEPTH_TEST);

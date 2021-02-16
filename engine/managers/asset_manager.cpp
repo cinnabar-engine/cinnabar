@@ -1,5 +1,6 @@
 #include "asset_manager.h"
 #include <algorithm>
+#include <core/tpnt_log.h>
 
 //TEXT FILES
 #include <fstream>
@@ -17,18 +18,18 @@ std::string ce::AssetManager::load_text_file(std::string path)
 	{
 		file.open(path);
 		if (!file.good()) {
-			logger->Warn("FILE_DOES_NOT_EXIST: " + path);
+			LOG_WARN("FILE_DOES_NOT_EXIST: " + path);
 			return "";
 		}
 		std::stringstream filestream;
 		filestream << file.rdbuf();
 		file.close();
 		text = filestream.str();
-		logger->Log("LOADED_FILE: " + path);
+		LOG_SUCCESS("LOADED_FILE: " + path);
 	}
 	catch (std::fstream::failure e)
 	{
-		logger->Error("FILE_NOT_SUCCESSFULLY_READ: ("+ path +") "  + std::string(e.what()));
+		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: ("+ path +") "  + std::string(e.what()));
 	}
 	return text;
 }
@@ -52,7 +53,7 @@ ce::TextureFile ce::AssetManager::getTextureFile(std::string filename)
 {
 	std::string path = TEXTURE_FOLDER + "/" + filename;
 	//stbi_set_flip_vertically_on_load(1);
-	logger->Log("LOADED_TEXTURE " + path);
+	LOG_SUCCESS("LOADED_TEXTURE " + path);
 
 	TextureFile textureFile;
 	textureFile.name = filename;
