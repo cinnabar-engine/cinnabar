@@ -21,6 +21,8 @@ namespace ce {
 		Transform();
 		~Transform();
 		
+		static glm::vec3 getGloablUp() {return glm::vec3(0.0f,1.0f,0.0f);}
+		
 		glm::vec3 getPosition() {return m_pos;}
 		void setPosition(glm::vec3 pos){m_pos=pos;}
 		void setPosition(float x,float y,float z){ setPosition(glm::vec3(x,y,z));}
@@ -55,7 +57,8 @@ namespace ce {
 		
 		glm::mat4 getMatrix();
 		
-		void saveToShader(ce::Shader* shader);
+		void sendToShader(ce::Shader* shader);
+		glm::vec3 getForward();
 	};
 }
 

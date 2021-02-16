@@ -16,6 +16,7 @@
 
 //Rendering
 #include "ce_render_fundementals.h"
+#include "rendering/camera.h"
 
 /*
 * Vertices
@@ -103,17 +104,10 @@ int main(int argc, char* argv[]) {
 	
 	
 	float
-		mouseSensitivity = 0.1f,
-		cameraPitch = 0.0f,
-		cameraYaw = -90.0f;
-	
-	glm::vec3
-		cameraPos(0.0f, 0.0f, 3.0f),
-		cameraFront(0.0f,0.0f,-1.0f),
-		cameraUp(0.0f,1.0f,0.0f),
-		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
-	
-		
+		mouseSensitivity = 0.1f;
+	ce::Camera* camera = new ce::Camera();
+	camera->getTransform()->setPosition(0.0f,0.0f,3.0f);
+	camera->getTransform()->setYaw(-90.0f);
 	/*
 	 * Game Loop
 	 */
@@ -132,13 +126,8 @@ int main(int argc, char* argv[]) {
 					if(window->mouseVisible())break;
 					glm::vec2 mouseDelta(event.motion.xrel,event.motion.yrel);
 					mouseDelta *= mouseSensitivity;
-					cameraYaw += mouseDelta.x;
-					cameraPitch -= mouseDelta.y;
-					if(cameraPitch>89.0f)
-						cameraPitch = 89.0f;
-					if(cameraPitch<-89.0f)
-						cameraPitch = -89.0f;
-					
+					camera->getTransform()->yaw(mouseDelta.x);
+					camera->getTransform()->pitch(-mouseDelta.y);					
 					break;
 				}
 				case SDL_MOUSEBUTTONDOWN:
@@ -148,15 +137,17 @@ int main(int argc, char* argv[]) {
 					break;
 				case SDL_KEYDOWN:
 				{
-					float cameraSpeed = 2.5f*time->getDeltaTime(); // adjust accordingly
+					glm::vec3 cameraFront = camera->getTransform()->getForward(),
+					cameraRight = camera->getRight();
+					float cameraSpeed = 2.5f*time->getDeltaTime(); 
 					if (event.key.keysym.sym == SDLK_w)
-						cameraPos += cameraFront * cameraSpeed;
+						camera->getTransform()->translate(cameraFront * cameraSpeed);
 					if (event.key.keysym.sym ==  SDLK_s)
-						cameraPos -= cameraFront * cameraSpeed;
+						camera->getTransform()->translate(-cameraFront * cameraSpeed);
 					if (event.key.keysym.sym == SDLK_a)
-						cameraPos -= cameraRight * cameraSpeed;
+						camera->getTransform()->translate(-cameraRight * cameraSpeed);
 					if (event.key.keysym.sym == SDLK_d)
-						cameraPos += cameraRight * cameraSpeed;
+						camera->getTransform()->translate(cameraRight * cameraSpeed);
 					if(event.key.keysym.sym == SDLK_ESCAPE){
 						window->setMouseVisibility(true);
 					}
@@ -178,25 +169,15 @@ int main(int argc, char* argv[]) {
 		}
 		
 		
-		
 		// Transform
 		transform.roll(25.0f*time->getDeltaTime());
 		transform.yaw(50.0f*time->getDeltaTime());
 		transform.pitch(100.0f*time->getDeltaTime());
-		transform.saveToShader(shader);
+		transform.sendToShader(shader);
 		
 		// Camera
-		glm::vec3
-			cameraDirection(
-				cos(glm::radians(cameraYaw))*cos(glm::radians(cameraPitch)),
-				sin(glm::radians(cameraPitch)),
-				sin(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch))
-			);
-		cameraFront = glm::normalize(cameraDirection);
-		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
-		glm::mat4 view = glm::lookAt(cameraPos,cameraPos + cameraFront,cameraUp);
-		shader->setMat4("transform.view",view);
 		shader->setMat4("transform.proj",proj);
+		camera->sendToShader(shader);
 		
 		/* Render */
 		glClearColor(0.0f,0.0f,0.0f,1.0f);
