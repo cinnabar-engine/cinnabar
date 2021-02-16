@@ -16,8 +16,7 @@ out vec4 vColor;
 out vec2 vTexCoord;
 
 
-void main()
-{
+void main() {
 	vColor = aColor;
 	vTexCoord = aTexCoord;
 

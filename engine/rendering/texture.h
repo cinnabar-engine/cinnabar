@@ -1,28 +1,21 @@
-#ifndef _TEXTURE_H_
-#define _TEXTURE_H_
+#pragma once
 
-#include <ce_rendering.h>
 #include <ce_assets.h>
+#include <ce_rendering.h>
 #include <managers/asset_manager.h>
 
 namespace ce {
 
-	class Texture
-	{
-	private:
+	class Texture {
+	 private:
 		GLuint texture;
 		int width, height, channelCount;
 		unsigned int type;
 
-	public:
+	 public:
 		Texture(std::string filename, GLenum type = GL_TEXTURE_2D);
 		~Texture();
 
-		void
-			bind(),
-			unbind(),
-			activate(int slot);
+		void bind(), unbind(), activate(int slot);
 	};
 }
-
-#endif // !_TEXTURE_H_

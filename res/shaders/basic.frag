@@ -6,7 +6,6 @@ in vec2 vTexCoord;
 
 out vec4 fColor;
 
-void main()
-{
-	fColor = texture(uTex,vTexCoord)*vColor;
+void main() {
+	fColor = texture(uTex,vTexCoord) * vColor;
 }
