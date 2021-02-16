@@ -1,5 +1,4 @@
-#ifndef _VERTEX_H_
-#define _VERTEX_H_
+#pragma once
 
 #include <ce_math.h>
 
@@ -12,5 +11,3 @@ namespace ce {
 		vec2 texCoord;
 	};
 }
-
-#endif // !_VERTEX_H_
