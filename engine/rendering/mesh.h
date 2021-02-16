@@ -1,11 +1,14 @@
 #ifndef _MESH_H_
 #define _MESH_H_
 
-#include "ce_gl.h"
+#include <ce_rendering.h>
+
+#include <core/logger.h>
+
 #include "vertex.h"
 
 namespace ce {
-	class Mesh:public GLObject
+	class Mesh
 	{
 
 	private:
@@ -28,8 +31,8 @@ namespace ce {
 		// Inherited via GLObject
 		Logger* GetLogger();
 		unsigned GetIndexCount() { return indexCount; };
-		void bind() override;
-		void unbind() override;
+		void bind();
+		void unbind();
 	};
 }
 

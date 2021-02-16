@@ -6,9 +6,8 @@
 #include "managers/asset_manager.h"
 
 //Maths
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <ce_math.h>
+#include "math/transform.h"
 
 //Rendering
 #include <GL/glew.h>
@@ -122,6 +121,8 @@ int main(int argc, char* argv[]) {
 	float
 		deltaTime = 0.0f,
 		last = 0.0f;
+	
+	ce::Transform transform;
 
 	ce::Shader* shader = new ce::Shader("basic");
 	
@@ -131,7 +132,7 @@ int main(int argc, char* argv[]) {
 	);
 	mesh->sendToShader(shader);
 	ce::Texture* texture = new ce::Texture("uv-map.png");
-	shader->setInt("fTex",0);
+	shader->setInt("uTex",0);
 	
 	float
 		mouseSensitivity = 0.1f,
@@ -145,7 +146,7 @@ int main(int argc, char* argv[]) {
 		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
 	
 	glm::mat4 proj = glm::perspective(glm::radians(45.0f), WINDOW.x / WINDOW.y, 0.1f, 100.0f);
-	shader->setMat4("uProj",proj);
+	shader->setMat4("transform.proj",proj);
 		
 	/*
 	 * Game Loop
@@ -197,7 +198,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		
-		
+		// Camera
 		glm::vec3
 			cameraDirection(
 				cos(glm::radians(cameraYaw))*cos(glm::radians(cameraPitch)),
@@ -206,27 +207,28 @@ int main(int argc, char* argv[]) {
 			);
 		cameraFront = glm::normalize(cameraDirection);
 		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
-		glm::mat4
-			model(1.0f),
-			//view = glm::lookAt(glm::vec3(camX,0.0f,camZ),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
-		view = glm::lookAt(cameraPos,cameraPos + cameraFront,cameraUp);
-		model = glm::rotate(model, now * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		glm::mat4 view = glm::lookAt(cameraPos,cameraPos + cameraFront,cameraUp);
+		shader->setMat4("transform.view",view);
 		
-		shader->setMat4("uModel",model);
-		shader->setMat4("uView",view);
+		// Transform
+		transform.yaw(25.0f*deltaTime);
+		transform.pitch(50.0f*deltaTime);
+		transform.saveToShader(shader);
 		
 		/* Render */
 		glClearColor(0.0f,0.0f,0.0f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-		
+		//Material
 		texture->activate(0);
 		shader->bind();
+		
 		mesh->bind();
 		
 		glDrawElements(GL_TRIANGLES,mesh->GetIndexCount(),GL_UNSIGNED_INT,0);
 		
 		mesh->unbind();
+		
 		shader->unbind();
 		texture->unbind();
 

@@ -1,5 +1,6 @@
 #include "shader.h"
 #include <iostream>
+#include <managers/asset_manager.h>
 
 void checkCompileErrors(GLuint shader, GLint shaderType)
 {
@@ -126,7 +127,7 @@ GLuint ce::Shader::getShader()
 	return program;
 }
 
-GLuint ce::Shader::getAttribLocation(const std::string& name)
+GLuint ce::Shader::getAttribLocation(const std::string name)
 {
 	if (attributes.size() < (size_t)Shader::MIN_LOC) return registerAttribute(name.c_str());
 	auto location = std::find(attributes.begin(), attributes.end(), name);
@@ -136,7 +137,7 @@ GLuint ce::Shader::getAttribLocation(const std::string& name)
 		return registerAttribute(name.c_str());
 }
 
-GLuint ce::Shader::getUniformLocation(const std::string& name)
+GLuint ce::Shader::getUniformLocation(const std::string name)
 {
 	if (attributes.size() < (size_t)Shader::MIN_LOC) return registerUniform(name.c_str());
 	auto location = std::find(uniforms.begin(), uniforms.end(), name);
@@ -153,7 +154,7 @@ void ce::Shader::vertexAttribPointer(std::string attrib, GLint size, GLenum type
 	glEnableVertexAttribArray(location);
 }
 
-void ce::Shader::setBool(const std::string& name, bool value)
+void ce::Shader::setBool(const std::string name, bool value)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -162,7 +163,7 @@ void ce::Shader::setBool(const std::string& name, bool value)
 	unbind();
 }
 
-void ce::Shader::setInt(const std::string& name, int value)
+void ce::Shader::setInt(const std::string name, int value)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -171,7 +172,7 @@ void ce::Shader::setInt(const std::string& name, int value)
 	unbind();
 }
 
-void ce::Shader::setFloat(const std::string& name, float value)
+void ce::Shader::setFloat(const std::string name, float value)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -180,7 +181,7 @@ void ce::Shader::setFloat(const std::string& name, float value)
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setVec2(const std::string& name, vec2& value)
+void ce::Shader::setVec2(const std::string name, vec2 value)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -188,7 +189,7 @@ void ce::Shader::setVec2(const std::string& name, vec2& value)
 	glUniform2fv(location, 1, &value[0]);
 	unbind();
 }
-void ce::Shader::setVec2(const std::string& name, float x, float y)
+void ce::Shader::setVec2(const std::string name, float x, float y)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -197,7 +198,7 @@ void ce::Shader::setVec2(const std::string& name, float x, float y)
 	//storageLog("uniform", name, &x, &y);
 	unbind();
 }
-void ce::Shader::setVec3(const std::string& name, vec3& value)
+void ce::Shader::setVec3(const std::string name, vec3 value)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -205,7 +206,7 @@ void ce::Shader::setVec3(const std::string& name, vec3& value)
 	glUniform3fv(location, 1, &value[0]);
 	unbind();
 }
-void ce::Shader::setVec3(const std::string& name, float x, float y, float z)
+void ce::Shader::setVec3(const std::string name, float x, float y, float z)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -215,7 +216,7 @@ void ce::Shader::setVec3(const std::string& name, float x, float y, float z)
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setVec4(const std::string& name, vec4& value)
+void ce::Shader::setVec4(const std::string name, vec4 value)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -224,7 +225,7 @@ void ce::Shader::setVec4(const std::string& name, vec4& value)
 	//storageLog("uniform", name, &value[0]);
 	unbind();
 }
-void ce::Shader::setVec4(const std::string& name, float x, float y, float z, float w)
+void ce::Shader::setVec4(const std::string name, float x, float y, float z, float w)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -234,7 +235,7 @@ void ce::Shader::setVec4(const std::string& name, float x, float y, float z, flo
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setMat2(const std::string& name, mat2& mat)
+void ce::Shader::setMat2(const std::string name, mat2 mat)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -244,7 +245,7 @@ void ce::Shader::setMat2(const std::string& name, mat2& mat)
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setMat3(const std::string& name, mat3& mat)
+void ce::Shader::setMat3(const std::string name, mat3 mat)
 {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -254,7 +255,7 @@ void ce::Shader::setMat3(const std::string& name, mat3& mat)
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setMat4(const std::string& name, mat4& mat)
+void ce::Shader::setMat4(const std::string name, mat4 mat)
 {
 	bind();
 	GLuint location = getUniformLocation(name);

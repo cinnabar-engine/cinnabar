@@ -2,7 +2,7 @@
 #define _CE_ASSETS_H_
 
 #include <string>
-#include <glm/glm.hpp>
+#include <ce_math.h>
 
 namespace ce {
 	struct File {

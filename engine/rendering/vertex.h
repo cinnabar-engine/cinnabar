@@ -1,7 +1,7 @@
 #ifndef _VERTEX_H_
 #define _VERTEX_H_
 
-#include <glm/glm.hpp>
+#include <ce_math.h>
 
 using namespace glm;
 
