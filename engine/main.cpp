@@ -88,9 +88,6 @@ int main(int argc, char* argv[]) {
 	
 	//Time
 	ce::Time* time = new ce::Time();
-	/*float
-		deltaTime = 0.0f,
-		last = 0.0f;*/
 	
 	ce::Transform transform;
 	ce::Shader* shader = new ce::Shader("basic");
@@ -101,8 +98,6 @@ int main(int argc, char* argv[]) {
 	mesh->sendToShader(shader);
 	ce::Texture* texture = new ce::Texture("uv-map.png");
 	shader->setInt("uTex",0);
-	
-	bool mouseLocked = true;
 	float
 		mouseSensitivity = 0.1f,
 		cameraPitch = 0.0f,
@@ -168,6 +163,12 @@ int main(int argc, char* argv[]) {
 					running = 0;
 					break;
 				}
+				case SDL_WINDOWEVENT:
+				{
+					glm::vec2 size = window->getWindowSize();
+					glViewport(0, 0, size.x,size.y);
+					break;
+				}
 			}
 		}
 		
@@ -179,7 +180,6 @@ int main(int argc, char* argv[]) {
 		transform.yaw(50.0f*time->getDeltaTime());
 		transform.pitch(100.0f*time->getDeltaTime());
 		transform.saveToShader(shader);
-		
 		
 		// Camera
 		glm::vec3

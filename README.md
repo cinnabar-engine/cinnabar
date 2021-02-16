@@ -48,9 +48,9 @@ Linux: /build/run/engine
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Todo
-* Window Class
+* ~~Window Class~~
 * Resize context on window resize
-* Time Class
+* ~~Time Class~~
 * Camera Class
 * Input System
 * Render System
