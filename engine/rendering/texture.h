@@ -1,13 +1,13 @@
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_
 
-#include "ce_gl.h"
+#include <ce_rendering.h>
 #include <ce_assets.h>
 #include <managers/asset_manager.h>
 
 namespace ce {
 
-	class Texture: public GLObject
+	class Texture
 	{
 	private:
 		GLuint texture;
@@ -21,8 +21,8 @@ namespace ce {
 
 		// Inherited via GLObject
 		Logger* GetLogger();
-		void bind() override;
-		void unbind() override;
+		void bind();
+		void unbind();
 		void activate(int slot);
 	};
 }

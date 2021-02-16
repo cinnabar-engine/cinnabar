@@ -1,9 +1,8 @@
 #version 330 core
+uniform sampler2D uTex;
 
 in vec4 vColor;
 in vec2 vTexCoord;
-
-uniform sampler2D uTex;
 
 out vec4 fColor;
 
