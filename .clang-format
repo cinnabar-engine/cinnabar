@@ -1,5 +1,6 @@
 BasedOnStyle: LLVM
 
+ColumnLimit: 0
 IndentWidth: '3'
 TabWidth: '3'
 AccessModifierOffset: '-2'
@@ -10,11 +11,14 @@ UseTab: ForContinuationAndIndentation
 IndentCaseLabels: 'true'
 #IndentPPDirectives: BeforeHash
 NamespaceIndentation: All
+#SpacesInLineCommentPrefix: 1 # clang 13 only
+#SortIncludes # clang 13 only, setting needs to be figured out
 
 DerivePointerAlignment: 'false'
 PointerAlignment: Left
 
 BreakBeforeBraces: Attach
+# https://reviews.llvm.org/D33029 add this when it gets implemented
 BreakAfterJavaFieldAnnotations: 'true'
 BreakBeforeBinaryOperators: None
 
