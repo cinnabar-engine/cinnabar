@@ -2,6 +2,7 @@ set(BUILD_SHARED_LIBS TRUE)
 find_package(PkgConfig REQUIRED)
 
 # OpenGL
+cmake_policy(SET CMP0072 NEW)
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 set(OPENGL_LIBRARY ${OPENGL_opengl_LIBRARY})
