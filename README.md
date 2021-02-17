@@ -88,6 +88,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] Map management
  - [ ] Make an Actual Game
  - [ ] Networking
+ - [ ] VR Support
  - [ ] Scene Graph
  - [ ] XML based scene graph import
  - [ ] Test ON Windows
