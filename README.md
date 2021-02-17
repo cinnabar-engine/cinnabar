@@ -49,10 +49,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 * ~~Window Class~~
 * ~~Resize context on window resize~~
 * ~~Time Class~~
-* Camera Class
+* ~~Camera Class~~
 * Input System
-* Render System
 * Materials
+* Render System
 * Mesh Importing
 * Lights
 * Skybox

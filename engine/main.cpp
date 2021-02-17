@@ -98,30 +98,15 @@ int main(int argc, char* argv[]) {
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
 	mesh->sendToShader(shader);
 	ce::Texture* texture = new ce::Texture("uv-map.png");
-<<<<<<< HEAD
 	shader->setInt("uTex", 0);
 
 	glm::mat4 proj = glm::perspective(
 		glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
 
-	float mouseSensitivity = 0.1f, cameraPitch = 0.0f, cameraYaw = -90.0f;
-
-	glm::vec3 cameraPos(0.0f, 0.0f, 3.0f), cameraFront(0.0f, 0.0f, -1.0f),
-		cameraUp(0.0f, 1.0f, 0.0f),
-		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
-
-=======
-	shader->setInt("uTex",0);
-	
-	glm::mat4 proj = glm::perspective(glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
-	
-	
-	float
-		mouseSensitivity = 0.1f;
+	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
 	camera->getTransform()->setPosition(0.0f,0.0f,3.0f);
 	camera->getTransform()->setYaw(-90.0f);
->>>>>>> master
 	/*
 	 * Game Loop
 	 */
@@ -137,53 +122,30 @@ int main(int argc, char* argv[]) {
 						break;
 					glm::vec2 mouseDelta(event.motion.xrel, event.motion.yrel);
 					mouseDelta *= mouseSensitivity;
-<<<<<<< HEAD
-					cameraYaw += mouseDelta.x;
-					cameraPitch -= mouseDelta.y;
-					if (cameraPitch > 89.9f) // TODO: fix broken 90 degree pitch
-						cameraPitch = 89.9f;
-					if (cameraPitch < -89.9f)
-						cameraPitch = -89.9f;
-
-=======
 					camera->getTransform()->yaw(mouseDelta.x);
-					camera->getTransform()->pitch(-mouseDelta.y);					
->>>>>>> master
+					camera->getTransform()->pitch(-mouseDelta.y);
 					break;
 				}
-				case SDL_MOUSEBUTTONDOWN:
+				case SDL_MOUSEBUTTONDOWN: {
 					if (window->mouseVisible())
 						window->setMouseVisibility(false);
 					break;
-<<<<<<< HEAD
+				}
 				case SDL_KEYDOWN: {
-					float cameraSpeed =
-						2.5f * time->getDeltaTime(); // adjust accordingly
-					if (event.key.keysym.sym == SDLK_w)
-						cameraPos += cameraFront * cameraSpeed;
-					if (event.key.keysym.sym == SDLK_s)
-						cameraPos -= cameraFront * cameraSpeed;
-=======
-				case SDL_KEYDOWN:
-				{
-					glm::vec3 cameraFront = camera->getTransform()->getForward(),
+					float
+					cameraSpeed = 2.5f * time->getDeltaTime();
+					glm::vec3
+					cameraFront = camera->getTransform()->getForward(),
 					cameraRight = camera->getRight();
-					float cameraSpeed = 2.5f*time->getDeltaTime(); 
 					if (event.key.keysym.sym == SDLK_w)
 						camera->getTransform()->translate(cameraFront * cameraSpeed);
 					if (event.key.keysym.sym ==  SDLK_s)
 						camera->getTransform()->translate(-cameraFront * cameraSpeed);
->>>>>>> master
 					if (event.key.keysym.sym == SDLK_a)
 						camera->getTransform()->translate(-cameraRight * cameraSpeed);
 					if (event.key.keysym.sym == SDLK_d)
-<<<<<<< HEAD
-						cameraPos += cameraRight * cameraSpeed;
-					if (event.key.keysym.sym == SDLK_ESCAPE)
-=======
 						camera->getTransform()->translate(cameraRight * cameraSpeed);
-					if(event.key.keysym.sym == SDLK_ESCAPE){
->>>>>>> master
+					if(event.key.keysym.sym == SDLK_ESCAPE)
 						window->setMouseVisibility(true);
 					break;
 				}
@@ -200,40 +162,17 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-<<<<<<< HEAD
 
 		// Transform
 		transform.roll(25.0f * time->getDeltaTime());
 		transform.yaw(50.0f * time->getDeltaTime());
 		transform.pitch(100.0f * time->getDeltaTime());
-		transform.saveToShader(shader);
-
-		// Camera
-		glm::vec3 cameraDirection(
-			cos(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch)),
-			sin(glm::radians(cameraPitch)),
-			sin(glm::radians(cameraYaw)) * cos(glm::radians(cameraPitch)));
-		cameraFront = glm::normalize(cameraDirection);
-		cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
-		glm::mat4 view =
-			glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-		shader->setMat4("transform.view", view);
-		shader->setMat4("transform.proj", proj);
-
-=======
-		
-		
-		// Transform
-		transform.roll(25.0f*time->getDeltaTime());
-		transform.yaw(50.0f*time->getDeltaTime());
-		transform.pitch(100.0f*time->getDeltaTime());
 		transform.sendToShader(shader);
 		
 		// Camera
 		shader->setMat4("transform.proj",proj);
 		camera->sendToShader(shader);
 		
->>>>>>> master
 		/* Render */
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

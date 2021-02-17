@@ -17,6 +17,7 @@ namespace ce {
 		glm::vec3 getRight();
 		void sendToShader(ce::Shader* shader);
 		Transform* getTransform(){return m_transform;}
+		void boundPitch();
 	};
 }
 
