@@ -36,10 +36,11 @@ ce::Vertex vertices[] = {
 };
 // clang-format on
 
-/*  7-4
+/*
+	7-4
 	6-5
-  3-0
-  2-1
+	3-0
+	2-1
 */
 unsigned vertexCount = sizeof(vertices) / sizeof(ce::Vertex);
 // 7<=>5
@@ -104,9 +105,9 @@ int main(int argc, char* argv[]) {
 
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
-	//Seperate so i can put in a player class later
+	// Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
-	camera->getTransform()->setPosition(0.0f,0.0f,3.0f);
+	camera->getTransform()->setPosition(0.0f, 0.0f, 3.0f);
 	camera->getTransform()->setYaw(-90.0f);
 	/*
 	 * Game Loop
@@ -136,26 +137,31 @@ int main(int argc, char* argv[]) {
 					float cameraSpeed = 2.5f * time->getDeltaTime();
 					if (event.key.keysym.sym == SDLK_w)
 						cameraVelocity.z = cameraSpeed;
-					else if (event.key.keysym.sym ==  SDLK_s)
-						cameraVelocity.z =-cameraSpeed;
+					else if (event.key.keysym.sym == SDLK_s)
+						cameraVelocity.z = -cameraSpeed;
 					if (event.key.keysym.sym == SDLK_a)
-						cameraVelocity.x=-cameraSpeed;
+						cameraVelocity.x = -cameraSpeed;
 					else if (event.key.keysym.sym == SDLK_d)
-						cameraVelocity.x=cameraSpeed;
+						cameraVelocity.x = cameraSpeed;
 					if (event.key.keysym.sym == SDLK_SPACE)
-						cameraVelocity.y=cameraSpeed;
+						cameraVelocity.y = cameraSpeed;
 					else if (event.key.keysym.sym == SDLK_LSHIFT)
-						cameraVelocity.y=-cameraSpeed;
-					if(event.key.keysym.sym == SDLK_ESCAPE)
+						cameraVelocity.y = -cameraSpeed;
+					if (event.key.keysym.sym == SDLK_ESCAPE)
 						window->setMouseVisibility(true);
 					break;
 				}
 				case SDL_KEYUP: {
-					if ((event.key.keysym.sym == SDLK_w&&cameraVelocity.z>0)||(event.key.keysym.sym ==  SDLK_s&&cameraVelocity.z<0))
+					if ((event.key.keysym.sym == SDLK_w && cameraVelocity.z > 0) ||
+						 (event.key.keysym.sym == SDLK_s && cameraVelocity.z < 0))
 						cameraVelocity.z = 0;
-					if ((event.key.keysym.sym == SDLK_a&&cameraVelocity.x<0)||(event.key.keysym.sym == SDLK_d&&cameraVelocity.x>0))
+					if ((event.key.keysym.sym == SDLK_a && cameraVelocity.x < 0) ||
+						 (event.key.keysym.sym == SDLK_d && cameraVelocity.x > 0))
 						cameraVelocity.x = 0;
-					if ((event.key.keysym.sym == SDLK_SPACE&&cameraVelocity.y>0)||(event.key.keysym.sym == SDLK_LSHIFT&&cameraVelocity.y<0))
+					if ((event.key.keysym.sym == SDLK_SPACE &&
+							 cameraVelocity.y > 0) ||
+						 (event.key.keysym.sym == SDLK_LSHIFT &&
+							 cameraVelocity.y < 0))
 						cameraVelocity.y = 0;
 					break;
 				}
@@ -172,7 +178,7 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-		
+
 		material->update();
 
 		// Transform
@@ -180,17 +186,17 @@ int main(int argc, char* argv[]) {
 		transform.yaw(50.0f * time->getDeltaTime());
 		transform.pitch(100.0f * time->getDeltaTime());
 		transform.sendToShader(material->getShader());
-		
+
 		// Camera
-		glm::vec3
-			cameraFront = camera->getTransform()->getForward(),
-			cameraRight = camera->getRight(),
-			cameraUp = ce::Transform::GetGlobalUp();
-		camera->getTransform()->translate((cameraFront * cameraVelocity.z)+(cameraRight * cameraVelocity.x)+(cameraUp * cameraVelocity.y));
-		material->getShader()->setMat4("transform.proj",proj);
+		glm::vec3 cameraFront = camera->getTransform()->getForward(),
+					 cameraRight = camera->getRight(),
+					 cameraUp = ce::Transform::GetGlobalUp();
+		camera->getTransform()->translate((cameraFront * cameraVelocity.z) +
+													 (cameraRight * cameraVelocity.x) +
+													 (cameraUp * cameraVelocity.y));
+		material->getShader()->setMat4("transform.proj", proj);
 		camera->sendToShader(material->getShader());
-		
-		
+
 		/* Render */
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
