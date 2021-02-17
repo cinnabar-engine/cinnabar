@@ -17,6 +17,7 @@
 // Rendering
 #include "ce_render_fundementals.h"
 #include "rendering/camera.h"
+#include "rendering/material.h"
 
 /*
  * Vertices
@@ -90,15 +91,13 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// Time
 	ce::Time* time = new ce::Time();
 
 	ce::Transform transform;
-	ce::Shader* shader = new ce::Shader("basic");
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
-	mesh->sendToShader(shader);
-	ce::Texture* texture = new ce::Texture("uv-map.png");
-	shader->setInt("uTex", 0);
+	ce::Material* material = new ce::Material(new ce::Shader("basic"));
+	material->setTexture(new ce::Texture("uv-map.png"));
+	mesh->sendToShader(material->getShader());
 
 	glm::mat4 proj = glm::perspective(
 		glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
@@ -173,12 +172,14 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
+		
+		material->update();
 
 		// Transform
 		transform.roll(25.0f * time->getDeltaTime());
 		transform.yaw(50.0f * time->getDeltaTime());
 		transform.pitch(100.0f * time->getDeltaTime());
-		transform.sendToShader(shader);
+		transform.sendToShader(material->getShader());
 		
 		// Camera
 		glm::vec3
@@ -186,28 +187,26 @@ int main(int argc, char* argv[]) {
 			cameraRight = camera->getRight(),
 			cameraUp = ce::Transform::GetGlobalUp();
 		camera->getTransform()->translate((cameraFront * cameraVelocity.z)+(cameraRight * cameraVelocity.x)+(cameraUp * cameraVelocity.y));
-		shader->setMat4("transform.proj",proj);
-		camera->sendToShader(shader);
+		material->getShader()->setMat4("transform.proj",proj);
+		camera->sendToShader(material->getShader());
+		
 		
 		/* Render */
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		texture->activate(0);
-		shader->bind();
+		material->bind();
 		mesh->bind();
 
 		glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0);
 
 		mesh->unbind();
-		shader->unbind();
-		texture->unbind();
+		material->unbind();
 
 		window->swapBuffers();
 	}
 	delete mesh;
-	delete shader;
-	delete texture;
+	delete material;
 
 	delete window;
 	return 0;

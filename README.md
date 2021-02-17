@@ -72,7 +72,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Time Class
  - [x] Camera Class
  - [x] Smooth Input
- - [ ] Materials
+ - [x] Materials
  - [ ] Render System
  - [ ] Mesh Importing
  - [ ] Input System
