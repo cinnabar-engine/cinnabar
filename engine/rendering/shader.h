@@ -11,7 +11,6 @@
 using namespace glm;
 
 namespace ce {
-
 	class Shader {
 	 private:
 		inline static int MIN_LOC = 0;
