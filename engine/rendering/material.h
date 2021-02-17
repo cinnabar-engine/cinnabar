@@ -15,11 +15,13 @@ namespace ce {
 		Texture* m_texture;
 
 	 public:
+		Material(const char* shader):Material(new Shader(shader)){}
 		Material(Shader* shader);
 		~Material();
 		void update();
 
 		Shader* getShader() { return m_shader; }
+		void setTexture(const char* texture) {setTexture(new Texture(texture));}
 		void setTexture(Texture* texture) { m_texture = texture; }
 
 		void bind();
