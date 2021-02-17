@@ -97,11 +97,11 @@ int main(int argc, char* argv[]) {
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
 	ce::Shader* shader = new ce::Shader("basic");
 	ce::Material* material = new ce::Material(shader);
-	ce::Material* planeMaterial = new ce::Material(shader);
 	material->setTexture(new ce::Texture("uv-map.png"));
 
-	ce::Mesh* plane = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
-	ce::Transform* planeTransform = new ce::Transform();
+	//ce::Material* planeMaterial = new ce::Material(shader);
+	//ce::Mesh* plane = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
+	//ce::Transform* planeTransform = new ce::Transform();
 
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
@@ -191,7 +191,7 @@ int main(int argc, char* argv[]) {
 
 		/* Render */
 		renderingEngine->registerCommand({transform, material, mesh, mesh->GetIndexCount()});
-		renderingEngine->registerCommand({planeTransform, planeMaterial, plane, plane->GetIndexCount()});
+		//renderingEngine->registerCommand({planeTransform, planeMaterial, plane, plane->GetIndexCount()});
 		renderingEngine->render();
 
 		window->swapBuffers();
