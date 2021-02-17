@@ -4,14 +4,14 @@
 #include <managers/asset_manager.h>
 
 ce::Texture::Texture(std::string filename, GLenum type)
-	: width(0), height(0), channelCount(0), type(type) {
+	: m_width(0), m_height(0), m_channelCount(0), m_type(type) {
 	TextureFile textureFile = ce::AssetManager::getTextureFile(filename);
 
-	width = textureFile.width;
-	height = textureFile.height;
-	channelCount = textureFile.channelCount;
+	m_width = textureFile.width;
+	m_height = textureFile.height;
+	m_channelCount = textureFile.channelCount;
 
-	glGenTextures(1, &texture);
+	glGenTextures(1, &m_texture);
 	bind();
 	glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -19,7 +19,7 @@ ce::Texture::Texture(std::string filename, GLenum type)
 	glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_REPEAT);
 
 	if (textureFile.data) {
-		glTexImage2D(type, 0, GL_RGBA, width, height, 0, GL_RGBA,
+		glTexImage2D(type, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA,
 			GL_UNSIGNED_BYTE, textureFile.data);
 		glGenerateMipmap(type);
 		LOG_SUCCESS(textureFile.name + " has been loaded.");
@@ -30,12 +30,12 @@ ce::Texture::Texture(std::string filename, GLenum type)
 }
 
 ce::Texture::~Texture() {
-	glDeleteTextures(1, &texture);
+	glDeleteTextures(1, &m_texture);
 }
 
 void ce::Texture::bind() {
-	glBindTexture(type, texture);
-	glEnable(type);
+	glBindTexture(m_type, m_texture);
+	glEnable(m_type);
 }
 
 void ce::Texture::activate(int slot = 0) {
@@ -44,7 +44,7 @@ void ce::Texture::activate(int slot = 0) {
 }
 
 void ce::Texture::unbind() {
-	glDisable(type);
+	glDisable(m_type);
 	glActiveTexture(0);
-	glBindTexture(this->type, 0);
+	glBindTexture(this->m_type, 0);
 }

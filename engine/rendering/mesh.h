@@ -8,8 +8,8 @@ namespace ce {
 	class Mesh {
 
 	 private:
-		unsigned vertexCount, indexCount;
-		GLuint VAO, VBO, EBO;
+		unsigned m_vertexCount, m_indexCount;
+		GLuint m_VAO, m_VBO, m_EBO;
 
 		void initVAO(Vertex* vertexArray, GLuint* indexArray);
 
@@ -19,7 +19,7 @@ namespace ce {
 		~Mesh();
 		void sendToShader(class Shader* shader);
 
-		unsigned GetIndexCount() { return indexCount; };
+		unsigned GetIndexCount() { return m_indexCount; };
 		void bind(), unbind();
 	};
 }

@@ -5,21 +5,21 @@
 
 ce::Mesh::Mesh(Vertex* vertexArray, const unsigned vertexCount,
 	GLuint* indexArray, const unsigned indexCount)
-	: vertexCount(vertexCount), indexCount(indexCount), VAO(0), VBO(0), EBO(0) {
-	glGenVertexArrays(1, &VAO);
+	: m_vertexCount(vertexCount), m_indexCount(indexCount), m_VAO(0), m_VBO(0), m_EBO(0) {
+	glGenVertexArrays(1, &m_VAO);
 	bind();
 	this->initVAO(vertexArray, indexArray);
 	unbind();
 }
 
 ce::Mesh::~Mesh() {
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &this->VBO);
-	glDeleteBuffers(1, &this->EBO);
+	glDeleteVertexArrays(1, &m_VAO);
+	glDeleteBuffers(1, &this->m_VBO);
+	glDeleteBuffers(1, &this->m_EBO);
 }
 
 void ce::Mesh::bind() {
-	glBindVertexArray(VAO);
+	glBindVertexArray(m_VAO);
 }
 
 void ce::Mesh::unbind() {
@@ -38,15 +38,15 @@ void ce::Mesh::sendToShader(ce::Shader* shader) {
 }
 
 void ce::Mesh::initVAO(Vertex* vertexArray, GLuint* indexArray) {
-	glGenBuffers(1, &this->VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, this->vertexCount * sizeof(Vertex),
+	glGenBuffers(1, &this->m_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, this->m_vertexCount * sizeof(Vertex),
 		vertexArray, GL_STATIC_DRAW);
 
-	if (indexCount > 0) {
-		glGenBuffers(1, &this->EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indexCount * sizeof(GLuint),
+	if (m_indexCount > 0) {
+		glGenBuffers(1, &this->m_EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->m_EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->m_indexCount * sizeof(GLuint),
 			indexArray, GL_STATIC_DRAW);
 	}
 }
