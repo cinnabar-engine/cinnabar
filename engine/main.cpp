@@ -24,7 +24,7 @@
  * Vertices
  */
 // clang-format off
-ce::Vertex vertices[] = {
+ce::Vertex cubeVertices[] = {
 	//<POS>							<COLOR>								<TEX COORD>
 	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
@@ -38,7 +38,7 @@ ce::Vertex vertices[] = {
 };
 ce::Vertex planeVertices[] = {
 	//<POS>							<COLOR>								<TEX COORD>
-	glm::vec3( 1.0f,  0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
+	glm::vec3( 1.0f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
 	glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
 	glm::vec3(-1.0f,  0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)// 3
@@ -53,11 +53,11 @@ ce::Vertex planeVertices[] = {
 	2-1/
 */
 // clang-format on
-unsigned vertexCount = sizeof(vertices) / sizeof(ce::Vertex);
+unsigned cubeVertexCount = sizeof(cubeVertices) / sizeof(ce::Vertex);
 unsigned planeVertexCount = sizeof(planeVertices) / sizeof(ce::Vertex);
 // 7<=>5
 // clang-format off
-GLuint indices [] = {
+GLuint cubeIndices [] = {
 	// F
 	0, 1, 3,
 	1, 2, 3,
@@ -83,7 +83,7 @@ GLuint planeIndices[] = {
 	1, 2, 3
 };
 // clang-format on
-unsigned indexCount = sizeof(indices) / sizeof(GLuint);
+unsigned cubeIndexCount = sizeof(cubeIndices) / sizeof(GLuint);
 unsigned planeIndexCount = sizeof(planeIndices) / sizeof(GLuint);
 
 int main(int argc, char* argv[]) {
@@ -97,11 +97,13 @@ int main(int argc, char* argv[]) {
 	renderingEngine->setSize(window->getWindowSize());
 	renderingEngine->setClipRange(0.1f, 100.0f);
 
-	ce::Transform* transform = new ce::Transform();
-	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
-	ce::Material* material = new ce::Material("basic");
-	material->setTexture("uv-map.png");
+	//Cube
+	ce::Transform* cubeTransform = new ce::Transform();
+	ce::Mesh* cubeMesh = new ce::Mesh(cubeVertices, cubeVertexCount, cubeIndices, cubeIndexCount);
+	ce::Material* cubeMaterial = new ce::Material("basic");
+	cubeMaterial->setTexture("uv-map.png");
 
+	//Plane
 	ce::Material* planeMaterial = new ce::Material("color");
 	ce::Mesh* planeMesh = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
 	ce::Transform* planeTransform = new ce::Transform();
@@ -180,9 +182,9 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		// Transform
-		transform->roll(25.0f * time->getDeltaTime());
-		transform->yaw(50.0f * time->getDeltaTime());
-		transform->pitch(100.0f * time->getDeltaTime());
+		cubeTransform->roll(25.0f * time->getDeltaTime());
+		cubeTransform->yaw(50.0f * time->getDeltaTime());
+		cubeTransform->pitch(100.0f * time->getDeltaTime());
 
 		// Camera
 		glm::vec3
@@ -195,15 +197,15 @@ int main(int argc, char* argv[]) {
 			(cameraUp * cameraVelocity.y));
 
 		/* Render */
-		renderingEngine->registerCommand({transform, material, mesh, mesh->GetIndexCount()});
+		renderingEngine->registerCommand({cubeTransform, cubeMaterial, cubeMesh, cubeMesh->GetIndexCount()});
 		renderingEngine->registerCommand({planeTransform, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
 		renderingEngine->render();
 
 		window->swapBuffers();
 	}
-	delete mesh;
-	delete material;
-	delete transform;
+	delete cubeMesh;
+	delete cubeMaterial;
+	delete cubeTransform;
 
 	delete renderingEngine;
 	delete window;
