@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
 	
 	ce::Window* window = new ce::Window("Cinnabar");
 	ce::RenderingEngine* renderingEngine = new ce::RenderingEngine();
-	renderingEngine->setFOV(45.0f);
+	renderingEngine->setFOV(75.0f);
 	renderingEngine->setSize(window->getWindowSize());
 
 
@@ -87,13 +87,13 @@ int main(int argc, char* argv[]) {
 	mesh->sendToShader(material->getShader());
 
 	glm::mat4 proj = glm::perspective(
-		glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
+		glm::radians(75.0f), window->getAspectRatio(), 0.1f, 100.0f);
 
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
 	// Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
-	camera->getTransform()->setPosition(0.0f, 0.0f, 3.0f);
+	camera->getTransform()->setPosition(0.0f, 0.0f, 1.5f);
 	camera->getTransform()->setYaw(-90.0f);
 	/*
 	 * Game Loop
@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
 					glm::vec2 size = window->getWindowSize();
 					glViewport(0, 0, size.x, size.y);
 					proj = glm::perspective(
-						glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
+						glm::radians(75.0f), window->getAspectRatio(), 0.1f, 100.0f);
 					break;
 				}
 			}
