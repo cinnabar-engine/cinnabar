@@ -24,8 +24,8 @@
  * Vertices
  */
 // clang-format off
-ce::Vertex vertices[] = {
-	// Position                     Color                            Texture coord
+ce::Vertex cubeVerts[] = {
+	// Position                     Color                              Texture coord
 	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
 	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
@@ -53,7 +53,7 @@ ce::Vertex planeVerts[] = {
 	2-1/
 */
 // clang-format on
-unsigned vertexCount = sizeof(vertices) / sizeof(ce::Vertex);
+unsigned cubeVertCount = sizeof(cubeVerts) / sizeof(ce::Vertex);
 unsigned planeVertCount = sizeof(planeVerts) / sizeof(ce::Vertex);
 // 7<=>5
 // clang-format off
@@ -92,21 +92,24 @@ int main(int argc, char* argv[]) {
 	ce::Time* time = new ce::Time();
 
 	ce::Window* window = new ce::Window("Cinnabar");
+
 	ce::RenderEngine* renderEngine = new ce::RenderEngine();
 	renderEngine->setFOV(75.0f);
 	renderEngine->setSize(window->getWindowSize());
 	renderEngine->setClipRange(0.1f, 100.0f);
 
-	ce::Mesh* cubeMesh = new ce::Mesh(vertices, vertexCount, cubeIndices, cubeIndexCount);
+	// Cube
+	ce::Mesh* cubeMesh = new ce::Mesh(cubeVerts, cubeVertCount, cubeIndices, cubeIndexCount);
 	ce::Transform* cubePos = new ce::Transform();
 	ce::Material* cubeMaterial = new ce::Material("basic");
 	cubeMaterial->setTexture("uv-map.png");
 
+	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeIndexCount, planeIndices, planeVertCount);
 	ce::Transform* planePos = new ce::Transform();
 	ce::Material* planeMaterial = new ce::Material("color");
-	planePos->setPosition(0.0f,-1.0f,0.0f);
-	planePos->scale(10.0f,1.0f,10.0f);
+	planePos->setPosition(0.0f, -1.0f, 0.0f);
+	planePos->scale(10.0f, 1.0f, 10.0f);
 
 	float mouseSens = 0.1f;
 	ce::Camera* camera = new ce::Camera();
@@ -179,12 +182,12 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-
+		// Rotate cube
 		cubePos->roll(25.0f * time->getDeltaTime());
 		cubePos->yaw(50.0f * time->getDeltaTime());
 		cubePos->pitch(100.0f * time->getDeltaTime());
 
-		// Camera
+		// Move camera
 		glm::vec3
 			cameraFront = camera->getTransform()->getForward(),
 			cameraRight = camera->getRight(),
