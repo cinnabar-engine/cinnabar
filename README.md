@@ -75,9 +75,14 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Materials
  - [x] Render System
  - [x] Multiple Objects rendering at the same time
- - [ ] Lights
- - [ ] Skybox
  - [ ] Mesh Importing
+ - [ ] Full UV mapping support
+ - [ ] Full vertex color support
+ - [ ] Multiple texture materials
+ - [ ] Normals
+ - [ ] Normal maps
+ - [ ] Skybox
+ - [ ] Lights
  - [ ] Input System
  - [ ] Events System
  - [ ] Collision
