@@ -14,7 +14,7 @@ namespace ce {
 
 	 public:
 		Mesh(Vertex* vertexArray, const unsigned vertexCount,
-			GLuint* indexArray = NULL, const unsigned indexCount = 0);
+			GLuint* indexArray = NULL, const unsigned cubeIndexCount = 0);
 		~Mesh();
 		void sendToShader(class Shader* shader, bool bind = true);
 

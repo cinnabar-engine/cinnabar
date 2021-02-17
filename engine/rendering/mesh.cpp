@@ -4,8 +4,8 @@
 #include "vertex.h"
 
 ce::Mesh::Mesh(Vertex* vertexArray, const unsigned vertexCount,
-	GLuint* indexArray, const unsigned indexCount)
-	: m_vertexCount(vertexCount), m_indexCount(indexCount), m_VAO(0), m_VBO(0), m_EBO(0) {
+	GLuint* indexArray, const unsigned cubeIndexCount)
+	: m_vertexCount(vertexCount), m_indexCount(cubeIndexCount), m_VAO(0), m_VBO(0), m_EBO(0) {
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
 	initVAO(vertexArray, indexArray);
