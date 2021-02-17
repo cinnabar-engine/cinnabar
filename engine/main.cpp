@@ -95,11 +95,10 @@ int main(int argc, char* argv[]) {
 
 	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
-	ce::Shader* shader = new ce::Shader("basic");
-	ce::Material* material = new ce::Material(shader);
+	ce::Material* material = new ce::Material(new ce::Shader("basic"));
 	material->setTexture(new ce::Texture("uv-map.png"));
 
-	ce::Material* planeMaterial = new ce::Material(shader);
+	ce::Material* planeMaterial = new ce::Material(new ce::Shader("color"));
 	ce::Mesh* plane = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
 	ce::Transform* planeTransform = new ce::Transform();
 
