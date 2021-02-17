@@ -18,6 +18,7 @@
 #include "ce_render_fundementals.h"
 #include "rendering/camera.h"
 #include "rendering/material.h"
+#include "rendering/rendering_engine.h"
 
 /*
  * Vertices
@@ -70,30 +71,15 @@ unsigned indexCount = sizeof(indices) / sizeof(GLuint);
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
 
-	ce::Window* window = new ce::Window("Cinnabar");
-
-	/*
-	 * GLEW
-	 */
-	GLenum err = glewInit();
-	if (GLEW_OK != err) {
-		/* Problem: glewInit failed, something is seriously wrong. */
-		LOG_ERROR((const char*)glewGetErrorString(err));
-	}
-	LOG_INFO("Status: Using GLEW " + (const char*)glewGetString(GLEW_VERSION));
-
-	// OpenGL Setup
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	ce::Time* time = new ce::Time();
+	
+	ce::Window* window = new ce::Window("Cinnabar");
+	ce::RenderingEngine* renderingEngine = new ce::RenderingEngine();
+	renderingEngine->setFOV(45.0f);
+	renderingEngine->setSize(window->getWindowSize());
 
-	ce::Transform transform;
+
+	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
 	ce::Material* material = new ce::Material(new ce::Shader("basic"));
 	material->setTexture(new ce::Texture("uv-map.png"));
@@ -172,14 +158,13 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-		
+		// TODO: <PUT THIS IN THE RENDER ENGINE>
 		material->update();
 
 		// Transform
-		transform.roll(25.0f * time->getDeltaTime());
-		transform.yaw(50.0f * time->getDeltaTime());
-		transform.pitch(100.0f * time->getDeltaTime());
-		transform.sendToShader(material->getShader());
+		transform->roll(25.0f * time->getDeltaTime());
+		transform->yaw(50.0f * time->getDeltaTime());
+		transform->pitch(100.0f * time->getDeltaTime());
 		
 		// Camera
 		glm::vec3
@@ -187,27 +172,28 @@ int main(int argc, char* argv[]) {
 			cameraRight = camera->getRight(),
 			cameraUp = ce::Transform::GetGlobalUp();
 		camera->getTransform()->translate((cameraFront * cameraVelocity.z)+(cameraRight * cameraVelocity.x)+(cameraUp * cameraVelocity.y));
+		
+		
+		transform->sendToShader(material->getShader());
 		material->getShader()->setMat4("transform.proj",proj);
 		camera->sendToShader(material->getShader());
 		
 		
+		// TODO: </PUT THIS IN THE RENDER ENGINE>
+		
+		
 		/* Render */
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		material->bind();
-		mesh->bind();
-
-		glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0);
-
-		mesh->unbind();
-		material->unbind();
+		renderingEngine->registerCommand({transform,material,mesh,mesh->GetIndexCount()});
+		
+		renderingEngine->render();
 
 		window->swapBuffers();
 	}
 	delete mesh;
 	delete material;
+	delete transform;
 
+	//delete renderingEngine;
 	delete window;
 	return 0;
 }
