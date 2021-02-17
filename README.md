@@ -50,7 +50,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 * ~~Resize context on window resize~~
 * ~~Time Class~~
 * ~~Camera Class~~
-* Input System
+* ~~Smooth Input~~
 * Materials
 * Render System
 * Mesh Importing
