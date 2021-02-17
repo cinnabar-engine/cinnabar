@@ -16,6 +16,7 @@ void ce::RenderingEngine::bind(RenderCommand command)
 	// Update Shader Values
 	command.material->update();
 	
+	command.mesh->sendToShader(command.material->getShader());
 	command.transform->sendToShader(command.material->getShader());
 	command.material->getShader()->setMat4("transform.proj",getProjection());
 	m_camera->sendToShader(command.material->getShader());
