@@ -54,38 +54,38 @@ int createShader(GLenum type, std::string source) {
 void ce::Shader::linkProgram(
 	int vertexShader, int fragmentShader, int geometryShader) {
 	if (vertexShader != 0)
-		glAttachShader(program, vertexShader);
+		glAttachShader(m_program, vertexShader);
 	if (fragmentShader != 0)
-		glAttachShader(program, fragmentShader);
+		glAttachShader(m_program, fragmentShader);
 	if (geometryShader != 0)
-		glAttachShader(program, geometryShader);
-	glLinkProgram(program);
-	checkCompileErrors(program);
+		glAttachShader(m_program, geometryShader);
+	glLinkProgram(m_program);
+	checkCompileErrors(m_program);
 }
 
 int ce::Shader::registerAttribute(std::string name) {
-	int location = glGetAttribLocation(program, name.c_str());
+	int location = glGetAttribLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
 		LOG_ERROR("Invalid Attribute: " + name);
 		return MIN_LOC - 1;
 	}
-	attributes.insert(attributes.begin() + location, name);
+	m_attributes.insert(m_attributes.begin() + location, name);
 	LOG_SUCCESS("Registered Attribute: " + name);
 	return location;
 }
 
 int ce::Shader::registerUniform(std::string name) {
-	int location = glGetUniformLocation(program, name.c_str());
+	int location = glGetUniformLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
 		LOG_ERROR("Invalid Uniform: " + name);
 		return MIN_LOC - 1;
 	}
-	uniforms.insert(uniforms.begin() + location, name);
+	m_uniforms.insert(m_uniforms.begin() + location, name);
 	LOG_SUCCESS("Registered Uniform: " + name);
 	return location;
 }
 
-ce::Shader::Shader(const char* name) : program(glCreateProgram()) {
+ce::Shader::Shader(const char* name) : m_program(glCreateProgram()) {
 	ShaderFile shaderFile = ce::AssetManager::getShaderFile(name);
 
 	int vertexShader = 0;
@@ -101,19 +101,19 @@ ce::Shader::Shader(const char* name) : program(glCreateProgram()) {
 	linkProgram(vertexShader, fragmentShader, vertexShader);
 
 	int attrCount = 0, uniformCount = 0;
-	glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES, &attrCount);
-	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &uniformCount);
+	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &attrCount);
+	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
 
-	attributes.resize(attrCount);
-	uniforms.resize(uniformCount);
+	m_attributes.resize(attrCount);
+	m_uniforms.resize(uniformCount);
 }
 
 ce::Shader::~Shader() {
-	glDeleteProgram(program);
+	glDeleteProgram(m_program);
 }
 
 void ce::Shader::bind() {
-	glUseProgram(program);
+	glUseProgram(m_program);
 }
 
 void ce::Shader::unbind() {
@@ -121,25 +121,25 @@ void ce::Shader::unbind() {
 }
 
 GLuint ce::Shader::getShader() {
-	return program;
+	return m_program;
 }
 
 GLuint ce::Shader::getAttribLocation(const std::string name) {
-	if (attributes.size() < (size_t)Shader::MIN_LOC)
+	if (m_attributes.size() < (size_t)Shader::MIN_LOC)
 		return registerAttribute(name.c_str());
-	auto location = std::find(attributes.begin(), attributes.end(), name);
-	if (location != attributes.end())
-		return std::distance(attributes.begin(), location);
+	auto location = std::find(m_attributes.begin(), m_attributes.end(), name);
+	if (location != m_attributes.end())
+		return std::distance(m_attributes.begin(), location);
 	else
 		return registerAttribute(name.c_str());
 }
 
 GLuint ce::Shader::getUniformLocation(const std::string name) {
-	if (attributes.size() < (size_t)Shader::MIN_LOC)
+	if (m_attributes.size() < (size_t)Shader::MIN_LOC)
 		return registerUniform(name.c_str());
-	auto location = std::find(uniforms.begin(), uniforms.end(), name);
-	if (location != uniforms.end())
-		return std::distance(uniforms.begin(), location);
+	auto location = std::find(m_uniforms.begin(), m_uniforms.end(), name);
+	if (location != m_uniforms.end())
+		return std::distance(m_uniforms.begin(), location);
 	else
 		return registerUniform(name.c_str());
 }
