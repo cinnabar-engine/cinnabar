@@ -84,7 +84,6 @@ int main(int argc, char* argv[]) {
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
 	ce::Material* material = new ce::Material(new ce::Shader("basic"));
 	material->setTexture(new ce::Texture("uv-map.png"));
-	mesh->sendToShader(material->getShader());
 	
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
