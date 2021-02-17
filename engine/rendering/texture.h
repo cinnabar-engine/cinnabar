@@ -5,7 +5,6 @@
 #include <managers/asset_manager.h>
 
 namespace ce {
-
 	class Texture {
 	 private:
 		GLuint texture;

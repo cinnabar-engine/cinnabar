@@ -1,12 +1,11 @@
-#ifndef _RENDER_ENGINE_H_
-#define _RENDER_ENGINE_H_
+#pragma once
 
+#include "camera.h"
 #include "material.h"
 #include <ce_event_handler.h>
 #include <core/window.h>
 #include <math/transform.h>
 #include <vector>
-#include "camera.h"
 
 namespace ce {
 	struct RenderCommand {
@@ -19,7 +18,7 @@ namespace ce {
 	class RenderingEngine {
 	 private:
 		float m_aspectRatio, m_fov, m_near, m_far;
-		
+
 		Camera* m_camera;
 
 		std::vector<RenderCommand> m_commands = {};
@@ -40,7 +39,7 @@ namespace ce {
 		}
 		void setSize(glm::vec2 size);
 		void setClearColor(glm::vec4 color);
-		void setCamera(Camera* camera){m_camera = camera;}
+		void setCamera(Camera* camera) { m_camera = camera; }
 
 		glm::mat4 getProjection();
 
@@ -50,5 +49,3 @@ namespace ce {
 		void render();
 	};
 }
-
-#endif // _RENDER_ENGINE_H_

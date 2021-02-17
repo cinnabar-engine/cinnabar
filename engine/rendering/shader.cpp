@@ -85,7 +85,8 @@ int ce::Shader::registerUniform(std::string name) {
 	return location;
 }
 
-ce::Shader::Shader(const char* name) : program(glCreateProgram()) {
+ce::Shader::Shader(const char* name)
+	: program(glCreateProgram()) {
 	ShaderFile shaderFile = ce::AssetManager::getShaderFile(name);
 
 	int vertexShader = 0;
