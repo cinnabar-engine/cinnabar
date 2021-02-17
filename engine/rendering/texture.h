@@ -8,9 +8,9 @@ namespace ce {
 
 	class Texture {
 	 private:
-		GLuint texture;
-		int width, height, channelCount;
-		unsigned int type;
+		GLuint m_texture;
+		int m_width, m_height, m_channelCount;
+		unsigned int m_type;
 
 	 public:
 		Texture(std::string filename, GLenum type = GL_TEXTURE_2D);

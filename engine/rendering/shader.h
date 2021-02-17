@@ -16,8 +16,8 @@ namespace ce {
 	 private:
 		inline static int MIN_LOC = 0;
 
-		GLuint program;
-		std::vector<std::string> attributes, uniforms;
+		GLuint m_program;
+		std::vector<std::string> m_attributes, m_uniforms;
 
 		void linkProgram(
 			int vertexShader, int fragmentShader, int geometryShader);
