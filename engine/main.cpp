@@ -164,14 +164,14 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-		
-		// TODO: <PUT THIS IN THE RENDER ENGINE>
-		material->update();
-
 		// Transform
 		transform->roll(25.0f * time->getDeltaTime());
 		transform->yaw(50.0f * time->getDeltaTime());
 		transform->pitch(100.0f * time->getDeltaTime());
+		
+		// TODO: <PUT THIS IN THE RENDER ENGINE>
+		material->update();
+
 		
 		// Camera
 		glm::vec3
