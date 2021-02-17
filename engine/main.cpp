@@ -73,25 +73,24 @@ int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
 
 	ce::Time* time = new ce::Time();
-	
+
 	ce::Window* window = new ce::Window("Cinnabar");
 	ce::RenderingEngine* renderingEngine = new ce::RenderingEngine();
-	renderingEngine->setFOV(45.0f);
+	renderingEngine->setFOV(75.0f);
 	renderingEngine->setSize(window->getWindowSize());
 	renderingEngine->setClipRange(0.1f,100.0f);
-
 
 	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
 	ce::Material* material = new ce::Material(new ce::Shader("basic"));
 	material->setTexture(new ce::Texture("uv-map.png"));
 	mesh->sendToShader(material->getShader());
-
+	
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
 	// Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
-	camera->getTransform()->setPosition(0.0f, 0.0f, 3.0f);
+	camera->getTransform()->setPosition(0.0f, 0.0f, 1.5f);
 	camera->getTransform()->setYaw(-90.0f);
 	renderingEngine->setCamera(camera);
 	/*
@@ -164,16 +163,19 @@ int main(int argc, char* argv[]) {
 		transform->roll(25.0f * time->getDeltaTime());
 		transform->yaw(50.0f * time->getDeltaTime());
 		transform->pitch(100.0f * time->getDeltaTime());
-				
+		
 		// Camera
 		glm::vec3
 			cameraFront = camera->getTransform()->getForward(),
 			cameraRight = camera->getRight(),
 			cameraUp = ce::Transform::GetGlobalUp();
-		camera->getTransform()->translate((cameraFront * cameraVelocity.z)+(cameraRight * cameraVelocity.x)+(cameraUp * cameraVelocity.y));
+		camera->getTransform()->translate(
+			(cameraFront * cameraVelocity.z) +
+			(cameraRight * cameraVelocity.x) +
+			(cameraUp * cameraVelocity.y));
 		
 		/* Render */
-		renderingEngine->registerCommand({transform,material,mesh,mesh->GetIndexCount()});
+		renderingEngine->registerCommand({transform, material, mesh, mesh->GetIndexCount()});
 		renderingEngine->render();
 
 		window->swapBuffers();
@@ -182,7 +184,7 @@ int main(int argc, char* argv[]) {
 	delete material;
 	delete transform;
 
-	//delete renderingEngine;
+	delete renderingEngine;
 	delete window;
 	return 0;
 }
