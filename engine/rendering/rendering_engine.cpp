@@ -3,7 +3,7 @@
 
 void ce::RenderingEngine::clear()
 {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void ce::RenderingEngine::render(unsigned count)
@@ -13,6 +13,14 @@ void ce::RenderingEngine::render(unsigned count)
 
 void ce::RenderingEngine::bind(RenderCommand command)
 {
+	// Update Shader Values
+	command.material->update();
+	
+	command.transform->sendToShader(command.material->getShader());
+	command.material->getShader()->setMat4("transform.proj",getProjection());
+	m_camera->sendToShader(command.material->getShader());
+	
+	// Bind Things
 	command.material->bind();
 	command.mesh->bind();
 }
@@ -25,7 +33,10 @@ void ce::RenderingEngine::unbind(RenderCommand command)
 
 ce::RenderingEngine::RenderingEngine()
 :m_aspectRatio(0),
-m_fov(0)
+m_fov(0),
+m_near(0),
+m_far(0),
+m_camera(NULL)
 {
 	/*
 	 * GLEW
@@ -51,6 +62,7 @@ m_fov(0)
 
 ce::RenderingEngine::~RenderingEngine()
 {
+	
 }
 
 void ce::RenderingEngine::setClearColor(glm::vec4 color)
@@ -66,7 +78,7 @@ void ce::RenderingEngine::setSize(glm::vec2 size)
 
 glm::mat4 ce::RenderingEngine::getProjection()
 {
-	return glm::perspective(m_fov,m_aspectRatio, 0.1f, 100.0f);
+	return glm::perspective(m_fov,m_aspectRatio, m_near, m_far);
 }
 
 
