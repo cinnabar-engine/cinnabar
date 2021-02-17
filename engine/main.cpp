@@ -105,6 +105,8 @@ int main(int argc, char* argv[]) {
 
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
+	//Seperate so i can put in a player class later
+	glm::vec3 cameraVelocity(0.0f);
 	camera->getTransform()->setPosition(0.0f,0.0f,3.0f);
 	camera->getTransform()->setYaw(-90.0f);
 	/*
@@ -132,21 +134,30 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case SDL_KEYDOWN: {
-					float
-					cameraSpeed = 2.5f * time->getDeltaTime();
-					glm::vec3
-					cameraFront = camera->getTransform()->getForward(),
-					cameraRight = camera->getRight();
+					float cameraSpeed = 2.5f * time->getDeltaTime();
 					if (event.key.keysym.sym == SDLK_w)
-						camera->getTransform()->translate(cameraFront * cameraSpeed);
-					if (event.key.keysym.sym ==  SDLK_s)
-						camera->getTransform()->translate(-cameraFront * cameraSpeed);
+						cameraVelocity.z = cameraSpeed;
+					else if (event.key.keysym.sym ==  SDLK_s)
+						cameraVelocity.z =-cameraSpeed;
 					if (event.key.keysym.sym == SDLK_a)
-						camera->getTransform()->translate(-cameraRight * cameraSpeed);
-					if (event.key.keysym.sym == SDLK_d)
-						camera->getTransform()->translate(cameraRight * cameraSpeed);
+						cameraVelocity.x=-cameraSpeed;
+					else if (event.key.keysym.sym == SDLK_d)
+						cameraVelocity.x=cameraSpeed;
+					if (event.key.keysym.sym == SDLK_SPACE)
+						cameraVelocity.y=cameraSpeed;
+					else if (event.key.keysym.sym == SDLK_LSHIFT)
+						cameraVelocity.y=-cameraSpeed;
 					if(event.key.keysym.sym == SDLK_ESCAPE)
 						window->setMouseVisibility(true);
+					break;
+				}
+				case SDL_KEYUP: {
+					if ((event.key.keysym.sym == SDLK_w&&cameraVelocity.z>0)||(event.key.keysym.sym ==  SDLK_s&&cameraVelocity.z<0))
+						cameraVelocity.z = 0;
+					if ((event.key.keysym.sym == SDLK_a&&cameraVelocity.x<0)||(event.key.keysym.sym == SDLK_d&&cameraVelocity.x>0))
+						cameraVelocity.x = 0;
+					if ((event.key.keysym.sym == SDLK_SPACE&&cameraVelocity.y>0)||(event.key.keysym.sym == SDLK_LSHIFT&&cameraVelocity.y<0))
+						cameraVelocity.y = 0;
 					break;
 				}
 				case SDL_QUIT: {
@@ -170,6 +181,11 @@ int main(int argc, char* argv[]) {
 		transform.sendToShader(shader);
 		
 		// Camera
+		glm::vec3
+			cameraFront = camera->getTransform()->getForward(),
+			cameraRight = camera->getRight(),
+			cameraUp = ce::Transform::GetGlobalUp();
+		camera->getTransform()->translate((cameraFront * cameraVelocity.z)+(cameraRight * cameraVelocity.x)+(cameraUp * cameraVelocity.y));
 		shader->setMat4("transform.proj",proj);
 		camera->sendToShader(shader);
 		
