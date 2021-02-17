@@ -91,18 +91,18 @@ int main(int argc, char* argv[]) {
 	ce::RenderingEngine* renderingEngine = new ce::RenderingEngine();
 	renderingEngine->setFOV(75.0f);
 	renderingEngine->setSize(window->getWindowSize());
-	renderingEngine->setClipRange(0.1f,100.0f);
+	renderingEngine->setClipRange(0.1f, 100.0f);
 
 	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
 	ce::Shader* shader = new ce::Shader("basic");
 	ce::Material* material = new ce::Material(shader);
-	ce::Material* planeMaterial = new ce::Material(shader);
 	material->setTexture(new ce::Texture("uv-map.png"));
-	
-	ce::Mesh* plane = new ce::Mesh(planeVertices,planeIndexCount,planeIndices,planeVertexCount);
+
+	ce::Material* planeMaterial = new ce::Material(shader);
+	ce::Mesh* plane = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
 	ce::Transform* planeTransform = new ce::Transform();
-	
+
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
 	// Seperate so i can put in a player class later
@@ -159,10 +159,8 @@ int main(int argc, char* argv[]) {
 					if ((event.key.keysym.sym == SDLK_a && cameraVelocity.x < 0) ||
 						 (event.key.keysym.sym == SDLK_d && cameraVelocity.x > 0))
 						cameraVelocity.x = 0;
-					if ((event.key.keysym.sym == SDLK_SPACE &&
-							 cameraVelocity.y > 0) ||
-						 (event.key.keysym.sym == SDLK_LSHIFT &&
-							 cameraVelocity.y < 0))
+					if ((event.key.keysym.sym == SDLK_SPACE && cameraVelocity.y > 0) ||
+						 (event.key.keysym.sym == SDLK_LSHIFT && cameraVelocity.y < 0))
 						cameraVelocity.y = 0;
 					break;
 				}
@@ -180,7 +178,7 @@ int main(int argc, char* argv[]) {
 		transform->roll(25.0f * time->getDeltaTime());
 		transform->yaw(50.0f * time->getDeltaTime());
 		transform->pitch(100.0f * time->getDeltaTime());
-		
+
 		// Camera
 		glm::vec3
 			cameraFront = camera->getTransform()->getForward(),
@@ -190,10 +188,10 @@ int main(int argc, char* argv[]) {
 			(cameraFront * cameraVelocity.z) +
 			(cameraRight * cameraVelocity.x) +
 			(cameraUp * cameraVelocity.y));
-		
+
 		/* Render */
 		renderingEngine->registerCommand({transform, material, mesh, mesh->GetIndexCount()});
-		renderingEngine->registerCommand({planeTransform,planeMaterial,plane,plane->GetIndexCount()});
+		renderingEngine->registerCommand({planeTransform, planeMaterial, plane, plane->GetIndexCount()});
 		renderingEngine->render();
 
 		window->swapBuffers();

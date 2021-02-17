@@ -46,5 +46,10 @@ void ce::Texture::activate(int slot = 0) {
 void ce::Texture::unbind() {
 	glDisable(m_type);
 	glActiveTexture(0);
+<<<<<<< HEAD
 	glBindTexture(this->m_type, 0);
 }
+=======
+	glBindTexture(this->type, 0);
+}
+>>>>>>> 569c3cf679420af32babc9d733f4d03bb18f0b8e

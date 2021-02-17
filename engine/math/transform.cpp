@@ -31,15 +31,13 @@ void ce::Transform::sendToShader(ce::Shader* shader) {
 	shader->setMat4("transform.model", getMatrix());
 }
 
-glm::vec3 ce::Transform::getForward()
-{
+glm::vec3 ce::Transform::getForward() {
 	float
 		yaw = glm::radians(getYaw()),
 		pitch = glm::radians(getPitch());
 	glm::vec3 dir(
-		cos(yaw)*cos(pitch),
+		cos(yaw) * cos(pitch),
 		sin(pitch),
-		sin(yaw)*cos(pitch)
-	);
+		sin(yaw) * cos(pitch));
 	return glm::normalize(dir);
 }
