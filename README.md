@@ -65,8 +65,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] 3D Cube
  - [x] 3D Transforms
  - [x] WASD
- - [x] basic input handling
- - [x] Mouse controlled camers
+ - [x] Basic input handling
+ - [x] Mouse controlled camera
  - [x] Window Class
  - [x] Resize context on window resize
  - [x] Time Class

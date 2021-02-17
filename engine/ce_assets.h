@@ -1,5 +1,4 @@
-#ifndef _CE_ASSETS_H_
-#define _CE_ASSETS_H_
+#pragma once
 
 #include <string>
 #include <ce_math.h>
@@ -32,5 +31,3 @@ namespace ce {
 			shader = "";
 	};
 }
-
-#endif // !_CE_ASSETS_H_

@@ -5,18 +5,20 @@
 
 namespace ce {
 	class Camera {
-	private:
+	 private:
 		ce::Transform* m_transform;
-		float speed,
-		fov;
-	public:
+		float
+			speed,
+			fov;
+
+	 public:
 		Camera();
 		~Camera();
-		
+
 		glm::mat4 getView();
 		glm::vec3 getRight();
 		void sendToShader(ce::Shader* shader);
-		Transform* getTransform(){return m_transform;}
+		Transform* getTransform() { return m_transform; }
 		void boundPitch();
 	};
 }
