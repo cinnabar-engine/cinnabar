@@ -74,6 +74,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Smooth Input
  - [x] Materials
  - [x] Render System
+ - [x] Multiple Objects rendering at the same time
  - [ ] Mesh Importing
  - [ ] Input System
  - [ ] Events System
