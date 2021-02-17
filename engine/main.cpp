@@ -25,6 +25,7 @@
  */
 // clang-format off
 ce::Vertex vertices[] = {
+	// Position                     Color                            Texture coord
 	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
 	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
@@ -36,19 +37,22 @@ ce::Vertex vertices[] = {
 	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
 };
 ce::Vertex planeVertices[] = {
+	// Position                     Color                            Texture coord
 	glm::vec3( 1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
 	glm::vec3(-1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
 	glm::vec3(-1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
 };
-// clang-format on
+
 
 /*
-	7-4
-	6-5
-	3-0
-	2-1
+ * this is a cube
+	  /7-4
+	 / 6-5
+	3-0 /
+	2-1/
 */
+// clang-format on
 unsigned vertexCount = sizeof(vertices) / sizeof(ce::Vertex);
 unsigned planeVertexCount = sizeof(planeVertices) / sizeof(ce::Vertex);
 // 7<=>5
@@ -95,12 +99,14 @@ int main(int argc, char* argv[]) {
 
 	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
-	ce::Material* material = new ce::Material(new ce::Shader("basic"));
-	material->setTexture(new ce::Texture("uv-map.png"));
+	ce::Material* material = new ce::Material("basic");
+	material->setTexture("uv-map.png");
 
-	ce::Material* planeMaterial = new ce::Material(new ce::Shader("color"));
-	ce::Mesh* plane = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
+	ce::Material* planeMaterial = new ce::Material("color");
+	ce::Mesh* planeMesh = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
 	ce::Transform* planeTransform = new ce::Transform();
+	planeTransform->setPosition(0.0f,-1.0f,0.0f);
+	planeTransform->scale(10.0f,1.0f,10.0f);
 
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
@@ -190,7 +196,7 @@ int main(int argc, char* argv[]) {
 
 		/* Render */
 		renderingEngine->registerCommand({transform, material, mesh, mesh->GetIndexCount()});
-		renderingEngine->registerCommand({planeTransform, planeMaterial, plane, plane->GetIndexCount()});
+		renderingEngine->registerCommand({planeTransform, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
 		renderingEngine->render();
 
 		window->swapBuffers();
