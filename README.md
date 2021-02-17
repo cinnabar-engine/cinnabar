@@ -9,7 +9,7 @@ Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)
 ### Debian
 ```bash
-sudo apt-get install build-essential cmake libsdl2-dev libglew-dev libglm-dev
+sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
 ```
 ### Arch
 ```bash
@@ -75,11 +75,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Materials
  - [x] Render System
  - [x] Multiple Objects rendering at the same time
+ - [ ] Lights
+ - [ ] Skybox
  - [ ] Mesh Importing
  - [ ] Input System
  - [ ] Events System
- - [ ] Lights
- - [ ] Skybox
  - [ ] Collision
  - [ ] Gravity
  - [ ] Text
