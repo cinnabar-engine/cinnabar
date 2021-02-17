@@ -7,8 +7,9 @@
 namespace ce {
 	class AssetManager {
 	 private:
-		inline static const std::string SHADER_FOLDER = "shaders",
-												  TEXTURE_FOLDER = "textures";
+		inline static const std::string
+			SHADER_FOLDER = "shaders",
+			TEXTURE_FOLDER = "textures";
 
 		static std::string load_text_file(std::string file);
 

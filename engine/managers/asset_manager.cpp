@@ -25,8 +25,7 @@ std::string ce::AssetManager::load_text_file(std::string path) {
 		text = filestream.str();
 		LOG_SUCCESS("LOADED_FILE: " + path);
 	} catch (std::fstream::failure e) {
-		LOG_ERROR(
-			"FILE_NOT_SUCCESSFULLY_READ: (" + path + ") " + std::string(e.what()));
+		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (" + path + ") " + std::string(e.what()));
 	}
 	return text;
 }
