@@ -6,8 +6,7 @@ ce::Material::Material(Shader* shader)
 	update();
 }
 
-ce::Material::~Material()
-{
+ce::Material::~Material() {
 	delete m_shader;
 	delete m_texture;
 }

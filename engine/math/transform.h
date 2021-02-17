@@ -15,19 +15,15 @@ namespace ce {
 		glm::vec3 m_pos, m_rot, m_scale;
 
 	 public:
-		static glm::vec3 GetGlobalUp(){return glm::vec3(0.0f,1.0f,0.0f);}
-		 
+		static glm::vec3 GetGlobalUp() { return glm::vec3(0.0f, 1.0f, 0.0f); }
+
 		Transform();
 		~Transform();
 		glm::vec3 getPosition() { return m_pos; }
 		void setPosition(glm::vec3 pos) { m_pos = pos; }
-		void setPosition(float x, float y, float z) {
-			setPosition(glm::vec3(x, y, z));
-		}
+		void setPosition(float x, float y, float z) { setPosition(glm::vec3(x, y, z)); }
 		void translate(glm::vec3 delta) { m_pos += delta; }
-		void translate(float x, float y, float z) {
-			translate(glm::vec3(x, y, z));
-		}
+		void translate(float x, float y, float z) { translate(glm::vec3(x, y, z)); }
 
 		void setPitch(float pitch) { m_rot.x = pitch; }
 		void pitch(float delta) { m_rot.x += delta; }
@@ -43,9 +39,7 @@ namespace ce {
 
 		glm::vec3 getRotation() { return m_rot; }
 		void setRotation(glm::vec3 rot) { m_rot = rot; }
-		void setRotation(float x, float y, float z) {
-			setRotation(glm::vec3(x, y, z));
-		}
+		void setRotation(float x, float y, float z) { setRotation(glm::vec3(x, y, z)); }
 		void rotate(glm::vec3 delta) { m_rot += delta; }
 		void rotate(float x, float y, float z) { rotate(glm::vec3(x, y, z)); }
 
