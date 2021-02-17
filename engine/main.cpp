@@ -37,6 +37,7 @@ ce::Vertex vertices[] = {
 	glm::vec3(-0.5f,  0.5f, 0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
 };
 ce::Vertex planeVertices[] = {
+	//<POS>							<COLOR>								<TEX COORD>
 	glm::vec3( 1.0f,  0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
 	glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
@@ -98,10 +99,10 @@ int main(int argc, char* argv[]) {
 
 	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
-	ce::Material* material = new ce::Material(new ce::Shader("basic"));
-	material->setTexture(new ce::Texture("uv-map.png"));
+	ce::Material* material = new ce::Material("basic");
+	material->setTexture("uv-map.png");
 
-	ce::Material* planeMaterial = new ce::Material(new ce::Shader("color"));
+	ce::Material* planeMaterial = new ce::Material("color");
 	ce::Mesh* plane = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
 	ce::Transform* planeTransform = new ce::Transform();
 
