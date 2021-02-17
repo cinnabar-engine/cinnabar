@@ -46,49 +46,49 @@ Linux: /build/run/engine
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Todo
-- [x] CMake
-- [x] Logger
-- [x] SDL2
-- [x] GLEW
-- [x] GLSL
-- [x] Triangle
-- [x] Vertex Colors
-- [x] Indices
-- [x] Shader Class
-- [x] Quad Rendering
-- [x] Texture Mapping
-- [x] Uniforms
-- [x] Mesh Class
-- [x] Texture Class
-- [x] Matracies
-- [x] Pespective Camera
-- [x] 3D Cube
-- [x] 3D Transforms
-- [x] WASD
-- [x] basic input handling
-- [x] Mouse controlled camers
-- [x] Window Class
-- [x] Resize context on window resize
-- [x] Time Class
-- [x] Camera Class
-- [x] Smooth Input~~
-- [ ] Materials
-- [ ] Render System
-- [ ] Mesh Importing
-- [ ] Input System
-- [ ] Events System
-- [ ] Lights
-- [ ] Skybox
-- [ ] Collision
-- [ ] Gravity
-- [ ] Text
-- [ ] Layers
-- [ ] GUI
-- [ ] States
-- [ ] Map management
-- [ ] Make an Actual Game
-- [ ] Networking
-- [ ] Scene Graph
-- [ ] XML based scene graph import
-- [ ] Test ON Windows
-- [ ] Port to Emscripten
+ - [x] CMake
+ - [x] Logger
+ - [x] SDL2
+ - [x] GLEW
+ - [x] GLSL
+ - [x] Triangle
+ - [x] Vertex Colors
+ - [x] Indices
+ - [x] Shader Class
+ - [x] Quad Rendering
+ - [x] Texture Mapping
+ - [x] Uniforms
+ - [x] Mesh Class
+ - [x] Texture Class
+ - [x] Matracies
+ - [x] Pespective Camera
+ - [x] 3D Cube
+ - [x] 3D Transforms
+ - [x] WASD
+ - [x] basic input handling
+ - [x] Mouse controlled camers
+ - [x] Window Class
+ - [x] Resize context on window resize
+ - [x] Time Class
+ - [x] Camera Class
+ - [x] Smooth Input
+ - [ ] Materials
+ - [ ] Render System
+ - [ ] Mesh Importing
+ - [ ] Input System
+ - [ ] Events System
+ - [ ] Lights
+ - [ ] Skybox
+ - [ ] Collision
+ - [ ] Gravity
+ - [ ] Text
+ - [ ] Layers
+ - [ ] GUI
+ - [ ] States
+ - [ ] Map management
+ - [ ] Make an Actual Game
+ - [ ] Networking
+ - [ ] Scene Graph
+ - [ ] XML based scene graph import
+ - [ ] Test ON Windows
+ - [ ] Port to Emscripten
