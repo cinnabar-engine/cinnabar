@@ -41,14 +41,16 @@ ce::Vertex planeVertices[] = {
 	glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
 	glm::vec3(-1.0f,  0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)// 3
 };
-// clang-format on
+
 
 /*
-	7-4
-	6-5
-	3-0
-	2-1
+ * this is a cube
+	  /7-4
+	 / 6-5
+	3-0 /
+	2-1/
 */
+// clang-format on
 unsigned vertexCount = sizeof(vertices) / sizeof(ce::Vertex);
 unsigned planeVertexCount = sizeof(planeVertices) / sizeof(ce::Vertex);
 // 7<=>5
