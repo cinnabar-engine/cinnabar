@@ -73,12 +73,11 @@ int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
 
 	ce::Time* time = new ce::Time();
-	
+
 	ce::Window* window = new ce::Window("Cinnabar");
 	ce::RenderingEngine* renderingEngine = new ce::RenderingEngine();
 	renderingEngine->setFOV(75.0f);
 	renderingEngine->setSize(window->getWindowSize());
-
 
 	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
@@ -168,29 +167,29 @@ int main(int argc, char* argv[]) {
 		transform->roll(25.0f * time->getDeltaTime());
 		transform->yaw(50.0f * time->getDeltaTime());
 		transform->pitch(100.0f * time->getDeltaTime());
-		
+
 		// TODO: <PUT THIS IN THE RENDER ENGINE>
 		material->update();
 
-		
 		// Camera
 		glm::vec3
 			cameraFront = camera->getTransform()->getForward(),
 			cameraRight = camera->getRight(),
 			cameraUp = ce::Transform::GetGlobalUp();
-		camera->getTransform()->translate((cameraFront * cameraVelocity.z)+(cameraRight * cameraVelocity.x)+(cameraUp * cameraVelocity.y));
-		
-		
+		camera->getTransform()->translate(
+			(cameraFront * cameraVelocity.z) +
+			(cameraRight * cameraVelocity.x) +
+			(cameraUp * cameraVelocity.y));
+
 		transform->sendToShader(material->getShader());
-		material->getShader()->setMat4("transform.proj",proj);
+		material->getShader()->setMat4("transform.proj", proj);
 		camera->sendToShader(material->getShader());
-		
-		
+
 		// TODO: </PUT THIS IN THE RENDER ENGINE>
-		
+
 		/* Render */
-		renderingEngine->registerCommand({transform,material,mesh,mesh->GetIndexCount()});
-		
+		renderingEngine->registerCommand({transform, material, mesh, mesh->GetIndexCount()});
+
 		renderingEngine->render();
 
 		window->swapBuffers();
