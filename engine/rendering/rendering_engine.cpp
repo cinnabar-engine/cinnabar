@@ -10,25 +10,22 @@ void ce::RenderingEngine::render(unsigned count) {
 }
 
 void ce::RenderingEngine::bind(RenderCommand command) {
-	// Update Shader Values
+	// Update Shader Values TODO: shouldn't this be somewhere else instead of the bind command?
 	command.material->update();
 
+	// TODO: get rid of unneccecary binding
 	command.mesh->sendToShader(command.material->getShader());
 	command.transform->sendToShader(command.material->getShader());
 	command.material->getShader()->setMat4("transform.proj", getProjection());
 	m_camera->sendToShader(command.material->getShader());
 
 	// Bind Things
-	glBindVertexArray(command.mesh->VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, command.mesh->VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, command.mesh->EBO);
+	command.mesh->bind();
 	command.material->bind();
 }
 
 void ce::RenderingEngine::unbind(RenderCommand command) {
-	glBindVertexArray(0); // unbind mesh
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0); // TODO: this causes issues still
+	command.mesh->unbind();
 	command.material->unbind();
 }
 
