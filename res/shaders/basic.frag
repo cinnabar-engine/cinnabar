@@ -13,5 +13,5 @@ in vec2 vTexCoord;
 out vec4 fColor;
 
 void main() {
-	fColor = texture(material.texture,vTexCoord) * vColor;
+	fColor = vColor;
 }
