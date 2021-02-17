@@ -19,12 +19,16 @@ void ce::RenderingEngine::bind(RenderCommand command) {
 	m_camera->sendToShader(command.material->getShader());
 
 	// Bind Things
+	glBindVertexArray(command.mesh->VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, command.mesh->VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, command.mesh->EBO);
 	command.material->bind();
-	command.mesh->bind();
 }
 
 void ce::RenderingEngine::unbind(RenderCommand command) {
-	command.mesh->unbind();
+	glBindVertexArray(0); // unbind mesh
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0); // TODO: this causes issues still
 	command.material->unbind();
 }
 
@@ -77,7 +81,7 @@ void ce::RenderingEngine::render() {
 		RenderCommand command = m_commands[i];
 		bind(command);
 		render(command.points);
-		unbind(command);
+		unbind(command); // TODO: should this go outside the for loop?
 	}
 	m_commands.clear();
 }
