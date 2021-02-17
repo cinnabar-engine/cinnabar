@@ -15,7 +15,7 @@ namespace ce {
 		unsigned points;
 	};
 
-	class RenderingEngine {
+	class RenderEngine {
 	 private:
 		float m_aspectRatio, m_fov, m_near, m_far;
 
@@ -29,8 +29,8 @@ namespace ce {
 		void unbind(RenderCommand command);
 
 	 public:
-		RenderingEngine();
-		~RenderingEngine();
+		RenderEngine();
+		~RenderEngine();
 
 		void setFOV(float fov) { m_fov = glm::radians(fov); };
 		void setClipRange(float near, float far) {
