@@ -25,15 +25,21 @@
  */
 // clang-format off
 ce::Vertex vertices[] = {
-	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f),// 0
+	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
 	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
 	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
 	
-	glm::vec3( 0.5f,  0.5f, 0.5f), glm::vec4(1.0f, 0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f),// 4
+	glm::vec3( 0.5f,  0.5f, 0.5f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 4
 	glm::vec3( 0.5f, -0.5f, 0.5f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 5
 	glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 6
 	glm::vec3(-0.5f,  0.5f, 0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
+};
+ce::Vertex planeVertices[] = {
+	glm::vec3( 10.0f,  -1.0f, -10.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
+	glm::vec3( 10.0f, -1.0f, -10.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
+	glm::vec3(-10.0f, -1.0f, -10.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
+	glm::vec3(-10.0f,  -1.0f, -10.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)// 3
 };
 // clang-format on
 
@@ -44,6 +50,7 @@ ce::Vertex vertices[] = {
 	2-1
 */
 unsigned vertexCount = sizeof(vertices) / sizeof(ce::Vertex);
+unsigned planeVertexCount = sizeof(planeVertices) / sizeof(ce::Vertex);
 // 7<=>5
 // clang-format off
 GLuint indices [] = {
@@ -66,8 +73,14 @@ GLuint indices [] = {
 	7, 6, 4,
 	6, 5, 4,
 };
+
+GLuint planeIndices[] = {
+	0, 1, 3,
+	1, 2, 3
+};
 // clang-format on
 unsigned indexCount = sizeof(indices) / sizeof(GLuint);
+unsigned planeIndexCount = sizeof(planeIndices) / sizeof(GLuint);
 
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
@@ -82,8 +95,13 @@ int main(int argc, char* argv[]) {
 
 	ce::Transform* transform = new ce::Transform();
 	ce::Mesh* mesh = new ce::Mesh(vertices, vertexCount, indices, indexCount);
-	ce::Material* material = new ce::Material(new ce::Shader("basic"));
+	ce::Shader* shader = new ce::Shader("basic");
+	ce::Material* material = new ce::Material(shader);
+	ce::Material* planeMaterial = new ce::Material(shader);
 	material->setTexture(new ce::Texture("uv-map.png"));
+	
+	ce::Mesh* plane = new ce::Mesh(planeVertices,planeIndexCount,planeIndices,planeVertexCount);
+	ce::Transform* planeTransform = new ce::Transform();
 	
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
@@ -175,6 +193,7 @@ int main(int argc, char* argv[]) {
 		
 		/* Render */
 		renderingEngine->registerCommand({transform, material, mesh, mesh->GetIndexCount()});
+		renderingEngine->registerCommand({planeTransform,planeMaterial,plane,plane->GetIndexCount()});
 		renderingEngine->render();
 
 		window->swapBuffers();
