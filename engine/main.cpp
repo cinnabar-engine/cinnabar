@@ -78,6 +78,7 @@ int main(int argc, char* argv[]) {
 	ce::RenderingEngine* renderingEngine = new ce::RenderingEngine();
 	renderingEngine->setFOV(45.0f);
 	renderingEngine->setSize(window->getWindowSize());
+	renderingEngine->setClipRange(0.1f,100.0f);
 
 
 	ce::Transform* transform = new ce::Transform();
@@ -86,15 +87,13 @@ int main(int argc, char* argv[]) {
 	material->setTexture(new ce::Texture("uv-map.png"));
 	mesh->sendToShader(material->getShader());
 
-	glm::mat4 proj = glm::perspective(
-		glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
-
 	float mouseSensitivity = 0.1f;
 	ce::Camera* camera = new ce::Camera();
 	// Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
 	camera->getTransform()->setPosition(0.0f, 0.0f, 3.0f);
 	camera->getTransform()->setYaw(-90.0f);
+	renderingEngine->setCamera(camera);
 	/*
 	 * Game Loop
 	 */
@@ -156,10 +155,7 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case SDL_WINDOWEVENT: {
-					glm::vec2 size = window->getWindowSize();
-					glViewport(0, 0, size.x, size.y);
-					proj = glm::perspective(
-						glm::radians(45.0f), window->getAspectRatio(), 0.1f, 100.0f);
+					renderingEngine->setSize(window->getWindowSize());
 					break;
 				}
 			}
@@ -168,11 +164,7 @@ int main(int argc, char* argv[]) {
 		transform->roll(25.0f * time->getDeltaTime());
 		transform->yaw(50.0f * time->getDeltaTime());
 		transform->pitch(100.0f * time->getDeltaTime());
-		
-		// TODO: <PUT THIS IN THE RENDER ENGINE>
-		material->update();
-
-		
+				
 		// Camera
 		glm::vec3
 			cameraFront = camera->getTransform()->getForward(),
@@ -180,17 +172,8 @@ int main(int argc, char* argv[]) {
 			cameraUp = ce::Transform::GetGlobalUp();
 		camera->getTransform()->translate((cameraFront * cameraVelocity.z)+(cameraRight * cameraVelocity.x)+(cameraUp * cameraVelocity.y));
 		
-		
-		transform->sendToShader(material->getShader());
-		material->getShader()->setMat4("transform.proj",proj);
-		camera->sendToShader(material->getShader());
-		
-		
-		// TODO: </PUT THIS IN THE RENDER ENGINE>
-		
 		/* Render */
 		renderingEngine->registerCommand({transform,material,mesh,mesh->GetIndexCount()});
-		
 		renderingEngine->render();
 
 		window->swapBuffers();
