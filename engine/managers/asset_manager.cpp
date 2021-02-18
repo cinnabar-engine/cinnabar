@@ -64,6 +64,7 @@ ce::TextureFile ce::AssetManager::getTextureFile(std::string filename) {
 	textureFile.name = filename;
 	textureFile.data = stbi_load(path.c_str(), &textureFile.width,
 		&textureFile.height, &textureFile.channelCount, 0);
+	if(textureFile.data == NULL)return getTextureFile("missing.png");
 	return textureFile;
 }
 
@@ -89,12 +90,12 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 			auto color = *(mesh->mColors + i);
 			file.vertices.push_back({glm::vec3(position.x, position.y, position.z), glm::vec4(color->r, color->g, color->b, color->a), glm::vec2(texCoord->x, texCoord->y)});
 		}
-		for(int i=0;i<mesh->mNumFaces;i++) {
-			auto face = *(mesh->mFaces+i);
-			for(int j=0;j<face.mNumIndices;j++) {
-				file.indices.push_back(*(face.mIndices+i));
+		for (int i = 0; i < mesh->mNumFaces; i++) {
+			auto face = *(mesh->mFaces + i);
+			for (int j = 0; j < face.mNumIndices; j++) {
+				file.indices.push_back(*(face.mIndices + i));
 			}
 		}
 	}
-	scene->mMeshes
+	return file;
 }
