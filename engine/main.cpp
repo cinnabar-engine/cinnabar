@@ -185,6 +185,9 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
+		
+		moduleManager->tickModules(time->getDeltaTime());
+		
 		// Rotate cube
 		cubePos->roll(25.0f * time->getDeltaTime());
 		cubePos->yaw(50.0f * time->getDeltaTime());
