@@ -1,7 +1,9 @@
 #include "shader.h"
+
 #include <core/tpnt_log.h>
 #include <iostream>
 #include <managers/asset_manager.h>
+#include <map>
 
 void checkCompileErrors(GLuint shader, GLint shaderType) {
 	std::string type;
@@ -51,6 +53,24 @@ int createShader(GLenum type, std::string source) {
 	return shader;
 }
 
+std::string setupShaderDefs(std::string source, std::map<std::string, std::string> options) {
+	std::string shader = source;
+	for (std::pair<std::string, std::string> option : options) {
+		size_t defPos = shader.find("#define " + option.first);
+		if (defPos == std::string::npos) {
+			LOG_ERROR("Invalid Option: " + option.first);
+			continue;
+		}
+		size_t defValuePos = defPos + option.first.length() + 9; // 8 is length of "#define " and space after name
+		size_t lineEnd = shader.find('\n', defValuePos);
+		if (lineEnd == std::string::npos)
+			lineEnd = shader.length();
+
+		shader = shader.replace(defValuePos, lineEnd - defValuePos, option.second);
+	}
+	return shader;
+}
+
 void ce::Shader::linkProgram(
 	int vertexShader, int fragmentShader, int geometryShader) {
 	if (vertexShader != 0)
@@ -85,20 +105,20 @@ int ce::Shader::registerUniform(std::string name) {
 	return location;
 }
 
-ce::Shader::Shader(const char* name)
+ce::Shader::Shader(const char* vertName, const char* geomName, const char* fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
-	ShaderFile shaderFile = ce::AssetManager::getShaderFile(name);
+	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
 
 	int vertexShader = 0;
 	int fragmentShader = 0;
 	int geometryShader = 0;
 
 	if (shaderFile.vertex != "")
-		vertexShader = createShader(GL_VERTEX_SHADER, shaderFile.vertex);
+		vertexShader = createShader(GL_VERTEX_SHADER, setupShaderDefs(shaderFile.vertex, options));
 	if (shaderFile.fragment != "")
-		fragmentShader = createShader(GL_FRAGMENT_SHADER, shaderFile.fragment);
+		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.fragment, options));
 	if (shaderFile.geometry != "")
-		geometryShader = createShader(GL_GEOMETRY_SHADER, shaderFile.geometry);
+		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geometry, options));
 	linkProgram(vertexShader, fragmentShader, vertexShader);
 
 	int attrCount = 0, uniformCount = 0;

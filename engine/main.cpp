@@ -1,5 +1,5 @@
 // Debugging
-#include <core/tpnt_log.h>
+#include "core/tpnt_log.h"
 #include <iostream>
 
 // Core
@@ -7,13 +7,13 @@
 #include "core/window.h"
 
 // Assets
-#include "managers/module_manager.h"
 #include "managers/asset_manager.h"
+#include "managers/module_manager.h"
 #include "stb_image.h"
 
 // Maths
-#include "math/transform.h"
 #include "ce_math.h"
+#include "math/transform.h"
 
 // Rendering
 #include "ce_render_fundementals.h"
@@ -27,61 +27,50 @@
 // clang-format off
 ce::Vertex cubeVerts[] = {
 	// Position                     Color                              Texture coord
-	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
-	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
-	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
-	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
+	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
+	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
+	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 2
+	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 3
 	
-	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 4
-	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 5
-	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 6
-	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
+	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 4
+	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 5
+	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 6
+	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 7
 };
 ce::Vertex planeVerts[] = {
-	// Position                     Color                            Texture coord
-	glm::vec3( 1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
-	glm::vec3( 1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
-	glm::vec3(-1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
-	glm::vec3(-1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
+	// Position                     Color                              Texture coord
+	glm::vec3(-1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 0
+	glm::vec3(-1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 1
+	glm::vec3( 1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 2
+	glm::vec3( 1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 3
 };
 
 
 /*
  * this is a cube
-	  /7-4
-	 / 6-5
-	3-0 /
-	2-1/
+	  /1-3
+	 / 0-2
+	5-7 /
+	4-6/
+	viewed from the front, bottom face here is front
 */
 // clang-format on
 unsigned cubeVertCount = sizeof(cubeVerts) / sizeof(ce::Vertex);
 unsigned planeVertCount = sizeof(planeVerts) / sizeof(ce::Vertex);
 // 7<=>5
 // clang-format off
-GLuint cubeIndices [] = {
-	// F
-	0, 1, 3,
-	1, 2, 3,
-	// U
-	4, 0, 7,
-	0, 3, 7,
-	// L
-	3, 2, 7,
-	2, 6, 7,
-	// R
-	4, 5, 0,
-	5, 1, 0,
-	// D
-	1, 5, 2,
-	5, 6, 2,
-	// B
-	7, 6, 4,
-	6, 5, 4,
+GLuint cubeIndices[] = {
+	0, 1, 2, 3, // back, right, front
+	6, 7,
+	4, 5,
+	5, 7, // reset
+	7, 3, 5, 1, // top, left, bottom
+	4, 0,
+	6, 2,
 };
 
 GLuint planeIndices[] = {
-	0, 1, 3,
-	1, 2, 3,
+	0, 1, 2, 3,
 };
 // clang-format on
 unsigned cubeIndexCount = sizeof(cubeIndices) / sizeof(GLuint);
@@ -89,7 +78,7 @@ unsigned planeIndexCount = sizeof(planeIndices) / sizeof(GLuint);
 
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
-	
+
 	ce::ModuleManger* moduleManager = new ce::ModuleManger();
 
 	ce::Time* time = new ce::Time();
@@ -105,12 +94,12 @@ int main(int argc, char* argv[]) {
 	ce::Mesh* cubeMesh = new ce::Mesh(cubeVerts, cubeVertCount, cubeIndices, cubeIndexCount);
 	ce::Transform* cubePos = new ce::Transform();
 	ce::Material* cubeMaterial = new ce::Material("basic");
-	cubeMaterial->setTexture("hfdshfdshfdkshfdks");
+	cubeMaterial->setTexture("uv-map.png");
 
 	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeIndexCount, planeIndices, planeVertCount);
 	ce::Transform* planePos = new ce::Transform();
-	ce::Material* planeMaterial = new ce::Material("color");
+	ce::Material* planeMaterial = new ce::Material("vertColor");
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
 	planePos->scale(10.0f, 1.0f, 10.0f);
 
@@ -185,9 +174,9 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-		
+
 		moduleManager->tickModules(time->getDeltaTime());
-		
+
 		// Rotate cube
 		cubePos->roll(25.0f * time->getDeltaTime());
 		cubePos->yaw(50.0f * time->getDeltaTime());
