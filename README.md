@@ -78,16 +78,19 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] Mesh Importing
  - [ ] Full UV mapping support
  - [ ] Full vertex color support
- - [ ] Multiple texture materials
+ - [ ] Multi-texture materials
  - [ ] Normals
  - [ ] Normal maps
+ - [ ] Matcaps (SArpnt will do this)
+ - [ ] Simple object classes (combine assets and automatically manage render commands)
  - [ ] Skybox
+ - [ ] Sprites (i think you can do GL_POINTS and draw the images in a frag shader)
  - [ ] Lights
+ - [ ] Text
  - [ ] Input System
  - [ ] Events System
  - [ ] Collision
  - [ ] Gravity
- - [ ] Text
  - [ ] Layers
  - [ ] GUI
  - [ ] States
@@ -97,5 +100,5 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] VR Support
  - [ ] Scene Graph
  - [ ] XML based scene graph import
- - [ ] Test ON Windows
+ - [ ] Test on Windows
  - [ ] Port to Emscripten
