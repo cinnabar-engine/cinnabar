@@ -20,18 +20,28 @@ void ce::ModuleManger::loadModules() {
 		}
 		//reset Errors
 		dlerror();
+		const char* error;
 		LOG_ERROR("Loading Symbols for: " + path);
-		module_t module = (module_t)dlsym(lib, "hello");
-		const char* error = dlerror();
+		// Get a function called "Hello"
+		init_module_t* init_module = (init_module_t*)dlsym(lib, "init_module");
+		// Handle any errors
+		error = dlerror();
 		if (error) {
 			LOG_ERROR(dlerror());
 			dlclose(lib);
 			continue;
 		}
-
-		module();
-
-		dlclose(lib);
+		delete_module_t* delete_module = (delete_module_t*)dlsym(lib, "delete_module");
+		error = dlerror();
+		if (error) {
+			LOG_ERROR(dlerror());
+			dlclose(lib);
+			continue;
+		}
+		Module* module = init_module();
+		m_modules.push_back({module, lib, init_module, delete_module});
+		//delete_module(module);
+		//dlclose(lib);
 	}
 }
 
@@ -40,4 +50,14 @@ ce::ModuleManger::ModuleManger() {
 }
 
 ce::ModuleManger::~ModuleManger() {
+	for (int i = 0; i < m_modules.size(); i++) {
+		ModuleRef module = m_modules[i];
+		module.delete_module(module.module);
+		dlclose(module.lib);
+	}
+}
+
+void ce::ModuleManger::tickModules(float deltaTime) {
+	for (int i = 0; i < m_modules.size(); i++)
+		m_modules[i].module->tick(deltaTime);
 }
