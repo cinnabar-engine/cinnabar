@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
 	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeIndexCount, planeIndices, planeVertCount);
 	ce::Transform* planePos = new ce::Transform();
-	ce::Material* planeMaterial = new ce::Material("color");
+	ce::Material* planeMaterial = new ce::Material("vertColor");
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
 	planePos->scale(10.0f, 1.0f, 10.0f);
 

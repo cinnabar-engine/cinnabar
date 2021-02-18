@@ -1,26 +1,29 @@
 #pragma once
 
-#include <string>
 #include <ce_math.h>
+#include <string>
 
 namespace ce {
 	struct File {
 		std::string name = "";
 	};
-	struct ShaderFile :public File {
+	struct ShaderFile : public File {
 		std::string
+			vertName = "",
+			geomName = "",
+			fragName = "",
 			vertex = "",
-			fragment = "",
-			geometry = "";
+			geometry = "",
+			fragment = "";
 	};
-	struct TextureFile :public File {
+	struct TextureFile : public File {
 		unsigned char* data = NULL;
 		int
 			width = 0,
 			height = 0,
 			channelCount = 0;
 	};
-	struct MaterialFile :public File {
+	struct MaterialFile : public File {
 		glm::vec4
 			ambient = glm::vec4(0.0f),
 			diffuse = glm::vec4(0.0f),
@@ -28,6 +31,6 @@ namespace ce {
 		std::string
 			diffuseTex = "missing.png",
 			specularTex = "missing.png",
-			shader = "";
+			shader = NULL;
 	};
 }

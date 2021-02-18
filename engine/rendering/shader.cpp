@@ -1,7 +1,9 @@
 #include "shader.h"
+
 #include <core/tpnt_log.h>
 #include <iostream>
 #include <managers/asset_manager.h>
+#include <map>
 
 void checkCompileErrors(GLuint shader, GLint shaderType) {
 	std::string type;
@@ -85,13 +87,23 @@ int ce::Shader::registerUniform(std::string name) {
 	return location;
 }
 
-ce::Shader::Shader(const char* name)
+ce::Shader::Shader(const char* vertName, const char* geomName, const char* fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
-	ShaderFile shaderFile = ce::AssetManager::getShaderFile(name);
+	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
 
 	int vertexShader = 0;
 	int fragmentShader = 0;
 	int geometryShader = 0;
+
+	/** 
+	 * TODO: shader #defines done from options, so that changes can be made to the shader with the preprocessor
+	 * just dump defines at the start of the file like:
+	 * {"F_SIDED", "both"}
+	 * {"V_JITTER", "3"}
+	 * #define F_SIDED both
+	 * #define V_JITTER 3
+	 * seperate options for each file shouldn't be needed, just prefix with V, G, F
+	*/
 
 	if (shaderFile.vertex != "")
 		vertexShader = createShader(GL_VERTEX_SHADER, shaderFile.vertex);
