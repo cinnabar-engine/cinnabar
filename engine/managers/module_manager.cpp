@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <core/tpnt_log.h>
 #include <iostream>
+#include <core/module.h>
 
 #define LIB_EXT so
 
@@ -21,17 +22,26 @@ void ce::ModuleManger::loadModules()
 		}
 		//reset Errors
 		dlerror();
+		const char* error;
 		LOG_ERROR("Loading Symbols for: " + path);
-		module_t module = (module_t) dlsym(lib,"hello");
-		const char* error = dlerror();
+		//Get a function called "Hello"
+		init_module_t* init_module = (init_module_t*) dlsym(lib,"init_module");
+		//Handle any errors
+		error = dlerror();
 		if(error) {
 			LOG_ERROR(dlerror());
 			dlclose(lib);
 			continue;
 		}
-		
-		module();
-		
+		delete_module_t* delete_module = (delete_module_t*) dlsym(lib,"delete_module");
+		error = dlerror();
+		if(error) {
+			LOG_ERROR(dlerror());
+			dlclose(lib);
+			continue;
+		}
+		Module* module = init_module(lib);
+		delete_module(module);
 		dlclose(lib);
 	}
 }

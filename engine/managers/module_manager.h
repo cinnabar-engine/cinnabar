@@ -5,7 +5,6 @@
 
 namespace ce {
 	
-		typedef void (*module_t)();
 	class ModuleManger {
 		
 	private:
