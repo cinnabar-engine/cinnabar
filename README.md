@@ -141,16 +141,19 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] Test on Windows
  - [ ] Port to Emscripten
 
-### Game engine (make a seperate project)
-
- - [ ] Input System
- - [ ] Events System
- - [ ] States
- - [ ] Map management
- - [ ] Make an Actual Game
- - [ ] Networking
  - [ ] VR Support
+ - [ ] Input System
+
+SceneGraph  (make a seperate project)
+ - [ ] States
  - [ ] Scene Graph
+ - [ ] Map management
  - [ ] XML based scene graph import
+### Misc
+ - [ ] Events System
+ - [ ] Make an Actual Game
+ # Networking (make a seperate project)
+ - [ ] Networking
+ # Platforms
  - [ ] Test on Windows
  - [ ] Port to Emscripten
