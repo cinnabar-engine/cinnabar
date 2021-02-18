@@ -1,15 +1,15 @@
-#include "rendering_engine.h"
+#include "render_engine.h"
 #include <core/tpnt_log.h>
 
-void ce::RenderingEngine::clear() {
+void ce::RenderEngine::clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void ce::RenderingEngine::render(unsigned count) {
+void ce::RenderEngine::render(unsigned count) {
 	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, 0);
 }
 
-void ce::RenderingEngine::bind(RenderCommand command) {
+void ce::RenderEngine::bind(RenderCommand command) {
 	// Update Shader Values TODO: shouldn't this be somewhere else instead of the bind command?
 	command.material->update();
 
@@ -24,12 +24,12 @@ void ce::RenderingEngine::bind(RenderCommand command) {
 	command.material->bind();
 }
 
-void ce::RenderingEngine::unbind(RenderCommand command) {
+void ce::RenderEngine::unbind(RenderCommand command) {
 	command.mesh->unbind();
 	command.material->unbind();
 }
 
-ce::RenderingEngine::RenderingEngine()
+ce::RenderEngine::RenderEngine()
 	: m_aspectRatio(0),
 	  m_fov(0),
 	  m_near(0),
@@ -57,22 +57,22 @@ ce::RenderingEngine::RenderingEngine()
 	setClearColor(glm::vec4());
 }
 
-ce::RenderingEngine::~RenderingEngine() {}
+ce::RenderEngine::~RenderEngine() {}
 
-void ce::RenderingEngine::setClearColor(glm::vec4 color) {
+void ce::RenderEngine::setClearColor(glm::vec4 color) {
 	glClearColor(color.r, color.g, color.b, color.a);
 }
 
-void ce::RenderingEngine::setSize(glm::vec2 size) {
+void ce::RenderEngine::setSize(glm::vec2 size) {
 	glViewport(0, 0, size.x, size.y);
 	m_aspectRatio = size.x / size.y;
 }
 
-glm::mat4 ce::RenderingEngine::getProjection() {
+glm::mat4 ce::RenderEngine::getProjection() {
 	return glm::perspective(m_fov, m_aspectRatio, m_near, m_far);
 }
 
-void ce::RenderingEngine::render() {
+void ce::RenderEngine::render() {
 	clear();
 	for (int i = 0; i < m_commands.size(); i++) {
 		RenderCommand command = m_commands[i];
