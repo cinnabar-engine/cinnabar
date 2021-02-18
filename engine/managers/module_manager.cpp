@@ -60,3 +60,9 @@ ce::ModuleManger::~ModuleManger()
 	}
 }
 
+void ce::ModuleManger::tickModules(float deltaTime)
+{
+	for(int i=0;i<m_modules.size();i++) m_modules[i].module->tick(deltaTime);
+}
+
+
