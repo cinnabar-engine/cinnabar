@@ -13,11 +13,11 @@ sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libass
 ```
 ### Arch
 ```bash
-sudo pacman -S base-devel cmake sdl2 glew glm
+sudo pacman -S base-devel cmake sdl2 glew glm assimp
 ```
 ### Redhat/Fedora
 ```bash
-sudo dnf install kernel-devel cmake sdl 
+sudo dnf install kernel-devel cmake sdl // TODO
 ```
 ## Build Instructions
 ```bash
@@ -83,16 +83,66 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] Normal maps
  - [ ] Matcaps (SArpnt will do this)
  - [ ] Simple object classes (combine assets and automatically manage render commands)
+ - [ ] Depth manipulation
  - [ ] Skybox
  - [ ] Sprites (i think you can do GL_POINTS and draw the images in a frag shader)
+ - [ ] Supersampling and subsampling
+ - [ ] Antialiasing
+   - [ ] MSAA
+   - [ ] FXAA
+   - [ ] MSAA with FXAA
+ - [ ] Mipmaps
+ - [ ] Anisotropic filtering
+  - [ ] Texture filtering
+   - [ ] Nearest
+   - [ ] Linear
+   - [ ] Bilinear
+   - [ ] Trilinear
+  - [ ] Supersampling / subsampling Interpolation
+    - [ ] Nearest
+    - [ ] Bilinear
+    - [ ] Bicubic
+    - [ ] Trilinear
+    - [ ] Lanczos
  - [ ] Lights
  - [ ] Text
+ - [ ] GUI
+ - [ ] Portals
+ - [ ] VR Support
+ - [ ] Test on Windowsbetter 
+ - [ ] Port to Emscripten
+
+### Physics engine (make a seperate project)
+
+ - [ ] Shapes
+   - [ ] Point
+   - [ ] Line segment
+   - [ ] Rectangular prism
+   - [ ] Sphere
+   - [ ] Cylinder
+   - [ ] Capsule
+   - [ ] Cone
+   - [ ] Ngon prism
+   - [ ] Elipsoid
+   - [ ] Mesh
+ - [ ] Shape collision
+ - [ ] Shape advanced collision (Get information like position, speeds, collision normals, etc. so that physics can be done)
+ - [ ] Physics
+   - [ ] Air resistance
+   - [ ] Friction
+   - [ ] Bounciness
+   - [ ] Buoyancy
+   - [ ] Fake fluid (fluid in small comtainers like bottles, get water level)
+   - [ ] Soft body
+   - [ ] Fluid
+ - [ ] Portals
+ - [ ] Test on Windows
+ - [ ] Port to Emscripten
+
+### Game engine (make a seperate project)
+
  - [ ] Input System
  - [ ] Events System
- - [ ] Collision
- - [ ] Gravity
- - [ ] Layers
- - [ ] GUI
  - [ ] States
  - [ ] Map management
  - [ ] Make an Actual Game
