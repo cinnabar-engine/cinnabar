@@ -18,30 +18,30 @@
 #include "ce_render_fundementals.h"
 #include "rendering/camera.h"
 #include "rendering/material.h"
-#include "rendering/rendering_engine.h"
+#include "rendering/render_engine.h"
 
 /*
  * Vertices
  */
 // clang-format off
-ce::Vertex cubeVertices[] = {
-	//<POS>							<COLOR>								<TEX COORD>
+ce::Vertex cubeVerts[] = {
+	// Position                     Color                              Texture coord
 	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
 	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
 	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
 	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
 	
-	glm::vec3( 0.5f,  0.5f, 0.5f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 4
-	glm::vec3( 0.5f, -0.5f, 0.5f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 5
-	glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 6
-	glm::vec3(-0.5f,  0.5f, 0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
+	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 4
+	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 5
+	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 6
+	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
 };
-ce::Vertex planeVertices[] = {
-	//<POS>							<COLOR>								<TEX COORD>
-	glm::vec3( 1.0f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
-	glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
-	glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
-	glm::vec3(-1.0f,  0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)// 3
+ce::Vertex planeVerts[] = {
+	// Position                     Color                            Texture coord
+	glm::vec3( 1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
+	glm::vec3( 1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
+	glm::vec3(-1.0f,  0.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
+	glm::vec3(-1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
 };
 
 
@@ -53,8 +53,8 @@ ce::Vertex planeVertices[] = {
 	2-1/
 */
 // clang-format on
-unsigned cubeVertexCount = sizeof(cubeVertices) / sizeof(ce::Vertex);
-unsigned planeVertexCount = sizeof(planeVertices) / sizeof(ce::Vertex);
+unsigned cubeVertCount = sizeof(cubeVerts) / sizeof(ce::Vertex);
+unsigned planeVertCount = sizeof(planeVerts) / sizeof(ce::Vertex);
 // 7<=>5
 // clang-format off
 GLuint cubeIndices [] = {
@@ -80,7 +80,7 @@ GLuint cubeIndices [] = {
 
 GLuint planeIndices[] = {
 	0, 1, 3,
-	1, 2, 3
+	1, 2, 3,
 };
 // clang-format on
 unsigned cubeIndexCount = sizeof(cubeIndices) / sizeof(GLuint);
@@ -92,31 +92,32 @@ int main(int argc, char* argv[]) {
 	ce::Time* time = new ce::Time();
 
 	ce::Window* window = new ce::Window("Cinnabar");
-	ce::RenderingEngine* renderingEngine = new ce::RenderingEngine();
-	renderingEngine->setFOV(75.0f);
-	renderingEngine->setSize(window->getWindowSize());
-	renderingEngine->setClipRange(0.1f, 100.0f);
 
-	//Cube
-	ce::Transform* cubeTransform = new ce::Transform();
-	ce::Mesh* cubeMesh = new ce::Mesh(cubeVertices, cubeVertexCount, cubeIndices, cubeIndexCount);
+	ce::RenderEngine* renderEngine = new ce::RenderEngine();
+	renderEngine->setFOV(75.0f);
+	renderEngine->setSize(window->getWindowSize());
+	renderEngine->setClipRange(0.1f, 100.0f);
+
+	// Cube
+	ce::Mesh* cubeMesh = new ce::Mesh(cubeVerts, cubeVertCount, cubeIndices, cubeIndexCount);
+	ce::Transform* cubePos = new ce::Transform();
 	ce::Material* cubeMaterial = new ce::Material("basic");
 	cubeMaterial->setTexture("uv-map.png");
 
-	//Plane
+	// Plane
+	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeIndexCount, planeIndices, planeVertCount);
+	ce::Transform* planePos = new ce::Transform();
 	ce::Material* planeMaterial = new ce::Material("color");
-	ce::Mesh* planeMesh = new ce::Mesh(planeVertices, planeIndexCount, planeIndices, planeVertexCount);
-	ce::Transform* planeTransform = new ce::Transform();
-	planeTransform->setPosition(0.0f,-1.0f,0.0f);
-	planeTransform->scale(10.0f,1.0f,10.0f);
+	planePos->setPosition(0.0f, -1.0f, 0.0f);
+	planePos->scale(10.0f, 1.0f, 10.0f);
 
-	float mouseSensitivity = 0.1f;
+	float mouseSens = 0.1f;
 	ce::Camera* camera = new ce::Camera();
-	// Seperate so i can put in a player class later
+	// TODO: Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
 	camera->getTransform()->setPosition(0.0f, 0.0f, 1.5f);
 	camera->getTransform()->setYaw(-90.0f);
-	renderingEngine->setCamera(camera);
+	renderEngine->setCamera(camera);
 	/*
 	 * Game Loop
 	 */
@@ -131,7 +132,7 @@ int main(int argc, char* argv[]) {
 					if (window->mouseVisible())
 						break;
 					glm::vec2 mouseDelta(event.motion.xrel, event.motion.yrel);
-					mouseDelta *= mouseSensitivity;
+					mouseDelta *= mouseSens;
 					camera->getTransform()->yaw(mouseDelta.x);
 					camera->getTransform()->pitch(-mouseDelta.y);
 					break;
@@ -176,17 +177,17 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case SDL_WINDOWEVENT: {
-					renderingEngine->setSize(window->getWindowSize());
+					renderEngine->setSize(window->getWindowSize());
 					break;
 				}
 			}
 		}
-		// Transform
-		cubeTransform->roll(25.0f * time->getDeltaTime());
-		cubeTransform->yaw(50.0f * time->getDeltaTime());
-		cubeTransform->pitch(100.0f * time->getDeltaTime());
+		// Rotate cube
+		cubePos->roll(25.0f * time->getDeltaTime());
+		cubePos->yaw(50.0f * time->getDeltaTime());
+		cubePos->pitch(100.0f * time->getDeltaTime());
 
-		// Camera
+		// Move camera
 		glm::vec3
 			cameraFront = camera->getTransform()->getForward(),
 			cameraRight = camera->getRight(),
@@ -196,18 +197,18 @@ int main(int argc, char* argv[]) {
 			(cameraRight * cameraVelocity.x) +
 			(cameraUp * cameraVelocity.y));
 
-		/* Render */
-		renderingEngine->registerCommand({cubeTransform, cubeMaterial, cubeMesh, cubeMesh->GetIndexCount()});
-		renderingEngine->registerCommand({planeTransform, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
-		renderingEngine->render();
+		// Render
+		renderEngine->registerCommand({cubePos, cubeMaterial, cubeMesh, cubeMesh->GetIndexCount()});
+		renderEngine->registerCommand({planePos, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
+		renderEngine->render();
 
 		window->swapBuffers();
 	}
 	delete cubeMesh;
 	delete cubeMaterial;
-	delete cubeTransform;
+	delete cubePos;
 
-	delete renderingEngine;
+	delete renderEngine;
 	delete window;
 	return 0;
 }
