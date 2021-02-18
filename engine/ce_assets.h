@@ -2,6 +2,8 @@
 
 #include <string>
 #include <ce_math.h>
+#include "rendering/vertex.h"
+#include <vector>
 
 namespace ce {
 	struct File {
@@ -30,4 +32,10 @@ namespace ce {
 			specularTex = "missing.png",
 			shader = "";
 	};
+	
+	struct MeshFile:public File {
+        std::vector<Vertex> vertices;
+        std::vector<unsigned> indices;
+        std::vector<const char*> textures;
+	}
 }
