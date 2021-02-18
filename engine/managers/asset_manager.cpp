@@ -30,22 +30,30 @@ std::string ce::AssetManager::load_text_file(std::string path) {
 	return text;
 }
 
-ce::ShaderFile ce::AssetManager::getShaderFile(std::string filename) {
-	std::string path = SHADER_FOLDER + "/" + filename;
+ce::ShaderFile ce::AssetManager::getShaderFiles(std::string vert, std::string geom, std::string frag) {
 	ShaderFile shaderFile;
-	shaderFile.name = filename;
+	shaderFile.vertName = vert;
+	shaderFile.geomName = geom;
+	shaderFile.fragName = frag;
 
-	shaderFile.vertex = load_text_file(path + ".vert");
+	shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vert");
 	if (shaderFile.vertex == "")
-		shaderFile.vertex = load_text_file(path + ".vs");
+		shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vs");
 
-	shaderFile.fragment = load_text_file(path + ".frag");
-	if (shaderFile.fragment == "")
-		shaderFile.fragment = load_text_file(path + ".fs");
-
-	shaderFile.geometry = load_text_file(path + ".geom");
+	shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".geom");
 	if (shaderFile.geometry == "")
-		shaderFile.geometry = load_text_file(path + ".gs");
+		shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".gs");
+
+	shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag");
+	if (shaderFile.fragment == "")
+		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
+
+	if (frag != "")
+		shaderFile.name = frag;
+	else if (vert != "")
+		shaderFile.name = vert;
+	else
+		shaderFile.name = geom;
 
 	return shaderFile;
 }

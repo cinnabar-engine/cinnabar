@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -25,7 +26,11 @@ namespace ce {
 			registerUniform(std::string name);
 
 	 public:
-		Shader(const char* name);
+		Shader(const char* name, std::map<std::string, std::string> options = {})
+			: Shader(name, name, name, options) {};
+		Shader(const char* vertName, const char* fragName, std::map<std::string, std::string> options = {})
+			: Shader(vertName, NULL, fragName, options) {};
+		Shader(const char* vertName, const char* geoName, const char* fragName, std::map<std::string, std::string> options = {});
 		~Shader();
 
 		void bind(), unbind();
