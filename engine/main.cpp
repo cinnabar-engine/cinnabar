@@ -26,14 +26,14 @@
 // clang-format off
 ce::Vertex cubeVerts[] = {
 	// Position                     Color                              Texture coord
-	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
-	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
-	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
-	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
+	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
+	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
+	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 2
+	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 3
 	
-	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 4
-	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 5
-	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 6
+	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 4
+	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 5
+	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 6
 	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
 };
 ce::Vertex planeVerts[] = {
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
 	ce::Mesh* cubeMesh = new ce::Mesh(cubeVerts, cubeVertCount, cubeIndices, cubeIndexCount);
 	ce::Transform* cubePos = new ce::Transform();
 	ce::Material* cubeMaterial = new ce::Material("basic");
-	cubeMaterial->setTexture("uv-map.png");
+	cubeMaterial->setTexture("hfdshfdshfdkshfdks");
 
 	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeIndexCount, planeIndices, planeVertCount);
