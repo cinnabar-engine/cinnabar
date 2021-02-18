@@ -1,7 +1,10 @@
 #pragma once
 
 #include <ce_math.h>
+
+#include "rendering/vertex.h"
 #include <string>
+#include <vector>
 
 namespace ce {
 	struct File {
@@ -32,5 +35,11 @@ namespace ce {
 			diffuseTex = "missing.png",
 			specularTex = "missing.png",
 			shader = NULL;
+	};
+
+	struct MeshFile : public File {
+		std::vector<Vertex> vertices;
+		std::vector<unsigned> indices;
+		std::vector<const char*> textures;
 	};
 }
