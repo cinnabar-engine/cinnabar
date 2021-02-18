@@ -85,6 +85,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] Simple object classes (combine assets and automatically manage render commands)
  - [ ] Depth manipulation
  - [ ] Skybox
+ - [ ] Render triangle strips
+ - [ ] GL lines
  - [ ] Sprites (i think you can do GL_POINTS and draw the images in a frag shader)
  - [ ] Supersampling and subsampling
  - [ ] Antialiasing
