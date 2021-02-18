@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
 	// Cube
 	ce::Mesh* cubeMesh = new ce::Mesh(cubeVerts, cubeVertCount, cubeIndices, cubeIndexCount);
 	ce::Transform* cubePos = new ce::Transform();
-	ce::Material* cubeMaterial = new ce::Material("affine");
+	ce::Material* cubeMaterial = new ce::Material("basic");
 	cubeMaterial->setTexture("uv-map.png");
 
 	// Plane

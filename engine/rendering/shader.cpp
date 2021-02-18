@@ -53,6 +53,26 @@ int createShader(GLenum type, std::string source) {
 	return shader;
 }
 
+std::string setupShaderDefs(std::string source, std::map<std::string, std::string> options) {
+	std::string shader = source;
+	for (std::pair<std::string, std::string> option : options) {
+		size_t defPos = shader.find("#define " + option.first);
+		if (defPos == std::string::npos) {
+			LOG_ERROR("Invalid Option: " + option.first);
+			continue;
+		}
+		size_t defValuePos = defPos + option.first.length() + 9; // 8 is length of "#define " and space after name
+		size_t lineEnd = shader.find('\n', defValuePos);
+		if (lineEnd == std::string::npos)
+			lineEnd = shader.length();
+
+		shader = shader.replace(defValuePos, lineEnd - defValuePos, option.second);
+	}
+
+	std::cout << shader << std::endl;
+	return shader;
+}
+
 void ce::Shader::linkProgram(
 	int vertexShader, int fragmentShader, int geometryShader) {
 	if (vertexShader != 0)
@@ -95,22 +115,12 @@ ce::Shader::Shader(const char* vertName, const char* geomName, const char* fragN
 	int fragmentShader = 0;
 	int geometryShader = 0;
 
-	/** 
-	 * TODO: shader #defines done from options, so that changes can be made to the shader with the preprocessor
-	 * just dump defines at the start of the file like:
-	 * {"F_SIDED", "both"}
-	 * {"V_JITTER", "3"}
-	 * #define F_SIDED both
-	 * #define V_JITTER 3
-	 * seperate options for each file shouldn't be needed, just prefix with V, G, F
-	*/
-
 	if (shaderFile.vertex != "")
-		vertexShader = createShader(GL_VERTEX_SHADER, shaderFile.vertex);
+		vertexShader = createShader(GL_VERTEX_SHADER, setupShaderDefs(shaderFile.vertex, options));
 	if (shaderFile.fragment != "")
-		fragmentShader = createShader(GL_FRAGMENT_SHADER, shaderFile.fragment);
+		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.fragment, options));
 	if (shaderFile.geometry != "")
-		geometryShader = createShader(GL_GEOMETRY_SHADER, shaderFile.geometry);
+		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geometry, options));
 	linkProgram(vertexShader, fragmentShader, vertexShader);
 
 	int attrCount = 0, uniformCount = 0;
