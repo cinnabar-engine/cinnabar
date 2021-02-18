@@ -35,7 +35,7 @@ find_package(glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 message(NOTICE "GLM_INCLUDE_DIRS " ${GLM_INCLUDE_DIRS})
 
-# ASIMP
+# ASSIMP
 find_package(assimp REQUIRED)
 message(NOTICE "ASSIMP_LIBRARY " ${OPENGL_LIBRARY})
 message(NOTICE "ASSIMP_LIBRARIES " ${OPENGL_LIBRARIES})
@@ -54,7 +54,7 @@ set(CE_LIBS
 	PARENT_SCOPE
 )
 
-#Include
+# Include
 set(CE_INCLUDES
 	${OPENGL_INCLUDE_DIR}
 	${GLEW_INCLUDE_DIRS}
