@@ -91,7 +91,6 @@ int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
 	
 	ce::ModuleManger* moduleManager = new ce::ModuleManger();
-	return 0;
 
 	ce::Time* time = new ce::Time();
 
