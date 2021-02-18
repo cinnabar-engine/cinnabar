@@ -1,6 +1,11 @@
 set(BUILD_SHARED_LIBS TRUE)
 find_package(PkgConfig REQUIRED)
 
+# find_library(STD_CPP_FS stdc++fs)
+# message(NOTICE "STD_CPP_FS_LIBRARY " ${OPENGL_LIBRARY})
+# message(NOTICE "STD_CPP_FS_LIBRARIES " ${OPENGL_LIBRARIES})
+# message(NOTICE "STD_CPP_FS_INCLUDE_DIR " ${OPENGL_INCLUDE_DIR})
+
 # OpenGL
 cmake_policy(SET CMP0072 NEW)
 find_package(OpenGL REQUIRED)
@@ -43,6 +48,8 @@ set(CE_LIBS
 	${GLEW_LIBRARIES}
 	${SDL2_LIBRARIES}
 	${ASSIMP_LIBRARIES}
+	stdc++fs
+	${CMAKE_DL_LIBS}
 
 	PARENT_SCOPE
 )
