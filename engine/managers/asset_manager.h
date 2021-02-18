@@ -15,9 +15,10 @@ namespace ce {
 		static std::string load_text_file(std::string file);
 
 	 public:
-		static ShaderFile getShaderFile(std::string filename);
+		static ShaderFile getShaderFile(std::string name) { return getShaderFiles(name, name, name); };
+		static ShaderFile getShaderFiles(std::string vert, std::string geom, std::string frag);
 		static TextureFile getTextureFile(std::string filename);
-		static void freeTextureFile(ce::TextureFile textureFile);
+		static void freeTextureFile(TextureFile textureFile);
 		
 		static MeshFile getMeshFile(std::string filename);
 	};
