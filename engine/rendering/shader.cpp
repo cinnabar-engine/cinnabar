@@ -68,8 +68,6 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 
 		shader = shader.replace(defValuePos, lineEnd - defValuePos, option.second);
 	}
-
-	std::cout << shader << std::endl;
 	return shader;
 }
 
