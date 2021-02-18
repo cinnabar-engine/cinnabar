@@ -8,17 +8,14 @@
 namespace ce {
 	class Module {
 	private:
-		void* m_lib;
-	public:
-		Module(void* lib):m_lib(lib){}
-		
+	public:		
 		virtual void tick(float deltaTime)=0;
 	};
 	
-	typedef Module* init_module_t(void*);
+	typedef Module* init_module_t();
 	typedef void delete_module_t(Module*);
 
 }
-#define CE_MODULE(X) extern "C" ce::Module* init_module(void* lib) { return new X(lib);} extern "C" void delete_module(ce::Module* m) { delete m;}
+#define CE_MODULE(X) extern "C" ce::Module* init_module() { return new X;} extern "C" void delete_module(ce::Module* m) { delete m;}
 
 #endif //_CE_MODULE_H_

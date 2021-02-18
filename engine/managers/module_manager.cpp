@@ -5,7 +5,6 @@
 #include <filesystem>
 #include <core/tpnt_log.h>
 #include <iostream>
-#include <core/module.h>
 
 #define LIB_EXT so
 
@@ -40,9 +39,10 @@ void ce::ModuleManger::loadModules()
 			dlclose(lib);
 			continue;
 		}
-		Module* module = init_module(lib);
-		delete_module(module);
-		dlclose(lib);
+		Module* module = init_module();
+		m_modules.push_back({module,lib,init_module,delete_module});
+		//delete_module(module);
+		///dlclose(lib);
 	}
 }
 
@@ -53,5 +53,10 @@ ce::ModuleManger::ModuleManger()
 
 ce::ModuleManger::~ModuleManger()
 {
+	for(int i=0;i<m_modules.size();i++) {
+		ModuleRef module = m_modules[i];
+		module.delete_module(module.module);
+		dlclose(module.lib);
+	}
 }
 
