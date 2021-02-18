@@ -1,5 +1,5 @@
 // Debugging
-#include <core/tpnt_log.h>
+#include "core/tpnt_log.h"
 #include <iostream>
 
 // Core
@@ -7,13 +7,13 @@
 #include "core/window.h"
 
 // Assets
-#include "managers/module_manager.h"
 #include "managers/asset_manager.h"
+#include "managers/module_manager.h"
 #include "stb_image.h"
 
 // Maths
-#include "math/transform.h"
 #include "ce_math.h"
+#include "math/transform.h"
 
 // Rendering
 #include "ce_render_fundementals.h"
@@ -89,7 +89,7 @@ unsigned planeIndexCount = sizeof(planeIndices) / sizeof(GLuint);
 
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
-	
+
 	ce::ModuleManger* moduleManager = new ce::ModuleManger();
 
 	ce::Time* time = new ce::Time();
@@ -104,8 +104,8 @@ int main(int argc, char* argv[]) {
 	// Cube
 	ce::Mesh* cubeMesh = new ce::Mesh(cubeVerts, cubeVertCount, cubeIndices, cubeIndexCount);
 	ce::Transform* cubePos = new ce::Transform();
-	ce::Material* cubeMaterial = new ce::Material("basic");
-	cubeMaterial->setTexture("hfdshfdshfdkshfdks");
+	ce::Material* cubeMaterial = new ce::Material("affine");
+	cubeMaterial->setTexture("uv-map.png");
 
 	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeIndexCount, planeIndices, planeVertCount);

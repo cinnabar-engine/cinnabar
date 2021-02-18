@@ -21,4 +21,5 @@ void main() {
 	vTexCoord = aTexCoord;
 
 	gl_Position = transform.proj * transform.view * transform.model * vec4(aPos, 1.);
+	gl_Position /= gl_Position.w;
 }
