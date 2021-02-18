@@ -1,6 +1,4 @@
 #version 330 core
-#define F_DEFTEST 1
-//===PLACE_OPTIONS===
 
 uniform sampler2D uTex;
 
@@ -16,5 +14,5 @@ in vec2 vTexCoord;
 out vec4 fColor;
 
 void main() {
-	fColor = texture(material.texture,vTexCoord + .5 * F_DEFTEST) * vColor;
+	fColor = texture(material.texture, vTexCoord) * vColor;
 }
