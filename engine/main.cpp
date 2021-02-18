@@ -7,12 +7,13 @@
 #include "core/window.h"
 
 // Assets
+#include "managers/module_manager.h"
 #include "managers/asset_manager.h"
 #include "stb_image.h"
 
 // Maths
 #include "math/transform.h"
-#include <ce_math.h>
+#include "ce_math.h"
 
 // Rendering
 #include "ce_render_fundementals.h"
@@ -88,6 +89,9 @@ unsigned planeIndexCount = sizeof(planeIndices) / sizeof(GLuint);
 
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
+	
+	ce::ModuleManger* moduleManager = new ce::ModuleManger();
+	return 0;
 
 	ce::Time* time = new ce::Time();
 
