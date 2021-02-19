@@ -115,6 +115,9 @@ int main(int argc, char* argv[]) {
 	planePos->scale(10.0f, 1.0f, 10.0f);
 	
 	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
+	ce::Transform* blenderPos = new ce::Transform();
+	ce::Material* blenderMaterial = new ce::Material("vertColor");
+	blenderPos->setPosition(0.0f, 2.0f, 0.0f);
 
 	float mouseSens = 0.1f;
 	ce::Camera* camera = new ce::Camera();
@@ -208,6 +211,7 @@ int main(int argc, char* argv[]) {
 		// Render
 		renderEngine->registerCommand({cubePos, cubeMaterial, cubeMesh, cubeMesh->GetIndexCount()});
 		renderEngine->registerCommand({planePos, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
+		renderEngine->registerCommand({blenderPos, blenderMaterial, blenderMesh, blenderMesh->GetIndexCount()});
 		renderEngine->render();
 
 		window->swapBuffers();
