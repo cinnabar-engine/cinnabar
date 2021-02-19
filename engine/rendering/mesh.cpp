@@ -2,6 +2,7 @@
 
 #include "shader.h"
 #include "vertex.h"
+#include <managers/asset_manager.h>
 
 ce::Mesh::Mesh(Vertex* vertexArray, const unsigned vertexCount,
 	GLuint* indexArray, const unsigned cubeIndexCount)
@@ -11,6 +12,13 @@ ce::Mesh::Mesh(Vertex* vertexArray, const unsigned vertexCount,
 	initVAO(vertexArray, indexArray);
 	glBindVertexArray(0);
 }
+
+ce::Mesh::Mesh(const char* name)
+{
+	MeshFile file = ce::AssetManager::getMeshFile(name);
+	Mesh(&file.vertices[0],file.vertices.size(),&file.indices[0],file.indices.size());
+}
+
 ce::Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &m_VAO);
 	glDeleteBuffers(1, &m_VBO);
