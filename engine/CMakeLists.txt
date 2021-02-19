@@ -35,18 +35,3 @@ add_test(
 	COMMAND ${NAME}
 	WORKING_DIRECTORY "$<TARGET_FILE_DIR:${NAME}>"
 )
-
-
-set(LIBNAME ce_module)
-
-add_library(${LIBNAME}
-	SHARED
-	"./ce_module_api.cpp"
-)
-target_link_libraries(${LIBNAME}
-	${CE_LIBS}
-)
-include_directories(${LIBNAME}
-	${CMAKE_CURRENT_SOURCE_DIR}
-	${CE_INCLUDES}
-)

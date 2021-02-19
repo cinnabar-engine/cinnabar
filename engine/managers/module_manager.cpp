@@ -21,7 +21,7 @@ void ce::ModuleManger::loadModules() {
 		//reset Errors
 		dlerror();
 		const char* error;
-		LOG_ERROR("Loading Symbols for: " + path);
+		LOG_INFO("Loading Symbols for: " + path);
 		// Get a function called "Hello"
 		init_module_t* init_module = (init_module_t*)dlsym(lib, "init_module");
 		// Handle any errors
