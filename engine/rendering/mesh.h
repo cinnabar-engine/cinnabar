@@ -16,6 +16,7 @@ namespace ce {
 		Mesh(Vertex* vertexArray, const unsigned vertexCount,
 			GLuint* indexArray = NULL, const unsigned cubeIndexCount = 0);
 		~Mesh();
+		 Mesh(const char* name);
 		void sendToShader(class Shader* shader, bool bind = true);
 
 		unsigned GetIndexCount() { return m_indexCount; };
