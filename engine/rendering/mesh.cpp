@@ -5,18 +5,17 @@
 #include <managers/asset_manager.h>
 
 ce::Mesh::Mesh(Vertex* vertexArray, const unsigned vertexCount,
-	GLuint* indexArray, const unsigned cubeIndexCount)
-	: m_vertexCount(vertexCount), m_indexCount(cubeIndexCount), m_VAO(0), m_VBO(0), m_EBO(0) {
+	GLuint* indexArray, const unsigned indexCount)
+	: m_vertexCount(vertexCount), m_indexCount(indexCount), m_VAO(0), m_VBO(0), m_EBO(0) {
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
 	initVAO(vertexArray, indexArray);
 	glBindVertexArray(0);
 }
 
-ce::Mesh::Mesh(const char* name)
-{
+ce::Mesh::Mesh(const char* name) {
 	MeshFile file = ce::AssetManager::getMeshFile(name);
-	Mesh(&file.vertices[0],file.vertices.size(),&file.indices[0],file.indices.size());
+	Mesh(&file.vertices[0], file.vertices.size(), &file.indices[0], file.indices.size());
 }
 
 ce::Mesh::~Mesh() {

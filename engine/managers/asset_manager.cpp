@@ -72,7 +72,8 @@ ce::TextureFile ce::AssetManager::getTextureFile(std::string filename) {
 	textureFile.name = filename;
 	textureFile.data = stbi_load(path.c_str(), &textureFile.width,
 		&textureFile.height, &textureFile.channelCount, 0);
-	if(textureFile.data == NULL)return getTextureFile("missing.png");
+	if (textureFile.data == NULL)
+		return getTextureFile("missing.png");
 	return textureFile;
 }
 
@@ -91,11 +92,11 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 	file.name = filename;
 	for (int i = 0; i < 1 /*scene->mNumMeshes*/; i++) {
 		auto mesh = *(scene->mMeshes + i);
-		LOG_INFO("Loading Mesh " + path + " (V:I):"+std::to_string(mesh->mNumVertices) + ":" + std::to_string(mesh->mNumFaces));
+		LOG_INFO("Loading Mesh " + path + " (V:I):" + std::to_string(mesh->mNumVertices) + ":" + std::to_string(mesh->mNumFaces));
 		for (int i = 0; i < mesh->mNumVertices; i++) {
 			auto position = *(mesh->mVertices + i);
-			auto texCoord =  glm::vec2(0.f,0.f);//**(mesh->mTextureCoords + i);
-			auto color = glm::vec4(1.f,1.f,1.f,1.f);//**(mesh->mColors + i);
+			auto texCoord = glm::vec2(0.f, 0.f);        //**(mesh->mTextureCoords + i);
+			auto color = glm::vec4(1.f, 1.f, 1.f, 1.f); //**(mesh->mColors + i);
 			Vertex vertex = {glm::vec3(position.x, position.y, position.z), glm::vec4(color.r, color.g, color.b, color.a), glm::vec2(texCoord.x, texCoord.y)};
 			file.vertices.push_back(vertex);
 		}
