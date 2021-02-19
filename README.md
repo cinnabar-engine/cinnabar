@@ -85,7 +85,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] Simple object classes (combine assets and automatically manage render commands)
  - [ ] Depth manipulation
  - [ ] Skybox
- - [x] Render triangle strips
  - [ ] GL lines
  - [ ] Sprites (i think you can do GL_POINTS and draw the images in a frag shader)
  - [ ] Supersampling and subsampling
@@ -111,7 +110,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] GUI
  - [ ] Portals
  - [ ] VR Support
- - [ ] Test on Windowsbetter 
+ - [ ] Test on Windows
  - [ ] Port to Emscripten
 
 ### Physics engine (make a seperate project)
@@ -141,19 +140,18 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [ ] Test on Windows
  - [ ] Port to Emscripten
 
- - [ ] VR Support
- - [ ] Input System
+### Networking (make a seperate project)
 
-SceneGraph  (make a seperate project)
+ - TODO: Make todo list
+
+### SceneGraph (make a seperate project)
+
  - [ ] States
  - [ ] Scene Graph
  - [ ] Map management
  - [ ] XML based scene graph import
+
 ### Misc
+
  - [ ] Events System
  - [ ] Make an Actual Game
- # Networking (make a seperate project)
- - [ ] Networking
- # Platforms
- - [ ] Test on Windows
- - [ ] Port to Emscripten
