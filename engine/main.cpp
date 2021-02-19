@@ -56,7 +56,6 @@ ce::Vertex planeVerts[] = {
 // clang-format on
 unsigned cubeVertCount = sizeof(cubeVerts) / sizeof(ce::Vertex);
 unsigned planeVertCount = sizeof(planeVerts) / sizeof(ce::Vertex);
-// 7<=>5
 // clang-format off
 GLuint cubeIndices [] = {
 	// F
@@ -114,12 +113,11 @@ int main(int argc, char* argv[]) {
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
 	planePos->scale(10.0f, 1.0f, 10.0f);
 	
-	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
+	ce::Mesh* blenderMesh = new ce::Mesh("blob.obj");
 	ce::Transform* blenderPos = new ce::Transform();
 	ce::Material* blenderMaterial = new ce::Material("vertColor");
-	blenderPos->setPosition(0.0f, 2.0f, 0.0f);
 
-	float mouseSens = 0.1f;
+	float mouseSens = 0.25f;
 	ce::Camera* camera = new ce::Camera();
 	// TODO: Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
