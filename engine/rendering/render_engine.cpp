@@ -6,7 +6,7 @@ void ce::RenderEngine::clear() {
 }
 
 void ce::RenderEngine::render(unsigned count) {
-	glDrawElements(GL_TRIANGLE_STRIP, count, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, 0);
 }
 
 void ce::RenderEngine::bind(RenderCommand command) {

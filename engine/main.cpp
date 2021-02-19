@@ -27,15 +27,15 @@
 // clang-format off
 ce::Vertex cubeVerts[] = {
 	// Position                     Color                              Texture coord
-	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 0
-	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 1
-	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 2
-	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 3
+	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 0
+	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 1
+	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 4
+	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 5
 	
-	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 4
-	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 5
-	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 6
-	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 7
+	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f),// 6
+	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f),// 7
+	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f),// 2
+	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 3
 };
 ce::Vertex planeVerts[] = {
 	// Position                     Color                              Texture coord
@@ -45,13 +45,12 @@ ce::Vertex planeVerts[] = {
 	glm::vec3( 1.0f,  0.0f,  1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f),// 3
 };
 
-
 /*
  * this is a cube
-	  /1-3
-	 / 0-2
-	5-7 /
-	4-6/
+	  /2-6
+	 / 0-4
+	3-7 /
+	1-5/
 	viewed from the front, bottom face here is front
 */
 // clang-format on
@@ -59,18 +58,30 @@ unsigned cubeVertCount = sizeof(cubeVerts) / sizeof(ce::Vertex);
 unsigned planeVertCount = sizeof(planeVerts) / sizeof(ce::Vertex);
 // 7<=>5
 // clang-format off
-GLuint cubeIndices[] = {
-	0, 1, 2, 3, // back, right, front
-	6, 7,
-	4, 5,
-	5, 7, // reset
-	7, 3, 5, 1, // top, left, bottom
-	4, 0,
-	6, 2,
+GLuint cubeIndices [] = {
+	// F
+	5, 7, 3,
+	5, 3, 1,
+	// L
+	1, 3, 2,
+	1, 2, 0,
+	// B
+	0, 2, 6,
+	0, 6, 4,
+	// R
+	4, 6, 7,
+	4, 7, 5,
+	// D
+	4, 5, 1,
+	4, 1, 0,
+	// U
+	7, 6, 2,
+	7, 2, 3,
 };
 
 GLuint planeIndices[] = {
-	0, 1, 2, 3,
+	0, 1, 3,
+	0, 3, 2,
 };
 // clang-format on
 unsigned cubeIndexCount = sizeof(cubeIndices) / sizeof(GLuint);
@@ -97,7 +108,7 @@ int main(int argc, char* argv[]) {
 	cubeMaterial->setTexture("uv-map.png");
 
 	// Plane
-	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeIndexCount, planeIndices, planeVertCount);
+	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeVertCount, planeIndices, planeIndexCount);
 	ce::Transform* planePos = new ce::Transform();
 	ce::Material* planeMaterial = new ce::Material("vertColor");
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
