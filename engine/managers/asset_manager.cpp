@@ -90,14 +90,32 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 	}
 	MeshFile file;
 	file.name = filename;
-	for (int i = 0; i < 1 /*scene->mNumMeshes*/; i++) {
+	for (int i = 0; i < scene->mNumMeshes; i++) {
 		auto mesh = *(scene->mMeshes + i);
 		LOG_INFO("Loading Mesh " + path + " (V:I):" + std::to_string(mesh->mNumVertices) + ":" + std::to_string(mesh->mNumFaces));
 		for (int i = 0; i < mesh->mNumVertices; i++) {
-			auto position = *(mesh->mVertices + i);
-			auto texCoord = glm::vec2(0.f, 0.f);        //**(mesh->mTextureCoords + i);
-			auto color = glm::vec4(1.f, 1.f, 1.f, 1.f); //**(mesh->mColors + i);
-			Vertex vertex = {glm::vec3(position.x, position.y, position.z), glm::vec4(color.r, color.g, color.b, color.a), glm::vec2(texCoord.x, texCoord.y)};
+			Vertex vertex;
+			vertex.position = glm::vec3(
+				mesh->mVertices[i].x,
+				mesh->mVertices[i].y,
+				mesh->mVertices[i].z
+			);
+			if(mesh->mTextureCoords[0]) {
+				vertex.texCoord = glm::vec2(
+					 mesh->mTextureCoords[1][i].x,
+					 mesh->mTextureCoords[1][i].y
+				);
+			}
+			if(mesh->mColors[0]) {
+				vertex.color = glm::vec4(
+					mesh->mColors[0][i].r,
+					mesh->mColors[0][i].g,
+					mesh->mColors[0][i].b,
+					mesh->mColors[0][i].a
+				);
+			} else {
+				vertex.color = vec4(1.f,1.f,1.f,1.f);
+			}
 			file.vertices.push_back(vertex);
 		}
 		for (int i = 0; i < mesh->mNumFaces; i++) {
@@ -105,7 +123,7 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 			//TODO: Support Normals
 			//auto normal = *(mesh->mNormals + i);
 			for (int j = 0; j < face.mNumIndices; j++) {
-				file.indices.push_back(*(face.mIndices + i));
+				file.indices.push_back(face.mIndices[j]);
 			}
 		}
 	}
