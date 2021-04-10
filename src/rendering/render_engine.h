@@ -17,7 +17,7 @@ namespace ce {
 
 	class RenderEngine {
 	 private:
-		float m_aspectRatio, m_fov, m_near, m_far;
+		double m_aspectRatio, m_fov, m_near, m_far;
 
 		Camera* m_camera;
 

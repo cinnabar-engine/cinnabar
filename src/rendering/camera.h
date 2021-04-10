@@ -7,9 +7,8 @@ namespace ce {
 	class Camera {
 	 private:
 		ce::Transform* m_transform;
-		float
-			speed,
-			fov;
+		double speed;
+		float fov;
 
 	 public:
 		Camera();

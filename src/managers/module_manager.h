@@ -25,6 +25,6 @@ namespace ce {
 		ModuleManger();
 		~ModuleManger();
 
-		void tickModules(float deltaTime);
+		void tickModules(double deltaTime);
 	};
 }
