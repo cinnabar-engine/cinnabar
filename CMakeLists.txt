@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(Cinnabar VERSION 0.0.1)
+project(cinnabar VERSION 0.0.1)
 
 #include(CTest)
 enable_testing()
