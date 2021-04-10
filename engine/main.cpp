@@ -94,6 +94,7 @@ int main(int argc, char* argv[]) {
 	ce::Time* time = new ce::Time();
 
 	ce::Window* window = new ce::Window("Cinnabar");
+	SDL_GL_SetSwapInterval(0); // disable vsync
 
 	ce::RenderEngine* renderEngine = new ce::RenderEngine();
 	renderEngine->setFOV(75.0f);
@@ -117,7 +118,8 @@ int main(int argc, char* argv[]) {
 	ce::Transform* blenderPos = new ce::Transform();
 	ce::Material* blenderMaterial = new ce::Material("vertColor");
 
-	float mouseSens = 0.25f;
+	double mouseSens = 0.05;
+	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 	ce::Camera* camera = new ce::Camera();
 	// TODO: Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
@@ -128,9 +130,10 @@ int main(int argc, char* argv[]) {
 	 * Game Loop
 	 */
 	SDL_Event event;
-	int running = 1;
+	bool running = true;
 	while (running) {
 		time->update();
+		std::cout << time->getFPS() << std::endl;
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
@@ -149,37 +152,29 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case SDL_KEYDOWN: {
-					float cameraSpeed = 2.5f * time->getDeltaTime();
-					if (event.key.keysym.sym == SDLK_w)
-						cameraVelocity.z = cameraSpeed;
-					else if (event.key.keysym.sym == SDLK_s)
-						cameraVelocity.z = -cameraSpeed;
-					if (event.key.keysym.sym == SDLK_a)
-						cameraVelocity.x = -cameraSpeed;
-					else if (event.key.keysym.sym == SDLK_d)
-						cameraVelocity.x = cameraSpeed;
-					if (event.key.keysym.sym == SDLK_SPACE)
-						cameraVelocity.y = cameraSpeed;
-					else if (event.key.keysym.sym == SDLK_LSHIFT)
-						cameraVelocity.y = -cameraSpeed;
-					if (event.key.keysym.sym == SDLK_ESCAPE)
-						window->setMouseVisibility(true);
+					double cameraSpeed = 2.5 * time->getDeltaTime();
+					switch (event.key.keysym.sym) {
+						case SDLK_w: cameraVelocity.z = cameraSpeed; break;
+						case SDLK_s: cameraVelocity.z = -cameraSpeed; break;
+						case SDLK_d: cameraVelocity.x = cameraSpeed; break;
+						case SDLK_a: cameraVelocity.x = -cameraSpeed; break;
+						case SDLK_SPACE: cameraVelocity.y = cameraSpeed; break;
+						case SDLK_LSHIFT: cameraVelocity.y = -cameraSpeed; break;
+
+						case SDLK_ESCAPE: window->setMouseVisibility(true); break;
+					}
 					break;
 				}
 				case SDL_KEYUP: {
-					if ((event.key.keysym.sym == SDLK_w && cameraVelocity.z > 0) ||
-						 (event.key.keysym.sym == SDLK_s && cameraVelocity.z < 0))
-						cameraVelocity.z = 0;
-					if ((event.key.keysym.sym == SDLK_a && cameraVelocity.x < 0) ||
-						 (event.key.keysym.sym == SDLK_d && cameraVelocity.x > 0))
-						cameraVelocity.x = 0;
-					if ((event.key.keysym.sym == SDLK_SPACE && cameraVelocity.y > 0) ||
-						 (event.key.keysym.sym == SDLK_LSHIFT && cameraVelocity.y < 0))
-						cameraVelocity.y = 0;
+					switch (event.key.keysym.sym) { // note that this movement is terrible and should absolutely not be used in a proper engine
+						case SDLK_w: case SDLK_s: cameraVelocity.z = 0; break;
+						case SDLK_d: case SDLK_a: cameraVelocity.x = 0; break;
+						case SDLK_SPACE: case SDLK_LSHIFT: cameraVelocity.y = 0; break;
+					}
 					break;
 				}
 				case SDL_QUIT: {
-					running = 0;
+					running = false;
 					break;
 				}
 				case SDL_WINDOWEVENT: {
@@ -192,9 +187,9 @@ int main(int argc, char* argv[]) {
 		moduleManager->tickModules(time->getDeltaTime());
 
 		// Rotate cube
-		cubePos->roll(25.0f * time->getDeltaTime());
-		cubePos->yaw(50.0f * time->getDeltaTime());
-		cubePos->pitch(100.0f * time->getDeltaTime());
+		cubePos->roll(25.0 * time->getDeltaTime());
+		cubePos->yaw(50.0 * time->getDeltaTime());
+		cubePos->pitch(100.0 * time->getDeltaTime());
 
 		// Move camera
 		glm::vec3
@@ -213,6 +208,9 @@ int main(int argc, char* argv[]) {
 		renderEngine->render();
 
 		window->swapBuffers();
+
+		// framerate cap
+		time->waitUntilDelta(deltaTimeMin);
 	}
 	delete cubeMesh;
 	delete cubeMaterial;
