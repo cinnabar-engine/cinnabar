@@ -11,6 +11,10 @@ namespace ce {
 		GLuint m_VAO, m_VBO, m_EBO;
 
 		void initVAO(Vertex* vertexArray, GLuint* indexArray);
+		void initMesh(Vertex* vertexArray, const unsigned vertexCount,
+	GLuint* indexArray, const unsigned indexCount);
+		
+		Mesh();
 
 	 public:
 		Mesh(Vertex* vertexArray, const unsigned vertexCount,
