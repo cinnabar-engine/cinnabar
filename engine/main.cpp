@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 	bool running = true;
 	while (running) {
 		time->update();
-		std::cout << time->getFPS() << std::endl;
+		std::cout << "fps: " << time->getFPS() << std::endl;
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
