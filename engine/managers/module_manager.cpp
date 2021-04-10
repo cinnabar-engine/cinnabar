@@ -18,7 +18,7 @@ void ce::ModuleManger::loadModules() {
 			LOG_ERROR(dlerror());
 			continue;
 		}
-		//reset Errors
+		// reset errors
 		dlerror();
 		const char* error;
 		LOG_INFO("Loading Symbols for: " + path);
@@ -57,7 +57,7 @@ ce::ModuleManger::~ModuleManger() {
 	}
 }
 
-void ce::ModuleManger::tickModules(float deltaTime) {
+void ce::ModuleManger::tickModules(double deltaTime) {
 	for (int i = 0; i < m_modules.size(); i++)
 		m_modules[i].module->tick(deltaTime);
 }
