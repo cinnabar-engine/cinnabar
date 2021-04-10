@@ -36,11 +36,13 @@ namespace ce {
 			specularTex = "missing.png",
 			shader = NULL;
 	};
-
+	struct FacePart{
+			unsigned index=0,uv=0,normal=0;
+	};
 	struct MeshFile : public File {
-		std::vector<Vertex> vertices;
-		std::vector<unsigned> indices;
-		std::vector<const char*> textures;
+		std::vector<glm::vec3> vertices;
+		std::vector<glm::vec3> uv;
 		std::vector<glm::vec3> normals;
+		std::vector<std::vector<FacePart>> faces;
 	};
 }
