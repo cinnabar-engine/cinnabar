@@ -114,7 +114,7 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 					mesh->mColors[0][i].a
 				);
 			} else {
-				vertex.color = vec4(1.f,1.f,1.f,1.f);
+				vertex.color = glm::vec4(1.f,1.f,1.f,1.f);
 			}
 			file.vertices.push_back(vertex);
 		}
@@ -123,10 +123,10 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 			//TODO: Support Normals
 			auto normal = mesh->mNormals[i];
 			file.normals.push_back(glm::vec3(
-				mesh->mNormals[i].x
-				mesh->mNormals[i].y
+				mesh->mNormals[i].x,
+				mesh->mNormals[i].y,
 				mesh->mNormals[i].z
-			))
+			));
 			for (int j = 0; j < face.mNumIndices; j++) {
 				file.indices.push_back(face.mIndices[j]);
 			}
