@@ -41,5 +41,6 @@ namespace ce {
 		std::vector<Vertex> vertices;
 		std::vector<unsigned> indices;
 		std::vector<const char*> textures;
+		std::vector<glm::vec3> normals;
 	};
 }
