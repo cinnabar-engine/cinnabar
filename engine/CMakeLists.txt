@@ -1,4 +1,4 @@
-set(NAME engine)
+set(NAME cinnabar-engine)
 
 file(GLOB_RECURSE CE_SRC
 	"*.hpp"
