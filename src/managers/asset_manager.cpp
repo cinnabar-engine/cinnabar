@@ -121,7 +121,12 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 		for (int i = 0; i < mesh->mNumFaces; i++) {
 			auto face = *(mesh->mFaces + i);
 			//TODO: Support Normals
-			//auto normal = *(mesh->mNormals + i);
+			auto normal = mesh->mNormals[i];
+			file.normals.push_back(glm::vec3(
+				mesh->mNormals[i].x
+				mesh->mNormals[i].y
+				mesh->mNormals[i].z
+			))
 			for (int j = 0; j < face.mNumIndices; j++) {
 				file.indices.push_back(face.mIndices[j]);
 			}
