@@ -1,18 +1,7 @@
 #include "mesh.h"
 
 #include "shader.h"
-#include "vertex.h"
 #include <managers/asset_manager.h>
-
-void ce::Mesh::initMesh(Vertex* vertexArray, const unsigned vertexCount,
-	GLuint* indexArray, const unsigned indexCount) {
-	m_vertexCount = vertexCount;
-	m_indexCount = indexCount;
-	glGenVertexArrays(1, &m_VAO);
-	glBindVertexArray(m_VAO);
-	initVAO(vertexArray, indexArray);
-	glBindVertexArray(0);
-}
 
 ce::Mesh::Mesh():m_VAO(0), m_VBO(0), m_EBO(0) {}
 
@@ -22,39 +11,11 @@ ce::Mesh::Mesh(Vertex* vertexArray, const unsigned vertexCount,
 	initMesh(vertexArray,vertexCount,indexArray,indexCount);
 }
 
-/*
- * 
- * struct FacePart{
-			unsigned index,uv,normal;
-	};
-	struct MeshFile : public File {
-		std::vector<glm::vec3> vertices;
-		std::vector<glm::vec3> uv;
-		std::vector<glm::vec3> normals;
-		std::vector<std::vector<FacePart>> faces;
-	};
-	
-	to 
-	
-	struct Vertex { // TODO: just remove this class entirely, vertexes don't and shouldn't work like this
-		vec3 position;
-		vec4 color;
-		vec2 texCoord;
-	};
-	
-	unsigned vertexCount
-	
-	GLuint* indexArray
-	const unsigned indexCount
- */
-
-ce::Mesh::Mesh(const char* name) {
-	MeshFile file = ce::AssetManager::getMeshFile(name);
-	
+ce::Mesh::Mesh(Meshfile file) {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
 	
-	for(int v=0;v<file.vertices.size();v++){
+	for(int v = 0; v < file.vertices.size(); v++){
 		Vertex vertex;
 		
 		vertex.position = file.vertices[v];
@@ -64,27 +25,46 @@ ce::Mesh::Mesh(const char* name) {
 		vertices.push_back(vertex);
 	}
 	
-	for(int f=0;f<file.faces.size();f++) {
+	for(int f = 0; f < file.faces.size(); f++) {
 		auto face = file.faces[f];
-		for(int p=0;p<face.size();p++){
+		for (int p=0; p < face.size(); p++){
 			auto point = face[p];
 			auto vertex = vertices[point.index];
 			indices.push_back((GLuint)point.index);
-			
-				
-			if(file.normals.size()>point.normal){
-				//TODO: normals 
+
+			if(file.normals.size() > point.normal) {
+				// TODO: normals 
 				file.normals[point.normal];
 			}
-			if(file.uv.size()>point.uv)vertex.texCoord = file.uv[point.uv];
-			
-			
+			if (file.uv.size() > point.uv)
+				vertex.texCoord = file.uv[point.uv];
+
 			vertices[point.index] = vertex;
 		}
 	}
-	
-	
 	initMesh(&vertices[0], vertices.size(), &indices[0], indices.size());
+}
+
+void ce::Mesh::initMesh() {
+	m_vertexCount = vertexCount;
+	m_indexCount = indexCount;
+	glGenVertexArrays(1, &m_VAO);
+	glBindVertexArray(m_VAO);
+	initVAO(vertexArray, indexArray);
+	glBindVertexArray(0);
+}
+void ce::Mesh::initVAO(Vertex* vertexArray, GLuint* indexArray) {
+	glGenBuffers(1, &m_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), vertexArray, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	if (m_indexCount > 0) {
+		glGenBuffers(1, &m_EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(GLuint), indexArray, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
 }
 
 ce::Mesh::~Mesh() {
@@ -115,19 +95,5 @@ void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 	if (bind) {
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-}
-
-void ce::Mesh::initVAO(Vertex* vertexArray, GLuint* indexArray) {
-	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), vertexArray, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	if (m_indexCount > 0) {
-		glGenBuffers(1, &m_EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(GLuint), indexArray, GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }

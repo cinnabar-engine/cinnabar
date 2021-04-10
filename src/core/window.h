@@ -2,7 +2,7 @@
 
 #include <ce_event_handler.h>
 #include <ce_math.h>
-#include <ce_rendering.h>
+#include <SDL.h>
 
 namespace ce {
 	class Window {
