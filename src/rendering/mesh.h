@@ -1,8 +1,7 @@
 #pragma once
 
-#include <ce_rendering.h>
-
-#include "vertex.h"
+#include <GL/glew.h>
+#include <managers/asset_manager.h>
 
 namespace ce {
 	class Mesh {
@@ -10,17 +9,14 @@ namespace ce {
 		unsigned m_vertexCount, m_indexCount;
 		GLuint m_VAO, m_VBO, m_EBO;
 
-		void initVAO(Vertex* vertexArray, GLuint* indexArray);
-		void initMesh(Vertex* vertexArray, const unsigned vertexCount,
-	GLuint* indexArray, const unsigned indexCount);
-		
-		Mesh();
+		void initVAO();
+		void initMesh();
 
 	 public:
-		Mesh(Vertex* vertexArray, const unsigned vertexCount,
-			GLuint* indexArray = NULL, const unsigned cubeIndexCount = 0);
+		Mesh(const char* filename) : Mesh(ce::AssetManager::getMeshFile(filename)) {};
+		Mesh(MeshFile file);
 		~Mesh();
-		 Mesh(const char* name);
+
 		void sendToShader(class Shader* shader, bool bind = true);
 
 		unsigned GetIndexCount() { return m_indexCount; };

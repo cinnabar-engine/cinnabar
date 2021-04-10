@@ -7,7 +7,7 @@
 
 #include <ce_assets.h>
 #include <ce_math.h>
-#include <ce_rendering.h>
+#include <GL/glew.h>
 
 using namespace glm;
 

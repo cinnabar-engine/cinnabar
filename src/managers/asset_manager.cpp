@@ -80,64 +80,61 @@ void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile) {
 }
 
 /*
-# Comment
-v 1 2 3 4
-vt 1 2 3 4
-vn 1 2 3 4
-f v1 v2 v3
-f v1//vn1 v2/vt1/vn1 v3/vt2/vn1 v4/vt3/vn1
-
-
-
+ * # Comment
+ * v 1 2 3 4
+ * vt 1 2 3 4
+ * vn 1 2 3 4
+ * f v1 v2 v3
+ * f v1//vn1 v2/vt1/vn1 v3/vt2/vn1 v4/vt3/vn1
  */
 
 ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
 	
 	MeshFile mesh;
-	//Get File
+	// Get File
 	std::ifstream file(path);
 	if(file.is_open()) {
 		std::string line;
 		
-		//Get Line in tje file
+		// Get Line in the file
 		while(std::getline(file,line)){
 			LOG_INFO(line);
 			
-			//Split the line into parts ( p1 p1 p3 p4 )
+			// Split the line into parts ( p1 p1 p3 p4 )
 			std::stringstream lineStream(line);
 			std::vector<std::string> params;
 			std::string param;
-			//while(lineStream>>param) params.push_back(param);
+			//while (lineStream >> param) params.push_back(param);
 			while(std::getline(lineStream,param,' ')) params.push_back(param);
 			
-			//Vetices
-			if(params[0]=="v") 	mesh.vertices.push_back(	glm::vec3(std::stof(params[1]),std::stof(params[2]),std::stof(params[3])));
-			//UVs
-			if(params[0]=="vt") mesh.uv.push_back(			glm::vec3(std::stof(params[1]),std::stof(params[2]),std::stof(params[3])));
-			//Normals
-			if(params[0]=="vn") mesh.normals.push_back(		glm::vec3(std::stof(params[1]),std::stof(params[2]),std::stof(params[3])));
+			// Vertices
+			if (params[0] == "v") mesh.vertices.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			// UVs
+			if (params[0] == "vt") mesh.uv.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			// Normals
+			if (params[0] == "vn") mesh.normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 			
 			//Faces
-			if(params[0]=="f") {
+			if(params[0] == "f") {
 				std::vector<FacePart> face;
 				//For each Face Part (corner)
-				for(int f=1;f<params.size();f++) {
+				for(int f = 1; f < params.size(); f++) {
 					std::string facePart = params[f];
 					
 					// Split Face Part into Parts ( p1/p2/p3 )
-					std::stringstream fpStream(facePart);	// Face Property Stream
-					std::vector<std::string> fpInfo;		// Collection fo face properties
-					std::string fpProp; 					// Proptery (index,uv or normal)
-					while(std::getline(fpStream,fpProp,'/')) fpInfo.push_back(fpProp);
-					//while(fpStream>>fpProp) fpInfo.push_back(fpProp);
+					std::stringstream fpStream(facePart); // Face Property Stream
+					std::vector<std::string> fpInfo; // Collection fo face properties
+					std::string fpProp; // Property (index, uv or normal)
+					while (std::getline(fpStream, fpProp, '/')) fpInfo.push_back(fpProp);
+					//while (fpStream >> fpProp) fpInfo.push_back(fpProp);
 					
-					//Retrive the Index UV and Normal from the face part
+					// Retrieve the Index UV and Normal from the face part
 					FacePart part{0,0,0};
 					// the "if" and "try catch" is to catch any erros from converting string to float without crashing
-					if(fpInfo[0]!="") try {unsigned v = std::stoi(fpInfo[0]);part.index=v;}	catch(std::exception e){}	//Vertex Index
-					if(fpInfo[1]!="") try {unsigned u = std::stoi(fpInfo[1]);part.uv=u;}		catch(std::exception e){}	//UV Index
-					if(fpInfo[2]!="") try {unsigned n = std::stoi(fpInfo[2]);part.normal=n;}	catch(std::exception e){}	//Normal Index
+					if (fpInfo[0] != "") try { unsigned v = std::stoi(fpInfo[0]); part.index=v; } catch (std::exception e) {} // Vertex Index
+					if (fpInfo[1] != "") try { unsigned u = std::stoi(fpInfo[1]); part.uv=u; } catch (std::exception e) {} // UV Index
+					if (fpInfo[2] != "") try { unsigned n = std::stoi(fpInfo[2]); part.normal=n; } catch (std::exception e) {} // Normal Index
 					
 					face.push_back(part);
 					/*face.push_back({
@@ -145,13 +142,10 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 						std::stoi(fpInfo[1]),
 						std::stoi(fpInfo[2])
 					});*/
-					
 				}
 				mesh.faces.push_back(face);
 			}
 		}
 	}
-	
-	
 	return mesh;
 }

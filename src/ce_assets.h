@@ -1,8 +1,8 @@
 #pragma once
 
 #include <ce_math.h>
+#include <GL/glew.h>
 
-#include "rendering/vertex.h"
 #include <string>
 #include <vector>
 
@@ -37,12 +37,14 @@ namespace ce {
 			shader = NULL;
 	};
 	struct FacePart{
-			unsigned index=0,uv=0,normal=0;
+		unsigned index = 0, uv = 0, normal = 0;
 	};
 	struct MeshFile : public File {
-		std::vector<glm::vec3> vertices;
-		std::vector<glm::vec3> uv;
-		std::vector<glm::vec3> normals;
-		std::vector<std::vector<FacePart>> faces;
+		std::vector<glm::vec3> pos;
+		std::vector<glm::vec3> normal;
+		std::vector<glm::vec2> uv;
+		std::vector<glm::vec4> color;
+		// stores verticies each as multiple indices in the format pos, normal, uv, color
+		std::vector<GLuint> indices;
 	};
 }
