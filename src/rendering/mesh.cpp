@@ -10,19 +10,19 @@ ce::Mesh::Mesh(ce::MeshFile mesh) {
 	m_vertNormalStart = (GLvoid*)(mesh.positions.size() * sizeof(glm::vec3));
 	m_vertUvStart = (GLvoid*)(m_vertNormalStart + mesh.normals.size() * sizeof(glm::vec3));
 	m_vertColorStart = (GLvoid*)(m_vertUvStart + mesh.uvs.size() * sizeof(glm::vec2));
+	m_vertDataLength = (GLsizeiptr)(m_vertColorStart + mesh.colors.size() * sizeof(glm::vec4));
 
-	std::vector<void> vertData;
-	std::move(mesh.positions.begin(), mesh.positions.end(), std::back_inserter(vertData));
-	std::move(mesh.normals.begin(), mesh.normals.end(), std::back_inserter(vertData));
-	std::move(mesh.uvs.begin(), mesh.uvs.end(), std::back_inserter(vertData));
-	std::move(mesh.colors.begin(), mesh.colors.end(), std::back_inserter(vertData));
+	void* vertData;
+	std::copy(mesh.positions.begin(), mesh.positions.end(), std::back_inserter(vertData));
+	std::copy(mesh.normals.begin(), mesh.normals.end(), std::back_inserter(vertData));
+	std::copy(mesh.uvs.begin(), mesh.uvs.end(), std::back_inserter(vertData));
+	std::copy(mesh.colors.begin(), mesh.colors.end(), std::back_inserter(vertData));
 
-	m_vertDataLength = vertData.size();
 	m_indexCount = mesh.indices.size();
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
-	initVAO(vertData.data(), mesh.indices.data());
+	initVAO(vertData, mesh.indices.data());
 	glBindVertexArray(0);
 }
 
