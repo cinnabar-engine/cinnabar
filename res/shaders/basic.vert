@@ -9,15 +9,16 @@ struct Transform {
 uniform Transform transform;
 
 in vec3 aPos;
+in vec3 aNormal;
+in vec2 aUV;
 in vec4 aColor;
-in vec2 aTexCoord;
 
+out vec2 vUV;
 out vec4 vColor;
-out vec2 vTexCoord;
 
 void main() {
+	vUV = aUV;
 	vColor = aColor;
-	vTexCoord = aTexCoord;
 
 	gl_Position = transform.proj * transform.view * transform.model * vec4(aPos, 1.);
 }

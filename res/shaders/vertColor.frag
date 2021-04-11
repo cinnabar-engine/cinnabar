@@ -8,7 +8,6 @@ struct Material {
 uniform Material material;
 
 in vec4 vColor;
-in vec2 vTexCoord;
 
 out vec4 fColor;
 
