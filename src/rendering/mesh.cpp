@@ -7,16 +7,16 @@ ce::Mesh::Mesh() : m_VAO(0), m_VBO(0), m_EBO(0), m_vertNormalStart(0), m_vertUvS
 
 ce::Mesh::Mesh(ce::MeshFile mesh) {
 	// all this is hardcoded and bad, find some way to make this not that
-	m_vertNormalStart = (GLvoid*)(mesh.positions.size() * sizeof(glm::vec3));
-	m_vertUvStart = (GLvoid*)(m_vertNormalStart + mesh.normals.size() * sizeof(glm::vec3));
-	m_vertColorStart = (GLvoid*)(m_vertUvStart + mesh.uvs.size() * sizeof(glm::vec2));
-	m_vertDataLength = (GLsizeiptr)(m_vertColorStart + mesh.colors.size() * sizeof(glm::vec4));
+	m_vertNormalStart = mesh.positions.size() * sizeof(glm::vec3);
+	m_vertUvStart = m_vertNormalStart + mesh.normals.size() * sizeof(glm::vec3);
+	m_vertColorStart = m_vertUvStart + mesh.uvs.size() * sizeof(glm::vec2);
+	m_vertDataLength = m_vertColorStart + mesh.colors.size() * sizeof(glm::vec4);
 
-	void* vertData;
-	std::copy(mesh.positions.begin(), mesh.positions.end(), std::back_inserter(vertData));
-	std::copy(mesh.normals.begin(), mesh.normals.end(), std::back_inserter(vertData));
-	std::copy(mesh.uvs.begin(), mesh.uvs.end(), std::back_inserter(vertData));
-	std::copy(mesh.colors.begin(), mesh.colors.end(), std::back_inserter(vertData));
+	void* vertData = malloc(m_vertDataLength);
+	std::copy(mesh.positions.begin(), mesh.positions.end(), vertData);
+	std::copy(mesh.normals.begin(), mesh.normals.end(), vertData + m_vertNormalStart);
+	std::copy(mesh.uvs.begin(), mesh.uvs.end(), vertData + m_vertUvStart);
+	std::copy(mesh.colors.begin(), mesh.colors.end(), vertData + m_vertColorStart);
 
 	m_indexCount = mesh.indices.size();
 
@@ -63,9 +63,9 @@ void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	}
 	shader->vertexAttribPointer("aPos", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
-	shader->vertexAttribPointer("aNormal", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), m_vertNormalStart);
-	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), m_vertUvStart);
-	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), m_vertColorStart);
+	shader->vertexAttribPointer("aNormal", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)m_vertNormalStart);
+	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (GLvoid*)m_vertUvStart);
+	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (GLvoid*)m_vertColorStart);
 	if (bind) {
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
