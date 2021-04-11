@@ -13,10 +13,10 @@ ce::Mesh::Mesh(ce::MeshFile mesh) {
 	m_vertDataLength = m_vertColorStart + mesh.colors.size() * sizeof(glm::vec4);
 
 	void* vertData = malloc(m_vertDataLength);
-	std::copy(mesh.positions.begin(), mesh.positions.end(), vertData);
-	std::copy(mesh.normals.begin(), mesh.normals.end(), vertData + m_vertNormalStart);
-	std::copy(mesh.uvs.begin(), mesh.uvs.end(), vertData + m_vertUvStart);
-	std::copy(mesh.colors.begin(), mesh.colors.end(), vertData + m_vertColorStart);
+	std::memcpy(vertData, mesh.positions.data(), mesh.positions.size() * sizeof(glm::vec3));
+	std::memcpy(vertData + m_vertNormalStart, mesh.normals.data(), mesh.normals.size() * sizeof(glm::vec3));
+	std::memcpy(vertData + m_vertUvStart, mesh.uvs.data(), mesh.uvs.size() * sizeof(glm::vec2));
+	std::memcpy(vertData + m_vertColorStart, mesh.colors.data(), mesh.colors.size() * sizeof(glm::vec4));
 
 	m_indexCount = mesh.indices.size();
 
