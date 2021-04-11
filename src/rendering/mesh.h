@@ -8,8 +8,9 @@ namespace ce {
 	 private:
 		unsigned m_vertDataLength, m_indexCount;
 		GLuint m_VAO, m_VBO, m_EBO;
+		GLvoid *m_vertNormalStart, *m_vertUvStart, *m_vertColorStart;
 
-		void initVAO(Vertex* vertexArray, Vertex* indexArray);
+		void initVAO(void* vertData, Vertex* indices);
 
 	 public:
 		Mesh();
