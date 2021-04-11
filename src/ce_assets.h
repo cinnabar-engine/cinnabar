@@ -36,15 +36,18 @@ namespace ce {
 			specularTex = "missing.png",
 			shader = NULL;
 	};
-	struct FacePart{
-		unsigned index = 0, uv = 0, normal = 0;
+	struct Vertex {
+		GLuint
+			position = 0,
+			normal = 0,
+			uv = 0,
+			color = 0;
 	};
 	struct MeshFile : public File {
-		std::vector<glm::vec3> pos;
-		std::vector<glm::vec3> normal;
-		std::vector<glm::vec2> uv;
-		std::vector<glm::vec4> color;
-		// stores verticies each as multiple indices in the format pos, normal, uv, color
-		std::vector<GLuint> indices;
+		std::vector<glm::vec3> positions;
+		std::vector<glm::vec3> normals;
+		std::vector<glm::vec2> uvs;
+		std::vector<glm::vec4> colors;
+		std::vector<Vertex> indices;
 	};
 }
