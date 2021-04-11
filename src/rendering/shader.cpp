@@ -174,6 +174,7 @@ void ce::Shader::vertexAttribPointer(std::string attrib, GLint size,
 	glEnableVertexAttribArray(location);
 }
 
+// TODO: condense all these types into the same function name with overrides and templates
 void ce::Shader::setBool(const std::string name, bool value) {
 	bind();
 	GLuint location = getUniformLocation(name);
