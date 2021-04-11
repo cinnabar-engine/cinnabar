@@ -88,62 +88,85 @@ void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile) {
  * f v1//vn1 v2/vt1/vn1 v3/vt2/vn1 v4/vt3/vn1
  */
 
+// TODO: all this mesh loading stuff should go into modules, and the only supported format should be one that can be loaded extremely easily (dumped MeshFile)
+std::vector<ce::Vertex> ngonToTris(std::vector<ce::Vertex> face) {
+	std::vector<ce::Vertex> indices;
+	for (int i = 1; i < face.size() - 1; i++) {
+		indices.push_back(face[0]);
+		indices.push_back(face[i]);
+		indices.push_back(face[i+1]);
+	}
+	return indices;
+}
+
 ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
 	
 	MeshFile mesh;
 	// Get File
 	std::ifstream file(path);
-	if(file.is_open()) {
+	if (file.is_open()) {
 		std::string line;
 		
 		// Get Line in the file
-		while(std::getline(file,line)){
+		while (std::getline(file, line)) {
 			LOG_INFO(line);
 			
 			// Split the line into parts ( p1 p1 p3 p4 )
 			std::stringstream lineStream(line);
 			std::vector<std::string> params;
 			std::string param;
-			//while (lineStream >> param) params.push_back(param);
-			while(std::getline(lineStream,param,' ')) params.push_back(param);
+			//while (lineStream >> param)
+			//	params.push_back(param);
+			while (std::getline(lineStream, param, ' '))
+				params.push_back(param);
 			
 			// Vertices
-			if (params[0] == "v") mesh.vertices.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			if (params[0] == "v")
+				mesh.positions.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 			// UVs
-			if (params[0] == "vt") mesh.uv.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			if (params[0] == "vt")
+				mesh.uvs.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 			// Normals
-			if (params[0] == "vn") mesh.normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			if (params[0] == "vn")
+				mesh.normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 			
-			//Faces
-			if(params[0] == "f") {
-				std::vector<FacePart> face;
-				//For each Face Part (corner)
-				for(int f = 1; f < params.size(); f++) {
+			// Faces
+			if (params[0] == "f") {
+				std::vector<Vertex> face;
+				// For each Face Vertex (corner)
+				// TODO: throw if face has less than 2 verts
+				for (int f = 1; f < params.size(); f++) {
 					std::string facePart = params[f];
 					
-					// Split Face Part into Parts ( p1/p2/p3 )
+					// Split obj vertex into individual indices ( p1/p2/p3 )
 					std::stringstream fpStream(facePart); // Face Property Stream
 					std::vector<std::string> fpInfo; // Collection fo face properties
 					std::string fpProp; // Property (index, uv or normal)
-					while (std::getline(fpStream, fpProp, '/')) fpInfo.push_back(fpProp);
+					while (std::getline(fpStream, fpProp, '/'))
+						fpInfo.push_back(fpProp);
 					//while (fpStream >> fpProp) fpInfo.push_back(fpProp);
 					
 					// Retrieve the Index UV and Normal from the face part
-					FacePart part{0,0,0};
-					// the "if" and "try catch" is to catch any erros from converting string to float without crashing
-					if (fpInfo[0] != "") try { unsigned v = std::stoi(fpInfo[0]); part.index=v; } catch (std::exception e) {} // Vertex Index
-					if (fpInfo[1] != "") try { unsigned u = std::stoi(fpInfo[1]); part.uv=u; } catch (std::exception e) {} // UV Index
-					if (fpInfo[2] != "") try { unsigned n = std::stoi(fpInfo[2]); part.normal=n; } catch (std::exception e) {} // Normal Index
+					Vertex vertex {0, 0, 0};
+					// the "if" and "try catch" is to catch any errors from converting string to float without crashing
+					// TODO: log errors in catch, that should only happen if the mesh file is broken
+					if (fpInfo[0] != "")
+						try { vertex.position = std::stoi(fpInfo[0]); } catch (std::exception e) {} // Vertex Index
+					if (fpInfo[1] != "")
+						try { vertex.uv = std::stoi(fpInfo[1]); } catch (std::exception e) {} // UV Index
+					if (fpInfo[2] != "")
+						try { vertex.normal = std::stoi(fpInfo[2]); } catch (std::exception e) {} // Normal Index
 					
-					face.push_back(part);
+					face.push_back(vertex);
 					/*face.push_back({
 						std::stoi(fpInfo[0]),
 						std::stoi(fpInfo[1]),
 						std::stoi(fpInfo[2])
 					});*/
 				}
-				mesh.faces.push_back(face);
+				std::vector<Vertex> indices = ngonToTris(face);
+				std::move(indices.begin(), indices.end(), std::back_inserter(mesh.indices));
 			}
 		}
 	}
