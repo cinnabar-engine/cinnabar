@@ -62,7 +62,7 @@ void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 		glBindVertexArray(m_VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	}
-	shader->vertexAttribPointer("aPos", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
+	shader->vertexAttribPointer("aPos", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	shader->vertexAttribPointer("aNormal", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), m_vertNormalStart);
 	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), m_vertUvStart);
 	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), m_vertColorStart);
