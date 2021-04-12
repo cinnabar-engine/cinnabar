@@ -30,6 +30,7 @@ int main(int argc, char* argv[]) {
 
 	ce::Window* window = new ce::Window("Cinnabar");
 	SDL_GL_SetSwapInterval(0); // disable vsync
+	double deltaTimeMin = 1.0/* / 1000.0*/; // framerate cap
 
 	ce::RenderEngine* renderEngine = new ce::RenderEngine();
 	renderEngine->setFOV(75.0f);
@@ -37,7 +38,7 @@ int main(int argc, char* argv[]) {
 	renderEngine->setClipRange(0.1f, 100.0f);
 
 	// Cube
-	ce::Mesh* cubeMesh = new ce::Mesh(); // TODO
+	ce::Mesh* cubeMesh = new ce::Mesh("missing.obj"); // TODO
 	ce::Transform* cubePos = new ce::Transform();
 	ce::Material* cubeMaterial = new ce::Material("basic");
 	cubeMaterial->setTexture("uv-map.png");
@@ -52,11 +53,10 @@ int main(int argc, char* argv[]) {
 	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
 	ce::Transform* blenderPos = new ce::Transform();
 	ce::Material* blenderMaterial = new ce::Material("vertColor");
-	blenderPos->setPosition(0.0f,5.0f,0.0f);
+	blenderPos->setPosition(0.0f, 5.0f, 0.0f);
 	//blenderPos->scale(1.0f, 1.0f, 1.0f);
 
 	double mouseSens = 0.05;
-	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 	ce::Camera* camera = new ce::Camera();
 	// TODO: Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
