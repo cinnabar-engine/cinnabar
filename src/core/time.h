@@ -2,10 +2,6 @@
 
 namespace ce {
 	class Time {
-	 private:
-		unsigned long m_now, m_last;
-		double m_dt, m_fps;
-
 	 public:
 		Time();
 		~Time();
@@ -16,5 +12,8 @@ namespace ce {
 
 		double getDeltaTime() { return m_dt; }
 		double getFPS() { return m_fps; };
+	 private:
+		unsigned long m_now, m_last;
+		double m_dt, m_fps;
 	};
 }

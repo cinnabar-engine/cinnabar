@@ -1,5 +1,4 @@
-#ifndef _MATERIAL_H_
-#define _MATERIAL_H_
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -33,5 +32,3 @@ namespace ce {
 		void unbind();
 	};
 }
-
-#endif // !_MATERIAL_H_

@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 	// Cube
 	ce::Mesh* cubeMesh = new ce::Mesh("missing.obj"); // TODO
 	ce::Transform* cubePos = new ce::Transform();
-	ce::Material* cubeMaterial = new ce::Material("basic");
+	ce::Material* cubeMaterial = new ce::Material("null");
 	cubeMaterial->setTexture("uv-map.png");
 
 	// Plane
