@@ -122,7 +122,10 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 		
 		// Get Line in the file
 		while (std::getline(file, line)) {
-			LOG_INFO(line.c_str());
+			// remove comments
+			line = line.substr(0, line.find("#"));
+			if (line == "")
+				continue;
 			
 			// Split the line into parts ( p1 p1 p3 p4 )
 			std::stringstream lineStream(line);
