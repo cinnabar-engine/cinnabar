@@ -16,18 +16,6 @@ namespace ce {
 	};
 
 	class RenderEngine {
-	 private:
-		double m_aspectRatio, m_fov, m_near, m_far;
-
-		Camera* m_camera;
-
-		std::vector<RenderCommand> m_commands = {};
-
-		void clear();
-		void bind(RenderCommand command);
-		void render(unsigned count);
-		void unbind(RenderCommand command);
-
 	 public:
 		RenderEngine();
 		~RenderEngine();
@@ -47,5 +35,16 @@ namespace ce {
 			m_commands.push_back(command);
 		}
 		void render();
+	 private:
+		double m_aspectRatio, m_fov, m_near, m_far;
+
+		Camera* m_camera;
+
+		std::vector<RenderCommand> m_commands = {};
+
+		void clear();
+		void bind(RenderCommand command);
+		void render(unsigned count);
+		void unbind(RenderCommand command);
 	};
 }

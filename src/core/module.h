@@ -6,7 +6,6 @@
 
 namespace ce {
 	class Module {
-	 private:
 	 public:
 		virtual void tick(double deltaTime) = 0;
 	};

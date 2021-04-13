@@ -7,6 +7,11 @@
 
 namespace ce {
 	class ModuleManager {
+	 public:
+		ModuleManager();
+		~ModuleManager();
+
+		void tickModules(double deltaTime);
 	 private:
 		struct ModuleRef {
 			Module* module;
@@ -20,11 +25,5 @@ namespace ce {
 		std::vector<ModuleRef> m_modules;
 
 		void loadModules();
-
-	 public:
-		ModuleManager();
-		~ModuleManager();
-
-		void tickModules(double deltaTime);
 	};
 }

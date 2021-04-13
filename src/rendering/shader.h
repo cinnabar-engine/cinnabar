@@ -13,18 +13,6 @@ using namespace glm;
 
 namespace ce {
 	class Shader {
-	 private:
-		inline static int MIN_LOC = 0;
-
-		GLuint m_program;
-		std::vector<std::string> m_attributes, m_uniforms;
-
-		void linkProgram(
-			int vertexShader, int fragmentShader, int geometryShader);
-
-		int registerAttribute(std::string name),
-			registerUniform(std::string name);
-
 	 public:
 		Shader(const char* name, std::map<std::string, std::string> options = {})
 			: Shader(name, name, name, options) {};
@@ -39,7 +27,7 @@ namespace ce {
 			getUniformLocation(const std::string name);
 
 		void vertexAttribPointer(std::string attrib, GLint size, GLenum type,
-			GLboolean normalized, GLsizei stride, const void*pointer),
+			GLboolean normalized, GLsizei stride, const void* pointer),
 
 			setBool(const std::string name, bool value),
 			setInt(const std::string name, int value),
@@ -57,5 +45,15 @@ namespace ce {
 			setMat2(const std::string name, mat2 mat),
 			setMat3(const std::string name, mat3 mat),
 			setMat4(const std::string name, mat4 mat);
+	 private:
+		inline static int MIN_LOC = 0;
+
+		GLuint m_program;
+		std::vector<std::string> m_attributes, m_uniforms;
+
+		void linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint geometryShader);
+
+		int registerAttribute(std::string name),
+			registerUniform(std::string name);
 	};
 }

@@ -2,18 +2,19 @@
 
 #include <GL/glew.h>
 #include <managers/asset_manager.h>
+#include "shader.h"
 
 namespace ce {
 	class Mesh {
 	 public:
 		Mesh();
-		Mesh(const char* filename) : Mesh(ce::AssetManager::getMeshFile(filename)) {};
+		Mesh(std::string filename) : Mesh(ce::AssetManager::getMeshFile(filename)) {};
 		Mesh(MeshFile file) { setMesh(file); };
-		void setMesh(const char* filename) { setMesh(ce::AssetManager::getMeshFile(filename)); };
+		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshFile(filename)); };
 		void setMesh(MeshFile file);
 		~Mesh();
 
-		void sendToShader(class Shader* shader, bool bind = true);
+		void sendToShader(ce::Shader* shader, bool bind = true);
 
 		unsigned GetIndexCount() { return m_indexCount; };
 		void bind(), unbind();
