@@ -3,39 +3,28 @@
 #include "shader.h"
 #include <managers/asset_manager.h>\
 
-ce::Mesh::Mesh() : m_VAO(0), m_VBO(0), m_EBO(0), m_vertNormalStart(0), m_vertUvStart(0), m_vertColorStart(0) {}
+ce::Mesh::Mesh() : m_VAO(0), m_VBO(0), m_EBO(0), m_vertCount(0), m_indexCount(0) {}
 
-ce::Mesh::Mesh(ce::MeshFile mesh) {
-	// all this is hardcoded and bad, find some way to make this not that
-	m_vertNormalStart = mesh.positions.size() * sizeof(glm::vec3);
-	m_vertUvStart = m_vertNormalStart + mesh.normals.size() * sizeof(glm::vec3);
-	m_vertColorStart = m_vertUvStart + mesh.uvs.size() * sizeof(glm::vec2);
-	m_vertDataLength = m_vertColorStart + mesh.colors.size() * sizeof(glm::vec4);
-
-	void* vertData = malloc(m_vertDataLength);
-	std::memcpy(vertData, mesh.positions.data(), mesh.positions.size() * sizeof(glm::vec3));
-	std::memcpy(vertData + m_vertNormalStart, mesh.normals.data(), mesh.normals.size() * sizeof(glm::vec3));
-	std::memcpy(vertData + m_vertUvStart, mesh.uvs.data(), mesh.uvs.size() * sizeof(glm::vec2));
-	std::memcpy(vertData + m_vertColorStart, mesh.colors.data(), mesh.colors.size() * sizeof(glm::vec4));
-
+void ce::Mesh::setMesh(ce::MeshFile mesh) {
+	m_vertCount = mesh.verts.size();
 	m_indexCount = mesh.indices.size();
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
-	initVAO(vertData, mesh.indices.data());
+	initVAO(mesh.verts.data(), mesh.indices.data());
 	glBindVertexArray(0);
 }
 
-void ce::Mesh::initVAO(void* vertData, Vertex* indices) {
+void ce::Mesh::initVAO(Vertex* verts, GLuint* indices) {
 	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, m_vertDataLength, vertData, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_vertCount, verts, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	if (m_indexCount > 0) {
 		glGenBuffers(1, &m_EBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(Vertex), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(GLuint), indices, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
@@ -62,10 +51,10 @@ void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 		glBindVertexArray(m_VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	}
-	shader->vertexAttribPointer("aPos", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
-	shader->vertexAttribPointer("aNormal", 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)m_vertNormalStart);
-	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (GLvoid*)m_vertUvStart);
-	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (GLvoid*)m_vertColorStart);
+	shader->vertexAttribPointer("aPosition", 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
+	shader->vertexAttribPointer("aNormal", 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
+	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
 	if (bind) {
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

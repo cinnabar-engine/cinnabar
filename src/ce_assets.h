@@ -37,17 +37,13 @@ namespace ce {
 			shader = NULL;
 	};
 	struct Vertex {
-		GLuint
-			position = 0,
-			normal = 0,
-			uv = 0,
-			color = 0;
+		glm::vec3 position;
+		glm::vec3 normal;
+		glm::vec2 uv;
+		glm::vec4 color;
 	};
 	struct MeshFile : public File {
-		std::vector<glm::vec3> positions;
-		std::vector<glm::vec3> normals;
-		std::vector<glm::vec2> uvs;
-		std::vector<glm::vec4> colors;
-		std::vector<Vertex> indices;
+		std::vector<Vertex> verts;
+		std::vector<GLuint> indices;
 	};
 }

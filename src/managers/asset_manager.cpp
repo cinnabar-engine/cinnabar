@@ -19,16 +19,16 @@ std::string ce::AssetManager::load_text_file(std::string path) {
 	try {
 		file.open(path);
 		if (!file.good()) {
-			LOG_WARN("FILE_DOES_NOT_EXIST: " + path);
+			LOG_WARN("FILE_DOES_NOT_EXIST: %s", path.c_str());
 			return "";
 		}
 		std::stringstream filestream;
 		filestream << file.rdbuf();
 		file.close();
 		text = filestream.str();
-		LOG_SUCCESS("LOADED_FILE: " + path);
+		LOG_SUCCESS("LOADED_FILE: %s", path.c_str());
 	} catch (std::fstream::failure e) {
-		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (" + path + ") " + std::string(e.what()));
+		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (%s) %s", path.c_str(), e.what());
 	}
 	return text;
 }
@@ -64,7 +64,7 @@ ce::ShaderFile ce::AssetManager::getShaderFiles(std::string vert, std::string ge
 ce::TextureFile ce::AssetManager::getTextureFile(std::string filename) {
 	std::string path = TEXTURE_FOLDER + "/" + filename;
 	// stbi_set_flip_vertically_on_load(1);
-	LOG_SUCCESS("LOADED_TEXTURE " + path);
+	LOG_SUCCESS("LOADED_TEXTURE: %s", path.c_str());
 
 	TextureFile textureFile;
 	textureFile.name = filename;
@@ -89,12 +89,20 @@ void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile) {
  */
 
 // TODO: all this mesh loading stuff should go into modules, and the only supported format should be one that can be loaded extremely easily (dumped MeshFile)
-std::vector<ce::Vertex> ngonToTris(std::vector<ce::Vertex> face) {
-	std::vector<ce::Vertex> indices;
-	for (int i = 1; i < face.size() - 1; i++) {
-		indices.push_back(face[0]);
-		indices.push_back(face[i]);
-		indices.push_back(face[i+1]);
+struct IndexedVertex {
+	size_t
+		position = -1,
+		normal = -1,
+		uv = -1,
+		color = -1;
+};
+
+std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
+	std::vector<GLuint> indices;
+	for (size_t i = 1; i < sides - 1; i++) {
+		indices.push_back(offset);
+		indices.push_back(i + offset);
+		indices.push_back(i + 1 + offset);
 	}
 	return indices;
 }
@@ -107,10 +115,14 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 	std::ifstream file(path);
 	if (file.is_open()) {
 		std::string line;
+
+		std::vector<glm::vec3> positions;
+		std::vector<glm::vec3> uvs;
+		std::vector<glm::vec3> normals;
 		
 		// Get Line in the file
 		while (std::getline(file, line)) {
-			LOG_INFO(line);
+			LOG_INFO(line.c_str());
 			
 			// Split the line into parts ( p1 p1 p3 p4 )
 			std::stringstream lineStream(line);
@@ -121,52 +133,68 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 			while (std::getline(lineStream, param, ' '))
 				params.push_back(param);
 			
+			// TODO: throw if invalid numbers, amount of params, etc
 			// Vertices
 			if (params[0] == "v")
-				mesh.positions.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+				positions.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 			// UVs
-			if (params[0] == "vt")
-				mesh.uvs.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			else if (params[0] == "vt")
+				uvs.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 			// Normals
-			if (params[0] == "vn")
-				mesh.normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			else if (params[0] == "vn")
+				normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 			
 			// Faces
-			if (params[0] == "f") {
+			else if (params[0] == "f") {
 				std::vector<Vertex> face;
 				// For each Face Vertex (corner)
-				// TODO: throw if face has less than 2 verts
-				for (int f = 1; f < params.size(); f++) {
-					std::string facePart = params[f];
-					
+				for (int i = 1; i < params.size(); i++) {
+					std::string facePart = params[i];
 					// Split obj vertex into individual indices ( p1/p2/p3 )
-					std::stringstream fpStream(facePart); // Face Property Stream
-					std::vector<std::string> fpInfo; // Collection fo face properties
-					std::string fpProp; // Property (index, uv or normal)
-					while (std::getline(fpStream, fpProp, '/'))
-						fpInfo.push_back(fpProp);
-					//while (fpStream >> fpProp) fpInfo.push_back(fpProp);
-					
+					std::string fpInfo[3]; // Collection fo face properties
+					{
+						std::stringstream fpStream(facePart); // Face Property Stream
+						std::string fpProp; // fpProp Property (index, uv or normal)
+						int i = 0;
+						while (std::getline(fpStream, fpProp, '/')) {
+							fpInfo[i] = fpProp;
+							if (++i > 3)
+								break;
+						}
+						if (i != 3) {
+							LOG_INFO("invalid vertex properties %i %s/%s/%s", i, fpInfo[0].c_str(), fpInfo[1].c_str(), fpInfo[2].c_str()); // TODO: better exception handling
+							throw;
+						}
+					}
+
 					// Retrieve the Index UV and Normal from the face part
-					Vertex vertex {0, 0, 0};
+					// TODO: make this code less messy
+					IndexedVertex indexedVert;
+					size_t* fpAddresses[3] = {&indexedVert.position, &indexedVert.uv, &indexedVert.normal};
 					// the "if" and "try catch" is to catch any errors from converting string to float without crashing
 					// TODO: log errors in catch, that should only happen if the mesh file is broken
-					if (fpInfo[0] != "")
-						try { vertex.position = std::stoi(fpInfo[0]); } catch (std::exception e) {} // Vertex Index
-					if (fpInfo[1] != "")
-						try { vertex.uv = std::stoi(fpInfo[1]); } catch (std::exception e) {} // UV Index
-					if (fpInfo[2] != "")
-						try { vertex.normal = std::stoi(fpInfo[2]); } catch (std::exception e) {} // Normal Index
+					for (int i = 0; i < 3; i++)
+						if (fpInfo[i] != "")
+							try { *fpAddresses[i] = std::stoi(fpInfo[i]); } catch (std::exception e) {}
 					
+					Vertex vertex;
+					// TODO: throw if property missing
+					vertex.position = positions[indexedVert.position];
+					if (indexedVert.uv > -1)
+						vertex.uv = uvs[indexedVert.uv];
+					else
+						vertex.uv = glm::vec2(0.0f, 0.0f);
+					vertex.normal = normals[indexedVert.normal];
 					face.push_back(vertex);
-					/*face.push_back({
-						std::stoi(fpInfo[0]),
-						std::stoi(fpInfo[1]),
-						std::stoi(fpInfo[2])
-					});*/
 				}
-				std::vector<Vertex> indices = ngonToTris(face);
+				if (face.size() < 3) {
+					LOG_INFO("invalid face polygon %i", face.size()); // TODO better exception handling
+					throw;
+				}
+				std::vector<GLuint> indices = genNgonIndices(face.size(), mesh.verts.size());
+				std::move(face.begin(), face.end(), std::back_inserter(mesh.verts));
 				std::move(indices.begin(), indices.end(), std::back_inserter(mesh.indices));
+				// TODO: optimize mesh (find and remove repeat verticies)
 			}
 		}
 	}

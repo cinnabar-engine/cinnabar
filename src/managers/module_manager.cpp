@@ -8,7 +8,7 @@
 
 #define LIB_EXT so
 
-void ce::ModuleManger::loadModules() {
+void ce::ModuleManager::loadModules() {
 	std::string path = "./" + MODULE_FOLDER;
 	for (const auto& entry : std::filesystem::directory_iterator(path)) {
 		const char* path = entry.path().c_str();
@@ -21,7 +21,7 @@ void ce::ModuleManger::loadModules() {
 		// reset errors
 		dlerror();
 		const char* error;
-		LOG_INFO("Loading Symbols for: " + path);
+		LOG_INFO("Loading Symbols for: %s", path);
 		// Get a function called "Hello"
 		init_module_t* init_module = (init_module_t*)dlsym(lib, "init_module");
 		// Handle any errors
@@ -45,19 +45,18 @@ void ce::ModuleManger::loadModules() {
 	}
 }
 
-ce::ModuleManger::ModuleManger() {
+ce::ModuleManager::ModuleManager() {
 	loadModules();
 }
 
-ce::ModuleManger::~ModuleManger() {
-	for (int i = 0; i < m_modules.size(); i++) {
-		ModuleRef module = m_modules[i];
+ce::ModuleManager::~ModuleManager() {
+	for (ModuleRef module : m_modules) {
 		module.delete_module(module.module);
 		dlclose(module.lib);
 	}
 }
 
-void ce::ModuleManger::tickModules(double deltaTime) {
-	for (int i = 0; i < m_modules.size(); i++)
-		m_modules[i].module->tick(deltaTime);
+void ce::ModuleManager::tickModules(double deltaTime) {
+	for (ModuleRef module : m_modules)
+		module.module->tick(deltaTime);
 }

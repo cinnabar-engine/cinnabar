@@ -43,7 +43,7 @@ ce::RenderEngine::RenderEngine()
 		/* Problem: glewInit failed, something is seriously wrong. */
 		LOG_ERROR((const char*)glewGetErrorString(err));
 	}
-	LOG_INFO("Status: Using GLEW " + (const char*)glewGetString(GLEW_VERSION));
+	LOG_INFO("Status: Using GLEW %s", (const char*)glewGetString(GLEW_VERSION));
 
 	// OpenGL Setup
 	glEnable(GL_DEPTH_TEST);
@@ -74,8 +74,7 @@ glm::mat4 ce::RenderEngine::getProjection() {
 
 void ce::RenderEngine::render() {
 	clear();
-	for (int i = 0; i < m_commands.size(); i++) {
-		RenderCommand command = m_commands[i];
+	for (RenderCommand command : m_commands) {
 		bind(command);
 		render(command.points);
 		unbind(command); // TODO: should this go outside the for loop?
