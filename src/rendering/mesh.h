@@ -5,23 +5,23 @@
 
 namespace ce {
 	class Mesh {
-	 private:
-	 	// these types aren't great
-		GLsizeiptr m_vertDataLength, m_indexCount;
-		GLuint m_VAO, m_VBO, m_EBO;
-		unsigned m_vertNormalStart, m_vertUvStart, m_vertColorStart;
-
-		void initVAO(void* vertData, Vertex* indices);
-
 	 public:
 		Mesh();
 		Mesh(const char* filename) : Mesh(ce::AssetManager::getMeshFile(filename)) {};
-		Mesh(MeshFile file);
+		Mesh(MeshFile file) { setMesh(file); };
+		void setMesh(const char* filename) { setMesh(ce::AssetManager::getMeshFile(filename)); };
+		void setMesh(MeshFile file);
 		~Mesh();
 
 		void sendToShader(class Shader* shader, bool bind = true);
 
 		unsigned GetIndexCount() { return m_indexCount; };
 		void bind(), unbind();
+
+	 private:
+		GLsizeiptr m_vertCount, m_indexCount;
+		GLuint m_VAO, m_VBO, m_EBO;
+
+		void initVAO(Vertex* verts, unsigned* indices);
 	};
 }

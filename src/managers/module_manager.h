@@ -6,7 +6,7 @@
 #include <core/module.h>
 
 namespace ce {
-	class ModuleManger {
+	class ModuleManager {
 	 private:
 		struct ModuleRef {
 			Module* module;
@@ -22,8 +22,8 @@ namespace ce {
 		void loadModules();
 
 	 public:
-		ModuleManger();
-		~ModuleManger();
+		ModuleManager();
+		~ModuleManager();
 
 		void tickModules(double deltaTime);
 	};
