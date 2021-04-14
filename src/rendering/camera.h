@@ -10,9 +10,10 @@ namespace ce {
 
 		glm::mat4 getView();
 		glm::vec3 getRight();
-		void sendToShader(ce::Shader* shader);
 		Transform* getTransform() { return m_transform; }
-		void boundPitch();
+
+		void limitPitch();
+		void sendToShader(ce::Shader* shader);
 	 private:
 		ce::Transform* m_transform;
 		double speed;
