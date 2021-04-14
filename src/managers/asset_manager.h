@@ -23,4 +23,3 @@ namespace ce {
 		static MeshFile getMeshFile(std::string filename);
 	};
 }
-

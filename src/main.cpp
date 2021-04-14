@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 
 	ce::Window* window = new ce::Window("Cinnabar");
 	SDL_GL_SetSwapInterval(0); // disable vsync
-	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
+	double deltaTimeMin = 1.0 /*/ 1000.0*/; // framerate cap
 
 	ce::RenderEngine* renderEngine = new ce::RenderEngine();
 	renderEngine->setFOV(75.0f);
