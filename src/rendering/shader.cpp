@@ -146,9 +146,9 @@ GLuint ce::Shader::getShader() {
 }
 
 // TODO: all uses of getLocation shouldn't happen every frame, it spams logs and is inneficient.
-// locations of everything should be stored with the material
+// locations should be stored somewhere, not sure how that will work yet
 GLuint ce::Shader::getAttribLocation(const std::string name) {
-	if (m_attributes.size() < (size_t)Shader::MIN_LOC)
+	if (m_attributes.size() < Shader::MIN_LOC)
 		return registerAttribute(name.c_str());
 	std::vector<std::string>::iterator location = std::find(m_attributes.begin(), m_attributes.end(), name);
 	if (location != m_attributes.end())
@@ -158,7 +158,7 @@ GLuint ce::Shader::getAttribLocation(const std::string name) {
 }
 
 GLuint ce::Shader::getUniformLocation(const std::string name) {
-	if (m_attributes.size() < (size_t)Shader::MIN_LOC)
+	if (m_attributes.size() < Shader::MIN_LOC)
 		return registerUniform(name.c_str());
 	std::vector<std::string>::iterator location = std::find(m_uniforms.begin(), m_uniforms.end(), name);
 	if (location != m_uniforms.end())
@@ -176,7 +176,7 @@ void ce::Shader::vertexAttribPointer(std::string attrib, GLint size,
 	glEnableVertexAttribArray(location);
 }
 
-// TODO: condense all these types into the same function name with overrides and templates
+// TODO: condense all these types into the same function setUniform with overrides and templates
 void ce::Shader::setBool(const std::string name, bool value) {
 	bind();
 	GLuint location = getUniformLocation(name);
@@ -204,7 +204,7 @@ void ce::Shader::setFloat(const std::string name, float value) {
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setVec2(const std::string name, vec2 value) {
+void ce::Shader::setVec2(const std::string name, glm::vec2 value) {
 	bind();
 	GLuint location = getUniformLocation(name);
 	if (location < (GLuint)Shader::MIN_LOC)
@@ -221,7 +221,7 @@ void ce::Shader::setVec2(const std::string name, float x, float y) {
 	// storageLog("uniform", name, &x, &y);
 	unbind();
 }
-void ce::Shader::setVec3(const std::string name, vec3 value) {
+void ce::Shader::setVec3(const std::string name, glm::vec3 value) {
 	bind();
 	GLuint location = getUniformLocation(name);
 	if (location < (GLuint)Shader::MIN_LOC)
@@ -239,7 +239,7 @@ void ce::Shader::setVec3(const std::string name, float x, float y, float z) {
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setVec4(const std::string name, vec4 value) {
+void ce::Shader::setVec4(const std::string name, glm::vec4 value) {
 	bind();
 	GLuint location = getUniformLocation(name);
 	if (location < (GLuint)Shader::MIN_LOC)
@@ -259,7 +259,7 @@ void ce::Shader::setVec4(
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setMat2(const std::string name, mat2 mat) {
+void ce::Shader::setMat2(const std::string name, glm::mat2 mat) {
 	bind();
 	GLuint location = getUniformLocation(name);
 	if (location < (GLuint)Shader::MIN_LOC)
@@ -269,7 +269,7 @@ void ce::Shader::setMat2(const std::string name, mat2 mat) {
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setMat3(const std::string name, mat3 mat) {
+void ce::Shader::setMat3(const std::string name, glm::mat3 mat) {
 	bind();
 	GLuint location = getUniformLocation(name);
 	if (location < (GLuint)Shader::MIN_LOC)
@@ -279,7 +279,7 @@ void ce::Shader::setMat3(const std::string name, mat3 mat) {
 	unbind();
 }
 // ------------------------------------------------------------------------
-void ce::Shader::setMat4(const std::string name, mat4 mat) {
+void ce::Shader::setMat4(const std::string name, glm::mat4 mat) {
 	bind();
 	GLuint location = getUniformLocation(name);
 	if (location < (GLuint)Shader::MIN_LOC)

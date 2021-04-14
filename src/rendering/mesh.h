@@ -17,7 +17,7 @@ namespace ce {
 		void sendToShader(ce::Shader* shader, bool bind = true);
 
 		unsigned GetIndexCount() { return m_indexCount; };
-		void bind(), unbind();
+		void bind(bool VBO = true, bool EBO = true), unbind(bool VBO = true, bool EBO = true);
 
 	 private:
 		GLsizeiptr m_vertCount, m_indexCount;

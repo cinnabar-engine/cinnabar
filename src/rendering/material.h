@@ -5,14 +5,10 @@
 #include <ce_render_fundementals.h>
 #include <managers/asset_manager.h>
 
-using namespace glm;
-namespace ce {
-	using Color = vec4;
-	class Material {
-	 private:
-		Shader* m_shader;
-		Texture* m_texture;
+#include "shader.h"
 
+namespace ce {
+	class Material {
 	 public:
 		Material(const char* name, std::map<std::string, std::string> options = {})
 			: Material(new Shader(name, options)) {}
@@ -30,5 +26,8 @@ namespace ce {
 
 		void bind();
 		void unbind();
+	 private:
+		Shader* m_shader;
+		Texture* m_texture;
 	};
 }

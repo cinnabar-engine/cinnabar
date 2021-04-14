@@ -7,6 +7,8 @@
 #include <math/transform.h>
 #include <vector>
 
+// TODO: seperate camera from RenderEngine. make camera part of rendercommand
+
 namespace ce {
 	struct RenderCommand {
 		Transform* transform;

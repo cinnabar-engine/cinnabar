@@ -9,8 +9,6 @@
 #include <ce_math.h>
 #include <GL/glew.h>
 
-using namespace glm;
-
 namespace ce {
 	class Shader {
 	 public:
@@ -27,24 +25,25 @@ namespace ce {
 			getUniformLocation(const std::string name);
 
 		void vertexAttribPointer(std::string attrib, GLint size, GLenum type,
-			GLboolean normalized, GLsizei stride, const void* pointer),
+			GLboolean normalized, GLsizei stride, const void* pointer);
 
+		void
 			setBool(const std::string name, bool value),
 			setInt(const std::string name, int value),
 			setFloat(const std::string name, float value),
 
-			setVec2(const std::string name, vec2 value),
+			setVec2(const std::string name, glm::vec2 value),
 			setVec2(const std::string name, float x, float y),
 
-			setVec3(const std::string name, vec3 value),
+			setVec3(const std::string name, glm::vec3 value),
 			setVec3(const std::string name, float x, float y, float z),
 
-			setVec4(const std::string name, vec4 value),
+			setVec4(const std::string name, glm::vec4 value),
 			setVec4(const std::string name, float x, float y, float z, float w),
 
-			setMat2(const std::string name, mat2 mat),
-			setMat3(const std::string name, mat3 mat),
-			setMat4(const std::string name, mat4 mat);
+			setMat2(const std::string name, glm::mat2 mat),
+			setMat3(const std::string name, glm::mat3 mat),
+			setMat4(const std::string name, glm::mat4 mat);
 	 private:
 		inline static int MIN_LOC = 0;
 
