@@ -17,7 +17,7 @@ void ce::RenderEngine::bind(RenderCommand command) {
 	command.mesh->bind();
 	command.material->bind();
 
-	// TODO: get rid of unneccecary binding (if there still is any, i think this is out of date)
+	// TODO: get rid of unneccecary binding (if there still is any, i think this todo is out of date)
 	Shader* shader = command.material->getShader();
 	command.mesh->sendToShader(shader, false);
 	command.transform->sendToShader(shader);
