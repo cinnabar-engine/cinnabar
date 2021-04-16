@@ -12,7 +12,7 @@ namespace ce {
 			TEXTURE_FOLDER = "textures",
 			MESH_FOLDER = "meshes";
 
-		static std::string load_text_file(std::string file);
+		static std::string load_text_file(std::string file, bool mustExist = true);
 
 	 public:
 		static ShaderFile getShaderFile(std::string name) { return getShaderFiles(name, name, name); };

@@ -12,14 +12,15 @@
 
 // MESHES
 
-std::string ce::AssetManager::load_text_file(std::string path) {
+std::string ce::AssetManager::load_text_file(std::string path, bool mustExist) {
 	std::fstream file;
 	std::string text = "";
 	file.exceptions(std::fstream::failbit | std::fstream::badbit);
 	try {
 		file.open(path);
 		if (!file.good()) {
-			LOG_WARN("FILE_DOES_NOT_EXIST: %s", path.c_str());
+			if (mustExist)
+				LOG_WARN("FILE_DOES_NOT_EXIST: %s", path.c_str());
 			return "";
 		}
 		std::stringstream filestream;
@@ -28,7 +29,7 @@ std::string ce::AssetManager::load_text_file(std::string path) {
 		text = filestream.str();
 		LOG_SUCCESS("LOADED_FILE: %s", path.c_str());
 	} catch (std::fstream::failure e) {
-		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (%s) %s", path.c_str(), e.what());
+		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (%s) %s", path.c_str(), e.what()); // TODO: figure out why shader loading is creating iostream error
 	}
 	return text;
 }
@@ -39,24 +40,27 @@ ce::ShaderFile ce::AssetManager::getShaderFiles(std::string vert, std::string ge
 	shaderFile.geomName = geom;
 	shaderFile.fragName = frag;
 
-	shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vert");
-	if (shaderFile.vertex == "")
-		shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vs");
-
-	shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".geom");
-	if (shaderFile.geometry == "")
-		shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".gs");
-
-	shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag");
-	if (shaderFile.fragment == "")
-		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
-
-	if (frag != "")
-		shaderFile.name = frag;
-	else if (vert != "")
-		shaderFile.name = vert;
-	else
-		shaderFile.name = geom;
+	if (frag != "") {
+		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag", false);
+		if (shaderFile.fragment == "")
+			shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
+		if (shaderFile.name == "") // TODO: this ShaderFile name thing really isn't needed, probably remove it (same for MeshFile)
+			shaderFile.name = frag;
+	}
+	if (vert != "") {
+		shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vert", false);
+		if (shaderFile.vertex == "")
+			shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vs");
+		if (shaderFile.name == "")
+			shaderFile.name = vert;
+	}
+	if (geom != "") {
+		shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".geom", false);
+		if (shaderFile.geometry == "")
+			shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".gs");
+		if (shaderFile.name == "")
+			shaderFile.name = geom;
+	}
 
 	return shaderFile;
 }

@@ -56,5 +56,5 @@ void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
 	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
 	if (bind)
-		this->bind(true, false);
+		this->unbind(true, false);
 }
