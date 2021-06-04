@@ -12,6 +12,6 @@ namespace ce {
 	typedef Module* init_module_t();
 	typedef void delete_module_t(Module*);
 }
-#define CE_MODULE(CLASS)                                      \
+#define CE_MODULE(CLASS) \
 	extern "C" ce::Module* init_module() { return new CLASS; } \
 	extern "C" void delete_module(ce::Module* m) { delete m; }

@@ -5,17 +5,17 @@
 #include <string>
 #include <vector>
 
+#include <GL/glew.h>
 #include <ce_assets.h>
 #include <ce_math.h>
-#include <GL/glew.h>
 
 namespace ce {
 	class Shader {
 	 public:
 		Shader(const char* name, std::map<std::string, std::string> options = {})
-			: Shader(name, name, name, options) {};
+			: Shader(name, name, name, options){};
 		Shader(const char* vertName, const char* fragName, std::map<std::string, std::string> options = {})
-			: Shader(vertName, NULL, fragName, options) {};
+			: Shader(vertName, NULL, fragName, options){};
 		Shader(const char* vertName, const char* geoName, const char* fragName, std::map<std::string, std::string> options = {});
 		~Shader();
 
@@ -28,7 +28,7 @@ namespace ce {
 			GLboolean normalized, GLsizei stride, const void* pointer);
 
 		void
-			setBool(const std::string name, bool value),
+		setBool(const std::string name, bool value),
 			setInt(const std::string name, int value),
 			setFloat(const std::string name, float value),
 
@@ -44,6 +44,7 @@ namespace ce {
 			setMat2(const std::string name, glm::mat2 mat),
 			setMat3(const std::string name, glm::mat3 mat),
 			setMat4(const std::string name, glm::mat4 mat);
+
 	 private:
 		inline static int MIN_LOC = 0;
 

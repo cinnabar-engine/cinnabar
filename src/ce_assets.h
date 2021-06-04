@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ce_math.h>
 #include <GL/glew.h>
+#include <ce_math.h>
 
 #include <string>
 #include <vector>

@@ -15,15 +15,18 @@
  */
 #pragma once
 
-#include <iostream>
 #include <cstring>
+#include <iostream>
 #include <stdio.h>
 #include <string>
 
 #define TPNT_LOGGER_FORMAT "[%s][%s:%d|%s]: "
 #define TPNT_LOGGER_FILE strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__
 #define TPNT_LOGGER_CONTEXT TPNT_LOGGER_FILE, __LINE__, __FUNCTION__
-#define TPNT_LOG(LOGTYPE, ...) printf(TPNT_LOGGER_FORMAT, (LOGTYPE), TPNT_LOGGER_CONTEXT); printf(__VA_ARGS__); putchar('\n')
+#define TPNT_LOG(LOGTYPE, ...) \
+	printf(TPNT_LOGGER_FORMAT, (LOGTYPE), TPNT_LOGGER_CONTEXT); \
+	printf(__VA_ARGS__); \
+	putchar('\n')
 #define TPNT_LOG_RESET "\033[0m"
 #define TPNT_LOG_SUCCESS "\033[1;32m"
 #define TPNT_LOG_WARN "\033[1;33m"

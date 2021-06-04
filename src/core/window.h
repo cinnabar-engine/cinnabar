@@ -1,8 +1,8 @@
 #pragma once
 
+#include <SDL.h>
 #include <ce_event_handler.h>
 #include <ce_math.h>
-#include <SDL.h>
 
 namespace ce {
 	class Window {
@@ -16,6 +16,7 @@ namespace ce {
 		bool mouseVisible() { return m_mouse; };
 		glm::vec2 getWindowSize();
 		float getAspectRatio();
+
 	 private:
 		SDL_Window* m_window;
 		SDL_GLContext m_context;

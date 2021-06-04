@@ -26,6 +26,7 @@ namespace ce {
 
 		void bind();
 		void unbind();
+
 	 private:
 		Shader* m_shader;
 		Texture* m_texture;
