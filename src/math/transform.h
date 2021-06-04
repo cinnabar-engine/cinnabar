@@ -46,6 +46,7 @@ namespace ce {
 		glm::vec3 getForward();
 
 		void sendToShader(ce::Shader* shader);
+
 	 private:
 		/*
 		 * Pitch: X

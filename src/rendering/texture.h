@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ce_assets.h>
 #include <GL/glew.h>
+#include <ce_assets.h>
 #include <managers/asset_manager.h>
 
 namespace ce {

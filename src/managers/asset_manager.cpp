@@ -113,7 +113,7 @@ std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
 
 ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
-	
+
 	MeshFile mesh;
 	// Get File
 	std::ifstream file(path);
@@ -123,14 +123,14 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 		std::vector<glm::vec3> positions;
 		std::vector<glm::vec3> uvs;
 		std::vector<glm::vec3> normals;
-		
+
 		// Get Line in the file
 		while (std::getline(file, line)) {
 			// remove comments
 			line = line.substr(0, line.find("#"));
 			if (line == "")
 				continue;
-			
+
 			// Split the line into parts ( p1 p1 p3 p4 )
 			std::stringstream lineStream(line);
 			std::vector<std::string> params;
@@ -139,7 +139,7 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 			//	params.push_back(param);
 			while (std::getline(lineStream, param, ' '))
 				params.push_back(param);
-			
+
 			// TODO: throw if invalid numbers, amount of params, etc
 			// Vertices
 			if (params[0] == "v")
@@ -150,7 +150,7 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 			// Normals
 			else if (params[0] == "vn")
 				normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
-			
+
 			// Faces
 			else if (params[0] == "f") {
 				std::vector<Vertex> face;
@@ -182,8 +182,11 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 					// TODO: log errors in catch, that should only happen if the mesh file is broken
 					for (int i = 0; i < 3; i++)
 						if (fpInfo[i] != "")
-							try { *fpAddresses[i] = std::stoi(fpInfo[i]); } catch (std::exception e) {}
-					
+							try {
+								*fpAddresses[i] = std::stoi(fpInfo[i]);
+							} catch (std::exception e) {
+							}
+
 					Vertex vertex;
 					// TODO: throw if property missing
 					vertex.position = positions[indexedVert.position];

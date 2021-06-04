@@ -1,14 +1,15 @@
 #pragma once
 
+#include "shader.h"
 #include <GL/glew.h>
 #include <managers/asset_manager.h>
-#include "shader.h"
 
 namespace ce {
 	class Mesh {
 	 public:
 		Mesh();
-		Mesh(std::string filename) : Mesh(ce::AssetManager::getMeshFile(filename)) {};
+		Mesh(std::string filename)
+			: Mesh(ce::AssetManager::getMeshFile(filename)){};
 		Mesh(MeshFile file) { setMesh(file); };
 		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshFile(filename)); };
 		void setMesh(MeshFile file);

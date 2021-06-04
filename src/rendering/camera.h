@@ -14,6 +14,7 @@ namespace ce {
 
 		void limitPitch();
 		void sendToShader(ce::Shader* shader);
+
 	 private:
 		ce::Transform* m_transform;
 		double speed;

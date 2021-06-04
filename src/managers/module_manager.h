@@ -12,6 +12,7 @@ namespace ce {
 		~ModuleManager();
 
 		void tickModules(double deltaTime);
+
 	 private:
 		struct ModuleRef {
 			Module* module;

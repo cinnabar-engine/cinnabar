@@ -37,6 +37,7 @@ namespace ce {
 			m_commands.push_back(command);
 		}
 		void render();
+
 	 private:
 		double m_aspectRatio, m_fov, m_near, m_far;
 
