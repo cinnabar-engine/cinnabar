@@ -17,8 +17,8 @@ out vec2 vUV;
 out vec4 vColor;
 
 void main() {
-	vColor = aColor;
 	vUV = aUV;
+	vColor = aColor;
 
 	gl_Position = transform.proj * transform.view * transform.model * vec4(aPosition, 1.);
 	gl_Position /= gl_Position.w;
