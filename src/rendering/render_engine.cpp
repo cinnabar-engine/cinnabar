@@ -74,8 +74,7 @@ glm::mat4 ce::RenderEngine::getProjection() {
 
 void ce::RenderEngine::render() {
 	clear();
-	for (int i = 0; i < m_commands.size(); i++) {
-		RenderCommand command = m_commands[i];
+	for (RenderCommand command : m_commands) {
 		bind(command);
 		render(command.points);
 		unbind(command); // TODO: should this go outside the for loop?
