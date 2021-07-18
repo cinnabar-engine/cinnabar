@@ -1,28 +1,28 @@
 #pragma once
 
+#include "shader.h"
 #include "vertex.h"
 #include <GL/glew.h>
 
 namespace ce {
 	class Mesh {
 	 public:
-		Mesh(Vertex* vertexArray, const unsigned vertexCount,
-			GLuint* indexArray = NULL, const unsigned cubeIndexCount = 0);
-		~Mesh();
+		Mesh();
+		Mesh(Vertex* verts, size_t vertCount, GLuint* indices = NULL, size_t indexCount = 0);
 		Mesh(const char* name);
-		void sendToShader(class Shader* shader, bool bind = true);
+		~Mesh();
 
-		unsigned GetIndexCount() { return m_indexCount; };
-		void bind(), unbind();
+		void setMesh(Vertex* verts, size_t vertCount, GLuint* indices = NULL, size_t indexCount = 0);
+
+		void sendToShader(ce::Shader* shader, bool bind = true);
+
+		size_t GetIndexCount() { return m_indexArraySize / sizeof(GLuint); };
+		void bind(bool VBO = true, bool EBO = true), unbind(bool VBO = true, bool EBO = true);
 
 	 private:
-		unsigned m_vertexCount, m_indexCount;
+		GLsizeiptr m_vertArraySize, m_indexArraySize;
 		GLuint m_VAO, m_VBO, m_EBO;
 
-		void initVAO(Vertex* vertexArray, GLuint* indexArray);
-		void initMesh(Vertex* vertexArray, const unsigned vertexCount,
-			GLuint* indexArray, const unsigned indexCount);
-
-		Mesh();
+		void initVAO(Vertex* verts, GLuint* indices);
 	};
 }

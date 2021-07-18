@@ -3,7 +3,7 @@
 #include <ce_math.h>
 
 namespace ce {
-	struct Vertex { // TODO: we need a better mesh system, probably just store the raw buffers instead of constantly converting
+	struct Vertex {
 		glm::vec3 position;
 		glm::vec3 normal;
 		glm::vec2 uv = glm::vec2(0.0f, 0.0f);

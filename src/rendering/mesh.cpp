@@ -4,24 +4,15 @@
 #include "vertex.h"
 #include <managers/asset_manager.h>
 
-void ce::Mesh::initMesh(Vertex* vertexArray, const unsigned vertexCount,
-	GLuint* indexArray, const unsigned indexCount) {
-	m_vertexCount = vertexCount;
-	m_indexCount = indexCount;
-	glGenVertexArrays(1, &m_VAO);
-	glBindVertexArray(m_VAO);
-	initVAO(vertexArray, indexArray);
-	glBindVertexArray(0);
-}
-
 ce::Mesh::Mesh()
 	: m_VAO(0), m_VBO(0), m_EBO(0) {}
 
-ce::Mesh::Mesh(Vertex* vertexArray, const unsigned vertexCount, GLuint* indexArray, const unsigned indexCount)
+ce::Mesh::Mesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t indexCount)
 	: Mesh() {
-	initMesh(vertexArray, vertexCount, indexArray, indexCount);
+	setMesh(verts, vertCount, indices, indexCount);
 }
 
+// TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a MeshFile via a name. the MeshFile should just include the verts and incices.
 ce::Mesh::Mesh(const char* name) {
 	MeshFile file = ce::AssetManager::getMeshFile(name);
 
@@ -46,7 +37,7 @@ ce::Mesh::Mesh(const char* name) {
 			indices.push_back((GLuint)point.index);
 
 			if (file.normals.size() > point.normal) {
-				//TODO: normals
+				// TODO: normals
 				file.normals[point.normal];
 			}
 			if (file.uv.size() > point.uv)
@@ -56,7 +47,7 @@ ce::Mesh::Mesh(const char* name) {
 		}
 	}
 
-	initMesh(&vertices[0], vertices.size(), &indices[0], indices.size());
+	setMesh(&vertices[0], vertices.size(), &indices[0], indices.size());
 }
 
 ce::Mesh::~Mesh() {
@@ -65,15 +56,13 @@ ce::Mesh::~Mesh() {
 	glDeleteBuffers(1, &m_EBO);
 }
 
-void ce::Mesh::bind() {
+void ce::Mesh::setMesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t indexCount) {
+	m_vertArraySize = vertCount * sizeof(Vertex);
+	m_indexArraySize = indexCount * sizeof(GLuint);
+	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-}
-void ce::Mesh::unbind() {
+	initVAO(verts, indices);
 	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
@@ -90,16 +79,29 @@ void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 	}
 }
 
-void ce::Mesh::initVAO(Vertex* vertexArray, GLuint* indexArray) {
+void ce::Mesh::bind(bool VBO, bool EBO) {
+	glBindVertexArray(m_VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO); // TODO: what cases is each bind needed? what needs to be avalible as options?
+	if (EBO)
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+}
+void ce::Mesh::unbind(bool VBO, bool EBO) {
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	if (EBO)
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void ce::Mesh::initVAO(Vertex* verts, GLuint* indices) {
 	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), vertexArray, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_vertArraySize, verts, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	if (m_indexCount > 0) {
+	if (m_indexArraySize > 0) {
 		glGenBuffers(1, &m_EBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(GLuint), indexArray, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexArraySize, indices, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
