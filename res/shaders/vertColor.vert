@@ -9,9 +9,9 @@ struct Transform {
 uniform Transform transform;
 
 in vec3 aPosition;
-in vec3 aNormal;
-in vec4 aColor;
+in vec4 aNormal;
 in vec2 aUV;
+in vec4 aColor;
 
 out vec4 vColor;
 

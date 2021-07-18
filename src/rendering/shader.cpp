@@ -85,10 +85,10 @@ GLint ce::Shader::registerAttribute(std::string name) {
 	GLint location = glGetAttribLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
 		LOG_WARN("Invalid Attribute: %s", name.c_str());
-		return MIN_LOC - 1;
+	} else {
+		m_attributes.insert(m_attributes.begin() + location, name);
+		LOG_SUCCESS("Registered Attribute: %s", name.c_str());
 	}
-	m_attributes.insert(m_attributes.begin() + location, name);
-	LOG_SUCCESS("Registered Attribute: %s", name.c_str());
 	return location;
 }
 
@@ -103,7 +103,7 @@ GLint ce::Shader::registerUniform(std::string name) {
 	return location;
 }
 
-ce::Shader::Shader(const char* vertName, const char* geomName, const char* fragName, std::map<std::string, std::string> options)
+ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
 	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
 
