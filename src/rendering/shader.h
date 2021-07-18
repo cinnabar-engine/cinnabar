@@ -5,31 +5,19 @@
 #include <string>
 #include <vector>
 
+#include <GL/glew.h>
 #include <ce_assets.h>
 #include <ce_math.h>
-#include <ce_rendering.h>
 
 using namespace glm;
 
 namespace ce {
 	class Shader {
-	 private:
-		inline static int MIN_LOC = 0;
-
-		GLuint m_program;
-		std::vector<std::string> m_attributes, m_uniforms;
-
-		void linkProgram(
-			int vertexShader, int fragmentShader, int geometryShader);
-
-		int registerAttribute(std::string name),
-			registerUniform(std::string name);
-
 	 public:
 		Shader(const char* name, std::map<std::string, std::string> options = {})
-			: Shader(name, name, name, options) {};
+			: Shader(name, name, name, options){};
 		Shader(const char* vertName, const char* fragName, std::map<std::string, std::string> options = {})
-			: Shader(vertName, NULL, fragName, options) {};
+			: Shader(vertName, NULL, fragName, options){};
 		Shader(const char* vertName, const char* geoName, const char* fragName, std::map<std::string, std::string> options = {});
 		~Shader();
 
@@ -57,5 +45,17 @@ namespace ce {
 			setMat2(const std::string name, mat2 mat),
 			setMat3(const std::string name, mat3 mat),
 			setMat4(const std::string name, mat4 mat);
+
+	 private:
+		inline static int MIN_LOC = 0;
+
+		GLuint m_program;
+		std::vector<std::string> m_attributes, m_uniforms;
+
+		void linkProgram(
+			int vertexShader, int fragmentShader, int geometryShader);
+
+		int registerAttribute(std::string name),
+			registerUniform(std::string name);
 	};
 }
