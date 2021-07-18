@@ -2,12 +2,10 @@
 
 #include <ce_math.h>
 
-using namespace glm;
-
 namespace ce {
-	struct Vertex { // TODO: just remove this class entirely, vertexes don't and shouldn't work like this
-		vec3 position;
-		vec4 color;
-		vec2 texCoord;
+	struct Vertex { // TODO: we need a better mesh system, probably just store the raw buffers instead of constantly converting
+		glm::vec3 position;
+		glm::vec4 color;
+		glm::vec2 texCoord;
 	};
 }

@@ -19,8 +19,7 @@ namespace ce {
 		static ShaderFile getShaderFiles(std::string vert, std::string geom, std::string frag);
 		static TextureFile getTextureFile(std::string filename);
 		static void freeTextureFile(TextureFile textureFile);
-		
+
 		static MeshFile getMeshFile(std::string filename);
 	};
 }
-
