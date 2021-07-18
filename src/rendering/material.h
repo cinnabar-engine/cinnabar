@@ -7,7 +7,6 @@
 
 #include "shader.h"
 
-using namespace glm;
 namespace ce {
 	class Material {
 	 public:
