@@ -11,7 +11,7 @@ namespace ce {
 		Mesh();
 		Mesh(std::string filename)
 			: Mesh(ce::AssetManager::getMeshfile(filename)){};
-		Mesh(Meshfile file) { setMesh(file); };
+		Mesh(Meshfile meshfile) { setMesh(meshfile); };
 
 		~Mesh();
 
