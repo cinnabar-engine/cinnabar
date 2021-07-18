@@ -17,7 +17,7 @@ void ce::Mesh::setMesh(std::string filename) {
 	setMesh(ce::AssetManager::getMeshFile(filename));
 }
 
-// TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a Meshfile via a name. the Meshfile should just include the verts and incices.
+// TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a Meshfile via a name. the Meshfile should just include the verts and indices.
 void ce::Mesh::setMesh(Meshfile meshfile) {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
