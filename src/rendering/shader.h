@@ -21,7 +21,9 @@ namespace ce {
 
 		void bind(), unbind();
 
-		GLuint getShader(), getAttribLocation(const std::string name),
+		GLuint getShader();
+		GLint
+			getAttribLocation(const std::string name),
 			getUniformLocation(const std::string name);
 
 		void vertexAttribPointer(std::string attrib, GLint size, GLenum type,
