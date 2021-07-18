@@ -2,7 +2,6 @@
 
 #include "shader.h"
 #include "vertex.h"
-#include <managers/asset_manager.h>
 
 ce::Mesh::Mesh()
 	: m_VAO(0), m_VBO(0), m_EBO(0) {}
@@ -11,10 +10,6 @@ ce::Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &m_VAO);
 	glDeleteBuffers(1, &m_VBO);
 	glDeleteBuffers(1, &m_EBO);
-}
-
-void ce::Mesh::setMesh(std::string filename) {
-	setMesh(ce::AssetManager::getMeshfile(filename));
 }
 
 // TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a Meshfile via a name. the Meshfile should just include the verts and indices.

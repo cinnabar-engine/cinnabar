@@ -3,6 +3,7 @@
 #include "shader.h"
 #include "vertex.h"
 #include <GL/glew.h>
+#include <managers/asset_manager.h>
 
 namespace ce {
 	class Mesh {
@@ -17,10 +18,9 @@ namespace ce {
 
 		~Mesh();
 
-		void
-			setMesh(std::string filename),
-			setMesh(ce::Meshfile meshfile),
-			setMesh(Vertex*verts, size_t vertCount, GLuint*indices = NULL, size_t indexCount = 0);
+		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshfile(filename)); };
+		void setMesh(ce::Meshfile meshfile);
+		void setMesh(Vertex*verts, size_t vertCount, GLuint*indices = NULL, size_t indexCount = 0);
 
 		void sendToShader(ce::Shader* shader, bool bind = true);
 
