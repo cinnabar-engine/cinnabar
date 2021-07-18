@@ -11,9 +11,11 @@ namespace ce {
 		Mesh(std::string filename)
 			: Mesh(ce::AssetManager::getMeshfile(filename)){};
 		Mesh(Meshfile file) { setMesh(file); };
+
+		~Mesh();
+
 		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshfile(filename)); };
 		void setMesh(Meshfile file);
-		~Mesh();
 
 		void sendToShader(ce::Shader* shader, bool bind = true);
 
