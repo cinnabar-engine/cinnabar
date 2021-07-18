@@ -21,7 +21,7 @@ namespace ce {
 		void update();
 
 		Shader* getShader() { return m_shader; }
-		void setTexture(const char* texture) { setTexture(new Texture(texture)); }
+		void setTexture(std::string texture) { setTexture(new Texture(texture)); }
 		void setTexture(Texture* texture) { m_texture = texture; }
 
 		void bind();
