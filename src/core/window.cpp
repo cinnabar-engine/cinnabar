@@ -16,7 +16,7 @@ ce::Window::Window(const char* title)
 	/*
 	 * Window Creation
 	 */
-	m_window = SDL_CreateWindow("Cinnabar", SDL_WINDOWPOS_UNDEFINED,
+	m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED, 1280, 720,
 		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (m_window == NULL) {

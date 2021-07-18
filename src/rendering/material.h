@@ -10,11 +10,11 @@
 namespace ce {
 	class Material {
 	 public:
-		Material(const char* name, std::map<std::string, std::string> options = {})
+		Material(std::string name, std::map<std::string, std::string> options = {})
 			: Material(new Shader(name, options)) {}
-		Material(const char* vertName, const char* fragName, std::map<std::string, std::string> options = {})
+		Material(std::string vertName, std::string fragName, std::map<std::string, std::string> options = {})
 			: Material(new Shader(vertName, fragName, options)) {}
-		Material(const char* vertName, const char* geomName, const char* fragName, std::map<std::string, std::string> options = {})
+		Material(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options = {})
 			: Material(new Shader(vertName, geomName, fragName, options)) {}
 		Material(Shader* shader);
 		~Material();

@@ -103,7 +103,7 @@ GLint ce::Shader::registerUniform(std::string name) {
 	return location;
 }
 
-ce::Shader::Shader(const char* vertName, const char* geomName, const char* fragName, std::map<std::string, std::string> options)
+ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
 	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
 
