@@ -8,9 +8,9 @@
 
 #define LIB_EXT so
 
-void ce::ModuleManger::loadModules() {
+void ce::ModuleManager::loadModules() {
 	std::string path = "./" + MODULE_FOLDER;
-	for (const auto& entry : std::filesystem::directory_iterator(path)) {
+	for (const std::filesystem::__cxx11::directory_entry& entry : std::filesystem::directory_iterator(path)) {
 		const char* path = entry.path().c_str();
 		LOG_INFO(path);
 		void* lib = dlopen(path, RTLD_LAZY);
@@ -45,19 +45,18 @@ void ce::ModuleManger::loadModules() {
 	}
 }
 
-ce::ModuleManger::ModuleManger() {
+ce::ModuleManager::ModuleManager() {
 	loadModules();
 }
 
-ce::ModuleManger::~ModuleManger() {
-	for (int i = 0; i < m_modules.size(); i++) {
-		ModuleRef module = m_modules[i];
+ce::ModuleManager::~ModuleManager() {
+	for (ModuleRef module : m_modules) {
 		module.delete_module(module.module);
 		dlclose(module.lib);
 	}
 }
 
-void ce::ModuleManger::tickModules(double deltaTime) {
-	for (int i = 0; i < m_modules.size(); i++)
-		m_modules[i].module->tick(deltaTime);
+void ce::ModuleManager::tickModules(double deltaTime) {
+	for (ModuleRef module : m_modules)
+		module.module->tick(deltaTime);
 }
