@@ -4,14 +4,12 @@
 
 namespace ce {
 	class Camera {
-
 	 public:
 		Camera();
 		~Camera();
 
 		glm::mat4 getView();
 		glm::vec3 getRight();
-
 		Transform* getTransform() { return m_transform; }
 
 		void limitPitch();

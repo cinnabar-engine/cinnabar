@@ -22,7 +22,7 @@ ce::Texture::Texture(std::string filename, GLenum type)
 		glTexImage2D(type, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA,
 			GL_UNSIGNED_BYTE, textureFile.data);
 		glGenerateMipmap(type);
-		LOG_SUCCESS("texture \"%s\" has been loaded.", textureFile.name.c_str());
+		LOG_SUCCESS("Loaded texture: %s", textureFile.name.c_str());
 	} else
 		LOG_ERROR("TEXTURE_LOADING_FAILED: %s", textureFile.name.c_str());
 	unbind();
