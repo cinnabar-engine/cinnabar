@@ -20,7 +20,7 @@ namespace ce {
 
 		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshfile(filename)); };
 		void setMesh(Meshfile meshfile);
-		void setMesh(Vertex*verts, size_t vertCount, GLuint*indices = NULL, size_t indexCount = 0);
+		void setMesh(Vertex* verts, size_t vertCount, GLuint* indices = NULL, size_t indexCount = 0);
 
 		void sendToShader(ce::Shader* shader, bool bind = true);
 

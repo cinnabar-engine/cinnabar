@@ -1,10 +1,9 @@
 #include "mesh.h"
-
 #include "shader.h"
 #include "vertex.h"
 
 ce::Mesh::Mesh()
-	: m_VAO(0), m_VBO(0), m_EBO(0) {}
+	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertArraySize(0), m_indexArraySize(0) {}
 
 ce::Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &m_VAO);
@@ -14,7 +13,7 @@ ce::Mesh::~Mesh() {
 
 // TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a Meshfile via a name. the Meshfile should just include the verts and indices.
 void ce::Mesh::setMesh(Meshfile meshfile) {
-	std::vector<Vertex> vertices;
+	std::vector<Vertex> verts;
 	std::vector<GLuint> indices;
 
 	for (int v = 0; v < meshfile.vertices.size(); v++) {
@@ -24,14 +23,14 @@ void ce::Mesh::setMesh(Meshfile meshfile) {
 		vertex.color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertex.uv = glm::vec2(0.0f, 0.0f);
 
-		vertices.push_back(vertex);
+		verts.push_back(vertex);
 	}
 
 	for (int f = 0; f < meshfile.faces.size(); f++) {
 		auto face = meshfile.faces[f];
 		for (int p = 0; p < face.size(); p++) {
 			auto point = face[p];
-			auto vertex = vertices[point.index];
+			auto vertex = verts[point.index];
 			indices.push_back((GLuint)point.index);
 
 			if (meshfile.normals.size() > point.normal) {
@@ -41,11 +40,11 @@ void ce::Mesh::setMesh(Meshfile meshfile) {
 			if (meshfile.uv.size() > point.uv)
 				vertex.uv = meshfile.uv[point.uv];
 
-			vertices[point.index] = vertex;
+			verts[point.index] = vertex;
 		}
 	}
 
-	setMesh(&vertices[0], vertices.size(), &indices[0], indices.size());
+	setMesh(verts.data(), verts.size(), indices.data(), indices.size());
 }
 
 void ce::Mesh::setMesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t indexCount) {

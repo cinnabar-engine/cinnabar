@@ -14,10 +14,11 @@ void ce::RenderEngine::bind(RenderCommand command) {
 	command.material->update();
 
 	// TODO: get rid of unneccecary binding
-	command.mesh->sendToShader(command.material->getShader());
-	command.transform->sendToShader(command.material->getShader());
-	command.material->getShader()->setMat4("transform.proj", getProjection());
-	m_camera->sendToShader(command.material->getShader());
+	Shader* shader = command.material->getShader();
+	command.mesh->sendToShader(shader, true);
+	command.transform->sendToShader(shader);
+	shader->setMat4("transform.proj", getProjection());
+	m_camera->sendToShader(shader);
 
 	// Bind Things
 	command.mesh->bind();
