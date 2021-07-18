@@ -1,8 +1,9 @@
 #include "mesh.h"
 #include "shader.h"
+#include "vertex.h"
 
 ce::Mesh::Mesh()
-	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertCount(0), m_indexCount(0) {}
+	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertArraySize(0), m_indexArraySize(0) {}
 
 ce::Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &m_VAO);
@@ -11,8 +12,8 @@ ce::Mesh::~Mesh() {
 }
 
 void ce::Mesh::setMesh(ce::Meshfile mesh) {
-	m_vertCount = mesh.verts.size();
-	m_indexCount = mesh.indices.size();
+	m_vertArraySize = mesh.verts.size() * sizeof(Vertex);
+	m_indexArraySize = mesh.indices.size() * sizeof(GLuint);
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
@@ -47,13 +48,13 @@ void ce::Mesh::unbind(bool VBO, bool EBO) {
 void ce::Mesh::initVAO(Vertex* verts, GLuint* indices) {
 	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, m_vertCount, verts, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_vertArraySize, verts, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	if (m_indexCount > 0) {
+	if (m_indexArraySize > 0) {
 		glGenBuffers(1, &m_EBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(GLuint), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexArraySize, indices, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }

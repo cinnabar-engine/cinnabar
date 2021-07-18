@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <ce_math.h>
 
+#include "rendering/vertex.h"
 #include <string>
 #include <vector>
 
@@ -35,12 +36,6 @@ namespace ce {
 			diffuseTex = "missing.png",
 			specularTex = "missing.png",
 			shader = NULL;
-	};
-	struct Vertex {
-		glm::vec3 position;
-		glm::vec3 normal;
-		glm::vec2 uv = glm::vec2(0.0f, 0.0f);
-		glm::vec4 color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	};
 	struct Meshfile : public File {
 		std::vector<Vertex> verts = {};
