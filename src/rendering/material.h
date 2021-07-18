@@ -1,19 +1,15 @@
-#ifndef _MATERIAL_H_
-#define _MATERIAL_H_
+#pragma once
 
 #include <glm/glm.hpp>
 
 #include <ce_render_fundementals.h>
 #include <managers/asset_manager.h>
 
+#include "shader.h"
+
 using namespace glm;
 namespace ce {
-	using Color = vec4;
 	class Material {
-	 private:
-		Shader* m_shader;
-		Texture* m_texture;
-
 	 public:
 		Material(const char* name, std::map<std::string, std::string> options = {})
 			: Material(new Shader(name, options)) {}
@@ -31,7 +27,9 @@ namespace ce {
 
 		void bind();
 		void unbind();
+
+	 private:
+		Shader* m_shader;
+		Texture* m_texture;
 	};
 }
-
-#endif // !_MATERIAL_H_
