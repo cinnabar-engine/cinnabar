@@ -43,7 +43,7 @@ ce::RenderEngine::RenderEngine()
 		/* Problem: glewInit failed, something is seriously wrong. */
 		LOG_ERROR((const char*)glewGetErrorString(err));
 	}
-	LOG_INFO("Status: Using GLEW " + (const char*)glewGetString(GLEW_VERSION));
+	LOG_INFO("Status: Using GLEW %s", (const char*)glewGetString(GLEW_VERSION));
 
 	// OpenGL Setup
 	glEnable(GL_DEPTH_TEST);

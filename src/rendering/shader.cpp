@@ -25,8 +25,7 @@ void checkCompileErrors(GLuint shader, GLint shaderType) {
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success) {
 		glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-		LOG_ERROR(
-			"SHADER_COMPILATION_ERROR of type: " + type + "\n" + infoLog + "\n");
+		LOG_ERROR("SHADER_COMPILATION_ERROR of type: %s\n%s\n", type, infoLog);
 		exit(-1);
 	}
 }
@@ -37,7 +36,7 @@ void checkCompileErrors(GLuint program) {
 	glGetProgramiv(program, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(program, 1024, NULL, infoLog);
-		LOG_ERROR("PROGRAM_LINKING_ERROR\n" + infoLog + "\n");
+		LOG_ERROR("PROGRAM_LINKING_ERROR\n%s\n", infoLog);
 		exit(-1);
 	}
 }
@@ -58,7 +57,7 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 	for (std::pair<std::string, std::string> option : options) {
 		size_t defPos = shader.find("#define " + option.first);
 		if (defPos == std::string::npos) {
-			LOG_ERROR("Invalid Option: " + option.first);
+			LOG_ERROR("Invalid Option: %s", option.first);
 			continue;
 		}
 		size_t defValuePos = defPos + option.first.length() + 9; // 8 is length of "#define " and space after name
@@ -86,22 +85,22 @@ void ce::Shader::linkProgram(
 int ce::Shader::registerAttribute(std::string name) {
 	int location = glGetAttribLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
-		LOG_ERROR("Invalid Attribute: " + name);
+		LOG_ERROR("Invalid Attribute: %s", name.c_str());
 		return MIN_LOC - 1;
 	}
 	m_attributes.insert(m_attributes.begin() + location, name);
-	LOG_SUCCESS("Registered Attribute: " + name);
+	LOG_SUCCESS("Registered Attribute: %s", name.c_str());
 	return location;
 }
 
 int ce::Shader::registerUniform(std::string name) {
 	int location = glGetUniformLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
-		LOG_ERROR("Invalid Uniform: " + name);
+		LOG_ERROR("Invalid Uniform: %s", name);
 		return MIN_LOC - 1;
 	}
 	m_uniforms.insert(m_uniforms.begin() + location, name);
-	LOG_SUCCESS("Registered Uniform: " + name);
+	LOG_SUCCESS("Registered Uniform: %s", name.c_str());
 	return location;
 }
 

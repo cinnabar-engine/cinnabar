@@ -10,10 +10,18 @@ ObjCBlockIndentWidth: '3'
 UseTab: ForContinuationAndIndentation
 IndentCaseLabels: 'true'
 #IndentPPDirectives: BeforeHash
+#IndentAccessModifiers: 'true' # clang 13 only, this should replace AccessModifierOffset
 NamespaceIndentation: All
 #SpacesInLineCommentPrefix: 1 # clang 13 only
 #SortIncludes # clang 13 only, setting needs to be figured out
 
+AlignAfterOpenBracket: DontAlign
+AlignConsecutiveMacros: 'false'
+AlignConsecutiveAssignments: 'false'
+AlignConsecutiveDeclarations: 'false'
+AlignEscapedNewlines: DontAlign
+AlignOperands: 'false'
+AlignTrailingComments: 'false'
 DerivePointerAlignment: 'false'
 PointerAlignment: Left
 
