@@ -58,17 +58,14 @@ void ce::Mesh::setMesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t 
 }
 
 void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
-	if (bind) {
-		glBindVertexArray(m_VAO);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	}
-	shader->vertexAttribPointer("aPos", 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
+	if (bind)
+		this->bind(true, false);
+	shader->vertexAttribPointer("aPosition", 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
+	shader->vertexAttribPointer("aNormal", 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
 	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
-	shader->vertexAttribPointer("aTexCoord", 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
-	if (bind) {
-		glBindVertexArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
+	if (bind)
+		this->unbind(true, false);
 }
 
 void ce::Mesh::bind(bool VBO, bool EBO) {
