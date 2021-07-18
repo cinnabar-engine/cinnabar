@@ -44,7 +44,7 @@ ce::ShaderFile ce::AssetManager::getShaderFiles(std::string vert, std::string ge
 		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag", false);
 		if (shaderFile.fragment == "")
 			shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
-		if (shaderFile.name == "") // TODO: this ShaderFile name thing really isn't needed, probably remove it (same for MeshFile)
+		if (shaderFile.name == "") // TODO: this ShaderFile name thing really isn't needed, probably remove it (same for Meshfile)
 			shaderFile.name = frag;
 	}
 	if (vert != "") {
@@ -92,11 +92,11 @@ void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile) {
  * f v1//vn1 v2/vt1/vn1 v3/vt2/vn1 v4/vt3/vn1
  */
 
-// TODO: all this mesh loading stuff should go into modules, and the only supported format should be one that can be loaded extremely easily (dumped MeshFile)
-ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
+// TODO: all this mesh loading stuff should go into modules, and the only supported format should be one that can be loaded extremely easily (dumped Meshfile)
+ce::Meshfile ce::AssetManager::getMeshFile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
 
-	MeshFile mesh;
+	Meshfile mesh;
 	// Get File
 	std::ifstream file(path);
 	if (file.is_open()) {

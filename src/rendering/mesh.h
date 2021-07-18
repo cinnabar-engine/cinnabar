@@ -8,11 +8,19 @@ namespace ce {
 	class Mesh {
 	 public:
 		Mesh();
-		Mesh(Vertex* verts, size_t vertCount, GLuint* indices = NULL, size_t indexCount = 0);
-		Mesh(const char* name);
+		Mesh(std::string filename)
+			: Mesh() { setMesh(filename); };
+		Mesh(Meshfile meshfile)
+			: Mesh() { setMesh(meshfile); };
+		Mesh(Vertex* verts, size_t vertCount, GLuint* indices = NULL, size_t indexCount = 0)
+			: Mesh() { setMesh(verts, vertCount, indices, indexCount); }
+
 		~Mesh();
 
-		void setMesh(Vertex* verts, size_t vertCount, GLuint* indices = NULL, size_t indexCount = 0);
+		void
+			setMesh(std::string filename),
+			setMesh(ce::Meshfile meshfile),
+			setMesh(Vertex*verts, size_t vertCount, GLuint*indices = NULL, size_t indexCount = 0);
 
 		void sendToShader(ce::Shader* shader, bool bind = true);
 

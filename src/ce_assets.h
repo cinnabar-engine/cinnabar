@@ -40,7 +40,7 @@ namespace ce {
 	struct FacePart {
 		unsigned index = 0, uv = 0, normal = 0;
 	};
-	struct MeshFile : public File {
+	struct Meshfile : public File {
 		std::vector<glm::vec3> vertices;
 		std::vector<glm::vec3> uv;
 		std::vector<glm::vec3> normals;

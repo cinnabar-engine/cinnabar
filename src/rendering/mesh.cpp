@@ -7,53 +7,50 @@
 ce::Mesh::Mesh()
 	: m_VAO(0), m_VBO(0), m_EBO(0) {}
 
-ce::Mesh::Mesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t indexCount)
-	: Mesh() {
-	setMesh(verts, vertCount, indices, indexCount);
+ce::Mesh::~Mesh() {
+	glDeleteVertexArrays(1, &m_VAO);
+	glDeleteBuffers(1, &m_VBO);
+	glDeleteBuffers(1, &m_EBO);
 }
 
-// TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a MeshFile via a name. the MeshFile should just include the verts and incices.
-ce::Mesh::Mesh(const char* name) {
-	MeshFile file = ce::AssetManager::getMeshFile(name);
+void ce::Mesh::setMesh(std::string filename) {
+	setMesh(ce::AssetManager::getMeshFile(filename));
+}
 
+// TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a Meshfile via a name. the Meshfile should just include the verts and incices.
+void ce::Mesh::setMesh(Meshfile meshfile) {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
 
-	for (int v = 0; v < file.vertices.size(); v++) {
+	for (int v = 0; v < meshfile.vertices.size(); v++) {
 		Vertex vertex;
 
-		vertex.position = file.vertices[v];
+		vertex.position = meshfile.vertices[v];
 		vertex.color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertex.uv = glm::vec2(0.0f, 0.0f);
 
 		vertices.push_back(vertex);
 	}
 
-	for (int f = 0; f < file.faces.size(); f++) {
-		auto face = file.faces[f];
+	for (int f = 0; f < meshfile.faces.size(); f++) {
+		auto face = meshfile.faces[f];
 		for (int p = 0; p < face.size(); p++) {
 			auto point = face[p];
 			auto vertex = vertices[point.index];
 			indices.push_back((GLuint)point.index);
 
-			if (file.normals.size() > point.normal) {
+			if (meshfile.normals.size() > point.normal) {
 				// TODO: normals
-				file.normals[point.normal];
+				meshfile.normals[point.normal];
 			}
-			if (file.uv.size() > point.uv)
-				vertex.uv = file.uv[point.uv];
+			if (meshfile.uv.size() > point.uv)
+				vertex.uv = meshfile.uv[point.uv];
 
 			vertices[point.index] = vertex;
 		}
 	}
 
 	setMesh(&vertices[0], vertices.size(), &indices[0], indices.size());
-}
-
-ce::Mesh::~Mesh() {
-	glDeleteVertexArrays(1, &m_VAO);
-	glDeleteBuffers(1, &m_VBO);
-	glDeleteBuffers(1, &m_EBO);
 }
 
 void ce::Mesh::setMesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t indexCount) {
