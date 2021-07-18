@@ -13,16 +13,16 @@ void ce::RenderEngine::bind(RenderCommand command) {
 	// Update Shader Values TODO: shouldn't this be somewhere else instead of the bind command?
 	command.material->update();
 
-	// Bind Things
-	command.mesh->bind();
-	command.material->bind();
-
-	// TODO: get rid of unneccecary binding (if there still is any, i think this todo is out of date)
+	// TODO: get rid of unneccecary binding
 	Shader* shader = command.material->getShader();
-	command.mesh->sendToShader(shader, false);
+	command.mesh->sendToShader(shader, true);
 	command.transform->sendToShader(shader);
 	shader->setMat4("transform.proj", getProjection());
 	m_camera->sendToShader(shader);
+
+	// Bind Things
+	command.mesh->bind();
+	command.material->bind();
 }
 
 void ce::RenderEngine::unbind(RenderCommand command) {

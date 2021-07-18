@@ -34,7 +34,7 @@ void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 
 void ce::Mesh::bind(bool VBO, bool EBO) {
 	glBindVertexArray(m_VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO); // TODO: what cases is each bind needed? what needs to be avalible as options?
 	if (EBO)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 }
