@@ -6,7 +6,7 @@
 ce::Mesh::Mesh()
 	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertCount(0), m_indexCount(0) {}
 
-void ce::Mesh::setMesh(ce::MeshFile mesh) {
+void ce::Mesh::setMesh(ce::Meshfile mesh) {
 	m_vertCount = mesh.verts.size();
 	m_indexCount = mesh.indices.size();
 
