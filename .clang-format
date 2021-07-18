@@ -25,12 +25,12 @@ AlignTrailingComments: 'false'
 DerivePointerAlignment: 'false'
 PointerAlignment: Left
 
+BreakAfterJavaFieldAnnotations: 'true'
 # https://reviews.llvm.org/D33029 add this when it gets implemented
 BreakBeforeBraces: Attach
-BreakAfterJavaFieldAnnotations: 'true'
 BreakBeforeBinaryOperators: None
 
-AllowShortBlocksOnASingleLine: 'false'
+AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: 'false'
 #AllowShortEnumsOnASingleLine: true # this breaks things?
 AllowShortFunctionsOnASingleLine: Inline
