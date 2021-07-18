@@ -57,7 +57,7 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 	for (std::pair<std::string, std::string> option : options) {
 		size_t defPos = shader.find("#define " + option.first);
 		if (defPos == std::string::npos) {
-			LOG_ERROR("Invalid Option: %s", option.first.c_str());
+			LOG_WARN("Invalid Option: %s", option.first.c_str());
 			continue;
 		}
 		size_t defValuePos = defPos + option.first.length() + 9; // 8 is length of "#define " and space after name
@@ -95,7 +95,7 @@ GLint ce::Shader::registerAttribute(std::string name) {
 GLint ce::Shader::registerUniform(std::string name) {
 	GLint location = glGetUniformLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
-		LOG_WARN("Invalid Uniform: %s", name);
+		LOG_WARN("Invalid Uniform: %s", name.c_str());
 		return MIN_LOC - 1;
 	}
 	m_uniforms.insert(m_uniforms.begin() + location, name);

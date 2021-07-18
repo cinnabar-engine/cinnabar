@@ -1,8 +1,7 @@
 #pragma once
 
-#include <GL/glew.h>
-
 #include "vertex.h"
+#include <GL/glew.h>
 
 namespace ce {
 	class Mesh {

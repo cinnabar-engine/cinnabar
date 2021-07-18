@@ -12,14 +12,15 @@
 
 // MESHES
 
-std::string ce::AssetManager::load_text_file(std::string path) {
+std::string ce::AssetManager::load_text_file(std::string path, bool mustExist) {
 	std::fstream file;
 	std::string text = "";
 	file.exceptions(std::fstream::failbit | std::fstream::badbit);
 	try {
 		file.open(path);
 		if (!file.good()) {
-			LOG_WARN("FILE_DOES_NOT_EXIST: %s", path.c_str());
+			if (mustExist)
+				LOG_WARN("FILE_DOES_NOT_EXIST: %s", path.c_str());
 			return "";
 		}
 		std::stringstream filestream;
@@ -39,24 +40,27 @@ ce::ShaderFile ce::AssetManager::getShaderFiles(std::string vert, std::string ge
 	shaderFile.geomName = geom;
 	shaderFile.fragName = frag;
 
-	shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vert");
-	if (shaderFile.vertex == "")
-		shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vs");
-
-	shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".geom");
-	if (shaderFile.geometry == "")
-		shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".gs");
-
-	shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag");
-	if (shaderFile.fragment == "")
-		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
-
-	if (frag != "")
-		shaderFile.name = frag;
-	else if (vert != "")
-		shaderFile.name = vert;
-	else
-		shaderFile.name = geom;
+	if (frag != "") {
+		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag", false);
+		if (shaderFile.fragment == "")
+			shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
+		if (shaderFile.name == "") // TODO: this ShaderFile name thing really isn't needed, probably remove it (same for MeshFile)
+			shaderFile.name = frag;
+	}
+	if (vert != "") {
+		shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vert", false);
+		if (shaderFile.vertex == "")
+			shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vs");
+		if (shaderFile.name == "")
+			shaderFile.name = vert;
+	}
+	if (geom != "") {
+		shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".geom", false);
+		if (shaderFile.geometry == "")
+			shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".gs");
+		if (shaderFile.name == "")
+			shaderFile.name = geom;
+	}
 
 	return shaderFile;
 }
@@ -80,15 +84,12 @@ void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile) {
 }
 
 /*
-# Comment
-v 1 2 3 4
-vt 1 2 3 4
-vn 1 2 3 4
-f v1 v2 v3
-f v1//vn1 v2/vt1/vn1 v3/vt2/vn1 v4/vt3/vn1
-
-
-
+ * # Comment
+ * v 1 2 3 4
+ * vt 1 2 3 4
+ * vn 1 2 3 4
+ * f v1 v2 v3
+ * f v1//vn1 v2/vt1/vn1 v3/vt2/vn1 v4/vt3/vn1
  */
 
 ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {

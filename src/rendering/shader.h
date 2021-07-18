@@ -48,7 +48,7 @@ namespace ce {
 			setMat4(const std::string name, glm::mat4 mat);
 
 	 private:
-		inline static int MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
+		inline static const GLint MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
 
 		GLuint m_program;
 		std::vector<std::string> m_attributes, m_uniforms;
