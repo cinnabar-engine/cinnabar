@@ -21,14 +21,16 @@ namespace ce {
 
 		void bind(), unbind();
 
-		GLuint getShader(), getAttribLocation(const std::string name),
+		GLuint getShader();
+		GLint
+			getAttribLocation(const std::string name),
 			getUniformLocation(const std::string name);
 
 		void vertexAttribPointer(std::string attrib, GLint size, GLenum type,
 			GLboolean normalized, GLsizei stride, const void* pointer);
 
 		void
-		setBool(const std::string name, bool value),
+			setBool(const std::string name, bool value),
 			setInt(const std::string name, int value),
 			setFloat(const std::string name, float value),
 
@@ -46,7 +48,7 @@ namespace ce {
 			setMat4(const std::string name, glm::mat4 mat);
 
 	 private:
-		inline static int MIN_LOC = 0;
+		inline static const GLint MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
 
 		GLuint m_program;
 		std::vector<std::string> m_attributes, m_uniforms;
