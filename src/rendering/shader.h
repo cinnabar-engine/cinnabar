@@ -12,11 +12,11 @@
 namespace ce {
 	class Shader {
 	 public:
-		Shader(const char* name, std::map<std::string, std::string> options = {})
+		Shader(std::string name, std::map<std::string, std::string> options = {})
 			: Shader(name, name, name, options){};
-		Shader(const char* vertName, const char* fragName, std::map<std::string, std::string> options = {})
+		Shader(std::string vertName, std::string fragName, std::map<std::string, std::string> options = {})
 			: Shader(vertName, NULL, fragName, options){};
-		Shader(const char* vertName, const char* geoName, const char* fragName, std::map<std::string, std::string> options = {});
+		Shader(std::string vertName, std::string geoName, std::string fragName, std::map<std::string, std::string> options = {});
 		~Shader();
 
 		void bind(), unbind();

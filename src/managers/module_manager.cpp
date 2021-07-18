@@ -12,7 +12,7 @@ void ce::ModuleManager::loadModules() {
 	std::string path = "./" + MODULE_FOLDER;
 	for (const std::filesystem::__cxx11::directory_entry& entry : std::filesystem::directory_iterator(path)) {
 		const char* path = entry.path().c_str();
-		LOG_INFO(path);
+		LOG_INFO("Loading module: %s", path);
 		void* lib = dlopen(path, RTLD_LAZY);
 		if (!lib) {
 			LOG_ERROR(dlerror());
