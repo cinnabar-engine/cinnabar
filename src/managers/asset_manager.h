@@ -20,6 +20,6 @@ namespace ce {
 		static TextureFile getTextureFile(std::string filename);
 		static void freeTextureFile(TextureFile textureFile);
 
-		static Meshfile getMeshFile(std::string filename);
+		static Meshfile getMeshfile(std::string filename);
 	};
 }
