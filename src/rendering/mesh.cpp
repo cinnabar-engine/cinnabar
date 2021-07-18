@@ -1,5 +1,4 @@
 #include "mesh.h"
-
 #include "shader.h"
 
 ce::Mesh::Mesh()
