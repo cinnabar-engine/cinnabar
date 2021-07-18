@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ce_math.h>
+#include <glm/glm.hpp>
 
 namespace ce {
 	struct Vertex {
