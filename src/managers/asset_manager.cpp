@@ -93,7 +93,7 @@ void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile) {
  */
 
 // TODO: all this mesh loading stuff should go into modules, and the only supported format should be one that can be loaded extremely easily (dumped Meshfile)
-ce::Meshfile ce::AssetManager::getMeshFile(std::string filename) {
+ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
 
 	Meshfile mesh;
