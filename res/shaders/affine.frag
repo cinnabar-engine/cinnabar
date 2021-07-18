@@ -8,11 +8,11 @@ struct Material {
 
 uniform Material material;
 
+in vec2 vUV;
 in vec4 vColor;
-in vec2 vTexCoord;
 
 out vec4 fColor;
 
 void main() {
-	fColor = texture(material.texture, vTexCoord) * vColor;
+	fColor = texture(material.texture, vUV) * vColor;
 }
