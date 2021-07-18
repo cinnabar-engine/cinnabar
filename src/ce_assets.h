@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <ce_math.h>
 
 #include "rendering/vertex.h"
@@ -36,8 +37,8 @@ namespace ce {
 			specularTex = "missing.png",
 			shader = NULL;
 	};
-	struct FacePart{
-			unsigned index=0,uv=0,normal=0;
+	struct FacePart {
+		unsigned index = 0, uv = 0, normal = 0;
 	};
 	struct MeshFile : public File {
 		std::vector<glm::vec3> vertices;
