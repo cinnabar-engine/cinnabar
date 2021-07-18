@@ -11,13 +11,13 @@ ce::Mesh::~Mesh() {
 	glDeleteBuffers(1, &m_EBO);
 }
 
-void ce::Mesh::setMesh(ce::Meshfile mesh) {
-	m_vertArraySize = mesh.verts.size() * sizeof(Vertex);
-	m_indexArraySize = mesh.indices.size() * sizeof(GLuint);
+void ce::Mesh::setMesh(ce::Meshfile meshfile) {
+	m_vertArraySize = meshfile.verts.size() * sizeof(Vertex);
+	m_indexArraySize = meshfile.indices.size() * sizeof(GLuint);
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
-	initVAO(mesh.verts.data(), mesh.indices.data());
+	initVAO(meshfile.verts.data(), meshfile.indices.data());
 	glBindVertexArray(0);
 }
 
