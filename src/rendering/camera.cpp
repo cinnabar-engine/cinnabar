@@ -23,11 +23,13 @@ glm::vec3 ce::Camera::getRight() {
 	return glm::normalize(glm::cross(forward, up));
 }
 
+// TODO: this needs to be edited when renderEngine is seperated from camera
 void ce::Camera::sendToShader(ce::Shader* shader) {
 	shader->setMat4("transform.view", getView());
 }
 
-void ce::Camera::boundPitch() {
+void ce::Camera::limitPitch() {
+	// TODO: this shouldn't be part of camera, this is related to movement and should be added to the movement scripts
 	float cameraPitch = m_transform->getPitch();
 	if (cameraPitch > 89.9f) // TODO: fix broken 90 degree pitch
 		cameraPitch = 89.9f;

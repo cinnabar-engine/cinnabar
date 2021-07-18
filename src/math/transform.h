@@ -5,14 +5,6 @@
 
 namespace ce {
 	class Transform {
-	 private:
-		/*
-		 * Pitch:X
-		 * Yaw:Y
-		 * Roll: Z
-		 */
-		glm::vec3 m_pos, m_rot, m_scale;
-
 	 public:
 		static glm::vec3 GetGlobalUp() { return glm::vec3(0.0f, 1.0f, 0.0f); }
 
@@ -51,7 +43,16 @@ namespace ce {
 		void scale(float a) { scale(a, a, a); }
 
 		glm::mat4 getMatrix();
-		void sendToShader(ce::Shader* shader);
 		glm::vec3 getForward();
+
+		void sendToShader(ce::Shader* shader);
+
+	 private:
+		/*
+		 * Pitch:X
+		 * Yaw:Y
+		 * Roll: Z
+		 */
+		glm::vec3 m_pos, m_rot, m_scale;
 	};
 }
