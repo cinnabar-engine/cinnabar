@@ -16,7 +16,7 @@ namespace ce {
 		~Mesh();
 
 		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshfile(filename)); };
-		void setMesh(Meshfile file);
+		void setMesh(Meshfile meshfile);
 
 		void sendToShader(ce::Shader* shader, bool bind = true);
 
