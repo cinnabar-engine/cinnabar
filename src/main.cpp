@@ -89,7 +89,7 @@ unsigned planeIndexCount = sizeof(planeIndices) / sizeof(GLuint);
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
 
-	ce::ModuleManger* moduleManager = new ce::ModuleManger();
+	ce::ModuleManager* moduleManager = new ce::ModuleManager();
 
 	ce::Time* time = new ce::Time();
 
