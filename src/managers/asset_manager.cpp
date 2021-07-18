@@ -65,10 +65,11 @@ ce::ShaderFile ce::AssetManager::getShaderFiles(std::string vert, std::string ge
 	return shaderFile;
 }
 
+// TODO: all this mesh loading stuff should go into modules, and the only supported format should be one that can be loaded extremely easily (dumped MeshFile)
 ce::TextureFile ce::AssetManager::getTextureFile(std::string filename) {
 	std::string path = TEXTURE_FOLDER + "/" + filename;
 	// stbi_set_flip_vertically_on_load(1);
-	LOG_SUCCESS("LOADED_TEXTURE %s", path.c_str());
+	LOG_SUCCESS("LOADED_TEXTURE: %s", path.c_str());
 
 	TextureFile textureFile;
 	textureFile.name = filename;
@@ -96,69 +97,69 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
 
 	MeshFile mesh;
-	//Get File
+	// Get File
 	std::ifstream file(path);
 	if (file.is_open()) {
 		std::string line;
 
-		//Get Line in tje file
+		// get Line in the file
 		while (std::getline(file, line)) {
 			LOG_INFO("%s", line.c_str());
 
-			//Split the line into parts ( p1 p1 p3 p4 )
+			// Split the line into parts ( p1 p1 p3 p4 )
 			std::stringstream lineStream(line);
 			std::vector<std::string> params;
 			std::string param;
-			//while(lineStream>>param) params.push_back(param);
+			//while (lineStream >> param)
+			//	params.push_back(param);
 			while (std::getline(lineStream, param, ' '))
 				params.push_back(param);
 
-			//Vetices
+			// TODO: throw if invalid numbers, amount of params, etc
+			// Vertices
 			if (params[0] == "v")
 				mesh.vertices.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
-			//UVs
-			if (params[0] == "vt")
+			// UVs
+			else if (params[0] == "vt")
 				mesh.uv.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
-			//Normals
-			if (params[0] == "vn")
+			// Normals
+			else if (params[0] == "vn")
 				mesh.normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 
-			//Faces
-			if (params[0] == "f") {
+			// Faces
+			else if (params[0] == "f") {
 				std::vector<FacePart> face;
-				//For each Face Part (corner)
+				// For each Face Part (corner)
 				for (int f = 1; f < params.size(); f++) {
 					std::string facePart = params[f];
 
 					// Split Face Part into Parts ( p1/p2/p3 )
 					std::stringstream fpStream(facePart); // Face Property Stream
 					std::vector<std::string> fpInfo; // Collection fo face properties
-					std::string fpProp; // Proptery (index,uv or normal)
+					std::string fpProp; // Property (index, uv or normal)
 					while (std::getline(fpStream, fpProp, '/'))
 						fpInfo.push_back(fpProp);
-					//while(fpStream>>fpProp) fpInfo.push_back(fpProp);
+					//while (fpStream >> fpProp)
+					//	fpInfo.push_back(fpProp);
 
-					//Retrive the Index UV and Normal from the face part
+					// Retrieve the Index, UV, and Normal from the face part
 					FacePart part{0, 0, 0};
 					// the "if" and "try catch" is to catch any erros from converting string to float without crashing
-					if (fpInfo[0] != "")
+					if (fpInfo[0] != "") // Vertex Index
 						try {
 							unsigned v = std::stoi(fpInfo[0]);
 							part.index = v;
-						} catch (std::exception e) {
-						} //Vertex Index
-					if (fpInfo[1] != "")
+						} catch (std::exception e) {}
+					if (fpInfo[1] != "") // UV Index
 						try {
 							unsigned u = std::stoi(fpInfo[1]);
 							part.uv = u;
-						} catch (std::exception e) {
-						} //UV Index
-					if (fpInfo[2] != "")
+						} catch (std::exception e) {}
+					if (fpInfo[2] != "") // Normal Index
 						try {
 							unsigned n = std::stoi(fpInfo[2]);
 							part.normal = n;
-						} catch (std::exception e) {
-						} //Normal Index
+						} catch (std::exception e) {}
 
 					face.push_back(part);
 					/*face.push_back({
@@ -171,6 +172,5 @@ ce::MeshFile ce::AssetManager::getMeshFile(std::string filename) {
 			}
 		}
 	}
-
 	return mesh;
 }

@@ -30,7 +30,7 @@ BreakBeforeBraces: Attach
 BreakAfterJavaFieldAnnotations: 'true'
 BreakBeforeBinaryOperators: None
 
-AllowShortBlocksOnASingleLine: 'false'
+AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: 'false'
 #AllowShortEnumsOnASingleLine: true # this breaks things?
 AllowShortFunctionsOnASingleLine: Inline
