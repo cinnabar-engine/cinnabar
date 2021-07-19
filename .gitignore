@@ -1,6 +1,1 @@
-vs/
 build/
-.vs*
-/CMakeSettings.json
-*kdev*
-*.kate-swp
