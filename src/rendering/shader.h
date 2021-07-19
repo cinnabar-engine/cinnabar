@@ -30,22 +30,19 @@ namespace ce {
 			GLboolean normalized, GLsizei stride, const void* pointer);
 
 		void
-			setBool(const std::string name, bool value),
-			setInt(const std::string name, int value),
-			setFloat(const std::string name, float value),
+			setUniform(const std::string name, bool value),
+			setUniform(const std::string name, int value),
+			setUniform(const std::string name, float value),
+			setUniform(const std::string name, glm::vec2 value),
+			setUniform(const std::string name, glm::vec3 value),
+			setUniform(const std::string name, glm::vec4 value),
+			setUniform(const std::string name, glm::mat2 mat),
+			setUniform(const std::string name, glm::mat3 mat),
+			setUniform(const std::string name, glm::mat4 mat),
 
-			setVec2(const std::string name, glm::vec2 value),
-			setVec2(const std::string name, float x, float y),
-
-			setVec3(const std::string name, glm::vec3 value),
-			setVec3(const std::string name, float x, float y, float z),
-
-			setVec4(const std::string name, glm::vec4 value),
-			setVec4(const std::string name, float x, float y, float z, float w),
-
-			setMat2(const std::string name, glm::mat2 mat),
-			setMat3(const std::string name, glm::mat3 mat),
-			setMat4(const std::string name, glm::mat4 mat);
+			setUniform(const std::string name, float x, float y),
+			setUniform(const std::string name, float x, float y, float z),
+			setUniform(const std::string name, float x, float y, float z, float w);
 
 	 private:
 		inline static const GLint MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
