@@ -71,7 +71,6 @@ int main(int argc, char* argv[]) {
 	while (running) {
 		time->update();
 		std::cout << "fps: " << time->getFPS() << std::endl;
-		std::cout << "dt: " << time->getDeltaTime() << std::endl;
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
