@@ -40,19 +40,19 @@ int main(int argc, char* argv[]) {
 	// Cube
 	ce::Mesh* cubeMesh = new ce::Mesh("missing.obj"); // TODO
 	ce::Transform* cubePos = new ce::Transform();
-	ce::Material* cubeMaterial = new ce::Material("basic");
+	ce::Material* cubeMaterial = new ce::Material("test");
 	cubeMaterial->setTexture("uv-map.png");
 
 	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh(); // TODO
 	ce::Transform* planePos = new ce::Transform();
-	ce::Material* planeMaterial = new ce::Material("vertColor");
+	ce::Material* planeMaterial = new ce::Material("test");
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
 	planePos->scale(10.0f, 1.0f, 10.0f);
 
 	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
 	ce::Transform* blenderPos = new ce::Transform();
-	ce::Material* blenderMaterial = new ce::Material("vertColor");
+	ce::Material* blenderMaterial = new ce::Material("test");
 	blenderPos->setPosition(0.0f, 5.0f, 0.0f);
 	//blenderPos->scale(1.0f, 1.0f, 1.0f);
 
@@ -71,6 +71,7 @@ int main(int argc, char* argv[]) {
 	while (running) {
 		time->update();
 		std::cout << "fps: " << time->getFPS() << std::endl;
+		std::cout << "dt: " << time->getDeltaTime() << std::endl;
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
