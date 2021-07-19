@@ -28,7 +28,7 @@ glm::mat4 ce::Transform::getMatrix() {
 }
 
 void ce::Transform::sendToShader(ce::Shader* shader) {
-	shader->setMat4("transform.model", getMatrix());
+	shader->setUniform("transform.model", getMatrix());
 }
 
 glm::vec3 ce::Transform::getForward() {
