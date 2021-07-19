@@ -29,7 +29,6 @@ void checkCompileErrors(GLuint shader, GLint shaderType) {
 		exit(-1);
 	}
 }
-
 void checkCompileErrors(GLuint program) {
 	int success;
 	char infoLog[1024];
@@ -70,6 +69,79 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 	return shader;
 }
 
+
+ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
+	: m_program(glCreateProgram()) {
+	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
+
+	glBindAttribLocation(m_program, (GLuint)Attribute::POSITION, (GLchar*)"aPosition");
+	glBindAttribLocation(m_program, (GLuint)Attribute::NORMAL, (GLchar*)"aNormal");
+	glBindAttribLocation(m_program, (GLuint)Attribute::UV, (GLchar*)"aUV");
+	glBindAttribLocation(m_program, (GLuint)Attribute::COLOR, (GLchar*)"aColor");
+
+	GLuint
+		vertexShader = 0,
+		fragmentShader = 0,
+		geometryShader = 0;
+
+	if (shaderFile.vertex != "")
+		vertexShader = createShader(GL_VERTEX_SHADER, setupShaderDefs(shaderFile.vertex, options));
+	if (shaderFile.fragment != "")
+		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.fragment, options));
+	if (shaderFile.geometry != "")
+		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geometry, options));
+	linkProgram(vertexShader, fragmentShader, vertexShader);
+
+	GLint attrCount = -1, uniformCount = -1;
+	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &attrCount);
+	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
+	m_attributes.resize(attrCount);
+	m_uniforms.resize(uniformCount);
+}
+ce::Shader::~Shader() {
+	glDeleteProgram(m_program);
+}
+
+void ce::Shader::bind() {
+	glUseProgram(m_program);
+}
+void ce::Shader::unbind() {
+	glUseProgram(0);
+}
+
+GLuint ce::Shader::getShader() {
+	return m_program;
+}
+
+// TODO: all uses of getLocation shouldn't happen every frame, it spams logs and is inefficient.
+// locations should be stored somewhere, not sure how that will work yet
+GLint ce::Shader::getAttribLocation(const std::string name) {
+	std::vector<std::string>::iterator location = std::find(m_attributes.begin(), m_attributes.end(), name);
+	if (location != m_attributes.end())
+		return std::distance(m_attributes.begin(), location);
+	else
+		return registerAttribute(name);
+}
+GLint ce::Shader::getUniformLocation(const std::string name) {
+	std::vector<std::string>::iterator location = std::find(m_uniforms.begin(), m_uniforms.end(), name);
+	if (location != m_uniforms.end())
+		return std::distance(m_uniforms.begin(), location);
+	else
+		return registerUniform(name);
+}
+
+void ce::Shader::vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer) {
+	GLint location = getAttribLocation(attrib);
+	vertexAttribPointer((Attribute)location, size, type, normalized, stride, pointer);
+}
+void ce::Shader::vertexAttribPointer(Attribute location, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer) {
+	if ((GLint)location < Shader::MIN_LOC)
+		return;
+	glVertexAttribPointer((GLint)location, size, type, normalized, stride, pointer);
+	glEnableVertexAttribArray((GLint)location);
+}
+
+
 void ce::Shader::linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint geometryShader) {
 	if (vertexShader != 0)
 		glAttachShader(m_program, vertexShader);
@@ -86,93 +158,20 @@ GLint ce::Shader::registerAttribute(std::string name) {
 	if (location < Shader::MIN_LOC) {
 		LOG_WARN("Invalid Attribute: %s", name.c_str());
 	} else {
-		m_attributes.insert(m_attributes.begin() + location, name);
+		m_attributes[location] = name;
 		LOG_SUCCESS("Registered Attribute: %s", name.c_str());
 	}
 	return location;
 }
-
 GLint ce::Shader::registerUniform(std::string name) {
 	GLint location = glGetUniformLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
 		LOG_WARN("Invalid Uniform: %s", name.c_str());
-		return MIN_LOC - 1;
+	} else {
+		m_uniforms[location] = name;
+		LOG_SUCCESS("Registered Uniform: %s", name.c_str());
 	}
-	m_uniforms.insert(m_uniforms.begin() + location, name);
-	LOG_SUCCESS("Registered Uniform: %s", name.c_str());
 	return location;
-}
-
-ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
-	: m_program(glCreateProgram()) {
-	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
-
-	GLuint
-		vertexShader = 0,
-		fragmentShader = 0,
-		geometryShader = 0;
-
-	if (shaderFile.vertex != "")
-		vertexShader = createShader(GL_VERTEX_SHADER, setupShaderDefs(shaderFile.vertex, options));
-	if (shaderFile.fragment != "")
-		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.fragment, options));
-	if (shaderFile.geometry != "")
-		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geometry, options));
-	linkProgram(vertexShader, fragmentShader, vertexShader);
-
-	GLint attrCount = 0, uniformCount = 0;
-	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &attrCount);
-	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
-
-	m_attributes.resize(attrCount);
-	m_uniforms.resize(uniformCount);
-}
-
-ce::Shader::~Shader() {
-	glDeleteProgram(m_program);
-}
-
-void ce::Shader::bind() {
-	glUseProgram(m_program);
-}
-
-void ce::Shader::unbind() {
-	glUseProgram(0);
-}
-
-GLuint ce::Shader::getShader() {
-	return m_program;
-}
-
-// TODO: all uses of getLocation shouldn't happen every frame, it spams logs and is inefficient.
-// locations should be stored somewhere, not sure how that will work yet
-GLint ce::Shader::getAttribLocation(const std::string name) {
-	if (m_attributes.size() < Shader::MIN_LOC)
-		return registerAttribute(name.c_str());
-	std::vector<std::string>::iterator location = std::find(m_attributes.begin(), m_attributes.end(), name);
-	if (location != m_attributes.end())
-		return std::distance(m_attributes.begin(), location);
-	else
-		return registerAttribute(name.c_str());
-}
-
-GLint ce::Shader::getUniformLocation(const std::string name) {
-	if (m_attributes.size() < Shader::MIN_LOC)
-		return registerUniform(name.c_str());
-	std::vector<std::string>::iterator location = std::find(m_uniforms.begin(), m_uniforms.end(), name);
-	if (location != m_uniforms.end())
-		return std::distance(m_uniforms.begin(), location);
-	else
-		return registerUniform(name.c_str());
-}
-
-void ce::Shader::vertexAttribPointer(std::string attrib, GLint size,
-	GLenum type, GLboolean normalized, GLsizei stride, const void* pointer) {
-	GLint location = getAttribLocation(attrib);
-	if (location < Shader::MIN_LOC)
-		return;
-	glVertexAttribPointer(location, size, type, normalized, stride, pointer);
-	glEnableVertexAttribArray(location);
 }
 
 
@@ -208,7 +207,6 @@ void ce::Shader::setUniform(const std::string name, glm::vec2 value) {
 	glUniform2fv(location, 1, &value[0]);
 	unbind();
 }
-
 void ce::Shader::setUniform(const std::string name, glm::vec3 value) {
 	bind();
 	GLint location = getUniformLocation(name);

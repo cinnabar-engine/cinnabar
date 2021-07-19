@@ -12,10 +12,17 @@
 namespace ce {
 	class Shader {
 	 public:
+		enum struct Attribute {
+			POSITION,
+			NORMAL,
+			UV,
+			COLOR,
+		};
+
 		Shader(std::string name, std::map<std::string, std::string> options = {})
 			: Shader(name, name, name, options){};
 		Shader(std::string vertName, std::string fragName, std::map<std::string, std::string> options = {})
-			: Shader(vertName, NULL, fragName, options){};
+			: Shader(vertName, "", fragName, options){};
 		Shader(std::string vertName, std::string geoName, std::string fragName, std::map<std::string, std::string> options = {});
 		~Shader();
 
@@ -26,11 +33,12 @@ namespace ce {
 			getAttribLocation(const std::string name),
 			getUniformLocation(const std::string name);
 
-		void vertexAttribPointer(std::string attrib, GLint size, GLenum type,
-			GLboolean normalized, GLsizei stride, const void* pointer);
+		void
+			vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer),
+			vertexAttribPointer(Attribute attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
 
 		void
-			setUniform(const std::string name, bool value),
+		setUniform(const std::string name, bool value),
 			setUniform(const std::string name, int value),
 			setUniform(const std::string name, float value),
 			setUniform(const std::string name, glm::vec2 value),

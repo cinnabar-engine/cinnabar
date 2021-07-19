@@ -59,10 +59,10 @@ void ce::Mesh::setMesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t 
 void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
 	if (bind)
 		this->bind(true, false);
-	shader->vertexAttribPointer("aPosition", 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
-	shader->vertexAttribPointer("aNormal", 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
-	shader->vertexAttribPointer("aUV", 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
-	shader->vertexAttribPointer("aColor", 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
+	shader->vertexAttribPointer(ce::Shader::Attribute::POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
+	shader->vertexAttribPointer(ce::Shader::Attribute::NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+	shader->vertexAttribPointer(ce::Shader::Attribute::UV, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
+	shader->vertexAttribPointer(ce::Shader::Attribute::COLOR, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
 	if (bind)
 		this->unbind(true, false);
 }
