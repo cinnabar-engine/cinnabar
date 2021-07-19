@@ -18,6 +18,9 @@ namespace ce {
 			UV,
 			COLOR,
 		};
+		enum struct Uniform {
+			
+		};
 
 		Shader(std::string name, std::map<std::string, std::string> options = {})
 			: Shader(name, name, name, options){};
@@ -37,26 +40,41 @@ namespace ce {
 			vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer),
 			vertexAttribPointer(Attribute attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
 
+		template <typename T>
+		void setUniform(const std::string name, T value);
 		void
-		setUniform(const std::string name, bool value),
-			setUniform(const std::string name, int value),
-			setUniform(const std::string name, float value),
-			setUniform(const std::string name, glm::vec2 value),
-			setUniform(const std::string name, glm::vec3 value),
-			setUniform(const std::string name, glm::vec4 value),
-			setUniform(const std::string name, glm::mat2 mat),
-			setUniform(const std::string name, glm::mat3 mat),
-			setUniform(const std::string name, glm::mat4 mat),
-
 			setUniform(const std::string name, float x, float y),
 			setUniform(const std::string name, float x, float y, float z),
-			setUniform(const std::string name, float x, float y, float z, float w);
+			setUniform(const std::string name, float x, float y, float z, float w),
+
+			setUniform(GLint location, bool value),
+			setUniform(GLint location, int value),
+			setUniform(GLint location, float value),
+			setUniform(GLint location, glm::vec2 value),
+			setUniform(GLint location, glm::vec3 value),
+			setUniform(GLint location, glm::vec4 value),
+			setUniform(GLint location, glm::mat2 mat),
+			setUniform(GLint location, glm::mat3 mat),
+			setUniform(GLint location, glm::mat4 mat),
+
+			setUniform(GLint location, float x, float y),
+			setUniform(GLint location, float x, float y, float z),
+			setUniform(GLint location, float x, float y, float z, float w);
 
 	 private:
 		inline static const GLint MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
 
 		GLuint m_program;
-		std::vector<std::string> m_attributes, m_uniforms;
+		std::vector<std::string>
+			m_attributes = {
+				"aPosition",
+				"aNormal",
+				"aUV",
+				"aColor",
+			},
+			m_uniforms = {
+				
+			};
 
 		void linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint geometryShader);
 
