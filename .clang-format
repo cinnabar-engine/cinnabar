@@ -6,6 +6,7 @@ TabWidth: '3'
 AccessModifierOffset: '-2'
 ConstructorInitializerIndentWidth: '3'
 ContinuationIndentWidth: '3'
+MaxEmptyLinesToKeep: '2'
 ObjCBlockIndentWidth: '3'
 UseTab: ForContinuationAndIndentation
 IndentCaseLabels: 'true'
