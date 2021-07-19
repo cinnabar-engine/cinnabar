@@ -76,8 +76,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Render System
  - [x] Multiple Objects rendering at the same time
  - [ ] Mesh Importing
- - [ ] Full UV mapping support
- - [ ] Full vertex color support
+ - [x] Full UV mapping support
+ - [x] Full vertex color support
  - [ ] Multi-texture materials
  - [ ] Normals
  - [ ] Normal maps
@@ -99,7 +99,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
    - [ ] Linear
    - [ ] Bilinear
    - [ ] Trilinear
-  - [ ] Supersampling / subsampling Interpolation
+  - [ ] Supersampling / subsampling interpolation
     - [ ] Nearest
     - [ ] Bilinear
     - [ ] Bicubic
