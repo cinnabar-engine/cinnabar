@@ -38,17 +38,16 @@ int main(int argc, char* argv[]) {
 	renderEngine->setClipRange(0.1f, 100.0f);
 
 	// Cube
-	ce::Mesh* cubeMesh = new ce::Mesh("missing.obj"); // TODO
+	ce::Mesh* cubeMesh = new ce::Mesh("missing.obj");
 	ce::Transform* cubePos = new ce::Transform();
 	ce::Material* cubeMaterial = new ce::Material("test");
 	cubeMaterial->setTexture("uv-map.png");
 
 	// Plane
-	ce::Mesh* planeMesh = new ce::Mesh(); // TODO
+	ce::Mesh* planeMesh = new ce::Mesh("environment.obj");
 	ce::Transform* planePos = new ce::Transform();
 	ce::Material* planeMaterial = new ce::Material("test");
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
-	planePos->scale(10.0f, 1.0f, 10.0f);
 
 	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
 	ce::Transform* blenderPos = new ce::Transform();

@@ -132,13 +132,16 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 				continue;
 
 			// Split the line into parts ( p1 p1 p3 p4 )
-			std::stringstream lineStream(line);
+			
 			std::vector<std::string> params;
-			std::string param;
-			//while (lineStream >> param)
-			//	params.push_back(param);
-			while (std::getline(lineStream, param, ' '))
-				params.push_back(param);
+			{
+				std::stringstream lineStream(line);
+				std::string param;
+				//while (lineStream >> param)
+				//	params.push_back(param);
+				while (std::getline(lineStream, param, ' '))
+					params.push_back(param);
+			}
 
 			// TODO: throw if invalid numbers, amount of params, etc
 			// Vertices
@@ -183,18 +186,19 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 					for (int i = 0; i < 3; i++)
 						if (fpInfo[i] != "")
 							try {
-								*fpAddresses[i] = std::stoi(fpInfo[i]);
+								*fpAddresses[i] = std::stoi(fpInfo[i]) - 1;
 							} catch (std::exception e) {
+								LOG_INFO("invalid vertex index %s", fpInfo[i].c_str()); // TODO better exception handling
+								throw;
 							}
 
 					Vertex vertex;
 					// TODO: throw if property missing
 					vertex.position = positions[indexedVert.position];
-					if (indexedVert.uv > -1)
+					if (indexedVert.uv != (size_t)-1)
 						vertex.uv = uvs[indexedVert.uv];
-					else
-						vertex.uv = glm::vec2(0.0f, 0.0f);
-					vertex.normal = normals[indexedVert.normal];
+					if (indexedVert.normal != (size_t)-1)
+						vertex.normal = normals[indexedVert.normal];
 					face.push_back(vertex);
 				}
 				if (face.size() < 3) {
