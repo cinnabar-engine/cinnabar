@@ -46,7 +46,8 @@ int main(int argc, char* argv[]) {
 	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh("environment.obj");
 	ce::Transform* planePos = new ce::Transform();
-	ce::Material* planeMaterial = new ce::Material("test");
+	ce::Material* planeMaterial = new ce::Material("basic");
+	planeMaterial->setTexture("floor.png");
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
 
 	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
