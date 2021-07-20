@@ -9,10 +9,13 @@ struct Transform {
 uniform Transform transform;
 
 in vec3 aPosition;
+in vec3 aNormal;
 
 out float vDist;
+out vec3 vNormal;
 
 void main() {
 	gl_Position = transform.proj * transform.view * transform.model * vec4(aPosition, 1.);
-	vDist = gl_Position[3];
+	vDist = gl_Position.z;
+	vNormal = aNormal;
 }
