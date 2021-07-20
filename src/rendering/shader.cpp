@@ -89,14 +89,32 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 	if (shaderFile.geometry != "")
 		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geometry, options));
 	linkProgram(vertexShader, fragmentShader, vertexShader);
-
-	GLint attrCount, uniformCount;
+	GLint attrCount, uniformCount, customAttrCount;
 	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &attrCount);
 	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
-	if (attrCount > m_attributes.size())
+	customAttrCount = attrCount - m_attributes.size();
+	if (customAttrCount > 0) {
 		m_attributes.resize(attrCount);
-	if (uniformCount > m_uniforms.size())
+		GLint nameMaxLen;
+		glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &nameMaxLen);
+		std::vector<GLchar> nameData(nameMaxLen);
+		for (GLuint i = attrCount - customAttrCount; i < attrCount; i++) {
+			GLsizei nameLen;
+			glGetActiveAttrib(m_program, i, (GLsizei)nameMaxLen, &nameLen, NULL, NULL, nameData.data());
+			m_attributes[i] = std::string((char*)nameData.data(), nameLen);
+		}
+	}
+	if (uniformCount > m_uniforms.size()) {
 		m_uniforms.resize(uniformCount);
+		GLint nameMaxLen;
+		glGetProgramiv(m_program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &nameMaxLen);
+		std::vector<GLchar> nameData(nameMaxLen);
+		for (GLuint i = 0; i < uniformCount; i++) {
+			GLsizei nameLen;
+			glGetActiveUniform(m_program, i, (GLsizei)nameMaxLen, &nameLen, NULL, NULL, nameData.data());
+			m_uniforms[i] = std::string((char*)nameData.data(), nameLen);
+		}
+	}
 }
 ce::Shader::~Shader() {
 	glDeleteProgram(m_program);
@@ -113,21 +131,19 @@ GLuint ce::Shader::getShader() {
 	return m_program;
 }
 
-// TODO: all uses of getLocation shouldn't happen every frame, it spams logs and is inefficient.
-// locations should be stored somewhere, not sure how that will work yet
 GLint ce::Shader::getAttribLocation(const std::string name) {
 	std::vector<std::string>::iterator location = std::find(m_attributes.begin(), m_attributes.end(), name);
-	if (location != m_attributes.end())
-		return std::distance(m_attributes.begin(), location);
-	else
-		return registerAttribute(name);
+	if (location == m_attributes.end()) {
+		LOG_WARN("Invalid Attribute: %s", name.c_str());
+	}
+	return std::distance(m_attributes.begin(), location);
 }
 GLint ce::Shader::getUniformLocation(const std::string name) {
 	std::vector<std::string>::iterator location = std::find(m_uniforms.begin(), m_uniforms.end(), name);
-	if (location != m_uniforms.end())
-		return std::distance(m_uniforms.begin(), location);
-	else
-		return registerUniform(name);
+	if (location == m_uniforms.end()) {
+		LOG_WARN("Invalid Uniform: %s", name.c_str());
+	}
+	return std::distance(m_uniforms.begin(), location);
 }
 
 void ce::Shader::vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer) {
@@ -152,7 +168,7 @@ void ce::Shader::linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint 
 	glLinkProgram(m_program);
 	checkCompileErrors(m_program);
 }
-
+/*
 GLint ce::Shader::registerAttribute(std::string name) {
 	GLint location = glGetAttribLocation(m_program, name.c_str());
 	if (location < Shader::MIN_LOC) {
@@ -173,7 +189,7 @@ GLint ce::Shader::registerUniform(std::string name) {
 	}
 	return location;
 }
-
+*/
 template <typename T>
 void ce::Shader::setUniform(const std::string name, T value) {
 	GLint location = getUniformLocation(name);

@@ -18,9 +18,6 @@ namespace ce {
 			UV,
 			COLOR,
 		};
-		enum struct Uniform {
-			
-		};
 
 		Shader(std::string name, std::map<std::string, std::string> options = {})
 			: Shader(name, name, name, options){};
@@ -72,13 +69,11 @@ namespace ce {
 				"aUV",
 				"aColor",
 			},
-			m_uniforms = {
-				
-			};
+			m_uniforms;
 
 		void linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint geometryShader);
 
-		int registerAttribute(std::string name),
-			registerUniform(std::string name);
+		//int registerAttribute(std::string name),
+		//	registerUniform(std::string name);
 	};
 }
