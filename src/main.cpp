@@ -37,24 +37,16 @@ int main(int argc, char* argv[]) {
 	renderEngine->setSize(window->getWindowSize());
 	renderEngine->setClipRange(0.1f, 100.0f);
 
-	// Cube
-	ce::Mesh* cubeMesh = new ce::Mesh("missing.obj");
+	ce::Mesh* cubeMesh = new ce::Mesh("blob.obj");
 	ce::Transform* cubePos = new ce::Transform();
 	ce::Material* cubeMaterial = new ce::Material("test");
 	cubeMaterial->setTexture("uv-map.png");
 
-	// Plane
 	ce::Mesh* planeMesh = new ce::Mesh("environment.obj");
 	ce::Transform* planePos = new ce::Transform();
 	ce::Material* planeMaterial = new ce::Material("basic");
 	planeMaterial->setTexture("floor.png");
 	planePos->setPosition(0.0f, -1.0f, 0.0f);
-
-	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
-	ce::Transform* blenderPos = new ce::Transform();
-	ce::Material* blenderMaterial = new ce::Material("test");
-	blenderPos->setPosition(0.0f, 5.0f, 0.0f);
-	//blenderPos->scale(1.0f, 1.0f, 1.0f);
 
 	double mouseSens = 0.05;
 	ce::Camera* camera = new ce::Camera();
@@ -164,7 +156,6 @@ int main(int argc, char* argv[]) {
 		// Render
 		renderEngine->registerCommand({cubePos, cubeMaterial, cubeMesh, cubeMesh->GetIndexCount()});
 		renderEngine->registerCommand({planePos, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
-		renderEngine->registerCommand({blenderPos, blenderMaterial, blenderMesh, blenderMesh->GetIndexCount()});
 		renderEngine->render();
 
 		window->swapBuffers();
