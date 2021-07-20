@@ -13,7 +13,7 @@ ce::Material::~Material() {
 
 void ce::Material::update() {
 	if (m_texture != NULL)
-		m_shader->setInt("material.texture", 1);
+		m_shader->setUniform("material.texture", 1);
 }
 
 void ce::Material::bind() {
