@@ -181,16 +181,15 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 					// TODO: make this code less messy
 					IndexedVertex indexedVert;
 					size_t* fpAddresses[3] = {&indexedVert.position, &indexedVert.uv, &indexedVert.normal};
-					// the "if" and "try catch" is to catch any errors from converting string to float without crashing
-					// TODO: log errors in catch, that should only happen if the mesh file is broken
 					for (int i = 0; i < 3; i++)
-						if (fpInfo[i] != "")
-							try {
-								*fpAddresses[i] = std::stoi(fpInfo[i]) - 1;
-							} catch (std::exception e) {
-								LOG_INFO("invalid vertex index %s", fpInfo[i].c_str()); // TODO better exception handling
+						if (fpInfo[i] != "") {
+							int err = sscanf(fpInfo[i].c_str(), "%zu", fpAddresses[i]);
+							if (err == EOF) {
+								LOG_INFO("invalid vertex index \"%s\"", fpInfo[i].c_str());
 								throw;
 							}
+							*fpAddresses[i] -= 1;
+						}
 
 					Vertex vertex;
 					// TODO: throw if property missing
