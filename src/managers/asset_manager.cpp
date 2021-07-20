@@ -113,101 +113,105 @@ std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
 
 ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
+	std::ifstream file(path);
+	if (!file.is_open()) {
+		LOG_INFO("couldn't load model %s", filename.c_str());
+		if (filename == "missing.obj")
+			return Meshfile();
+		else
+			return getMeshfile("missing.obj");
+	}
 
 	Meshfile mesh;
-	// Get File
-	std::ifstream file(path);
-	if (file.is_open()) {
-		std::string line;
+	std::string line;
 
-		std::vector<glm::vec3> positions;
-		std::vector<glm::vec3> uvs;
-		std::vector<glm::vec3> normals;
+	std::vector<glm::vec3> positions;
+	std::vector<glm::vec3> uvs;
+	std::vector<glm::vec3> normals;
 
-		// Get Line in the file
-		while (std::getline(file, line)) {
-			// remove comments
-			line = line.substr(0, line.find("#"));
-			if (line == "")
-				continue;
+	// Get Line in the file
+	while (std::getline(file, line)) {
+		// remove comments
+		line = line.substr(0, line.find("#"));
+		if (line == "")
+			continue;
 
-			// Split the line into parts ( p1 p1 p3 p4 )
-			
-			std::vector<std::string> params;
-			{
-				std::stringstream lineStream(line);
-				std::string param;
-				//while (lineStream >> param)
-				//	params.push_back(param);
-				while (std::getline(lineStream, param, ' '))
-					params.push_back(param);
-			}
+		// Split the line into parts ( p1 p1 p3 p4 )
+		
+		std::vector<std::string> params;
+		{
+			std::stringstream lineStream(line);
+			std::string param;
+			//while (lineStream >> param)
+			//	params.push_back(param);
+			while (std::getline(lineStream, param, ' '))
+				params.push_back(param);
+		}
 
-			// TODO: throw if invalid numbers, amount of params, etc
-			// Vertices
-			if (params[0] == "v")
-				positions.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
-			// UVs
-			else if (params[0] == "vt")
-				uvs.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
-			// Normals
-			else if (params[0] == "vn")
-				normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+		// TODO: throw if invalid numbers, amount of params, etc
+		// Vertices
+		if (params[0] == "v")
+			positions.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+		// UVs
+		else if (params[0] == "vt")
+			uvs.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+		// Normals
+		else if (params[0] == "vn")
+			normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 
-			// Faces
-			else if (params[0] == "f") {
-				std::vector<Vertex> face;
-				IndexedVertex indexedVert;
-				size_t* fpAddresses[3] = {&indexedVert.position, &indexedVert.uv, &indexedVert.normal};
-				// for each vertex of face
-				for (int i = 1; i < params.size(); i++) {
-					std::string facePart = params[i];
-					// Split obj vertex into individual indices ( p1/p2/p3 )
-					{
-						std::stringstream fpStream(facePart); // Face Property Stream
-						std::string fpProp; // fpProp Property (index, uv or normal)
-						int i = 0;
-						while (std::getline(fpStream, fpProp, '/')) {
-							if (fpProp == "") {
-								if (i == 0) {
-									LOG_INFO("missing vertex position on face \"%s\"", line.c_str());
-									throw;
-								}
-							} else {
-								int err = sscanf(fpProp.c_str(), "%zu", fpAddresses[i]);
-								if (err == EOF) {
-									LOG_INFO("invalid vertex property index \"%s\"", fpProp.c_str());
-									throw;
-								}
-								*fpAddresses[i] -= 1;
+		// Faces
+		else if (params[0] == "f") {
+			std::vector<Vertex> face;
+			IndexedVertex indexedVert;
+			size_t* fpAddresses[3] = {&indexedVert.position, &indexedVert.uv, &indexedVert.normal};
+			// for each vertex of face
+			for (int i = 1; i < params.size(); i++) {
+				std::string facePart = params[i];
+				// Split obj vertex into individual indices ( p1/p2/p3 )
+				{
+					std::stringstream fpStream(facePart); // Face Property Stream
+					std::string fpProp; // fpProp Property (index, uv or normal)
+					int i = 0;
+					while (std::getline(fpStream, fpProp, '/')) {
+						if (fpProp == "") {
+							if (i == 0) {
+								LOG_INFO("missing vertex position on face \"%s\"", line.c_str());
+								throw;
 							}
-							if (++i > 3)
-								break;
+						} else {
+							int err = sscanf(fpProp.c_str(), "%zu", fpAddresses[i]);
+							if (err == EOF) {
+								LOG_INFO("invalid vertex property index \"%s\"", fpProp.c_str());
+								throw;
+							}
+							*fpAddresses[i] -= 1;
 						}
-						if (i != 3) {
-							LOG_INFO("invalid vertex properties %i %s", i, params[i].c_str()); // TODO: better exception handling
-							throw;
-						}
+						if (++i > 3)
+							break;
 					}
+					if (i != 3) {
+						LOG_INFO("invalid vertex properties %i %s", i, params[i].c_str()); // TODO: better exception handling
+						throw;
+					}
+				}
 
-					Vertex vertex;
-					// TODO: throw if position missing
-					vertex.position = positions[indexedVert.position];
-					if (indexedVert.uv != (size_t)-1)
-						vertex.uv = uvs[indexedVert.uv];
-					if (indexedVert.normal != (size_t)-1)
-						vertex.normal = normals[indexedVert.normal];
-					face.push_back(vertex);
-				}
-				if (face.size() < 3) {
-					LOG_INFO("invalid face polygon %i", face.size()); // TODO better exception handling
-					throw;
-				}
-				std::vector<GLuint> indices = genNgonIndices(face.size(), mesh.verts.size());
-				std::move(face.begin(), face.end(), std::back_inserter(mesh.verts));
-				std::move(indices.begin(), indices.end(), std::back_inserter(mesh.indices));
-				// TODO: optimize mesh (find and remove repeat verticies)
+				Vertex vertex;
+				// TODO: throw if position missing
+				vertex.position = positions[indexedVert.position];
+				if (indexedVert.uv != (size_t)-1)
+					vertex.uv = uvs[indexedVert.uv];
+				if (indexedVert.normal != (size_t)-1)
+					vertex.normal = normals[indexedVert.normal];
+				face.push_back(vertex);
 			}
+			if (face.size() < 3) {
+				LOG_INFO("invalid face polygon %i", face.size()); // TODO better exception handling
+				throw;
+			}
+			std::vector<GLuint> indices = genNgonIndices(face.size(), mesh.verts.size());
+			std::move(face.begin(), face.end(), std::back_inserter(mesh.verts));
+			std::move(indices.begin(), indices.end(), std::back_inserter(mesh.indices));
+			// TODO: optimize mesh (find and remove repeat verticies)
 		}
 	}
 	return mesh;

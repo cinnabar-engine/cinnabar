@@ -10,7 +10,10 @@ namespace ce {
 		inline static const std::string
 			SHADER_FOLDER = "shaders",
 			TEXTURE_FOLDER = "textures",
-			MESH_FOLDER = "meshes";
+			MESH_FOLDER = "meshes",
+			SHADER_MISSING = "",
+			TEXTURE_MISSING = "",
+			MESH_MISSING = "missing.obj";
 
 		static std::string load_text_file(std::string file, bool mustExist = true);
 
