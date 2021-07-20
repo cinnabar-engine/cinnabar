@@ -25,7 +25,7 @@ glm::vec3 ce::Camera::getRight() {
 
 // TODO: this needs to be edited when renderEngine is seperated from camera
 void ce::Camera::sendToShader(ce::Shader* shader) {
-	shader->setMat4("transform.view", getView());
+	shader->setUniform("transform.view", getView());
 }
 
 void ce::Camera::limitPitch() {
