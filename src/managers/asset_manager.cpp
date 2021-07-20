@@ -157,42 +157,41 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 			// Faces
 			else if (params[0] == "f") {
 				std::vector<Vertex> face;
-				// For each Face Vertex (corner)
+				IndexedVertex indexedVert;
+				size_t* fpAddresses[3] = {&indexedVert.position, &indexedVert.uv, &indexedVert.normal};
+				// for each vertex of face
 				for (int i = 1; i < params.size(); i++) {
 					std::string facePart = params[i];
 					// Split obj vertex into individual indices ( p1/p2/p3 )
-					std::string fpInfo[3]; // Collection fo face properties
 					{
 						std::stringstream fpStream(facePart); // Face Property Stream
 						std::string fpProp; // fpProp Property (index, uv or normal)
 						int i = 0;
 						while (std::getline(fpStream, fpProp, '/')) {
-							fpInfo[i] = fpProp;
+							if (fpProp == "") {
+								if (i == 0) {
+									LOG_INFO("missing vertex position on face \"%s\"", line.c_str());
+									throw;
+								}
+							} else {
+								int err = sscanf(fpProp.c_str(), "%zu", fpAddresses[i]);
+								if (err == EOF) {
+									LOG_INFO("invalid vertex property index \"%s\"", fpProp.c_str());
+									throw;
+								}
+								*fpAddresses[i] -= 1;
+							}
 							if (++i > 3)
 								break;
 						}
 						if (i != 3) {
-							LOG_INFO("invalid vertex properties %i %s/%s/%s", i, fpInfo[0].c_str(), fpInfo[1].c_str(), fpInfo[2].c_str()); // TODO: better exception handling
+							LOG_INFO("invalid vertex properties %i %s", i, params[i].c_str()); // TODO: better exception handling
 							throw;
 						}
 					}
 
-					// Retrieve the Index UV and Normal from the face part
-					// TODO: make this code less messy
-					IndexedVertex indexedVert;
-					size_t* fpAddresses[3] = {&indexedVert.position, &indexedVert.uv, &indexedVert.normal};
-					for (int i = 0; i < 3; i++)
-						if (fpInfo[i] != "") {
-							int err = sscanf(fpInfo[i].c_str(), "%zu", fpAddresses[i]);
-							if (err == EOF) {
-								LOG_INFO("invalid vertex index \"%s\"", fpInfo[i].c_str());
-								throw;
-							}
-							*fpAddresses[i] -= 1;
-						}
-
 					Vertex vertex;
-					// TODO: throw if property missing
+					// TODO: throw if position missing
 					vertex.position = positions[indexedVert.position];
 					if (indexedVert.uv != (size_t)-1)
 						vertex.uv = uvs[indexedVert.uv];
