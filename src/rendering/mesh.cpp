@@ -11,48 +11,13 @@ ce::Mesh::~Mesh() {
 	glDeleteBuffers(1, &m_EBO);
 }
 
-// TODO: the Mesh class shoudn't do ANY coverting, and shouldn't have to grab a Meshfile via a name. the Meshfile should just include the verts and indices.
-void ce::Mesh::setMesh(Meshfile meshfile) {
-	std::vector<Vertex> verts;
-	std::vector<GLuint> indices;
+void ce::Mesh::setMesh(ce::Meshfile meshfile) {
+	m_vertArraySize = meshfile.verts.size() * sizeof(Vertex);
+	m_indexArraySize = meshfile.indices.size() * sizeof(GLuint);
 
-	for (int v = 0; v < meshfile.vertices.size(); v++) {
-		Vertex vertex;
-
-		vertex.position = meshfile.vertices[v];
-		vertex.color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		vertex.uv = glm::vec2(0.0f, 0.0f);
-
-		verts.push_back(vertex);
-	}
-
-	for (int f = 0; f < meshfile.faces.size(); f++) {
-		auto face = meshfile.faces[f];
-		for (int p = 0; p < face.size(); p++) {
-			auto point = face[p];
-			auto vertex = verts[point.index];
-			indices.push_back((GLuint)point.index);
-
-			if (meshfile.normals.size() > point.normal) {
-				// TODO: normals
-				meshfile.normals[point.normal];
-			}
-			if (meshfile.uv.size() > point.uv)
-				vertex.uv = meshfile.uv[point.uv];
-
-			verts[point.index] = vertex;
-		}
-	}
-
-	setMesh(verts.data(), verts.size(), indices.data(), indices.size());
-}
-
-void ce::Mesh::setMesh(Vertex* verts, size_t vertCount, GLuint* indices, size_t indexCount) {
-	m_vertArraySize = vertCount * sizeof(Vertex);
-	m_indexArraySize = indexCount * sizeof(GLuint);
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
-	initVAO(verts, indices);
+	initVAO(meshfile.verts.data(), meshfile.indices.data());
 	glBindVertexArray(0);
 }
 

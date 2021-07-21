@@ -5,10 +5,6 @@ void ce::RenderEngine::clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void ce::RenderEngine::render(unsigned count) {
-	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, 0);
-}
-
 void ce::RenderEngine::bind(RenderCommand command) {
 	// Update Shader Values TODO: shouldn't this be somewhere else instead of the bind command?
 	command.material->update();
@@ -77,7 +73,7 @@ void ce::RenderEngine::render() {
 	clear();
 	for (RenderCommand command : m_commands) {
 		bind(command);
-		render(command.points);
+		glDrawElements(GL_TRIANGLES, (GLsizei)command.mesh->GetIndexCount(), GL_UNSIGNED_INT, 0);
 		unbind(command); // TODO: should this go outside the for loop?
 	}
 	m_commands.clear();
