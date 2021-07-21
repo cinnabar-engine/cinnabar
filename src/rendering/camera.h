@@ -8,8 +8,7 @@ namespace ce {
 		Camera();
 		~Camera();
 
-		glm::mat4 getView();
-		glm::vec3 getRight();
+		glm::mat4 getViewMatrix();
 		Transform* getTransform() { return m_transform; }
 
 		void limitPitch();
@@ -17,7 +16,5 @@ namespace ce {
 
 	 private:
 		ce::Transform* m_transform;
-		double speed;
-		float fov;
 	};
 }

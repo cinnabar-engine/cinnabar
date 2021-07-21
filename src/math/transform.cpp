@@ -14,8 +14,8 @@ glm::mat4 ce::Transform::getMatrix() {
 
 	// Rotation
 	// TODO: Quaternions
-	transform = glm::rotate(transform, glm::radians(getPitch()), glm::vec3(1.0f, 0.0f, 0.0f)); // Pitch
 	transform = glm::rotate(transform, glm::radians(getYaw()), glm::vec3(0.0f, 1.0f, 0.0f)); // Yaw
+	transform = glm::rotate(transform, glm::radians(getPitch()), glm::vec3(1.0f, 0.0f, 0.0f)); // Pitch
 	transform = glm::rotate(transform, glm::radians(getRoll()), glm::vec3(0.0f, 0.0f, 1.0f)); // Roll
 
 	// Scale
@@ -28,13 +28,38 @@ void ce::Transform::sendToShader(ce::Shader* shader) {
 	shader->setUniform("transform.model", getMatrix());
 }
 
-glm::vec3 ce::Transform::getForward() {
+#include <core/tpnt_log.h>
+#include <limits>
+
+glm::vec3 ce::Transform::getForward(bool useYaw, bool usePitch, bool) {
 	float
-		yaw = glm::radians(getYaw()),
-		pitch = glm::radians(getPitch());
-	glm::vec3 dir(
-		cos(yaw) * cos(pitch),
+		yaw = useYaw ? glm::radians(getYaw()) : 0.0,
+		pitch = usePitch ? glm::radians(getPitch()) : 0.0;
+	return glm::vec3(
+		-sin(yaw) * cos(pitch),
 		sin(pitch),
-		sin(yaw) * cos(pitch));
-	return glm::normalize(dir);
+		-cos(yaw) * cos(pitch)
+	);
+}
+glm::vec3 ce::Transform::getRight(bool useYaw, bool usePitch, bool useRoll) {
+	float
+		yaw = useYaw ? glm::radians(getYaw()) : 0.0,
+		pitch = usePitch ? glm::radians(getPitch()) : 0.0,
+		roll = useRoll ? glm::radians(getRoll()) : 0.0;
+	return glm::vec3(
+		cos(yaw) * cos(roll) + sin(yaw) * sin(roll) * sin(pitch),
+		sin(roll) * cos(pitch),
+		-sin(yaw) * cos(roll) + cos(yaw) * sin(roll) * sin(pitch)
+	);
+}
+glm::vec3 ce::Transform::getUp(bool useYaw, bool usePitch, bool useRoll) {
+	float
+		yaw = useYaw ? glm::radians(getYaw()) : 0.0,
+		pitch = usePitch ? glm::radians(getPitch()) : 0.0,
+		roll = useRoll ? glm::radians(getRoll()) : 0.0;
+	return glm::vec3(
+		-cos(yaw) * sin(roll) + sin(yaw) * sin(pitch) * cos(roll),
+		cos(roll) * cos(pitch),
+		sin(yaw) * sin(roll) + cos(yaw) * sin(pitch) * cos(roll)
+	);
 }

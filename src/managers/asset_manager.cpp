@@ -95,7 +95,7 @@ struct IndexedVertex {
 };
 
 std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
-	std::vector<GLuint> indices;
+	std::vector<GLuint> indices; // TODO: make this work for concave faces
 	for (size_t i = 1; i < sides - 1; i++) {
 		indices.push_back(offset);
 		indices.push_back(i + offset);
@@ -104,6 +104,7 @@ std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
 	return indices;
 }
 
+// TODO: system for other file types (not the actual loading of them, just detection of types)
 ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 	std::string path = MESH_FOLDER + "/" + filename;
 	std::ifstream file(path);
@@ -189,7 +190,6 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 				}
 
 				Vertex vertex;
-				// TODO: throw if position missing
 				vertex.position = positions[indexedVert.position];
 				if (indexedVert.uv != (size_t)-1)
 					vertex.uv = uvs[indexedVert.uv];

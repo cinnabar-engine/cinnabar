@@ -37,7 +37,6 @@ ce::RenderEngine::RenderEngine()
 	 */
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
-		/* Problem: glewInit failed, something is seriously wrong. */
 		LOG_ERROR((const char*)glewGetErrorString(err));
 	}
 	LOG_INFO("Status: Using GLEW %s", (const char*)glewGetString(GLEW_VERSION));
