@@ -29,7 +29,7 @@ std::string ce::AssetManager::load_text_file(std::string path, bool mustExist) {
 		text = filestream.str();
 		LOG_SUCCESS("LOADED_FILE: %s", path.c_str());
 	} catch (std::fstream::failure e) {
-		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (%s) %s", path.c_str(), e.what()); // TODO: figure out why shader loading is creating iostream error
+		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (%s) %s", path.c_str(), e.what()); // TODO: figure out why files not exist create an iostream error instead of expected error
 	}
 	return text;
 }
@@ -44,22 +44,16 @@ ce::ShaderFile ce::AssetManager::getShaderFiles(std::string vert, std::string ge
 		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag", false);
 		if (shaderFile.fragment == "")
 			shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
-		if (shaderFile.name == "") // TODO: this ShaderFile name thing really isn't needed, probably remove it (same for Meshfile)
-			shaderFile.name = frag;
 	}
 	if (vert != "") {
 		shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vert", false);
 		if (shaderFile.vertex == "")
 			shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vs");
-		if (shaderFile.name == "")
-			shaderFile.name = vert;
 	}
 	if (geom != "") {
 		shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".geom", false);
 		if (shaderFile.geometry == "")
 			shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".gs");
-		if (shaderFile.name == "")
-			shaderFile.name = geom;
 	}
 
 	return shaderFile;
@@ -71,7 +65,6 @@ ce::TextureFile ce::AssetManager::getTextureFile(std::string filename) {
 	LOG_SUCCESS("LOADED_TEXTURE: %s", path.c_str());
 
 	TextureFile textureFile;
-	textureFile.name = filename;
 	textureFile.data = stbi_load(path.c_str(), &textureFile.width,
 		&textureFile.height, &textureFile.channelCount, 0);
 	if (textureFile.data == NULL)

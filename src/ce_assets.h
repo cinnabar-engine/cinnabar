@@ -8,10 +8,7 @@
 #include <vector>
 
 namespace ce {
-	struct File {
-		std::string name = "";
-	};
-	struct ShaderFile : public File {
+	struct ShaderFile {
 		std::string
 			vertName = "",
 			geomName = "",
@@ -20,14 +17,14 @@ namespace ce {
 			geometry = "",
 			fragment = "";
 	};
-	struct TextureFile : public File {
+	struct TextureFile {
 		unsigned char* data = NULL;
 		int
 			width = 0,
 			height = 0,
 			channelCount = 0;
 	};
-	struct MaterialFile : public File {
+	struct MaterialFile {
 		glm::vec4
 			ambient = glm::vec4(0.0f),
 			diffuse = glm::vec4(0.0f),
@@ -37,7 +34,7 @@ namespace ce {
 			specularTex = "missing.png",
 			shader = NULL;
 	};
-	struct Meshfile : public File {
+	struct Meshfile {
 		std::vector<Vertex> verts = {};
 		std::vector<GLuint> indices = {};
 	};
