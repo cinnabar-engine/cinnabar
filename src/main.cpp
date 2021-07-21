@@ -38,15 +38,18 @@ int main(int argc, char* argv[]) {
 	renderEngine->setClipRange(0.1f, 100.0f);
 
 	ce::Mesh* cubeMesh = new ce::Mesh("blob.obj");
+	ce::Material* cubeMaterial = new ce::Material("matcap");
 	ce::Transform* cubePos = new ce::Transform();
-	ce::Material* cubeMaterial = new ce::Material("test");
-	cubeMaterial->setTexture("uv-map.png");
+	cubePos->setScale(0.5f, 0.5f, 0.5f);
+	cubeMaterial->setTexture("matcap.png");
 
-	ce::Mesh* planeMesh = new ce::Mesh("environment.obj");
-	ce::Transform* planePos = new ce::Transform();
-	ce::Material* planeMaterial = new ce::Material("basic");
-	planeMaterial->setTexture("floor.png");
-	planePos->setPosition(0.0f, -1.0f, 0.0f);
+	ce::Mesh* environmentMesh = new ce::Mesh("environment.obj");
+	ce::Material* environmentGroundMaterial = new ce::Material("basic");
+	ce::Material* environmentBuildingsMaterial = new ce::Material("basic");
+	ce::Transform* environmentPos = new ce::Transform();
+	environmentGroundMaterial->setTexture("floor.png");
+	environmentBuildingsMaterial->setTexture("color.png");
+	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 
 	double mouseSens = 0.05;
 	ce::Camera* camera = new ce::Camera();
@@ -139,9 +142,9 @@ int main(int argc, char* argv[]) {
 		moduleManager->tickModules(time->getDeltaTime());
 
 		// Rotate cube
-		cubePos->roll(25.0 * time->getDeltaTime());
-		cubePos->yaw(50.0 * time->getDeltaTime());
-		cubePos->pitch(100.0 * time->getDeltaTime());
+		//cubePos->roll(25.0 * time->getDeltaTime());
+		//cubePos->yaw(50.0 * time->getDeltaTime());
+		//cubePos->pitch(100.0 * time->getDeltaTime());
 
 		// Move camera
 		glm::vec3
@@ -154,8 +157,8 @@ int main(int argc, char* argv[]) {
 			(cameraUp * cameraVelocity.y));
 
 		// Render
-		renderEngine->registerCommand({cubePos, cubeMaterial, cubeMesh, cubeMesh->GetIndexCount()});
-		renderEngine->registerCommand({planePos, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
+		renderEngine->registerCommand({cubePos, cubeMaterial, cubeMesh});
+		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh});
 		renderEngine->render();
 
 		window->swapBuffers();

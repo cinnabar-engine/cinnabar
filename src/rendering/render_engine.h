@@ -14,7 +14,6 @@ namespace ce {
 		Transform* transform;
 		Material* material;
 		Mesh* mesh;
-		unsigned points;
 	};
 
 	class RenderEngine {
@@ -46,8 +45,8 @@ namespace ce {
 		std::vector<RenderCommand> m_commands = {};
 
 		void clear();
-		void bind(RenderCommand command);
-		void render(unsigned count);
-		void unbind(RenderCommand command);
+		void
+			bind(RenderCommand command),
+			unbind(RenderCommand command);
 	};
 }
