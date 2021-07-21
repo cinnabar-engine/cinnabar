@@ -21,71 +21,6 @@
 #include "rendering/material.h"
 #include "rendering/render_engine.h"
 
-/*
- * Vertices
- */
-// clang-format off
-ce::Vertex cubeVerts[] = {
-	// pos                          normal                       uv                     color
-	glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 0
-	glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 1
-	glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 4
-	glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 5
-	
-	glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 6
-	glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 7
-	glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 2
-	glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), // 3
-};
-ce::Vertex planeVerts[] = {
-	// pos                          normal                       uv                     color
-	glm::vec3(-1.0f,  0.0f, -1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), // 0
-	glm::vec3(-1.0f,  0.0f,  1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), // 1
-	glm::vec3( 1.0f,  0.0f, -1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), // 2
-	glm::vec3( 1.0f,  0.0f,  1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), // 3
-};
-
-/*
- * this is a cube
-	  /2-6
-	 / 0-4
-	3-7 /
-	1-5/
-	viewed from the front, bottom face here is front
-*/
-// clang-format on
-unsigned cubeVertCount = sizeof(cubeVerts) / sizeof(ce::Vertex);
-unsigned planeVertCount = sizeof(planeVerts) / sizeof(ce::Vertex);
-// clang-format off
-GLuint cubeIndices [] = {
-	// F
-	5, 7, 3,
-	5, 3, 1,
-	// L
-	1, 3, 2,
-	1, 2, 0,
-	// B
-	0, 2, 6,
-	0, 6, 4,
-	// R
-	4, 6, 7,
-	4, 7, 5,
-	// D
-	4, 5, 1,
-	4, 1, 0,
-	// U
-	7, 6, 2,
-	7, 2, 3,
-};
-
-GLuint planeIndices[] = {
-	0, 1, 3,
-	0, 3, 2,
-};
-// clang-format on
-unsigned cubeIndexCount = sizeof(cubeIndices) / sizeof(GLuint);
-unsigned planeIndexCount = sizeof(planeIndices) / sizeof(GLuint);
-
 int main(int argc, char* argv[]) {
 	LOG_INFO("Hello World");
 
@@ -102,24 +37,19 @@ int main(int argc, char* argv[]) {
 	renderEngine->setSize(window->getWindowSize());
 	renderEngine->setClipRange(0.1f, 100.0f);
 
-	// Cube
-	ce::Mesh* cubeMesh = new ce::Mesh(cubeVerts, cubeVertCount, cubeIndices, cubeIndexCount);
-	ce::Transform* cubePos = new ce::Transform();
-	ce::Material* cubeMaterial = new ce::Material("basic");
-	cubeMaterial->setTexture("uv-map.png");
+	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
+	ce::Material* blobMaterial = new ce::Material("matcap");
+	ce::Transform* blobPos = new ce::Transform();
+	blobPos->setScale(0.5f, 0.5f, 0.5f);
+	blobMaterial->setTexture("matcap.png");
 
-	// Plane
-	ce::Mesh* planeMesh = new ce::Mesh(planeVerts, planeVertCount, planeIndices, planeIndexCount);
-	ce::Transform* planePos = new ce::Transform();
-	ce::Material* planeMaterial = new ce::Material("vertColor");
-	planePos->setPosition(0.0f, -1.0f, 0.0f);
-	planePos->scale(10.0f, 1.0f, 10.0f);
-
-	ce::Mesh* blenderMesh = new ce::Mesh("hello.obj");
-	ce::Transform* blenderPos = new ce::Transform();
-	ce::Material* blenderMaterial = new ce::Material("vertColor");
-	blenderPos->setPosition(0.0f, 5.0f, 0.0f);
-	//blenderPos->scale(1.0f, 1.0f, 1.0f);
+	ce::Mesh* environmentMesh = new ce::Mesh("environment.obj");
+	ce::Material* environmentGroundMaterial = new ce::Material("basic");
+	ce::Material* environmentBuildingsMaterial = new ce::Material("basic");
+	ce::Transform* environmentPos = new ce::Transform();
+	environmentGroundMaterial->setTexture("floor.png");
+	environmentBuildingsMaterial->setTexture("color.png");
+	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 
 	double mouseSens = 0.05;
 	ce::Camera* camera = new ce::Camera();
@@ -211,10 +141,10 @@ int main(int argc, char* argv[]) {
 
 		moduleManager->tickModules(time->getDeltaTime());
 
-		// Rotate cube
-		cubePos->roll(25.0 * time->getDeltaTime());
-		cubePos->yaw(50.0 * time->getDeltaTime());
-		cubePos->pitch(100.0 * time->getDeltaTime());
+		// Rotate blob
+		blobPos->roll(25.0 * time->getDeltaTime());
+		blobPos->yaw(50.0 * time->getDeltaTime());
+		blobPos->pitch(100.0 * time->getDeltaTime());
 
 		// Move camera
 		glm::vec3
@@ -227,9 +157,8 @@ int main(int argc, char* argv[]) {
 			(cameraUp * cameraVelocity.y));
 
 		// Render
-		renderEngine->registerCommand({cubePos, cubeMaterial, cubeMesh, cubeMesh->GetIndexCount()});
-		renderEngine->registerCommand({planePos, planeMaterial, planeMesh, planeMesh->GetIndexCount()});
-		renderEngine->registerCommand({blenderPos, blenderMaterial, blenderMesh, blenderMesh->GetIndexCount()});
+		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh});
+		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh});
 		renderEngine->render();
 
 		window->swapBuffers();
@@ -237,9 +166,9 @@ int main(int argc, char* argv[]) {
 		// framerate cap
 		time->waitUntilDelta(deltaTimeMin);
 	}
-	delete cubeMesh;
-	delete cubeMaterial;
-	delete cubePos;
+	delete blobMesh;
+	delete blobMaterial;
+	delete blobPos;
 
 	delete renderEngine;
 	delete window;
