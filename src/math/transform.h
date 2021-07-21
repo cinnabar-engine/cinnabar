@@ -43,7 +43,9 @@ namespace ce {
 		void scale(float a) { scale(a, a, a); }
 
 		glm::mat4 getMatrix();
-		glm::vec3 getForward();
+		glm::vec3 getForward(bool useYaw = true, bool usePitch = true, bool useRoll = true);
+		glm::vec3 getRight(bool useYaw = true, bool usePitch = true, bool useRoll = true);
+		glm::vec3 getUp(bool useYaw = true, bool usePitch = true, bool useRoll = true);
 
 		void sendToShader(ce::Shader* shader);
 

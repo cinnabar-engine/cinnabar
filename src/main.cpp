@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 	// TODO: Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
 	camera->getTransform()->setPosition(0.0f, 0.0f, 1.5f);
-	camera->getTransform()->setYaw(-90.0f);
+	camera->getTransform()->setYaw(0.0f);
 	renderEngine->setCamera(camera);
 	/*
 	 * Game Loop
@@ -73,9 +73,10 @@ int main(int argc, char* argv[]) {
 					if (window->mouseVisible())
 						break;
 					glm::vec2 mouseDelta(event.motion.xrel, event.motion.yrel);
-					mouseDelta *= mouseSens;
+					mouseDelta *= -mouseSens;
 					camera->getTransform()->yaw(mouseDelta.x);
-					camera->getTransform()->pitch(-mouseDelta.y);
+					camera->getTransform()->pitch(mouseDelta.y);
+					camera->limitPitch();
 					break;
 				}
 				case SDL_MOUSEBUTTONDOWN: {
@@ -84,7 +85,9 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case SDL_KEYDOWN: {
-					double cameraSpeed = 2.5 * time->getDeltaTime();
+					double
+						cameraSpeed = 2.5 * time->getDeltaTime(),
+						cameraRollSpeed = 3600.0 * time->getDeltaTime();
 					switch (event.key.keysym.sym) {
 						case SDLK_w:
 							cameraVelocity.z = cameraSpeed;
@@ -103,6 +106,13 @@ int main(int argc, char* argv[]) {
 							break;
 						case SDLK_LSHIFT:
 							cameraVelocity.y = -cameraSpeed;
+							break;
+
+						case SDLK_q:
+							camera->getTransform()->roll(cameraRollSpeed);
+							break;
+						case SDLK_e:
+							camera->getTransform()->roll(-cameraRollSpeed);
 							break;
 
 						case SDLK_ESCAPE:
@@ -148,13 +158,14 @@ int main(int argc, char* argv[]) {
 
 		// Move camera
 		glm::vec3
-			cameraFront = camera->getTransform()->getForward(),
-			cameraRight = camera->getRight(),
-			cameraUp = ce::Transform::GetGlobalUp();
+			cameraRight = camera->getTransform()->getRight(true, false, false),
+			cameraUp = glm::vec3(0.0f, 1.0f, 0.0f),
+			cameraFront = camera->getTransform()->getForward(true, false, false);
 		camera->getTransform()->translate(
-			(cameraFront * cameraVelocity.z) +
 			(cameraRight * cameraVelocity.x) +
-			(cameraUp * cameraVelocity.y));
+			(cameraUp * cameraVelocity.y) +
+			(cameraFront * cameraVelocity.z)
+		);
 
 		// Render
 		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh});

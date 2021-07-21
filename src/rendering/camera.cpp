@@ -9,31 +9,35 @@ ce::Camera::~Camera() {
 	delete m_transform;
 }
 
-glm::mat4 ce::Camera::getView() {
+glm::mat4 ce::Camera::getViewMatrix() {
 	glm::vec3
-		pos = m_transform->getPosition(),
-		forward = m_transform->getForward();
-	return glm::lookAt(pos, pos + forward, ce::Transform::GetGlobalUp());
-}
+		pos = -m_transform->getPosition(),
+		rotation = -m_transform->getRotation();
+	
+	glm::mat4 transform(1.0f);
 
-glm::vec3 ce::Camera::getRight() {
-	glm::vec3
-		forward = m_transform->getForward(),
-		up = ce::Transform::GetGlobalUp();
-	return glm::normalize(glm::cross(forward, up));
+	// Rotation
+	transform = glm::rotate(transform, glm::radians(rotation[2]), glm::vec3(0.0f, 0.0f, 1.0f)); // Roll
+	transform = glm::rotate(transform, glm::radians(rotation[0]), glm::vec3(1.0f, 0.0f, 0.0f)); // Pitch
+	transform = glm::rotate(transform, glm::radians(rotation[1]), glm::vec3(0.0f, 1.0f, 0.0f)); // Yaw
+
+	// Translation
+	transform = glm::translate(transform, pos);
+
+	return transform;
 }
 
 // TODO: this needs to be edited when renderEngine is seperated from camera
 void ce::Camera::sendToShader(ce::Shader* shader) {
-	shader->setUniform("transform.view", getView());
+	shader->setUniform("transform.view", getViewMatrix());
 }
 
 void ce::Camera::limitPitch() {
 	// TODO: this shouldn't be part of camera, this is related to movement and should be added to the movement scripts
 	float cameraPitch = m_transform->getPitch();
-	if (cameraPitch > 89.9f) // TODO: fix broken 90 degree pitch
-		cameraPitch = 89.9f;
-	if (cameraPitch < -89.9f)
-		cameraPitch = -89.9f;
+	if (cameraPitch > 90.0f)
+		cameraPitch = 90.0f;
+	if (cameraPitch < -90.0f)
+		cameraPitch = -90.0f;
 	m_transform->setPitch(cameraPitch);
 }
