@@ -75,13 +75,13 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Materials
  - [x] Render System
  - [x] Multiple Objects rendering at the same time
- - [ ] Mesh Importing
+ - [x] Mesh Importing
  - [x] Full UV mapping support
  - [x] Full vertex color support
  - [ ] Multi-texture materials
- - [ ] Normals
+ - [x] Normals
  - [ ] Normal maps
- - [ ] Matcaps (SArpnt will do this)
+ - [x] Matcaps (SArpnt will do this)
  - [ ] Simple object classes (combine assets and automatically manage render commands)
  - [ ] Depth manipulation
  - [ ] Skybox
