@@ -37,11 +37,11 @@ int main(int argc, char* argv[]) {
 	renderEngine->setSize(window->getWindowSize());
 	renderEngine->setClipRange(0.1f, 100.0f);
 
-	ce::Mesh* cubeMesh = new ce::Mesh("blob.obj");
-	ce::Material* cubeMaterial = new ce::Material("matcap");
-	ce::Transform* cubePos = new ce::Transform();
-	cubePos->setScale(0.5f, 0.5f, 0.5f);
-	cubeMaterial->setTexture("matcap.png");
+	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
+	ce::Material* blobMaterial = new ce::Material("matcap");
+	ce::Transform* blobPos = new ce::Transform();
+	blobPos->setScale(0.5f, 0.5f, 0.5f);
+	blobMaterial->setTexture("matcap.png");
 
 	ce::Mesh* environmentMesh = new ce::Mesh("environment.obj");
 	ce::Material* environmentGroundMaterial = new ce::Material("basic");
@@ -141,10 +141,10 @@ int main(int argc, char* argv[]) {
 
 		moduleManager->tickModules(time->getDeltaTime());
 
-		// Rotate cube
-		//cubePos->roll(25.0 * time->getDeltaTime());
-		//cubePos->yaw(50.0 * time->getDeltaTime());
-		//cubePos->pitch(100.0 * time->getDeltaTime());
+		// Rotate blob
+		blobPos->roll(25.0 * time->getDeltaTime());
+		blobPos->yaw(50.0 * time->getDeltaTime());
+		blobPos->pitch(100.0 * time->getDeltaTime());
 
 		// Move camera
 		glm::vec3
@@ -157,7 +157,7 @@ int main(int argc, char* argv[]) {
 			(cameraUp * cameraVelocity.y));
 
 		// Render
-		renderEngine->registerCommand({cubePos, cubeMaterial, cubeMesh});
+		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh});
 		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh});
 		renderEngine->render();
 
@@ -166,9 +166,9 @@ int main(int argc, char* argv[]) {
 		// framerate cap
 		time->waitUntilDelta(deltaTimeMin);
 	}
-	delete cubeMesh;
-	delete cubeMaterial;
-	delete cubePos;
+	delete blobMesh;
+	delete blobMaterial;
+	delete blobPos;
 
 	delete renderEngine;
 	delete window;
