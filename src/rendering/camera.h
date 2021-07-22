@@ -8,13 +8,14 @@ namespace ce {
 		Camera();
 		~Camera();
 
-		glm::mat4 getViewMatrix();
-		Transform* getTransform() { return m_transform; }
+		glm::mat4
+			getViewMatrix(),
+			getProjection(double aspectRatio) { return glm::perspective(this->fov, aspectRatio, this->nearClip, this->farClip); };
 
 		void limitPitch();
-		void sendToShader(ce::Shader* shader);
+		void sendToShader(ce::Shader* shader, double aspectRatio);
 
-	 private:
-		ce::Transform* m_transform;
+		ce::Transform* transform;
+		double fov, nearClip, farClip;
 	};
 }
