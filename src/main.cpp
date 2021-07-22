@@ -33,9 +33,8 @@ int main(int argc, char* argv[]) {
 	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 
 	ce::RenderEngine* renderEngine = new ce::RenderEngine();
-	renderEngine->setFOV(75.0f);
 	renderEngine->setSize(window->getWindowSize());
-	renderEngine->setClipRange(0.1f, 100.0f);
+
 
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
 	ce::Material* blobMaterial = new ce::Material("matcap");
@@ -55,9 +54,7 @@ int main(int argc, char* argv[]) {
 	ce::Camera* camera = new ce::Camera();
 	// TODO: Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
-	camera->getTransform()->setPosition(0.0f, 0.0f, 1.5f);
-	camera->getTransform()->setYaw(0.0f);
-	renderEngine->setCamera(camera);
+	camera->transform->setPosition(0.0f, 0.0f, 1.5f);
 	/*
 	 * Game Loop
 	 */
@@ -74,8 +71,8 @@ int main(int argc, char* argv[]) {
 						break;
 					glm::vec2 mouseDelta(event.motion.xrel, event.motion.yrel);
 					mouseDelta *= -mouseSens;
-					camera->getTransform()->yaw(mouseDelta.x);
-					camera->getTransform()->pitch(mouseDelta.y);
+					camera->transform->yaw(mouseDelta.x);
+					camera->transform->pitch(mouseDelta.y);
 					camera->limitPitch();
 					break;
 				}
@@ -109,10 +106,10 @@ int main(int argc, char* argv[]) {
 							break;
 
 						case SDLK_q:
-							camera->getTransform()->roll(cameraRollSpeed);
+							camera->transform->roll(cameraRollSpeed);
 							break;
 						case SDLK_e:
-							camera->getTransform()->roll(-cameraRollSpeed);
+							camera->transform->roll(-cameraRollSpeed);
 							break;
 
 						case SDLK_ESCAPE:
@@ -158,18 +155,18 @@ int main(int argc, char* argv[]) {
 
 		// Move camera
 		glm::vec3
-			cameraRight = camera->getTransform()->getRight(true, false, false),
+			cameraRight = camera->transform->getRight(true, false, false),
 			cameraUp = glm::vec3(0.0f, 1.0f, 0.0f),
-			cameraFront = camera->getTransform()->getForward(true, false, false);
-		camera->getTransform()->translate(
+			cameraFront = camera->transform->getForward(true, false, false);
+		camera->transform->translate(
 			(cameraRight * cameraVelocity.x) +
 			(cameraUp * cameraVelocity.y) +
 			(cameraFront * cameraVelocity.z)
 		);
 
 		// Render
-		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh});
-		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh});
+		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh, camera});
+		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh, camera});
 		renderEngine->render();
 
 		window->swapBuffers();

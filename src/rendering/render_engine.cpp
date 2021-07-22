@@ -13,8 +13,7 @@ void ce::RenderEngine::bind(RenderCommand command) {
 	Shader* shader = command.material->getShader();
 	command.mesh->sendToShader(shader, true);
 	command.transform->sendToShader(shader);
-	shader->setUniform("transform.proj", getProjection());
-	m_camera->sendToShader(shader);
+	command.camera->sendToShader(shader, m_aspectRatio);
 
 	// Bind Things
 	command.mesh->bind();
@@ -26,12 +25,8 @@ void ce::RenderEngine::unbind(RenderCommand command) {
 	command.material->unbind();
 }
 
-ce::RenderEngine::RenderEngine()
-	: m_aspectRatio(0),
-	  m_fov(0),
-	  m_near(0),
-	  m_far(0),
-	  m_camera(NULL) {
+ce::RenderEngine::RenderEngine(glm::vec4 clearColor)
+	: m_aspectRatio(0) {
 	/*
 	 * GLEW
 	 */
@@ -50,7 +45,7 @@ ce::RenderEngine::RenderEngine()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	setClearColor(glm::vec4());
+	setClearColor(clearColor);
 }
 
 ce::RenderEngine::~RenderEngine() {}
@@ -62,10 +57,6 @@ void ce::RenderEngine::setClearColor(glm::vec4 color) {
 void ce::RenderEngine::setSize(glm::vec2 size) {
 	glViewport(0, 0, size.x, size.y);
 	m_aspectRatio = size.x / size.y;
-}
-
-glm::mat4 ce::RenderEngine::getProjection() {
-	return glm::perspective(m_fov, m_aspectRatio, m_near, m_far);
 }
 
 void ce::RenderEngine::render() {
