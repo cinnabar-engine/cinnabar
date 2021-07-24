@@ -26,7 +26,7 @@ void checkCompileErrors(GLuint shader, GLint shaderType) {
 	if (!success) {
 		glGetShaderInfoLog(shader, 1024, NULL, infoLog);
 		LOG_ERROR("SHADER_COMPILATION_ERROR of type: %s\n%s\n", type.c_str(), infoLog);
-		exit(-1);
+		exit(1);
 	}
 }
 void checkCompileErrors(GLuint program) {
@@ -36,7 +36,7 @@ void checkCompileErrors(GLuint program) {
 	if (!success) {
 		glGetProgramInfoLog(program, 1024, NULL, infoLog);
 		LOG_ERROR("PROGRAM_LINKING_ERROR\n%s\n", infoLog);
-		exit(-1);
+		exit(1);
 	}
 }
 
