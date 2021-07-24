@@ -11,7 +11,7 @@ ce::Material::~Material() {
 	delete m_texture;
 }
 
-void ce::Material::update() {
+void ce::Material::update() { // TODO: why does this even exist?
 	if (m_texture != NULL)
 		m_shader->setUniform("material.texture", 1);
 }

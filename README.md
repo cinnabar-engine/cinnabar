@@ -49,7 +49,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] CMake
  - [x] Logger
  - [x] SDL2
- - [x] GLEW
  - [x] GLSL
  - [x] Triangle
  - [x] Vertex Colors
@@ -60,7 +59,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Uniforms
  - [x] Mesh Class
  - [x] Texture Class
- - [x] Matracies
+ - [x] Matricies
  - [x] Pespective Camera
  - [x] 3D Cube
  - [x] 3D Transforms

@@ -10,17 +10,21 @@ namespace ce {
 		Window(const char* title);
 		~Window();
 
-		void swapBuffers(), setMouseVisibility(bool enabled);
+		void swapBuffers();
 
+		SDL_Window* getWindow() { return m_window; };
 		SDL_GLContext getContext() { return m_context; };
-		bool mouseVisible() { return m_mouse; };
+
 		glm::vec2 getWindowSize();
 		float getAspectRatio();
+
+		static bool mouseVisible() { return m_mouseVisible; };
+		static void setMouseVisibility(bool enabled);
 
 	 private:
 		SDL_Window* m_window;
 		SDL_GLContext m_context;
 
-		bool m_mouse;
+		static inline bool m_mouseVisible = true;
 	};
 }

@@ -22,8 +22,6 @@
 #include "rendering/render_engine.h"
 
 int main(int argc, char* argv[]) {
-	LOG_INFO("Hello World");
-
 	ce::ModuleManager* moduleManager = new ce::ModuleManager();
 
 	ce::Time* time = new ce::Time();
@@ -67,7 +65,7 @@ int main(int argc, char* argv[]) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 				case SDL_MOUSEMOTION: {
-					if (window->mouseVisible())
+					if (ce::Window::mouseVisible())
 						break;
 					glm::vec2 mouseDelta(event.motion.xrel, event.motion.yrel);
 					mouseDelta *= -mouseSens;
@@ -77,8 +75,8 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case SDL_MOUSEBUTTONDOWN: {
-					if (window->mouseVisible())
-						window->setMouseVisibility(false);
+					if (ce::Window::mouseVisible())
+						ce::Window::setMouseVisibility(false);
 					break;
 				}
 				case SDL_KEYDOWN: {
@@ -113,7 +111,7 @@ int main(int argc, char* argv[]) {
 							break;
 
 						case SDLK_ESCAPE:
-							window->setMouseVisibility(true);
+							ce::Window::setMouseVisibility(true);
 							break;
 					}
 					break;
@@ -178,7 +176,15 @@ int main(int argc, char* argv[]) {
 	delete blobMaterial;
 	delete blobPos;
 
+	delete environmentMesh;
+	delete environmentGroundMaterial;
+	delete environmentBuildingsMaterial;
+	delete environmentPos;
+
+	delete camera;
+
 	delete renderEngine;
 	delete window;
+
 	return 0;
 }

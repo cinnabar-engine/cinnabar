@@ -30,7 +30,7 @@ namespace ce {
 		void render();
 
 	 private:
-		double m_aspectRatio;
+		double m_aspectRatio; // TODO: aspect ratio shouldn't be stored, the Camera should store a projection matrix and it should be left to the user (programmer) to recalculate the projection matrix (using Camera functions) when the window size changes
 
 		std::vector<RenderCommand> m_commands = {};
 
