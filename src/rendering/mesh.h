@@ -22,6 +22,8 @@ namespace ce {
 
 		size_t GetIndexCount() { return m_indexArraySize / sizeof(GLuint); };
 		void bind(bool VBO = true, bool EBO = true), unbind(bool VBO = true, bool EBO = true);
+		
+		static ce::Meshfile createPlane(float width = 1.0f, float height = 1.0f);
 
 	 private:
 		GLsizeiptr m_vertArraySize, m_indexArraySize;

@@ -55,41 +55,52 @@ int main(int argc, char* argv[]) {
 	environmentGroundMaterial->setTexture("floor.png");
 	environmentBuildingsMaterial->setTexture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
-	
-	
-	const char* font_path="/usr/share/fonts/truetype/Roboto-Regular.ttf";
-	unsigned int font_size = 16;
+
+
+	const char* font_path = "/usr/share/fonts/truetype/Roboto-Regular.ttf";
+	unsigned int font_size = 700;
 	char font_glyph = 'A';
 
 	if (FT_Init_FreeType(&library)) {
 		LOG_ERROR("Error initialising FreeType.");
 	}
 	LOG_SUCCESS("Successfully initialised FreeType.");
-	
+
 	if (FT_New_Face(library, font_path, 0, &face)) {
-		LOG_ERROR("Error obtaining font face: %s",font_path);
+		LOG_ERROR("Error obtaining font face: %s", font_path);
 	}
-	LOG_SUCCESS("Successfully obtained font face: %s",font_path);
-	
-	if (FT_Set_Pixel_Sizes(face,0,font_size)) {
+	LOG_SUCCESS("Successfully obtained font face: %s", font_path);
+
+	if (FT_Set_Pixel_Sizes(face, 0, font_size)) {
 		LOG_ERROR("Error setting font size.");
 	}
 	LOG_SUCCESS("Successfully set font size.");
-	
-	if(FT_Load_Char(face,font_glyph, FT_LOAD_RENDER)) {
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	if (FT_Load_Char(face, font_glyph, FT_LOAD_RENDER)) {
 		LOG_ERROR("Error loading character");
 	}
 	LOG_SUCCESS("Successfully loaded character.");
-	
-	ce::Texture* fontTexture = new ce::Texture(face);
-	environmentGroundMaterial->setTexture(fontTexture);
 
+	ce::Mesh* fontMesh = new ce::Mesh(ce::Mesh::createPlane(face->glyph->bitmap.width/2000.0f , face->glyph->bitmap.rows/2000.0f ));
+	ce::Texture* fontTexture = new ce::Texture(face);
+	ce::Material* fontMaterial = new ce::Material("text");
+	ce::Transform* fontPos = new ce::Transform();
+	fontPos->setPosition(0.f, 3.f, 0.f);
+	fontMaterial->setTexture(fontTexture);
+	fontMaterial->getShader()->setUniform("material.color", glm::vec4(1.f,1.f,0.f,1.f));
+	///fontMaterial->setTexture("uv-map.png");
+
+	FT_Done_Face(face);
+	FT_Done_FreeType(library);
 
 	double mouseSens = 0.05;
 	ce::Camera* camera = new ce::Camera();
 	// TODO: Seperate so i can put in a player class later
 	glm::vec3 cameraVelocity(0.0f);
 	camera->transform->setPosition(0.0f, 0.0f, 1.5f);
+
 	/*
 	 * Game Loop
 	 */
@@ -201,6 +212,7 @@ int main(int argc, char* argv[]) {
 		// Render
 		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh, camera});
 		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh, camera});
+		renderEngine->registerCommand({fontPos, fontMaterial, fontMesh, camera});
 		renderEngine->render();
 
 		window->swapBuffers();
@@ -216,6 +228,11 @@ int main(int argc, char* argv[]) {
 	delete environmentGroundMaterial;
 	delete environmentBuildingsMaterial;
 	delete environmentPos;
+
+	delete fontMesh;
+	delete fontTexture;
+	delete fontMaterial;
+	delete fontPos;
 
 	delete camera;
 

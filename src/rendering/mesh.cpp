@@ -58,3 +58,20 @@ void ce::Mesh::initVAO(Vertex* verts, GLuint* indices) {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
+
+ce::Meshfile ce::Mesh::createPlane(float width, float height) {
+  width /= 2.0f;
+  height /= 2.0f;
+  return {
+    {
+      {glm::vec3(-width, -height,0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f)},
+      {glm::vec3(width, -height,0.f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 1.0f)},
+      {glm::vec3(-width, height,0.f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},
+      {glm::vec3(width, height,0.f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f)},
+    },
+    {
+      0, 1, 2,
+      2, 1, 3,
+    },
+  };
+}
