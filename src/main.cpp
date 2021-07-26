@@ -78,6 +78,10 @@ int main(int argc, char* argv[]) {
 		LOG_ERROR("Error loading glyph");
 	}
 	LOG_SUCCESS("Successfully loaded glyph.");
+	
+	if(FT_Render_Glyph(face->glyph,FT_RENDER_MODE_NORMAL)) {
+		LOG_ERROR("Error rendering glyph");
+	}
 
 
 	double mouseSens = 0.05;
