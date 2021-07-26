@@ -26,6 +26,7 @@
 #include FT_FREETYPE_H
 
 FT_Library library;
+FT_Face face;
 
 
 int main(int argc, char* argv[]) {
@@ -54,12 +55,30 @@ int main(int argc, char* argv[]) {
 	environmentGroundMaterial->setTexture("floor.png");
 	environmentBuildingsMaterial->setTexture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
-	
-	if(FT_Init_FreeType(&library)) {
+
+	if (FT_Init_FreeType(&library)) {
 		LOG_ERROR("Error initialising FreeType.");
 	}
-	LOG_SUCCESS("Succefully intitialised FreeType.");
+	LOG_SUCCESS("Successfully initialised FreeType.");
 	
+	const char* font_path="/usr/share/fonts/truetype/Roboto-Regular.ttf";
+	if (FT_New_Face(library, font_path, 0, &face)) {
+		LOG_ERROR("Error obtaining font face: %s",font_path);
+	}
+	LOG_SUCCESS("Successfully obtained font face: %s",font_path);
+	
+	if (FT_Set_Pixel_Sizes(face,0,16)) {
+		LOG_ERROR("Error setting font size.");
+	}
+	LOG_SUCCESS("Successfully set font size.");
+	
+	unsigned int glyph_index = FT_Get_Char_Index(face,'A');
+	
+	if(FT_Load_Glyph(face,glyph_index, FT_LOAD_DEFAULT)) {
+		LOG_ERROR("Error loading glyph");
+	}
+	LOG_SUCCESS("Successfully loaded glyph.");
+
 
 	double mouseSens = 0.05;
 	ce::Camera* camera = new ce::Camera();
@@ -172,8 +191,7 @@ int main(int argc, char* argv[]) {
 		camera->transform->translate(
 			(cameraRight * cameraVelocity.x) +
 			(cameraUp * cameraVelocity.y) +
-			(cameraFront * cameraVelocity.z)
-		);
+			(cameraFront * cameraVelocity.z));
 
 		// Render
 		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh, camera});
