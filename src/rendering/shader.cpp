@@ -94,13 +94,14 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
 	customAttrCount = attrCount - m_attributes.size();
 	if (customAttrCount > 0) {
+		union {GLint size; GLenum type;} garbage;
 		m_attributes.resize(attrCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &nameMaxLen);
 		std::vector<GLchar> nameData(nameMaxLen);
 		for (GLuint i = attrCount - customAttrCount; i < attrCount; i++) {
 			GLsizei nameLen;
-			glGetActiveAttrib(m_program, i, (GLsizei)nameMaxLen, &nameLen, NULL, NULL, nameData.data());
+			glGetActiveAttrib(m_program, i, (GLsizei)nameMaxLen, &nameLen, &garbage.size, &garbage.type, nameData.data());
 			m_attributes[i] = std::string((char*)nameData.data(), nameLen);
 		}
 	}
