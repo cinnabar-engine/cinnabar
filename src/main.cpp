@@ -21,7 +21,7 @@
 #include "rendering/material.h"
 #include "rendering/render_engine.h"
 
-// Font Rendering
+// Font Rendering (temporery until dedicated font class exists)
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -55,36 +55,33 @@ int main(int argc, char* argv[]) {
 	environmentGroundMaterial->setTexture("floor.png");
 	environmentBuildingsMaterial->setTexture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
+	
+	
+	const char* font_path="/usr/share/fonts/truetype/Roboto-Regular.ttf";
+	unsigned int font_size = 16;
+	char font_glyph = 'A';
 
 	if (FT_Init_FreeType(&library)) {
 		LOG_ERROR("Error initialising FreeType.");
 	}
 	LOG_SUCCESS("Successfully initialised FreeType.");
 	
-	const char* font_path="/usr/share/fonts/truetype/Roboto-Regular.ttf";
 	if (FT_New_Face(library, font_path, 0, &face)) {
 		LOG_ERROR("Error obtaining font face: %s",font_path);
 	}
 	LOG_SUCCESS("Successfully obtained font face: %s",font_path);
 	
-	if (FT_Set_Pixel_Sizes(face,0,16)) {
+	if (FT_Set_Pixel_Sizes(face,0,font_size)) {
 		LOG_ERROR("Error setting font size.");
 	}
 	LOG_SUCCESS("Successfully set font size.");
 	
-	if(FT_Load_Char(face,'A', FT_LOAD_RENDER)) {
+	if(FT_Load_Char(face,font_glyph, FT_LOAD_RENDER)) {
 		LOG_ERROR("Error loading character");
 	}
 	LOG_SUCCESS("Successfully loaded character.");
 	
-	/*
-	 * Create Texture with
-	 * width: face->glyph->bitmap_width
-	 * height: face->glyph->bitmap_rows
-	 * buffer: face->glyph->bitmap.buffer
-	 */
-	
-	ce::Texture* fontTexture = new ce::Texture(face->glyph->bitmap.buffer,face->glyph->bitmap.width,face->glyph->bitmap.rows,GL_RED);
+	ce::Texture* fontTexture = new ce::Texture(face);
 	environmentGroundMaterial->setTexture(fontTexture);
 
 
