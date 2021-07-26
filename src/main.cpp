@@ -21,6 +21,13 @@
 #include "rendering/material.h"
 #include "rendering/render_engine.h"
 
+// Font Rendering
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+FT_Library library;
+
+
 int main(int argc, char* argv[]) {
 	ce::ModuleManager* moduleManager = new ce::ModuleManager();
 
@@ -47,6 +54,12 @@ int main(int argc, char* argv[]) {
 	environmentGroundMaterial->setTexture("floor.png");
 	environmentBuildingsMaterial->setTexture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
+	
+	if(FT_Init_FreeType(&library)) {
+		LOG_ERROR("Error initialising FreeType.");
+	}
+	LOG_SUCCESS("Succefully intitialised FreeType.");
+	
 
 	double mouseSens = 0.05;
 	ce::Camera* camera = new ce::Camera();
