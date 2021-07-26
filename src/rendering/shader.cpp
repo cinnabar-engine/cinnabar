@@ -105,13 +105,14 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 		}
 	}
 	if (uniformCount > m_uniforms.size()) {
+		union {GLint size; GLenum type;} garbage;
 		m_uniforms.resize(uniformCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &nameMaxLen);
 		std::vector<GLchar> nameData(nameMaxLen);
 		for (GLuint i = 0; i < uniformCount; i++) {
 			GLsizei nameLen;
-			glGetActiveUniform(m_program, i, (GLsizei)nameMaxLen, &nameLen, NULL, NULL, nameData.data());
+			glGetActiveUniform(m_program, i, (GLsizei)nameMaxLen, &nameLen, &garbage.size, &garbage.type, &nameData[0]);
 			m_uniforms[i] = std::string((char*)nameData.data(), nameLen);
 		}
 	}
