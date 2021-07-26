@@ -72,16 +72,20 @@ int main(int argc, char* argv[]) {
 	}
 	LOG_SUCCESS("Successfully set font size.");
 	
-	unsigned int glyph_index = FT_Get_Char_Index(face,'A');
-	
-	if(FT_Load_Glyph(face,glyph_index, FT_LOAD_DEFAULT)) {
-		LOG_ERROR("Error loading glyph");
+	if(FT_Load_Char(face,'A', FT_LOAD_RENDER)) {
+		LOG_ERROR("Error loading character");
 	}
-	LOG_SUCCESS("Successfully loaded glyph.");
+	LOG_SUCCESS("Successfully loaded character.");
 	
-	if(FT_Render_Glyph(face->glyph,FT_RENDER_MODE_NORMAL)) {
-		LOG_ERROR("Error rendering glyph");
-	}
+	/*
+	 * Create Texture with
+	 * width: face->glyph->bitmap_width
+	 * height: face->glyph->bitmap_rows
+	 * buffer: face->glyph->bitmap.buffer
+	 */
+	
+	ce::Texture* fontTexture = new ce::Texture(face->glyph->bitmap.buffer,face->glyph->bitmap.width,face->glyph->bitmap.rows,GL_RED);
+	environmentGroundMaterial->setTexture(fontTexture);
 
 
 	double mouseSens = 0.05;
