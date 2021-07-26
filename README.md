@@ -5,11 +5,41 @@
 Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 
 ### Windows
+#### Manual
 [Visual Studio](https://visualstudio.microsoft.com/)
 [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)
-### Debian
+#### winget
+Install [winget](https://docs.microsoft.com/en-us/windows/package-manager/)
+```powershell
+winget install //TODO: look in https://github.com/microsoft/winget-pkgs
+```
+#### Chocolaty
+Install [Chocolaty](https://chocolatey.org/install)
+```powershell
+choco install //TODO: look in https://community.chocolatey.org/packages
+```
+#### Scoop
+install [scoop](https://scoop.sh/)
+```powershell
+scoop install //TODO: look in https://github.com/ScoopInstaller/Main
+```
+#### Windows Subsysytem for Linux
+* [Debian/Ubuntu](#debian-ubunto)
+* [Arch](#arch)
+#### MinGW
+Install [MSYS2](https://www.msys2.org/#installation)
 ```bash
-sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
+pacman -S cmake //TODO: look in https://packages.msys2.org/queue
+```
+### Mac OS X
+Install [Homebrew](https://brew.sh/)
+```bash
+brew install cmake //TODO: look in https://formulae.brew.sh/formula/
+```
+
+### Debian/Ubuntu
+```bash
+sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev libfreetype-dev
 ```
 ### Arch
 ```bash
@@ -39,6 +69,7 @@ Linux: /build/run/engine
 * Maths: [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
 * Image: [STB Image](https://github.com/nothings/stb/blob/master/stb_image.h)
 * Text Files: [std:fstream](https://gcc.gnu.org/onlinedocs/libstdc++/libstdc++-html-USERS-4.2/fstream.html)
+* Font Renderer [FreeType](https://www.freetype.org/)
 * Logger: [Tumpnt Logger](https://github.com/Tumpnt/TumpntAudio/blob/master/src/core/tpnt_log.h)
 * Time: [TumbleTime](https://github.com/tumble1999/tumble-time)
 
