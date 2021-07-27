@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 	
 	
-	ce::Text* text = new ce::Text("Hello World","/usr/share/fonts/truetype/Roboto-Regular.ttf",700);	
+	ce::Text* text = new ce::Text("Hello dfdsfdsfasdf dsa fdsf asf dsa fasf das f","/usr/share/fonts/truetype/Roboto-Regular.ttf",16);	
 	ce::Transform* textPos = new ce::Transform();
 	textPos->setPosition(0.f, 3.f, 0.f);
 

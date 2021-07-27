@@ -59,15 +59,18 @@ void ce::Mesh::initVAO(Vertex* verts, GLuint* indices) {
 	}
 }
 
-ce::Meshfile ce::Mesh::createPlane(float width, float height) {
-  width /= 2.0f;
-  height /= 2.0f;
+ce::Meshfile ce::Mesh::createPlane(float width, float height, glm::vec2 origin) {
+	float left = -width*origin.x,
+	right = width+left,
+	up = -height*origin.y,
+	down = height+up;
   return {
     {
-      {glm::vec3(-width, -height,0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f)},
-      {glm::vec3(width, -height,0.f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 1.0f)},
-      {glm::vec3(-width, height,0.f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},
-      {glm::vec3(width, height,0.f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f)},
+      
+      {glm::vec3(left, up,0), glm::vec3(0, 1.f, 0), glm::vec2(0, 1.f)},
+      {glm::vec3(right, up,0), glm::vec3(0, 1.f, 0), glm::vec2(1.f, 1.f)},
+      {glm::vec3(left, down,0), glm::vec3(0, 1.f, 0), glm::vec2(0, 0)},
+      {glm::vec3(right, down,0), glm::vec3(0, 1.f, 0), glm::vec2(1.f, 0)},
     },
     {
       0, 1, 2,
