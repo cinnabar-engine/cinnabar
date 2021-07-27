@@ -28,8 +28,16 @@ cmake --build .
 ```
 
 ## Running
-Windows: /build/run/(Debug/Release)/engine.exe
-Linux: /build/run/engine
+Windows: 
+```
+cd res
+../build/run/cinnabar-engine.exe
+```
+Linux:
+```
+cd res
+../build/run/cinnabar-engine
+```
 
 ## Libraries
 * Build Pipeline: [CMake](https://cmake.org/)
