@@ -24,5 +24,7 @@ namespace ce {
 		static void freeTextureFile(TextureFile textureFile);
 
 		static Meshfile getMeshfile(std::string filename);
+		static void getFont(std::string filename, ce::Font& font );
+		static void closeFont(Font* font);
 	};
 }
