@@ -7,6 +7,11 @@
 #include <string>
 #include <vector>
 
+
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 namespace ce {
 	struct ShaderFile {
 		std::string
@@ -38,4 +43,19 @@ namespace ce {
 		std::vector<Vertex> verts = {};
 		std::vector<GLuint> indices = {};
 	};
+	
+	class Material;
+	class Mesh;
+	struct Font {
+			FT_Library library;
+			FT_Face face;
+			struct Character {
+				char c;
+				glm::ivec2 size, bearing;
+				unsigned int advance;
+				glm::vec2 scale;
+				Material* material;
+				Mesh* mesh;
+			} characters[255] = {};
+		};
 }

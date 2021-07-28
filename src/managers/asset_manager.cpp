@@ -12,6 +12,10 @@
 
 // MESHES
 
+// FONTS
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 std::string ce::AssetManager::load_text_file(std::string path, bool mustExist) {
 	std::fstream file;
 	std::string text = "";
@@ -131,7 +135,7 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 			continue;
 
 		// Split the line into parts ( p1 p1 p3 p4 )
-		
+
 		std::vector<std::string> params;
 		{
 			std::stringstream lineStream(line);
@@ -208,4 +212,23 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 		}
 	}
 	return mesh;
+}
+
+void ce::AssetManager::getFont(std::string filename, ce::Font& font) {
+
+	if (FT_Init_FreeType(&font.library)) {
+		LOG_ERROR("Error initialising FreeType.");
+	}
+	LOG_SUCCESS("Successfully initialised FreeType.");
+
+	if (FT_New_Face(font.library, filename.c_str(), 0, &font.face)) {
+		LOG_ERROR("Error obtaining font face: %s", filename.c_str());
+	}
+	LOG_SUCCESS("Successfully obtained font face: %s", filename.c_str());
+}
+
+
+void ce::AssetManager::closeFont(ce::Font* font) {
+	FT_Done_Face(font->face);
+	FT_Done_FreeType(font->library);
 }

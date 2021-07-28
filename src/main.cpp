@@ -55,7 +55,8 @@ int main(int argc, char* argv[]) {
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 	
 	
-	ce::Text* text = new ce::Text("Hello dfdsfdsfasdf dsa fdsf asf dsa fasf das f","/usr/share/fonts/truetype/Roboto-Regular.ttf",16);	
+	ce::Text* text = new ce::Text("abc","/usr/share/fonts/truetype/Roboto-Regular.ttf",16);
+	
 	ce::Transform* textPos = new ce::Transform();
 	textPos->setPosition(0.f, 3.f, 0.f);
 
@@ -73,6 +74,7 @@ int main(int argc, char* argv[]) {
 	while (running) {
 		time->update();
 		std::cout << "fps: " << time->getFPS() << std::endl;
+	text->setText("fps: " + std::to_string(time->getFPS()));
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
