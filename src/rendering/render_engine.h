@@ -26,7 +26,7 @@ namespace ce {
 		void setClearColor(glm::vec4 color);
 		double getAspectRatio() { return m_aspectRatio; };
 
-		void registerCommand(RenderCommand command) { m_commands.push_back(command); }
+		void registerCommand(RenderCommand command);
 		void render();
 
 	 private:

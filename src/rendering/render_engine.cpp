@@ -62,6 +62,28 @@ void ce::RenderEngine::setSize(glm::vec2 size) {
 	glViewport(0, 0, size.x, size.y);
 	m_aspectRatio = size.x / size.y;
 }
+
+void ce::RenderEngine::registerCommand(RenderCommand command) {
+		if(!command.transform){
+			LOG_ERROR("Skipping Render Command because it has no Transform");
+			return;
+		}
+		if(!command.material){
+			LOG_ERROR("Skipping Render Command because it has no Material");
+			return;
+		}
+		if(!command.mesh){
+			LOG_ERROR("Skipping Render Command because it has no Mesh");
+			return;
+		}
+		if(!command.camera){
+			LOG_ERROR("Skipping Render Command because it has no Camera");
+			return;
+		}
+	m_commands.push_back(command);
+	
+}
+
 void ce::RenderEngine::render() {
 	clear();
 	for (RenderCommand command : m_commands) {
