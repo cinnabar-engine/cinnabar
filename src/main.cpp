@@ -26,7 +26,6 @@
 FT_Library library;
 FT_Face face;
 
-
 int main(int argc, char* argv[]) {
 	ce::ModuleManager* moduleManager = new ce::ModuleManager();
 
@@ -54,10 +53,10 @@ int main(int argc, char* argv[]) {
 	environmentBuildingsMaterial->setTexture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 	
-	
-	ce::Text* text = new ce::Text("abc","/usr/share/fonts/truetype/Roboto-Regular.ttf",16);
-	
+	ce::Text* text = new ce::Text("abc","/usr/share/fonts/truetype/Roboto-Regular.ttf",16,false);
 	ce::Transform* textPos = new ce::Transform();
+	ce::Material* textMaterial = new ce::Material("color");
+	textMaterial->getShader()->setUniform("material.color", glm::vec4(1.f,1.f,0,1));
 	textPos->setPosition(0.f, 3.f, 0.f);
 
 	double mouseSens = 0.05;
@@ -164,6 +163,8 @@ int main(int argc, char* argv[]) {
 		blobPos->roll(25.0 * time->getDeltaTime());
 		blobPos->yaw(50.0 * time->getDeltaTime());
 		blobPos->pitch(100.0 * time->getDeltaTime());
+		
+		textPos->roll(50.0 * time->getDeltaTime());
 
 		// Move camera
 		glm::vec3
@@ -178,8 +179,7 @@ int main(int argc, char* argv[]) {
 		// Render
 		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh, camera});
 		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh, camera});
-		//renderEngine->registerCommand({fontPos, fontMaterial, fontMesh, camera});
-		text->render(renderEngine,textPos,camera);
+		text->render(renderEngine,textPos,camera,textMaterial);
 		renderEngine->render();
 
 		window->swapBuffers();
@@ -195,11 +195,9 @@ int main(int argc, char* argv[]) {
 	delete environmentGroundMaterial;
 	delete environmentBuildingsMaterial;
 	delete environmentPos;
-
-	/*delete fontMesh;
-	delete fontTexture;
-	delete fontMaterial;*/
+	
 	delete text;
+	delete textMaterial;
 	delete textPos;
 
 	delete camera;

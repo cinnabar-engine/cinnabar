@@ -24,28 +24,18 @@ namespace ce {
 			Transform* transform;
 		};
 
-
-		struct CharacterOld {
-			struct CharacterPositioning {
-				glm::ivec2 size, bearing;
-				unsigned int advance;
-			} positioning;
-			Transform* transform;
-			Material* material;
-			Mesh* mesh;
-		};
-
 	 public:
-		Text(std::string content, const char* font, unsigned int size);
+		Text(std::string content, const char* font, unsigned int size, bool make_3d=false);
 		~Text();
 
 		void setText(std::string content);
 		void setColor(glm::vec4 color) { m_color = color; }
 		void setSize(float size){m_font_size=size;}
 
-		void render(RenderEngine* renderEngine, Transform* transform, ce::Camera* camera);
+		void render(RenderEngine* renderEngine, Transform* transform, ce::Camera* camera, ce::Material* material=NULL);
 
 	 private:
+		 bool m_make_3d;
 		std::string m_content;
 		glm::vec2 m_cursor;
 		const char* m_font_path;
@@ -58,7 +48,9 @@ namespace ce {
 		void clearChars();
 		
 		void setCharColor(ce::Font::Character* character, glm::vec4 color);
-		ce::Font::Character* getCharacter(ce::Font* font, char c);
+		static int bindChar(ce::Font* font, char c);
+		static ce::Font::Character* getCharacter(ce::Font* font, char c);
+		static ce::Font::Character* getCharacter3D(ce::Font* font, char c);
 		
 		void bind();
 		void unbind();
