@@ -22,6 +22,7 @@ namespace ce {
 		struct Character {
 			ce::Font::Character* character;
 			Transform* transform;
+			std::vector<Transform> points;
 		};
 
 	 public:

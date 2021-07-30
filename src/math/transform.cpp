@@ -8,7 +8,7 @@ ce::Transform::~Transform() {}
 
 glm::mat4 ce::Transform::getMatrix() {
 	glm::mat4 transform(1.0f);
-	if (m_parent != NULL) {
+	if (m_parent) {
 		transform = m_parent->getMatrix();
 	}
 

@@ -56,6 +56,7 @@ namespace ce {
 				glm::vec2 scale;
 				Material* material;
 				Mesh* mesh;
+				std::vector<glm::vec2> points;
 			} characters[255] = {};
 		};
 }

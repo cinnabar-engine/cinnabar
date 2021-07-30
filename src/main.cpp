@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
 	environmentBuildingsMaterial->setTexture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 	
-	ce::Text* text = new ce::Text("abc","/usr/share/fonts/truetype/Roboto-Regular.ttf",16,false);
+	ce::Text* text = new ce::Text("abc","/usr/share/fonts/truetype/Roboto-Regular.ttf",16,true);
 	ce::Transform* textPos = new ce::Transform();
 	ce::Material* textMaterial = new ce::Material("color");
 	textMaterial->getShader()->setUniform("material.color", glm::vec4(1.f,1.f,0,1));
@@ -164,7 +164,7 @@ int main(int argc, char* argv[]) {
 		blobPos->yaw(50.0 * time->getDeltaTime());
 		blobPos->pitch(100.0 * time->getDeltaTime());
 		
-		textPos->roll(50.0 * time->getDeltaTime());
+		//textPos->roll(50.0 * time->getDeltaTime());
 
 		// Move camera
 		glm::vec3
