@@ -12,6 +12,10 @@ in here https://download-fallback.gnome.org/binaries/
 go to win32 or win34
 the  go to dependecites and pickup gettext-runtime and pkg-config  that isnt a dev veriso
 then go to glib and get the latest verison that isnt a dev verision
+###### Eviroment variables
+GLM_ROOT_DIR
+SDL2DIR
+and add the bins of pkg and glew to path
 ### Debian
 ```bash
 sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
@@ -46,6 +50,7 @@ cd res
 
 ## Libraries
 * Build Pipeline: [CMake](https://cmake.org/)
+* Library Helper: [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
 * Window: [Simple Directmedia Layer](https://www.libsdl.org/)
 * Rendering: [OpenGL](https://www.opengl.org/)
 * OpenGL Extention Loader: [GLEW](http://glew.sourceforge.net/)
