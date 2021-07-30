@@ -7,6 +7,11 @@ Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 ### Windows
 [Visual Studio](https://visualstudio.microsoft.com/)
 [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)
+##### pkg-config
+in here https://download-fallback.gnome.org/binaries/ 
+go to win32 or win34
+the  go to dependecites and pickup gettext-runtime and pkg-config  that isnt a dev veriso
+then go to glib and get the latest verison that isnt a dev verision
 ### Debian
 ```bash
 sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
