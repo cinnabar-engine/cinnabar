@@ -120,7 +120,7 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 	std::string line;
 
 	std::vector<glm::vec3> positions;
-	std::vector<glm::vec3> uvs;
+	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
 
 	// Get Line in the file
@@ -148,7 +148,7 @@ ce::Meshfile ce::AssetManager::getMeshfile(std::string filename) {
 			positions.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
 		// UVs
 		else if (params[0] == "vt")
-			uvs.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
+			uvs.push_back(glm::vec2(std::stof(params[1]), std::stof(params[2])));
 		// Normals
 		else if (params[0] == "vn")
 			normals.push_back(glm::vec3(std::stof(params[1]), std::stof(params[2]), std::stof(params[3])));
