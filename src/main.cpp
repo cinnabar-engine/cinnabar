@@ -22,7 +22,10 @@
 #include "rendering/render_engine.h"
 
 int main(int argc, char* argv[]) {
+
+	#ifndef _WIN32
 	ce::ModuleManager* moduleManager = new ce::ModuleManager();
+	#endif
 
 	ce::Time* time = new ce::Time();
 
@@ -143,8 +146,9 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-
+#ifndef _WIN32
 		moduleManager->tickModules(time->getDeltaTime());
+		#endif
 
 		// Rotate blob
 		blobPos->roll(25.0 * time->getDeltaTime());

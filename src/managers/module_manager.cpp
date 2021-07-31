@@ -1,3 +1,7 @@
+#ifndef _WIN32
+
+
+
 #include "module_manager.h"
 
 #include <core/tpnt_log.h>
@@ -60,3 +64,6 @@ void ce::ModuleManager::tickModules(double deltaTime) {
 	for (ModuleRef module : m_modules)
 		module.module->tick(deltaTime);
 }
+
+
+#endif // !_WIN32
