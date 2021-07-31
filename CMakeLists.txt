@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.18)
 project(cinnabar VERSION 0.0.1)
 
 #include(CTest)
