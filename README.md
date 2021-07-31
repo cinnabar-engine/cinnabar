@@ -5,35 +5,13 @@
 Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 
 ### Windows
-[Visual Studio](https://visualstudio.microsoft.com/)
-[VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)
+* [Visual Studio](https://visualstudio.microsoft.com/)
+or
+* [MSBuild](https://aka.ms/buildtools) and [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc) or any IDE
 
 #### Visual Studio Installer: 
-* Desktop development with C++
-  * c++ 2016 redistributitive update
-  * Text template transformation
-    * MSBuild
-      * c# and visual basic roslyn compilers
-  * MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
-  * Just in time debugger
-  * C++ profiling tools
-    * c++ core features
-    * graphics debugger and GPU profiler for directx
-      * c++ core features
-  * c++ cmake tools for windows
-  * Live share
-    * javascriprt and type scrpt language support
-      * TypeScript 4.2 SDK
-    * c# and visual basic
-      * c# and visual basic roslyn compilers
-  * c++ core desktop freatures
-    * c++ 2016 redistributitive update
-    * Text template transformation
-      * MSBuild
-        * c# and visual basic roslyn compilers
-    * c++ core features
-
-* MSVC V142 - VS 2016 C++ x64/x86 build tools (v14.29-v16.10)
+* Desktop development with C++ (C++ core desktop features)
+* MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
 * Windows 10 SDK (10.0.19041.0)
 
 ##### pkg-config
