@@ -7,7 +7,7 @@ Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 ### Windows
 * [Visual Studio](https://visualstudio.microsoft.com/)
 or
-* [MSBuild](https://aka.ms/buildtools) and [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc) or any IDE
+* Use your own IDE (e.g. [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)) and [MSBuild](https://aka.ms/buildtools)
 
 #### Visual Studio Installer: 
 * Desktop development with C++ (C++ core desktop features)
