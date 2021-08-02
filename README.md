@@ -13,7 +13,7 @@ Choose Compiler:
 * Desktop development with C++ (C++ core desktop features)
 * MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
 * Windows 10 SDK (10.0.19041.0)
-Download the [dependancies](#libraries) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path.
+Download the [dependancies](#libraries) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path and put the .dll files in the res folder.
 
 #### MinGW
 ```bash
