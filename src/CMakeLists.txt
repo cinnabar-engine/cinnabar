@@ -14,11 +14,11 @@ add_executable(${NAME}
 target_link_libraries(${NAME}
 	${CE_LIBS}
 )
-
+if(!MINGW)
 target_link_directories(${NAME} BEFORE
 	${CE_LIB_DIRS}
 )
-
+endif()
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}

@@ -8,6 +8,9 @@ find_package(PkgConfig REQUIRED)
 
 # OpenGL
 cmake_policy(SET CMP0072 NEW)
+if(MINGW)
+set(OPENGL_LIBRARY gl)
+else()
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 if(UNIX)
@@ -16,9 +19,10 @@ ENDIF()
 if(WIN32)
 set(OPENGL_LIBRARY ${OPENGL_gl_LIBRARY})
 ENDIF()
+endif()
 message(NOTICE "OPENGL_LIBRARY " ${OPENGL_LIBRARY})
-message(NOTICE "OPENGL_LIBRARIES " ${OPENGL_LIBRARIES})
-message(NOTICE "OPENGL_INCLUDE_DIR " ${OPENGL_INCLUDE_DIR})
+#message(NOTICE "OPENGL_LIBRARIES " ${OPENGL_LIBRARIES})
+#message(NOTICE "OPENGL_INCLUDE_DIR " ${OPENGL_INCLUDE_DIR})
 
 # glew
 find_package(GLEW REQUIRED)
@@ -60,7 +64,7 @@ message(NOTICE "GLM_INCLUDE_DIRS " ${GLM_INCLUDE_DIRS})
 #)
 
 
-
+if(!MINGW)
 get_filename_component(GLEW_LIBRARY_DIR ${GLEW_LIBRARIES} DIRECTORY)
 message(NOTICE "GLEW_LIBRARY_DIR " ${GLEW_LIBRARY_DIR})
 get_filename_component(SDL2_LIBRARY_DIR ${SDL2_LIBRARY} DIRECTORY)
@@ -71,6 +75,7 @@ set(CE_LIB_DIRS
 
 	PARENT_SCOPE
 )
+endif()
 
 
 
@@ -92,3 +97,4 @@ set(CE_INCLUDES
 	${ASSIMP_INCLUDE_DIR}
 	PARENT_SCOPE
 )
+
