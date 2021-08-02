@@ -5,24 +5,29 @@
 Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 
 ### Windows
-* [Visual Studio](https://visualstudio.microsoft.com/)
-or
-* Use your own IDE (e.g. [VSCode](https://code.visualstudio.com/docs/cpp/config-msvc)) and [MSBuild](https://aka.ms/buildtools)
+Choose Compiler:
+* [Visual Studio](https://visualstudio.microsoft.com/)/[MSBuild](https://aka.ms/buildtools) - *[setup](#visual-studio-installer)*
+* [MinGW](http://mingw-w64.org/doku.php/download) - *[setup](#msysmingw)*
 
-#### Visual Studio Installer: 
+#### Visual Studio Installer
 * Desktop development with C++ (C++ core desktop features)
 * MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
 * Windows 10 SDK (10.0.19041.0)
+Download the [dependancies](#libraries) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path.
+
+#### MinGW
+```bash
+pacman -Syu
+pacman -Su 
+pacman -S --needed base-devel mingw-w64-x86_64-toolchain
+pacman -S cmake mingw-w64-x86_64-glew mingw-w64-x86_64-glm mingw-w64-x86_64-SDL2
+```
 
 ##### pkg-config
 in here https://download-fallback.gnome.org/binaries/ 
 go to win32 or win34
 the  go to dependecites and pickup gettext-runtime and pkg-config  that isnt a dev veriso
 then go to glib and get the latest verison that isnt a dev verision
-###### Eviroment variables
-GLM_ROOT_DIR
-SDL2DIR
-and add the bins of pkg and glew to path
 ### Debian
 ```bash
 sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
