@@ -227,47 +227,56 @@ void ce::Shader::setUniform(const std::string name, float x, float y, float z, f
 	setUniform(location, x, y, z, w);
 }
 
-void ce::Shader::setUniform(GLint location, bool value) {
+template <>
+void ce::Shader::setUniform<bool>(GLint location, bool value) {
 	bind();
 	glUniform1i(location, (int)value);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, int value) {
+template <>
+void ce::Shader::setUniform<int>(GLint location, int value) {
 	bind();
 	glUniform1i(location, value);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, float value) {
+template <>
+void ce::Shader::setUniform<float>(GLint location, float value) {
 	bind();
 	glUniform1f(location, value);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, glm::vec2 value) {
+template <>
+void ce::Shader::setUniform<glm::vec2>(GLint location, glm::vec2 value) {
 	bind();
 	glUniform2fv(location, 1, &value[0]);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, glm::vec3 value) {
+template <>
+void ce::Shader::setUniform<glm::vec3>(GLint location, glm::vec3 value) {
 	bind();
 	glUniform3fv(location, 1, &value[0]);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, glm::vec4 value) {
+template <>
+void ce::Shader::setUniform<glm::vec4>(GLint location, glm::vec4 value) {
 	bind();
 	glUniform4fv(location, 1, &value[0]);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, glm::mat2 mat) {
+template <>
+void ce::Shader::setUniform<glm::mat2>(GLint location, glm::mat2 mat) {
 	bind();
 	glUniformMatrix2fv(location, 1, GL_FALSE, &mat[0][0]);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, glm::mat3 mat) {
+template <>
+void ce::Shader::setUniform<glm::mat3>(GLint location, glm::mat3 mat) {
 	bind();
 	glUniformMatrix3fv(location, 1, GL_FALSE, &mat[0][0]);
 	unbind();
 }
-void ce::Shader::setUniform(GLint location, glm::mat4 mat) {
+template <>
+void ce::Shader::setUniform<glm::mat4>(GLint location, glm::mat4 mat) {
 	bind();
 	glUniformMatrix4fv(location, 1, GL_FALSE, &mat[0][0]);
 	unbind();

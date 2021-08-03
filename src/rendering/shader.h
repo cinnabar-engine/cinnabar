@@ -39,20 +39,12 @@ namespace ce {
 
 		template <typename T>
 		void setUniform(const std::string name, T value);
+		template <typename T>
+		void setUniform(GLint location, T value);
 		void
 			setUniform(const std::string name, float x, float y),
 			setUniform(const std::string name, float x, float y, float z),
 			setUniform(const std::string name, float x, float y, float z, float w),
-
-			setUniform(GLint location, bool value),
-			setUniform(GLint location, int value),
-			setUniform(GLint location, float value),
-			setUniform(GLint location, glm::vec2 value),
-			setUniform(GLint location, glm::vec3 value),
-			setUniform(GLint location, glm::vec4 value),
-			setUniform(GLint location, glm::mat2 mat),
-			setUniform(GLint location, glm::mat3 mat),
-			setUniform(GLint location, glm::mat4 mat),
 
 			setUniform(GLint location, float x, float y),
 			setUniform(GLint location, float x, float y, float z),
