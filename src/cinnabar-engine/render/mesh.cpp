@@ -11,7 +11,7 @@ ce::Mesh::~Mesh() {
 	glDeleteBuffers(1, &m_EBO);
 }
 
-void ce::Mesh::setMesh(ce::Meshfile meshfile) {
+void ce::Mesh::setMesh(ce::MeshFile meshfile) {
 	m_vertArraySize = meshfile.verts.size() * sizeof(Vertex);
 	m_indexArraySize = meshfile.indices.size() * sizeof(GLuint);
 

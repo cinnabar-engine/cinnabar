@@ -1,25 +1,16 @@
-// Debugging
-#include "core/tpnt_log.h"
 #include <iostream>
 
-// Core
+// core
+#include "core/tpnt_log.h"
 #include "core/time.h"
 #include "core/window.h"
+#include "core/glm.h"
+#include "core/transform.h"
 
-// Assets
-#include "managers/asset_manager.h"
-#include "managers/module_manager.h"
-#include "stb_image.h"
-
-// Maths
-#include "ce_math.h"
-#include "math/transform.h"
-
-// Rendering
-#include "ce_render_fundementals.h"
-#include "rendering/camera.h"
-#include "rendering/material.h"
-#include "rendering/render_engine.h"
+// render
+#include "render/camera.h"
+#include "render/material.h"
+#include "render/render_engine.h"
 
 int main(int argc, char* argv[]) {
 	ce::ModuleManager* moduleManager = new ce::ModuleManager();

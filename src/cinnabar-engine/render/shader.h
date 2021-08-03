@@ -6,8 +6,8 @@
 #include <vector>
 
 #include <GL/glew.h>
-#include <ce_assets.h>
-#include <ce_math.h>
+#include <assets.h>
+#include <glm.h>
 
 namespace ce {
 	class Shader {

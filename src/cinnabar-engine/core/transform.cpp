@@ -1,5 +1,7 @@
 #include "transform.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 ce::Transform::Transform()
 	: m_pos(0.0f, 0.0f, 0.0f), m_rot(0.0f, 0.0f, 0.0f),
 	  m_scale(1.0f, 1.0f, 1.0f) {}
@@ -27,9 +29,6 @@ glm::mat4 ce::Transform::getMatrix() {
 void ce::Transform::sendToShader(ce::Shader* shader) {
 	shader->setUniform("transform.model", getMatrix());
 }
-
-#include <core/tpnt_log.h>
-#include <limits>
 
 glm::vec3 ce::Transform::getForward(bool useYaw, bool usePitch, bool) {
 	float

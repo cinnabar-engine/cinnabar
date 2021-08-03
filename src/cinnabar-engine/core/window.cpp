@@ -1,6 +1,8 @@
 #include "window.h"
 
 #include "tpnt_log.h"
+#include <SDL.h>
+#include <glm/glm.hpp>
 
 ce::Window::Window(const char* title)
 	: m_window(NULL), m_context(NULL) {

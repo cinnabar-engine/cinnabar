@@ -1,7 +1,6 @@
 #pragma once
 
-#include <ce_math.h>
-#include <ce_render_fundementals.h>
+#include <glm/glm.hpp>
 
 namespace ce {
 	class Transform {

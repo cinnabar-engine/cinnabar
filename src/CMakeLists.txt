@@ -16,7 +16,10 @@ target_link_libraries(${NAME}
 )
 
 include_directories(${NAME}
-	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine
+	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/core
+	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/render
+	${CMAKE_CURRENT_SOURCE_DIR}/demo
 	${CE_INCLUDES}
 )
 
