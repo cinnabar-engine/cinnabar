@@ -1,8 +1,7 @@
 #pragma once
 
 #include <SDL.h>
-#include <ce_event_handler.h>
-#include <ce_math.h>
+#include <glm/glm.hpp>
 
 namespace ce {
 	class Window {

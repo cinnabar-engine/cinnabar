@@ -10,13 +10,13 @@ namespace ce {
 	 public:
 		Mesh();
 		Mesh(std::string filename)
-			: Mesh(ce::AssetManager::getMeshfile(filename)){};
-		Mesh(Meshfile meshfile) { setMesh(meshfile); };
+			: Mesh(ce::AssetManager::getMeshFile(filename)){};
+		Mesh(MeshFile meshfile) { setMesh(meshfile); };
 
 		~Mesh();
 
-		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshfile(filename)); };
-		void setMesh(Meshfile meshfile);
+		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshFile(filename)); };
+		void setMesh(MeshFile meshfile);
 
 		void sendToShader(ce::Shader* shader, bool bind = true);
 
