@@ -28,9 +28,6 @@ void ce::Transform::sendToShader(ce::Shader* shader) {
 	shader->setUniform("transform.model", getMatrix());
 }
 
-#include <core/tpnt_log.h>
-#include <limits>
-
 glm::vec3 ce::Transform::getForward(bool useYaw, bool usePitch, bool) {
 	float
 		yaw = useYaw ? glm::radians(getYaw()) : 0.0,
