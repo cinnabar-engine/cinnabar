@@ -163,9 +163,9 @@ int main(int argc, char* argv[]) {
 		);
 
 		// Render
-		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh, camera});
-		renderEngine->registerCommand({environmentPos, environmentGroundMaterial, environmentMesh, camera});
-		renderEngine->render();
+		renderEngine->clear();
+		renderEngine->render(blobMesh, blobMaterial, blobPos, camera);
+		renderEngine->render(environmentMesh, environmentGroundMaterial, environmentPos, camera);
 
 		window->swapBuffers();
 
