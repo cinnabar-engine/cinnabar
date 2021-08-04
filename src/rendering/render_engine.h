@@ -7,16 +7,7 @@
 #include <math/transform.h>
 #include <vector>
 
-// TODO: seperate camera from RenderEngine. make camera part of rendercommand
-
 namespace ce {
-	struct RenderCommand {
-		Transform* transform;
-		Material* material;
-		Mesh* mesh;
-		Camera* camera;
-	};
-
 	class RenderEngine {
 	 public:
 		RenderEngine(glm::vec4 clearColor = glm::vec4());
@@ -26,17 +17,13 @@ namespace ce {
 		void setClearColor(glm::vec4 color);
 		double getAspectRatio() { return m_aspectRatio; };
 
-		void registerCommand(RenderCommand command) { m_commands.push_back(command); }
-		void render();
-
+		void
+			clear(),
+			render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
 	 private:
 		double m_aspectRatio; // TODO: aspect ratio shouldn't be stored, the Camera should store a projection matrix and it should be left to the user (programmer) to recalculate the projection matrix (using Camera functions) when the window size changes
 
-		std::vector<RenderCommand> m_commands = {};
-
-		void clear();
 		void
-			bind(RenderCommand command),
-			unbind(RenderCommand command);
+			bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
 	};
 }

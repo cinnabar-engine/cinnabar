@@ -6,24 +6,19 @@ void ce::RenderEngine::clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void ce::RenderEngine::bind(RenderCommand command) {
+void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
 	// Update Shader Values TODO: shouldn't this be somewhere else instead of the bind command?
-	command.material->update();
+	material->update();
 
 	// TODO: get rid of unneccecary binding
-	Shader* shader = command.material->getShader();
-	command.mesh->sendToShader(shader, true);
-	command.transform->sendToShader(shader);
-	command.camera->sendToShader(shader, m_aspectRatio); // TODO: make aspect ratio need to be sent to camera manually on window resize, remove m_aspectRatio from renderEngine
+	Shader* shader = material->getShader();
+	mesh->sendToShader(shader, true);
+	transform->sendToShader(shader);
+	camera->sendToShader(shader, m_aspectRatio); // TODO: make aspect ratio need to be sent to camera manually on window resize, remove m_aspectRatio from renderEngine
 
 	// Bind Things
-	command.mesh->bind();
-	command.material->bind();
-}
-
-void ce::RenderEngine::unbind(RenderCommand command) {
-	command.mesh->unbind();
-	command.material->unbind();
+	mesh->bind();
+	material->bind();
 }
 
 ce::RenderEngine::RenderEngine(glm::vec4 clearColor)
@@ -62,12 +57,9 @@ void ce::RenderEngine::setSize(glm::vec2 size) {
 	glViewport(0, 0, size.x, size.y);
 	m_aspectRatio = size.x / size.y;
 }
-void ce::RenderEngine::render() {
-	clear();
-	for (RenderCommand command : m_commands) {
-		bind(command);
-		glDrawElements(GL_TRIANGLES, (GLsizei)command.mesh->GetIndexCount(), GL_UNSIGNED_INT, NULL);
-		unbind(command); // TODO: should this go outside the for loop?
-	}
-	m_commands.clear();
+void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
+	bind(mesh, material, transform, camera);
+	glDrawElements(GL_TRIANGLES, (GLsizei)mesh->GetIndexCount(), GL_UNSIGNED_INT, NULL);
+	mesh->unbind(); // TODO: is unbinding needed, and does it reduce performance?
+	material->unbind();
 }
