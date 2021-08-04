@@ -68,7 +68,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Mesh Class
  - [x] Texture Class
  - [x] Matricies
- - [x] Pespective Camera
+ - [x] Perspective Camera
  - [x] 3D Cube
  - [x] 3D Transforms
  - [x] WASD
@@ -85,13 +85,14 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Mesh Importing
  - [x] Full UV mapping support
  - [x] Full vertex color support
- - [ ] Multi-texture materials
+ - [ ] Fully customizable materials
  - [x] Normals
  - [ ] Normal maps
- - [x] Matcaps (SArpnt will do this)
- - [ ] Simple object classes (combine assets and automatically manage render commands)
+ - [x] Matcap shader
+ - [.] Compile as library
  - [ ] Depth manipulation
  - [ ] Skybox
+ - [ ] Simple object classes (combine assets and automatically manage rendering (not sure if this should acutally be done))
  - [ ] GL lines
  - [ ] Sprites (i think you can do GL_POINTS and draw the images in a frag shader)
  - [ ] Supersampling and subsampling
@@ -113,12 +114,15 @@ Pull requests are welcome. For major changes, please open an issue first to disc
     - [ ] Trilinear
     - [ ] Lanczos
  - [ ] Lights
- - [ ] Text
+ - [.] Text
  - [ ] GUI
  - [ ] Portals
  - [ ] VR Support
- - [ ] Test on Windows
+ - [.] Port to Windows
+ - [ ] Port to MacOS
  - [ ] Port to Emscripten
+ - [ ] Port to Android
+ - [ ] Port to iOS
 
 ### Physics engine (make a seperate project)
 
@@ -144,8 +148,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
    - [ ] Soft body
    - [ ] Fluid
  - [ ] Portals
- - [ ] Test on Windows
+ - [ ] Port to Windows
+ - [ ] Port to MacOS
  - [ ] Port to Emscripten
+ - [ ] Port to Android
+ - [ ] Port to iOS
 
 ### Networking (make a seperate project)
 
