@@ -59,32 +59,34 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] SDL2
  - [x] GLSL
  - [x] Triangle
- - [x] Vertex Colors
+ - [x] Vertex colors
  - [x] Indices
- - [x] Shader Class
- - [x] Quad Rendering
- - [x] Texture Mapping
+ - [x] Shader class
+ - [x] Quad rendering
+ - [x] Texture mapping
  - [x] Uniforms
- - [x] Mesh Class
- - [x] Texture Class
+ - [x] Mesh class
+ - [x] Texture class
  - [x] Matricies
- - [x] Perspective Camera
- - [x] 3D Cube
- - [x] 3D Transforms
+ - [x] Perspective camera
+ - [x] 3D cube
+ - [x] 3D transforms
  - [x] WASD
  - [x] Basic input handling
  - [x] Mouse controlled camera
- - [x] Window Class
+ - [x] Window class
  - [x] Resize context on window resize
- - [x] Time Class
- - [x] Camera Class
- - [x] Smooth Input
+ - [x] Time class
+ - [x] Camera class
+ - [x] Smooth input
  - [x] Materials
- - [x] Render System
+ - [x] Render system
  - [x] Multiple Objects rendering at the same time
- - [x] Mesh Importing
+ - [x] Mesh importing
  - [x] Full UV mapping support
  - [x] Full vertex color support
+ - [ ] Framebuffers
+ - [ ] Render to texture
  - [ ] Fully customizable materials
  - [x] Normals
  - [ ] Normal maps
@@ -117,7 +119,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [.] Text
  - [ ] GUI
  - [ ] Portals
- - [ ] VR Support
+ - [ ] VR support
  - [.] Port to Windows
  - [ ] Port to MacOS
  - [ ] Port to Emscripten
