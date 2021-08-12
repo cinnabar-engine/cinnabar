@@ -1,11 +1,7 @@
-// Core
-#include "core/time.h"
-#include "core/tpnt_log.h"
+// core
 #include "core/transform.h"
-#include "core/window.h"
 
-//Render
-#include ""
+// render
 #include "render/asset_manager.h"
 #include "render/assets.h"
 #include "render/camera.h"
@@ -14,4 +10,4 @@
 #include "render/render_engine.h"
 #include "render/shader.h"
 #include "render/texture.h"
-#include "render/vertex.h"
+#include "render/window.h"
