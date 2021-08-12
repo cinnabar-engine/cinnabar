@@ -1,6 +1,11 @@
 #pragma once
 
-#include <math/transform.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include <core/transform.hpp>
+
+#include "shader.hpp"
 
 namespace ce {
 	class Camera {

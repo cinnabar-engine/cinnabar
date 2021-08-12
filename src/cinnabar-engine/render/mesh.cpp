@@ -1,6 +1,7 @@
-#include "mesh.h"
-#include "shader.h"
-#include "vertex.h"
+#include "mesh.hpp"
+
+#include "shader.hpp"
+#include "vertex.hpp"
 
 ce::Mesh::Mesh()
 	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertArraySize(0), m_indexArraySize(0) {}
@@ -11,7 +12,7 @@ ce::Mesh::~Mesh() {
 	glDeleteBuffers(1, &m_EBO);
 }
 
-void ce::Mesh::setMesh(ce::Meshfile meshfile) {
+void ce::Mesh::setMesh(ce::MeshFile meshfile) {
 	m_vertArraySize = meshfile.verts.size() * sizeof(Vertex);
 	m_indexArraySize = meshfile.indices.size() * sizeof(GLuint);
 

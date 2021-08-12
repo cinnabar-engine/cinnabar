@@ -2,10 +2,10 @@
 
 #include <glm/glm.hpp>
 
-#include <ce_render_fundementals.h>
-#include <managers/asset_manager.h>
+#include "asset_manager.hpp"
 
-#include "shader.h"
+#include "shader.hpp"
+#include "texture.hpp"
 
 namespace ce {
 	class Material {

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <ce_math.h>
-#include <ce_render_fundementals.h>
+#include <glm/glm.hpp>
 
 namespace ce {
 	class Transform {
@@ -46,8 +45,6 @@ namespace ce {
 		glm::vec3 getForward(bool useYaw = true, bool usePitch = true, bool useRoll = true);
 		glm::vec3 getRight(bool useYaw = true, bool usePitch = true, bool useRoll = true);
 		glm::vec3 getUp(bool useYaw = true, bool usePitch = true, bool useRoll = true);
-
-		void sendToShader(ce::Shader* shader);
 
 	 private:
 		/*
