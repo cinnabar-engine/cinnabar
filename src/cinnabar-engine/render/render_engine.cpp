@@ -1,5 +1,7 @@
-#include "render_engine.h"
+#include "render_engine.hpp"
+
 #include <GL/glew.h>
+
 #include <core/tpnt_log.h>
 
 void ce::RenderEngine::clear() {

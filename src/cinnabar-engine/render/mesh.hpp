@@ -1,9 +1,10 @@
 #pragma once
 
-#include "shader.h"
-#include "vertex.h"
 #include <GL/glew.h>
-#include "asset_manager.h"
+
+#include "asset_manager.hpp"
+#include "shader.hpp"
+#include "vertex.hpp"
 
 namespace ce {
 	class Mesh {

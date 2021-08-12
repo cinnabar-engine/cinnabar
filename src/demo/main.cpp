@@ -2,8 +2,8 @@
 
 #include <glm/glm.hpp>
 
-#include "cinnabar-render.h"
-#include "core/time.h"
+#include "cinnabar-render.hpp"
+#include "core/time.hpp"
 #include "core/tpnt_log.h"
 
 int main(int argc, char* argv[]) {

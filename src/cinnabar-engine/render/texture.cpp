@@ -1,7 +1,7 @@
-#include "texture.h"
+#include "texture.hpp"
 
 #include <core/tpnt_log.h>
-#include "asset_manager.h"
+#include "asset_manager.hpp"
 
 ce::Texture::Texture(std::string filename, GLenum type)
 	: m_width(0), m_height(0), m_channelCount(0), m_type(type) {

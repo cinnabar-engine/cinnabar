@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
-#include "assets.h"
+#include "assets.hpp"
 
 namespace ce {
 	class Shader {
