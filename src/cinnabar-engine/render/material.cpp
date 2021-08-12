@@ -1,4 +1,4 @@
-#include "material.h"
+#include "material.hpp"
 
 ce::Material::Material(Shader* shader)
 	: m_shader(shader),

@@ -15,10 +15,8 @@
  */
 #pragma once
 
-#include <cstring>
-#include <iostream>
 #include <stdio.h>
-#include <string>
+#include <string.h>
 
 #define TPNT_LOGGER_FORMAT "[%s][%s:%d|%s]: "
 #define TPNT_LOGGER_FILE strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__

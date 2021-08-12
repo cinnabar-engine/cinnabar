@@ -1,11 +1,11 @@
-#include "shader.h"
+#include "shader.hpp"
 
 #include <iostream>
 #include <map>
 
 #include <core/tpnt_log.h>
 
-#include "asset_manager.h"
+#include "asset_manager.hpp"
 
 void checkCompileErrors(GLuint shader, GLint shaderType) {
 	std::string type;
@@ -96,7 +96,10 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
 	customAttrCount = attrCount - m_attributes.size();
 	if (customAttrCount > 0) {
-		union {GLint size; GLenum type;} garbage;
+		union {
+			GLint size;
+			GLenum type;
+		} garbage;
 		m_attributes.resize(attrCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &nameMaxLen);
@@ -108,7 +111,10 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 		}
 	}
 	if (uniformCount > m_uniforms.size()) {
-		union {GLint size; GLenum type;} garbage;
+		union {
+			GLint size;
+			GLenum type;
+		} garbage;
 		m_uniforms.resize(uniformCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &nameMaxLen);

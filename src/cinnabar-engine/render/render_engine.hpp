@@ -2,12 +2,12 @@
 
 #include <vector>
 
-#include "core/transform.h"
+#include "core/transform.hpp"
 
-#include "camera.h"
-#include "material.h"
-#include "mesh.h"
-#include "window.h"
+#include "camera.hpp"
+#include "material.hpp"
+#include "mesh.hpp"
+#include "window.hpp"
 
 // TODO: seperate camera from RenderEngine. make camera part of rendercommand
 

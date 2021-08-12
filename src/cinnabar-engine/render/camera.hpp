@@ -3,9 +3,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <core/transform.h>
+#include <core/transform.hpp>
 
-#include "shader.h"
+#include "shader.hpp"
 
 namespace ce {
 	class Camera {

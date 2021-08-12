@@ -1,6 +1,7 @@
-#include "mesh.h"
-#include "shader.h"
-#include "vertex.h"
+#include "mesh.hpp"
+
+#include "shader.hpp"
+#include "vertex.hpp"
 
 ce::Mesh::Mesh()
 	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertArraySize(0), m_indexArraySize(0) {}

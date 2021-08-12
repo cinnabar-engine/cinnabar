@@ -1,16 +1,12 @@
-#include "asset_manager.h"
+#include "asset_manager.hpp"
 
 #include <algorithm>
-#include <core/tpnt_log.h>
-
-// TEXT FILES
 #include <fstream>
 #include <sstream>
 
-// TEXTURES
 #include "stb_image.h"
 
-// MESHES
+#include <core/tpnt_log.h>
 
 std::string ce::assetManager::getTextFile(std::string path, bool mustExist) {
 	std::fstream file;
@@ -131,7 +127,7 @@ ce::MeshFile ce::assetManager::getMeshFile(std::string filename) {
 			continue;
 
 		// Split the line into parts ( p1 p1 p3 p4 )
-		
+
 		std::vector<std::string> params;
 		{
 			std::stringstream lineStream(line);

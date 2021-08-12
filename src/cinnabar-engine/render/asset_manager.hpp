@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "assets.h"
+#include "assets.hpp"
 
 namespace ce {
 	namespace assetManager {
