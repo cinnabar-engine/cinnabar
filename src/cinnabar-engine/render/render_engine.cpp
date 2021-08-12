@@ -11,9 +11,10 @@ void ce::RenderEngine::bind(RenderCommand command) {
 	command.material->update();
 
 	// TODO: get rid of unneccecary binding
+	// TODO: this stuff should be changed when shaders/materials are less hardcoded
 	Shader* shader = command.material->getShader();
 	command.mesh->sendToShader(shader, true);
-	command.transform->sendToShader(shader);
+	shader->setUniform("transform.model", command.transform->getMatrix());
 	command.camera->sendToShader(shader, m_aspectRatio); // TODO: make aspect ratio need to be sent to camera manually on window resize, remove m_aspectRatio from renderEngine
 
 	// Bind Things

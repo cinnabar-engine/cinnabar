@@ -1,9 +1,11 @@
 #include "shader.h"
 
-#include <core/tpnt_log.h>
 #include <iostream>
-#include <managers/asset_manager.h>
 #include <map>
+
+#include <core/tpnt_log.h>
+
+#include "asset_manager.h"
 
 void checkCompileErrors(GLuint shader, GLint shaderType) {
 	std::string type;
@@ -72,7 +74,7 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 
 ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
-	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
+	ShaderFile shaderFile = ce::assetManager::getShaderFile(vertName, geomName, fragName);
 
 	for (GLuint i = 0; i < m_attributes.size(); i++)
 		glBindAttribLocation(m_program, i, (GLchar*)m_attributes[i].c_str());

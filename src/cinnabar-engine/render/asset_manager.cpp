@@ -12,7 +12,7 @@
 
 // MESHES
 
-std::string ce::assetManager::loadTextFile(std::string path, bool mustExist) {
+std::string ce::assetManager::getTextFile(std::string path, bool mustExist) {
 	std::fstream file;
 	std::string text = "";
 	file.exceptions(std::fstream::failbit | std::fstream::badbit);
@@ -34,33 +34,33 @@ std::string ce::assetManager::loadTextFile(std::string path, bool mustExist) {
 	return text;
 }
 
-ce::ShaderFile ce::assetManager::getShaderFiles(std::string vert, std::string geom, std::string frag) {
+ce::ShaderFile ce::assetManager::getShaderFile(std::string vert, std::string geom, std::string frag) {
 	ShaderFile shaderFile;
 	shaderFile.vertName = vert;
 	shaderFile.geomName = geom;
 	shaderFile.fragName = frag;
 
 	if (frag != "") {
-		shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".frag", false);
+		shaderFile.fragment = getTextFile(defaults::SHADER_FOLDER + "/" + frag + ".frag", false);
 		if (shaderFile.fragment == "")
-			shaderFile.fragment = load_text_file(SHADER_FOLDER + "/" + frag + ".fs");
+			shaderFile.fragment = getTextFile(defaults::SHADER_FOLDER + "/" + frag + ".fs");
 	}
 	if (vert != "") {
-		shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vert", false);
+		shaderFile.vertex = getTextFile(defaults::SHADER_FOLDER + "/" + vert + ".vert", false);
 		if (shaderFile.vertex == "")
-			shaderFile.vertex = load_text_file(SHADER_FOLDER + "/" + vert + ".vs");
+			shaderFile.vertex = getTextFile(defaults::SHADER_FOLDER + "/" + vert + ".vs");
 	}
 	if (geom != "") {
-		shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".geom", false);
+		shaderFile.geometry = getTextFile(defaults::SHADER_FOLDER + "/" + geom + ".geom", false);
 		if (shaderFile.geometry == "")
-			shaderFile.geometry = load_text_file(SHADER_FOLDER + "/" + geom + ".gs");
+			shaderFile.geometry = getTextFile(defaults::SHADER_FOLDER + "/" + geom + ".gs");
 	}
 
 	return shaderFile;
 }
 
 ce::TextureFile ce::assetManager::getTextureFile(std::string filename) {
-	std::string path = TEXTURE_FOLDER + "/" + filename;
+	std::string path = defaults::TEXTURE_FOLDER + "/" + filename;
 	// stbi_set_flip_vertically_on_load(1);
 	LOG_SUCCESS("LOADED_TEXTURE: %s", path.c_str());
 
@@ -72,7 +72,7 @@ ce::TextureFile ce::assetManager::getTextureFile(std::string filename) {
 	return textureFile;
 }
 
-void ce::AssetManager::freeTextureFile(ce::TextureFile textureFile) {
+void ce::assetManager::freeTextureFile(ce::TextureFile textureFile) {
 	stbi_image_free(textureFile.data);
 }
 
@@ -106,7 +106,7 @@ std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
 
 // TODO: system for other file types (not the actual loading of them, just detection of types)
 ce::MeshFile ce::assetManager::getMeshFile(std::string filename) {
-	std::string path = MESH_FOLDER + "/" + filename;
+	std::string path = defaults::MESH_FOLDER + "/" + filename;
 	std::ifstream file(path);
 	if (!file.is_open()) {
 		LOG_INFO("couldn't load model %s", filename.c_str());

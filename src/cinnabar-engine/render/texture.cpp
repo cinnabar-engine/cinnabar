@@ -1,11 +1,11 @@
 #include "texture.h"
 
 #include <core/tpnt_log.h>
-#include <managers/asset_manager.h>
+#include "asset_manager.h"
 
 ce::Texture::Texture(std::string filename, GLenum type)
 	: m_width(0), m_height(0), m_channelCount(0), m_type(type) {
-	TextureFile textureFile = ce::AssetManager::getTextureFile(filename);
+	TextureFile textureFile = ce::assetManager::getTextureFile(filename);
 
 	m_width = textureFile.width;
 	m_height = textureFile.height;
@@ -26,7 +26,7 @@ ce::Texture::Texture(std::string filename, GLenum type)
 	} else
 		LOG_ERROR("TEXTURE_LOADING_FAILED: %s", filename.c_str());
 	unbind();
-	ce::AssetManager::freeTextureFile(textureFile);
+	ce::assetManager::freeTextureFile(textureFile);
 }
 
 ce::Texture::~Texture() {

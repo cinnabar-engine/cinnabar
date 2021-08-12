@@ -1,11 +1,13 @@
 #pragma once
 
+#include <vector>
+
+#include "core/transform.h"
+
 #include "camera.h"
 #include "material.h"
-#include <ce_event_handler.h>
-#include <core/window.h>
-#include <math/transform.h>
-#include <vector>
+#include "mesh.h"
+#include "window.h"
 
 // TODO: seperate camera from RenderEngine. make camera part of rendercommand
 
@@ -36,7 +38,7 @@ namespace ce {
 
 		void clear();
 		void
-			bind(RenderCommand command),
+		bind(RenderCommand command),
 			unbind(RenderCommand command);
 	};
 }

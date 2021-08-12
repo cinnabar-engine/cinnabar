@@ -3,19 +3,19 @@
 #include "shader.h"
 #include "vertex.h"
 #include <GL/glew.h>
-#include <managers/asset_manager.h>
+#include "asset_manager.h"
 
 namespace ce {
 	class Mesh {
 	 public:
 		Mesh();
 		Mesh(std::string filename)
-			: Mesh(ce::AssetManager::getMeshFile(filename)){};
+			: Mesh(ce::assetManager::getMeshFile(filename)){};
 		Mesh(MeshFile meshfile) { setMesh(meshfile); };
 
 		~Mesh();
 
-		void setMesh(std::string filename) { setMesh(ce::AssetManager::getMeshFile(filename)); };
+		void setMesh(std::string filename) { setMesh(ce::assetManager::getMeshFile(filename)); };
 		void setMesh(MeshFile meshfile);
 
 		void sendToShader(ce::Shader* shader, bool bind = true);

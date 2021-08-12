@@ -1,5 +1,8 @@
 #include "camera.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 ce::Camera::Camera()
 	: transform(NULL),
 	  fov(glm::radians(75.0)),

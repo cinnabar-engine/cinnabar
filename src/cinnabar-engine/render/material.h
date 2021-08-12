@@ -2,9 +2,10 @@
 
 #include <glm/glm.hpp>
 
-#include <asset_manager.h>
+#include "asset_manager.h"
 
 #include "shader.h"
+#include "texture.h"
 
 namespace ce {
 	class Material {
