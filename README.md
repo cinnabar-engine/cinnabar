@@ -91,7 +91,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
  - [x] Normals
  - [ ] Normal maps
  - [x] Matcap shader
- - [.] Compile as library
+ - [x] Compile as library
  - [ ] Depth manipulation
  - [ ] Skybox
  - [ ] Simple object classes (combine assets and automatically manage rendering (not sure if this should acutally be done))
@@ -116,11 +116,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
     - [ ] Trilinear
     - [ ] Lanczos
  - [ ] Lights
- - [.] Text
+ - [ ] Text
  - [ ] GUI
  - [ ] Portals
  - [ ] VR support
- - [.] Port to Windows
+ - [ ] Port to Windows
  - [ ] Port to MacOS
  - [ ] Port to Emscripten
  - [ ] Port to Android
