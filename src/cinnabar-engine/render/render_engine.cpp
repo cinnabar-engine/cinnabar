@@ -1,5 +1,7 @@
-#include "render_engine.h"
+#include "render_engine.hpp"
+
 #include <GL/glew.h>
+
 #include <core/tpnt_log.h>
 
 void ce::RenderEngine::clear() {
@@ -11,9 +13,10 @@ void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform
 	material->update();
 
 	// TODO: get rid of unneccecary binding
+	// TODO: this stuff should be changed when shaders/materials are less hardcoded
 	Shader* shader = material->getShader();
 	mesh->sendToShader(shader, true);
-	transform->sendToShader(shader);
+	shader->setUniform("transform.model", transform->getMatrix());
 	camera->sendToShader(shader, m_aspectRatio); // TODO: make aspect ratio need to be sent to camera manually on window resize, remove m_aspectRatio from renderEngine
 
 	// Bind Things

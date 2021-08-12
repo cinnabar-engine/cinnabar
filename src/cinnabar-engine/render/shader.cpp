@@ -1,9 +1,11 @@
-#include "shader.h"
+#include "shader.hpp"
+
+#include <iostream>
+#include <map>
 
 #include <core/tpnt_log.h>
-#include <iostream>
-#include <managers/asset_manager.h>
-#include <map>
+
+#include "asset_manager.hpp"
 
 void checkCompileErrors(GLuint shader, GLint shaderType) {
 	std::string type;
@@ -72,7 +74,7 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 
 ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
-	ShaderFile shaderFile = ce::AssetManager::getShaderFiles(vertName, geomName, fragName);
+	ShaderFile shaderFile = ce::assetManager::getShaderFile(vertName, geomName, fragName);
 
 	for (GLuint i = 0; i < m_attributes.size(); i++)
 		glBindAttribLocation(m_program, i, (GLchar*)m_attributes[i].c_str());
@@ -94,7 +96,10 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
 	customAttrCount = attrCount - m_attributes.size();
 	if (customAttrCount > 0) {
-		union {GLint size; GLenum type;} garbage;
+		union {
+			GLint size;
+			GLenum type;
+		} garbage;
 		m_attributes.resize(attrCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &nameMaxLen);
@@ -106,7 +111,10 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 		}
 	}
 	if (uniformCount > m_uniforms.size()) {
-		union {GLint size; GLenum type;} garbage;
+		union {
+			GLint size;
+			GLenum type;
+		} garbage;
 		m_uniforms.resize(uniformCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &nameMaxLen);

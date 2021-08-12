@@ -1,11 +1,13 @@
 #pragma once
 
-#include "camera.h"
-#include "material.h"
-#include <ce_event_handler.h>
-#include <core/window.h>
-#include <math/transform.h>
 #include <vector>
+
+#include "core/transform.hpp"
+
+#include "camera.hpp"
+#include "material.hpp"
+#include "mesh.hpp"
+#include "window.hpp"
 
 namespace ce {
 	class RenderEngine {

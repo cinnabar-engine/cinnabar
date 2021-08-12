@@ -1,11 +1,12 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <ce_math.h>
-
-#include "rendering/vertex.h"
 #include <string>
 #include <vector>
+
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+
+#include "vertex.hpp"
 
 namespace ce {
 	struct ShaderFile {
@@ -34,7 +35,7 @@ namespace ce {
 			specularTex = "missing.png",
 			shader = NULL;
 	};
-	struct Meshfile {
+	struct MeshFile {
 		std::vector<Vertex> verts = {};
 		std::vector<GLuint> indices = {};
 	};
