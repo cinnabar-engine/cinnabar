@@ -1,18 +1,10 @@
 #include <iostream>
 
-// glm
 #include <glm/glm.hpp>
 
-// core
+#include "cinnabar-render.h"
 #include "core/time.h"
 #include "core/tpnt_log.h"
-#include "core/transform.h"
-
-// render
-#include "render/camera.h"
-#include "render/material.h"
-#include "render/render_engine.h"
-#include "render/window.h"
 
 int main(int argc, char* argv[]) {
 	ce::Time* time = new ce::Time();
