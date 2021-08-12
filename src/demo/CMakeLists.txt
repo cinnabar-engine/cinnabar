@@ -1,13 +1,13 @@
 set(NAME cinnabar-render-demo)
 
-file(GLOB_RECURSE CE_SRC
+file(GLOB_RECURSE SRC
 	"*.cpp"
 	"*.c"
 )
 
 add_executable(${NAME}
 	WIN32
-	${CE_SRC}
+	${SRC}
 )
 
 target_link_libraries(${NAME}
