@@ -1,20 +1,20 @@
 #include <iostream>
 
+// glm
+#include <glm/glm.hpp>
+
 // core
-#include "core/tpnt_log.h"
 #include "core/time.h"
-#include "core/window.h"
-#include "core/glm.h"
+#include "core/tpnt_log.h"
 #include "core/transform.h"
 
 // render
 #include "render/camera.h"
 #include "render/material.h"
 #include "render/render_engine.h"
+#include "render/window.h"
 
 int main(int argc, char* argv[]) {
-	ce::ModuleManager* moduleManager = new ce::ModuleManager();
-
 	ce::Time* time = new ce::Time();
 
 	ce::Window* window = new ce::Window("Cinnabar");
@@ -135,8 +135,6 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		moduleManager->tickModules(time->getDeltaTime());
-
 		// Rotate blob
 		blobPos->roll(25.0 * time->getDeltaTime());
 		blobPos->yaw(50.0 * time->getDeltaTime());
@@ -150,8 +148,7 @@ int main(int argc, char* argv[]) {
 		camera->transform->translate(
 			(cameraRight * cameraVelocity.x) +
 			(cameraUp * cameraVelocity.y) +
-			(cameraFront * cameraVelocity.z)
-		);
+			(cameraFront * cameraVelocity.z));
 
 		// Render
 		renderEngine->registerCommand({blobPos, blobMaterial, blobMesh, camera});

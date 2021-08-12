@@ -26,10 +26,6 @@ glm::mat4 ce::Transform::getMatrix() {
 	return transform;
 }
 
-void ce::Transform::sendToShader(ce::Shader* shader) {
-	shader->setUniform("transform.model", getMatrix());
-}
-
 glm::vec3 ce::Transform::getForward(bool useYaw, bool usePitch, bool) {
 	float
 		yaw = useYaw ? glm::radians(getYaw()) : 0.0,

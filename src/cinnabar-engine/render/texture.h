@@ -1,8 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
-#include <ce_assets.h>
-#include <managers/asset_manager.h>
+#include "asset_manager.h"
 
 namespace ce {
 	class Texture {

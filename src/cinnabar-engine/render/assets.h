@@ -1,11 +1,12 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <ce_math.h>
-
-#include <vertex.h>
 #include <string>
 #include <vector>
+
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+
+#include "vertex.h"
 
 namespace ce {
 	struct ShaderFile {

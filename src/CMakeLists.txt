@@ -15,13 +15,37 @@ target_link_libraries(${NAME}
 	${CE_LIBS}
 )
 
-include_directories(${NAME}
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine
-	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/core
-	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/render
-	${CMAKE_CURRENT_SOURCE_DIR}/demo
+	#${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/core
+	#${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/render
+	#${CMAKE_CURRENT_SOURCE_DIR}/demo
 	${CE_INCLUDES}
 )
+
+#target_include_directories(cinnabar-core
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/core
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/render
+#	${CMAKE_CURRENT_SOURCE_DIR}/demo
+#	${CE_INCLUDES}
+#)
+#target_include_directories(cinnabar-render
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/core
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/render
+#	${CMAKE_CURRENT_SOURCE_DIR}/demo
+#	${CE_INCLUDES}
+#)
+#target_include_directories(cinnabar-render-demo
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/core
+#	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine/render
+#	${CMAKE_CURRENT_SOURCE_DIR}/demo
+#	${CE_INCLUDES}
+#)
+
+# TODO: set up multiple projects that work with eachother
 
 
 #set_property(TARGET engine PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:engine>")

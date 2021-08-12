@@ -5,9 +5,10 @@
 #include <string>
 #include <vector>
 
+#include <glm/glm.hpp>
 #include <GL/glew.h>
-#include <assets.h>
-#include <glm.h>
+
+#include "assets.h"
 
 namespace ce {
 	class Shader {
