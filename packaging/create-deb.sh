@@ -4,7 +4,7 @@ cd $(dirname $0)/..
 
 
 
-function prep_dep { #(TARGET)
+function create_deb { #(TARGET)
 TARGET=$1
 NAME=cinnabar-$1
 
@@ -21,12 +21,8 @@ if [ ! -f ${LIB} ]
 then
 	cmake --build ./build --target ${NAME}
 fi
-
-if [ -d ./${PAKNAME} ]
-then
-	rm -rf ./${PAKNAME}
-fi
-
+rm -rf packaging/${PAKNAME}
+rm -rf packaging/${PAKNAMEDEV}
 mkdir -p packaging/${PAKNAME}/{DEBIAN,usr/lib}
 mkdir -p packaging/${PAKNAMEDEV}/{DEBIAN,usr/include/$NAME}
 
@@ -49,15 +45,15 @@ then
 	cd ..
 fi
 
-prep_dep core
-prep_dep render
+prep_deb core
+prep_deb render
 
 
-
-cd $(dirname $0)
+cd packaging
 rm *.deb
 for a in "./"*/
 do
 dpkg-deb --build $(basename $a)
 done
+rm -rf */
 cd ..
