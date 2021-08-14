@@ -13,7 +13,8 @@ add_executable(${NAME}
 
 target_link_libraries(${NAME}
 	${CE_LIBS}
-	cinnabar
+	cinnabar-core
+	cinnabar-render
 )
 
 

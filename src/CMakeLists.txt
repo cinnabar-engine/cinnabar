@@ -66,5 +66,7 @@ include_directories(
 # #)
 
 
-add_subdirectory(cinnabar-engine)
+#add_subdirectory(cinnabar-engine)
+add_subdirectory(cinnabar-engine/core)
+add_subdirectory(cinnabar-engine/render)
 add_subdirectory(demo)
