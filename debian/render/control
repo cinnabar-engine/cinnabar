@@ -1,8 +1,8 @@
-Package: cinnabar-renderer
+Package: libcinnabar-render
 Version: 0.0.0
 Section: development
 Priority: optional
 Architecture: all
-Depends: libsdl2, libglew, libglm, libassimp, cinnabar-core
+Depends: libsdl2-2.0-0, libglew2.1, libassimp5, libcinnabar-core
 Maintainer: tumblegamer@gmail.com
 Description: Cinnabar Renderer

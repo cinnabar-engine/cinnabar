@@ -41,6 +41,7 @@ prep_dep cinnabar-render libcinnabar-render ./debian/render ./build/run/libcinna
 
 
 cd $(dirname $0)
+rm *.deb
 for a in "./"*/
 do
 dpkg-deb --build $(basename $a)
