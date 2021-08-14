@@ -56,4 +56,4 @@ do
 apkg-arch $(basename $a)
 done
 rm -rf */
-cp */*.pkg.tar.zst .
+cp */*.pkg.tar.gz .
