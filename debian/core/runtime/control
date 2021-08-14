@@ -1,0 +1,8 @@
+Package: libcinnabar-core
+Version: 0.0.0
+Section: development
+Priority: optional
+Architecture: alllibsdl2-2.0-0, libglew2.1, libassimp5
+Depends: 
+Maintainer: tumblegamer@gmail.com
+Description: Cinnabar Core

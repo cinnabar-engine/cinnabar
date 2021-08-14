@@ -1,1 +1,5 @@
 build/
+packaging/*
+
+
+!packaging/*.sh
