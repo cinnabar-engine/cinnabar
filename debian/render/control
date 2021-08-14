@@ -3,6 +3,6 @@ Version: 0.0.0
 Section: development
 Priority: optional
 Architecture: all
-Depends: libsdl2, libglew, libglm, libassimp
+Depends: libsdl2, libglew, libglm, libassimp, cinnabar-core
 Maintainer: tumblegamer@gmail.com
 Description: Cinnabar Renderer

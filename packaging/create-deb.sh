@@ -35,10 +35,14 @@ then
 	cd ..
 fi
 
-prep_dep cinnabar libcinnabar ./debian ./build/run/libcinnabar.so
+prep_dep cinnabar-core libcinnabar-core ./debian/core ./build/run/libcinnabar-core.so
+prep_dep cinnabar-render libcinnabar-render ./debian/render ./build/run/libcinnabar-render.so
 
 
 
 cd $(dirname $0)
-dpkg-deb --build $(echo */ | tr '/' ' ')
+for a in "./"*/
+do
+dpkg-deb --build $(basename $a)
+done
 cd ..
