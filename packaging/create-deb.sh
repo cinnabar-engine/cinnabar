@@ -4,12 +4,18 @@ cd $(dirname $0)/..
 
 
 
-function prep_dep { #(NAME,PAKNAME,DEBIAN,LIB)
+function prep_dep { #(TARGET)
+TARGET=$1
+NAME=cinnabar-$1
 
-NAME=$1
-PAKNAME=$2
-DEBIAN=$3
-LIB=$4
+PAKNAME=lib$NAME
+DEBIAN=./debian/$TARGET/runtime
+
+PAKNAMEDEV=$PAKNAME-dev
+DEBIANDEV=./debian/$TARGET/dev
+
+LIB=./build/run/$PAKNAME.so
+INCLUDE=./src/cinnabar-engine/$TARGET
 
 if [ ! -f ${LIB} ]
 then
@@ -20,11 +26,19 @@ if [ -d ./${PAKNAME} ]
 then
 	rm -rf ./${PAKNAME}
 fi
+
 mkdir -p packaging/${PAKNAME}/{DEBIAN,usr/lib}
+mkdir -p packaging/${PAKNAMEDEV}/{DEBIAN,usr/include/$NAME}
 
 cp -r ${DEBIAN}/* packaging/${PAKNAME}/DEBIAN
 cp ${LIB} packaging/${PAKNAME}/usr/lib
-	
+
+
+cp -r ${DEBIANDEV}/* packaging/${PAKNAMEDEV}/DEBIAN
+cp -r ${INCLUDE}/*.hpp packaging/${PAKNAMEDEV}/usr/include/${NAME}
+cp -r ${INCLUDE}/*.h packaging/${PAKNAMEDEV}/usr/include/${NAME}
+rm packaging/${PAKNAMEDEV}/usr/include/${NAME}/stb_image.h
+
 }
 
 if [ ! -d ./build ]
@@ -35,8 +49,8 @@ then
 	cd ..
 fi
 
-prep_dep cinnabar-core libcinnabar-core ./debian/core ./build/run/libcinnabar-core.so
-prep_dep cinnabar-render libcinnabar-render ./debian/render ./build/run/libcinnabar-render.so
+prep_dep core
+prep_dep render
 
 
 
