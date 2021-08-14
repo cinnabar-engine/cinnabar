@@ -51,6 +51,9 @@ prep_arch render
 
 cd $(dirname $0)
 
-apkg-arch cinnabar-core
-apkg-arch cinnabar-render
+for a in "./"*/
+do
+apkg-arch $(basename $a)
+done
+rm -rf */
 cp */*.pkg.tar.zst .
