@@ -1,8 +1,8 @@
-Package: cinnabar-core
+Package: libcinnabar-core
 Version: 0.0.0
 Section: development
 Priority: optional
 Architecture: all
-Depends: libsdl2, libglew, libglm, libassimp
+Depends: libsdl2-2.0-0, libglew2.1, libassimp5
 Maintainer: tumblegamer@gmail.com
 Description: Cinnabar Core
