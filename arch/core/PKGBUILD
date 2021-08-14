@@ -2,12 +2,12 @@
 pkgname=cinnabar-core
 pkgver=0.0.0
 pkgrel=1
-pkgdesc=""
-arch=()
+pkgdesc="Cinnabar Core"
+arch=("x86_64")
 url=""
 license=('GPL')
 groups=()
-depends=()
+depends=(sdl2 glm)
 makedepends=()
 optdepends=()
 provides=()
@@ -17,19 +17,18 @@ backup=()
 options=()
 install=
 changelog=
-source=($pkgname-$pkgver.tar.gz)
+source=()
 noextract=()
 md5sums=() #autofill using updpkgsums
 
 build() {
-  cd "$pkgname-$pkgver"
-
-  ./configure --prefix=/usr
-  make
+	echo "CINNABAR BUILD()"
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+	echo "CINNABAR PACKAGE()"
+  mkdir -p $pkgdir/usr/{lib,include/$pkgname}
 
-  make DESTDIR="$pkgdir/" install
+  cp ../lib$pkgname.so $pkgdir/usr/lib
+  cp ../include/* $pkgdir/usr/include/$pkgname
 }
