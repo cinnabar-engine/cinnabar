@@ -4,6 +4,9 @@ on:
     branches: [feature/gh-actions]
   workflow_dispatch:
 runs:
-  steps:
-    - run: ls
-      shell: bash
+  debian:
+    runs-on: ubuntu-latest
+    name: "Create .deb files with dpkg-deb"
+    steps:
+      - run: ls
+        shell: bash
