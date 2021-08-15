@@ -8,5 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     name: "Create .deb files with dpkg-deb"
     steps:
-      - run: $GITHUB_ACTION_PATH/packaging/create-deb.sh
+      - run: >
+          ./packaging/create-deb.sh
         shell: bash
