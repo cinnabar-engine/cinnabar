@@ -9,3 +9,4 @@ jobs:
     name: "Create .deb files with dpkg-deb"
     steps:
       - run: ls
+        shell: bash
