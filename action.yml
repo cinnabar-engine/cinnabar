@@ -1,0 +1,7 @@
+name: "Packaging"
+description: "Greet someone"
+runs:
+  using: "composite"
+  steps:
+    - run: ls
+      shell: bash
