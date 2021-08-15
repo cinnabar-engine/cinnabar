@@ -4,9 +4,7 @@ on:
     branches: [feature/gh-actions]
   workflow_dispatch:
 jobs:
-  debian:
+  packaging:
     runs-on: ubuntu-latest
     steps:
       - uses: cinnabar-engine/cinnabar@feature/gh-actions
-      - run: ./packaging/create-deb.sh
-        shell: bash
