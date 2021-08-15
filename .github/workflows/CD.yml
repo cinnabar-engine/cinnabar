@@ -6,7 +6,6 @@ on:
 jobs:
   debian:
     runs-on: ubuntu-latest
-    name: "Create .deb files with dpkg-deb"
     steps:
-      - run: ls
+      - run: ./packaging/create-deb.sh
         shell: bash
