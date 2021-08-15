@@ -15,3 +15,22 @@ jobs:
           cd packaging
           chmod +x ./create-deb.sh
           ./create-deb.sh
+
+      - name: Create Arch Package
+        run: |
+          cd packaging
+          chmod +x ./create-arch.sh
+          ./create-arch.sh
+
+      - name: Publish Packages
+        run: |
+          git config --global user.email "octokit@github.com"
+          git config --global user.name "Github Actions"
+          mkdir -p /tmp/ppa
+          git clone https://github.com/cinnabar-engine/cinnabar-engine.github.io /tmp/ppa
+          cp ./packaging/*.deb /tmp/ppa/debian
+          cp ./packaging/*.pkg.tar.zst /tmp/ppa/arch
+          cd /tmp/ppa
+          git add .
+          git commit -am "Package Update"
+          git push
