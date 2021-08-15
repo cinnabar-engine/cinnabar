@@ -49,7 +49,7 @@ fi
 prep_arch core
 prep_arch render
 
-cd $(dirname $0)
+cd packaging
 
 for a in "./"*/
 do
