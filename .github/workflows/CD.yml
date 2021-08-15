@@ -1,14 +1,15 @@
 name: Packaging
 on: push
-packaging:
-  runs-on: ubuntu-latest
-  steps:
-    # Checkout the branch
-    - name: checkout
-      uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+jobs:
+  packaging:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the branch
+      - name: checkout
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
-    - name: Create Debian Package
-      run: |
-        cd packaging
-        chmod +x ./create-deb.sh
-        ./create-deb.sh
+      - name: Create Debian Package
+        run: |
+          cd packaging
+          chmod +x ./create-deb.sh
+          ./create-deb.sh
