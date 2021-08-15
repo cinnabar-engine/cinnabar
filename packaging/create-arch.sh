@@ -48,10 +48,8 @@ function apkg-arch {
 }
 
 cd $(dirname $0)/..
-if [ "$1" == "docker" ]
+if [ "$1" != "docker" ]
 then
-	cd /app
-else
 	if [ ! -d ./build ]
 	then
 		mkdir build
@@ -65,18 +63,14 @@ else
 	prep_arch render
 fi
 
-if [ "$(cat /etc/os-release | grep ^ID | sed 's/ID=//g')" != "arch"|| "$1"!=docker ]
-then
-
-	cd packaging
-fi
+cd packaging
 
 if [ "$(cat /etc/os-release | grep ^ID | sed 's/ID=//g')" != "arch" ]
 then
 
 	cp ../arch/dockerfile .
 	sudo docker build . -t cinnabar-arch
-	sudo docker run --rm cinnabar-arch tar -cC /app/pkg . | tar -xC .
+	sudo docker run --rm cinnabar-arch tar -cC /packaging/pkg . | tar -xC .
 	rm dockerfile
 	rm -rf */
 	exit
