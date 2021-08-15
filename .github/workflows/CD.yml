@@ -39,6 +39,6 @@ jobs:
         with:
           source-directory: "/tmp/ppa"
           destination-github-username: "cinnabar-engine"
-          destination-repository-name: "cinnabar-engine.github.io "
+          destination-repository-name: "cinnabar-engine.github.io"
           user-email: octokit@github.com
           commit-message: "Package Update"
