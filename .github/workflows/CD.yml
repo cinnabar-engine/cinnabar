@@ -31,6 +31,14 @@ jobs:
           cp ./packaging/*.deb /tmp/ppa/debian
           cp ./packaging/*.pkg.tar.zst /tmp/ppa/arch
           cd /tmp/ppa
-          git add .
-          git commit -am "Package Update"
-          git push
+
+      - name: Push directory to another repos
+        uses: vinayb21/github-action-push-to-another-repo@1.4.0
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: "/tmp/ppa"
+          destination-github-username: "cinnabar-engine"
+          destination-repository-name: "cinnabar-engine.github.io "
+          user-email: octokit@github.com
+          commit-message: "Package Update"
