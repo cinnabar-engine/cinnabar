@@ -65,12 +65,14 @@ else
 	prep_arch render
 fi
 
-
-
-if [ "$(cat /etc/os-release | grep ^ID | sed 's/ID=//g')" != "arch" ]
+if [ "$(cat /etc/os-release | grep ^ID | sed 's/ID=//g')" != "arch"|| "$1"!=docker ]
 then
 
 	cd packaging
+fi
+
+if [ "$(cat /etc/os-release | grep ^ID | sed 's/ID=//g')" != "arch" ]
+then
 
 	cp ../arch/dockerfile .
 	sudo docker build . -t cinnabar-arch
@@ -79,6 +81,8 @@ then
 	rm -rf */
 	exit
 fi
+
+
 
 echo "THIS PART"
 for a in "./"*/
