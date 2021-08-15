@@ -7,6 +7,6 @@ jobs:
   debian:
     runs-on: ubuntu-latest
     steps:
+      - uses: cinnabar-engine/cinnabar@feature/gh-actions
       - run: ./packaging/create-deb.sh
         shell: bash
-        uses: cinnabar-engine/cinnabar@feature/gh-actions
