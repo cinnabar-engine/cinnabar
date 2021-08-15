@@ -3,11 +3,8 @@ on:
   push:
     branches: [feature/gh-actions]
   workflow_dispatch:
-jobs:
-  debian:
-    runs-on: ubuntu-latest
-    name: "Create .deb files with dpkg-deb"
-    steps:
-      - run: >
-          ./packaging/create-deb.sh
-        shell: bash
+runs:
+  steps:
+    - run: >
+        ./packaging/create-deb.sh
+      shell: bash
