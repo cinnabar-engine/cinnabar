@@ -9,3 +9,4 @@ jobs:
     steps:
       - run: ./packaging/create-deb.sh
         shell: bash
+        uses: cinnabar-engine/cinnabar@feature/gh-actions@
