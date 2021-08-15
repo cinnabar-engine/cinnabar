@@ -1,5 +1,0 @@
-name: "Packaging"
-runs:
-  steps:
-    - run: ./packaging/create-deb.sh
-      shell: bash
