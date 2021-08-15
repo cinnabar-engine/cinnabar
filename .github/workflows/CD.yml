@@ -5,6 +5,5 @@ on:
   workflow_dispatch:
 runs:
   steps:
-    - run: >
-        ./packaging/create-deb.sh
+    - run: ls
       shell: bash
