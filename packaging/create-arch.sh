@@ -76,6 +76,7 @@ then
 	sudo docker build . -t cinnabar-arch
 	sudo docker run --rm cinnabar-arch tar -cC /app/pkg . | tar -xC .
 	rm dockerfile
+	rm -rf */
 	exit
 fi
 
@@ -84,13 +85,11 @@ for a in "./"*/
 do
 	apkg-arch $(basename $a)
 done
-cp */*.pkg.tar.zst .
-ls *.pkg.*
 if [ "$1" == "docker" ]
 then
 	mkdir pkg
 	cp */*.pkg.tar.zst pkg
 else
-	ls *.pkg.*
+	cp */*.pkg.tar.zst .
+	rm -rf */
 fi
-#rm -rf */
