@@ -1,7 +1,5 @@
 name: "Packaging"
-description: "Greet someone"
 runs:
-  using: "composite"
   steps:
     - run: ./packaging/create-deb.sh
       shell: bash
