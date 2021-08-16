@@ -1,6 +1,6 @@
 # Cinnabar Engine
 
-[![.github/workflows/CD.yml](https://github.com/cinnabar-engine/cinnabar/actions/workflows/CD.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/CD.yml)
+[![Unit Testing](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml)
 
 ## Prerequisites
 
