@@ -1,7 +1,7 @@
 name: Unit Testing
 on: push
 jobs:
-  Linux-Debian-Ubuntu:
+  Debian:
     runs-on: ubuntu-latest
     steps:
       - name: Install Dependacies
@@ -19,7 +19,7 @@ jobs:
       - name: Build
         run: |
           cmake --build ./build
-  Linux-Arch:
+  Arch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
