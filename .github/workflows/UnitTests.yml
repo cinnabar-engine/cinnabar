@@ -6,9 +6,6 @@ jobs:
     steps:
       - name: Install Dependacies
         run: sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
-      # Checkout the branch
-      - name: checkout
-        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
       - name: Configure
         run: |
