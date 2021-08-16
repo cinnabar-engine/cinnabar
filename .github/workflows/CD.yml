@@ -44,7 +44,7 @@ jobs:
         with:
           source-directory: "ppa"
           destination-github-username: "cinnabar-engine"
-          destination-repository-name: "cinnabar-engine.github.i"
+          destination-repository-name: "cinnabar-engine.github.io"
           user-email: octokit@github.com
           commit-message: Package Update ($GITHUB_REF)
           target-branch: main
