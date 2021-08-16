@@ -38,3 +38,4 @@ jobs:
           destination-repository-name: "cinnabar-engine.github.io"
           user-email: octokit@github.com
           commit-message: "Package Update"
+          tag: "1"
