@@ -47,7 +47,7 @@ jobs:
           destination-repository-name: "cinnabar-engine.github.io"
           user-email: octokit@github.com
           commit-message: Package Update ($GITHUB_REF)
-          target-branch: main
+          target-branch: master
 
       # - name: Push directory to another repos
       #   uses: vinayb21/github-action-push-to-another-repo@1.4.0
