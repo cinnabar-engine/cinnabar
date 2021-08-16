@@ -24,12 +24,12 @@ jobs:
 
       - name: Publish Packages
         run: |
-          git config --global user.email "octokit@github.com"
-          git config --global user.name "Github Actions"
-          mkdir -p /tmp/ppa
-          git clone https://github.com/cinnabar-engine/cinnabar-engine.github.io /tmp/ppa
-          cp ./packaging/*.deb /tmp/ppa/debian
-          cp ./packaging/*.pkg.tar.zst /tmp/ppa/arch
+          # git config --global user.email "octokit@github.com"
+          # git config --global user.name "Github Actions"
+          mkdir -p ./ppa/{debian,arch}
+          #git clone https://github.com/cinnabar-engine/cinnabar-engine.github.io /tmp/ppa
+          cp ./packaging/*.deb ./ppa/debian
+          cp ./packaging/*.pkg.tar.zst ./ppa/arch
           cd /tmp/ppa
 
       - name: Push directory to another repos
@@ -37,7 +37,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: "/tmp/ppa"
+          source-directory: "./ppa"
           destination-github-username: "cinnabar-engine"
           destination-repository-name: "cinnabar-engine.github.io"
           user-email: octokit@github.com
