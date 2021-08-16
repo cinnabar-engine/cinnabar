@@ -1,4 +1,4 @@
-name: UnitTests
+name: Unit Testing
 on: push
 jobs:
   debian:
