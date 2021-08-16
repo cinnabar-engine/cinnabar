@@ -1,4 +1,4 @@
-name: Packaging
+name: UnitTests
 on: push
 jobs:
   debian:
