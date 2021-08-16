@@ -24,18 +24,25 @@ jobs:
 
       - name: Publish Packages
         run: |
+          git config --global user.email "octokit@github.com"
+          git config --global user.name "Github Actions"
+          mkdir -p /tmp/ppa
           git clone https://github.com/cinnabar-engine/cinnabar-engine.github.io ./ppa
           cp ./packaging/*.deb ./ppa/debian
           cp ./packaging/*.pkg.tar.zst ./ppa/arch
+          cd ./ppa
+          git add .
+          git commit -am "Package Update"
+          git push
 
-      - name: Push directory to another repos
-        uses: vinayb21/github-action-push-to-another-repo@1.4.0
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source-directory: "./ppa"
-          destination-github-username: "cinnabar-engine"
-          destination-repository-name: "cinnabar-engine.github.io"
-          user-email: octokit@github.com
-          commit-message: "Package Update"
-          tag: "1"
+      # - name: Push directory to another repos
+      #   uses: vinayb21/github-action-push-to-another-repo@1.4.0
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      #   with:
+      #     source-directory: "./ppa"
+      #     destination-github-username: "cinnabar-engine"
+      #     destination-repository-name: "cinnabar-engine.github.io"
+      #     user-email: octokit@github.com
+      #     commit-message: "Package Update"
+      #     tag: "1"
