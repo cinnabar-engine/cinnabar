@@ -1,7 +1,7 @@
 name: Unit Testing
 on: push
 jobs:
-  debian:
+  Linux-Debian-Ubuntu:
     runs-on: ubuntu-latest
     steps:
       - name: Install Dependacies
@@ -19,3 +19,26 @@ jobs:
       - name: Build
         run: |
           cmake --build ./build
+  Linux-Arch:
+    run-on: ubuntu-latest
+    steps:
+      # Checkout the branch
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+      - name: Install Dependacies
+        run: |
+          cp ./arch/dockerfile .
+          sudo docker build . -t cinnabar-arch
+          sudo docker run cinnabar-arch
+
+      - name: Configure
+        run: |
+          sudo docker run cinnabar-arch cd /app
+          sudo docker run cinnabar-arch mkdir build
+          sudo docker run cinnabar-arch cd build
+          sudo docker run cinnabar-arch cmake ..
+
+      - name: Build
+        run: |
+          sudo docker run cinnabar-arch cd /app
+          sudo docker run cinnabar-arch cmake --build ./build

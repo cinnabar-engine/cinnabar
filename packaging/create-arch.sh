@@ -70,6 +70,7 @@ then
 
 	cp ../arch/dockerfile .
 	sudo docker build . -t cinnabar-arch
+	sudo docker run cinnabar-arch /packaging/create-arch.sh
 	sudo docker run --rm cinnabar-arch tar -cC /packaging/pkg . | tar -xC .
 	rm dockerfile
 	rm -rf */
