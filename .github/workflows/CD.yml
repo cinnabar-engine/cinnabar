@@ -40,7 +40,7 @@ jobs:
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          API_TOKEN_GITHUB: ${{ secrets.GH_KEY }}
         with:
           source-directory: "ppa"
           destination-github-username: "cinnabar-engine"
@@ -48,15 +48,3 @@ jobs:
           user-email: octokit@github.com
           commit-message: Package Update ($GITHUB_REF)
           target-branch: master
-
-      # - name: Push directory to another repos
-      #   uses: vinayb21/github-action-push-to-another-repo@1.4.0
-      #   env:
-      #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      #   with:
-      #     source-directory: "./ppa"
-      #     destination-github-username: "cinnabar-engine"
-      #     destination-repository-name: "cinnabar-engine.github.io"
-      #     user-email: octokit@github.com
-      #     commit-message: "Package Update"
-      #     tag: "1"
