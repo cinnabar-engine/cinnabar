@@ -27,7 +27,7 @@ jobs:
           git config --global user.email "octokit@github.com"
           git config --global user.name "Github Actions"
           mkdir -p /tmp/ppa
-          git clone $API_TOKEN_GITHUB@github.com:cinnabar-engine/cinnabar-engine.github.io ./ppa
+          git clone git@github.com:cinnabar-engine/cinnabar-engine.github.io ./ppa
           cp ./packaging/*.deb ./ppa/debian
           cp ./packaging/*.pkg.tar.zst ./ppa/arch
           cd ./ppa
