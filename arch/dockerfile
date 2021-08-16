@@ -1,7 +1,8 @@
 FROM archlinux
 RUN pacman -Syu --noconfirm && pacman -S base-devel sdl2 glew glm assimp --noconfirm --needed
-COPY . /packaging
+COPY . /app
+RUN ln -s /app /packaging
 RUN chown nobody:nobody /packaging -R && chmod 755 /packaging -R
 USER nobody
-RUN /packaging/create-arch.sh docker
+#RUN /packaging/create-arch.sh docker
 #CMD bash -c "/app/create-arch.sh $@" docker  >> /proc/1/fd/1
