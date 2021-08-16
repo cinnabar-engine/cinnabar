@@ -20,9 +20,8 @@ jobs:
         run: |
           cmake --build ./build
   Linux-Arch:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      # Checkout the branch
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
       - name: Install Dependacies
