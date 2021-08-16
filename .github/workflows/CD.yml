@@ -23,28 +23,30 @@ jobs:
           ./create-arch.sh
 
       - name: Publish Packages
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_KEY }}
         run: |
           git config --global user.email "octokit@github.com"
           git config --global user.name "Github Actions"
           mkdir -p /tmp/ppa
-          git clone https://github.com/cinnabar-engine/cinnabar-engine.github.io ./ppa
+          git clone https://git:$API_TOKEN_GITHUB@github.com/cinnabar-engine/cinnabar-engine.github.io ./ppa
           cp ./packaging/*.deb ./ppa/debian
           cp ./packaging/*.pkg.tar.zst ./ppa/arch
-          # cd ./ppa
-          # git add .
-          # git status
-          # git commit -am "Package Update"
-          # git push
+          cd ./ppa
+          git add .
+          git status
+          git commit -am "Package Update"
+          git push
 
-      - name: Pushes to another repository
-        id: push_directory
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.GH_KEY }}
-        with:
-          source-directory: "ppa"
-          destination-github-username: "cinnabar-engine"
-          destination-repository-name: "cinnabar-engine.github.io"
-          user-email: octokit@github.com
-          commit-message: Package Update ($GITHUB_REF)
-          target-branch: master
+      # - name: Pushes to another repository
+      #   id: push_directory
+      #   uses: cpina/github-action-push-to-another-repository@main
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.GH_KEY }}
+      #   with:
+      #     source-directory: "ppa"
+      #     destination-github-username: "cinnabar-engine"
+      #     destination-repository-name: "cinnabar-engine.github.io"
+      #     user-email: octokit@github.com
+      #     commit-message: Package Update ($GITHUB_REF)
+      #     target-branch: master
