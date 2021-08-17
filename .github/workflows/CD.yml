@@ -35,13 +35,55 @@ jobs:
           name: debian-artifact
           path: pkg/
 
+  Arch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependencies
+        run: |
+          sudo docker build -f arch.dockerfile -t ce-arch .
+          sudo docker run -it -d --name ce-arch-test ce-arch
+          sudo docker exec ce-arch-test chmod +x /app/tests/arch.sh
+
+      - name: Configure
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh configure
+
+      - name: Build
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh build
+
+      - name: Package
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh package
+          mkdir ./pkg
+	        sudo docker cp ce-arch-test:/app/pkg ./pkg
+          ls ./pkg
+
+      - name: Clean Up
+        run: |
+          sudo docker stop ce-arch-test
+          sudo docker rm ce-arch-test -f
+          sudo docker rmi ce-arch -f
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: arch-artifact
+          path: pkg/
+
   Release:
     runs-on: ubuntu-latest
-    needs: Debian
+    needs: [Debian, Arch]
     steps:
       - uses: actions/download-artifact@v2
         with:
           name: debian-artifact
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: arch-artifact
 
       - name: release
         uses: actions/create-release@v1
