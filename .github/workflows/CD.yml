@@ -58,8 +58,7 @@ jobs:
       - name: Package
         run: |
           sudo docker exec ce-arch-test /app/tests/arch.sh package
-          mkdir ./pkg
-          sudo docker cp ce-arch-test:/app/pkg ./pkg
+          sudo docker cp ce-arch-test:/app/pkg .
 
       - name: Clean Up
         run: |
