@@ -1,11 +1,12 @@
 name: Continuous Delivery
 on:
-  push:
-    tags:
-      - "*"
-    # branches:
-    #   - release
-  workflow_dispatch:
+  workflow_dispatch
+  # push:
+  #   tags:
+  #     - "*"
+  #   # branches:
+  #   #   - release
+  # workflow_dispatch:
 jobs:
   Debian:
     runs-on: ubuntu-latest
