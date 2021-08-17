@@ -7,7 +7,7 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
-      - name: Install Dependacies
+      - name: Install Dependencies
         run: |
           sudo apt update -y
           sudo apt upgrade -y
@@ -32,10 +32,11 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo docker build -f arch.dockerfile -t ce-arch .
+          sudo docker run -d --name ce-arch-test ce-arch chmod +x /app/tests/arch.sh
 
       - name: Configure
         run: |
-          sudo docker run -d --name ce-arch-test ce-arch /app/tests/arch.sh configure
+          sudo docker exec ce-arch-test /app/tests/arch.sh configure
 
       - name: Build
         run: |
