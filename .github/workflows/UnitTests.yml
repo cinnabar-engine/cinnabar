@@ -16,6 +16,10 @@ jobs:
       - name: Build
         run: |
           tests/debian.sh build
+
+      - name: Packaging
+        run: |
+          tests/debian.sh package
   Arch:
     runs-on: ubuntu-latest
     steps:
@@ -23,18 +27,17 @@ jobs:
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
       - name: Install Dependacies
         run: |
-          cp ./arch/dockerfile .
-          sudo docker build . -t cinnabar-arch
-          sudo docker run cinnabar-arch
+          sudo docker build -f arch.dockerfile . -t ce-arch
+          sudo docker run ce-arch
 
       - name: Configure
         run: |
-          sudo docker run cinnabar-arch cd /app
-          sudo docker run cinnabar-arch mkdir build
-          sudo docker run cinnabar-arch cd build
-          sudo docker run cinnabar-arch cmake ..
+          sudo docker run ce-arch cd /app
+          sudo docker run ce-arch mkdir build
+          sudo docker run ce-arch cd build
+          sudo docker run ce-arch cmake ..
 
       - name: Build
         run: |
-          sudo docker run cinnabar-arch cd /app
-          sudo docker run cinnabar-arch cmake --build ./build
+          sudo docker run ce-arch cd /app
+          sudo docker run ce-arch cmake --build ./build
