@@ -12,13 +12,10 @@ jobs:
 
       - name: Configure
         run: |
-          mkdir build
-          cd build
-          cmake ..
-
+          tests/debian.sh configure
       - name: Build
         run: |
-          cmake --build ./build
+          tests/debian.sh build
   Arch:
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +23,6 @@ jobs:
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
       - name: Install Dependacies
         run: |
-          echo ${{ github.repository }} ${{ github.branch }}
           cp ./arch/dockerfile .
           sudo docker build . -t cinnabar-arch
           sudo docker run cinnabar-arch
