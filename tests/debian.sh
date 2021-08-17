@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 function configure {
 	rm -rf build

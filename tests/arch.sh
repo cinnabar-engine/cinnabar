@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 function configure {
 	rm -rf build
@@ -8,9 +8,9 @@ function configure {
 }
 
 function build {
-	cmake --build. ./build --target clean
-	cmake --build. ./build
-	
+	cmake --build ./build --target clean
+	cmake --build ./build --target cinnabar-core
+	cmake --build ./build --target cinnabar-render	
 }
 
 
@@ -70,6 +70,8 @@ function package {
 
 # set -x
 cd $(dirname $0)/..
+ls
+
 case $1 in
 
   configure)

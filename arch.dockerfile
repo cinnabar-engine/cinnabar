@@ -1,5 +1,5 @@
 FROM archlinux
-RUN pacman -Syu --noconfirm && pacman -S base-devel sdl2 glew glm assimp --noconfirm --needed
+RUN pacman -Syu --noconfirm && pacman -S base-devel cmake sdl2 glew glm assimp --noconfirm --needed
 COPY . /app
 RUN chown nobody:nobody /app -R && chmod 777 /app -R
 USER nobody
