@@ -63,15 +63,14 @@ then
 	prep_arch render
 fi
 
-cd packaging
-
 if [ "$(cat /etc/os-release | grep ^ID | sed 's/ID=//g')" != "arch" ]
 then
 
-	cp ../arch/dockerfile .
-	sudo docker build . -t cinnabar-arch
+cd packaging
+else
+	sudo docker build -t cinnabar-arch -f arch.dockerfile .
 	sudo docker run cinnabar-arch /packaging/create-arch.sh
-	sudo docker run --rm cinnabar-arch tar -cC /packaging/pkg . | tar -xC .
+	sudo docker run --rm cinnabar-arch tar -cC /app/packaging/pkg . | tar -xC .
 	rm dockerfile
 	rm -rf */
 	exit
