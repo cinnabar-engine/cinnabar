@@ -22,3 +22,65 @@ jobs:
           body: hello world
         env:
           GITHUB_TOKEN: ${{ github.token }}
+  Debian:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update -y
+          sudo apt upgrade -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+
+      - name: Configure
+        run: |
+          tests/debian.sh configure
+      - name: Build
+        run: |
+          tests/debian.sh build
+
+      - name: Package
+        run: |
+          tests/debian.sh package
+
+      - name: libcinnabar-core.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./pkg/libcinnabar-core.deb
+          asset_name: libcinnabar-core.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: libcinnabar-core-dev.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./pkg/libcinnabar-core-dev.deb
+          asset_name: libcinnabar-core-dev.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: libcinnabar-render.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./pkg/libcinnabar-renderv.deb
+          asset_name: libcinnabar-render.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: libcinnabar-render-dev.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./pkg/libcinnabar-render-dev.deb
+          asset_name: libcinnabar-render-dev.deb
+          asset_content_type: application/vnd.debian.binary-package
