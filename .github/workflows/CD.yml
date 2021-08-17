@@ -43,6 +43,18 @@ jobs:
         with:
           name: debian-artifact
 
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: true
+          prerelease: true
+          release_name: test
+          tag_name: ${{ github.ref }}
+          body: hello world
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: libcinnabar-core.deb
         uses: actions/upload-release-asset@v1
         env:
@@ -82,14 +94,3 @@ jobs:
           asset_path: ./libcinnabar-render-dev.deb
           asset_name: libcinnabar-render-dev.deb
           asset_content_type: application/vnd.debian.binary-package
-      - name: release
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          draft: true
-          prerelease: true
-          release_name: test
-          tag_name: ${{ github.ref }}
-          body: hello world
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
