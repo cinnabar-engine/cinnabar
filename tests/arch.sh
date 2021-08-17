@@ -49,7 +49,7 @@ function prep_arch { #(TARGET)
 function apkg-arch {
 	cd $1
 	makepkg
-	mv *.pkg.tar.zst ..
+	mv *.pkg.tar.zst ../$1.pkg.tar.zst
 	cd ..
 }
 
