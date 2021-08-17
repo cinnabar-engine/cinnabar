@@ -68,21 +68,21 @@ function package {
 
 }
 
-set -x
 cd $(dirname $0)/..
-ls
-
 case $1 in
 
   configure)
+	set -x
   	configure
     ;;
 
   build)
+	set -x
   	build
     ;;
 
   package)
+	set -x
   	package
     ;;
 *)
