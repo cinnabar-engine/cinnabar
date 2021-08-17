@@ -1,9 +1,9 @@
 name: Continuous Delivery
 on:
+  push:
   # push:
   #   tags:
   #     - "*"
-  workflow_dispatch:
 jobs:
   create-release:
     runs-on: ubuntu-latest
