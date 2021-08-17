@@ -5,7 +5,7 @@ on:
       - "*"
     # branches:
     #   - release
-    workflow_dispatch:
+  workflow_dispatch:
 jobs:
   Debian:
     runs-on: ubuntu-latest
