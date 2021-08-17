@@ -29,7 +29,7 @@ function prep_arch { #(TARGET)
 
 	PKGROOT=./pkg/$PAKNAME/pkg/$PAKNAME
 	
-	mkdir -p packaging/${PAKNAME}/include
+	mkdir -p pkg/${PAKNAME}/include
 
 	cp -r ${ARCH}/* pkg/${PAKNAME}
 
