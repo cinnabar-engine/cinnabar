@@ -35,14 +35,18 @@ jobs:
 
       - name: Configure
         run: |
-          sudo docker run ce-arch /app/tests/arch.sh configure
-          sudo docker run ce-arch /app/tests/arch.sh build
-          sudo docker run ce-arch /app/tests/arch.sh package
+          sudo docker run -d --name ce-arch-test ce-arch /app/tests/arch.sh configure
 
-      # - name: Build
-      #   run: |
-      #     sudo docker run ce-arch /app/tests/arch.sh build
+      - name: Build
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh build
 
-      # - name: Package
-      #   run: |
-      #     sudo docker run ce-arch /app/tests/arch.sh package
+       - name: Package
+         run: |
+           sudo docker exec ce-arch-test /app/tests/arch.sh package
+
+       - name: Cleanup
+         run: |
+           sudo docker rm ce-arch-test -f
+           sudo docker rmi ce-arch -f
+
