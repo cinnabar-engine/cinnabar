@@ -101,7 +101,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./libcinnabar-core.deb
           asset_name: libcinnabar-core.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -111,7 +111,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./libcinnabar-core-dev.deb
           asset_name: libcinnabar-core-dev.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -121,7 +121,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./libcinnabar-renderv.deb
           asset_name: libcinnabar-render.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -131,7 +131,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./libcinnabar-render-dev.deb
           asset_name: libcinnabar-render-dev.deb
           asset_content_type: application/vnd.debian.binary-package
