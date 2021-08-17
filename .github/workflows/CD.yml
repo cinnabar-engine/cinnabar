@@ -1,0 +1,156 @@
+name: Continuous Delivery
+on:
+  push:
+    tags:
+      - "*"
+    branches:
+      - release
+  workflow_dispatch:
+jobs:
+  Debian:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update -y
+          sudo apt upgrade -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+
+      - name: Configure
+        run: |
+          tests/debian.sh configure
+      - name: Build
+        run: |
+          tests/debian.sh build
+
+      - name: Package
+        run: |
+          tests/debian.sh package
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: debian-artifact
+          path: pkg/
+
+  Arch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependencies
+        run: |
+          sudo docker build -f arch.dockerfile -t ce-arch .
+          sudo docker run -it -d --name ce-arch-test ce-arch
+          sudo docker exec ce-arch-test chmod +x /app/tests/arch.sh
+
+      - name: Configure
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh configure
+
+      - name: Build
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh build
+
+      - name: Package
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh package
+          sudo docker cp ce-arch-test:/app/pkg .
+
+      - name: Clean Up
+        run: |
+          sudo docker stop ce-arch-test
+          sudo docker rm ce-arch-test -f
+          sudo docker rmi ce-arch -f
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: arch-artifact
+          path: pkg/
+
+  Release:
+    runs-on: ubuntu-latest
+    needs: [Debian, Arch]
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: debian-artifact
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: arch-artifact
+
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: Cinnabar ${{ github.ref }}
+          tag_name: ${{ github.ref }}
+          body: hello world
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: libcinnabar-core.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libcinnabar-core.deb
+          asset_name: libcinnabar-core.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: libcinnabar-core-dev.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libcinnabar-core-dev.deb
+          asset_name: libcinnabar-core-dev.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: libcinnabar-render.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libcinnabar-render.deb
+          asset_name: libcinnabar-render.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: libcinnabar-render-dev.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libcinnabar-render-dev.deb
+          asset_name: libcinnabar-render-dev.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: cinnabar-core.pkg.tar.zst
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cinnabar-core.pkg.tar.zst
+          asset_name: cinnabar-core.pkg.tar.zst
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: cinnabar-render.pkg.tar.zst
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cinnabar-render.pkg.tar.zst
+          asset_name: cinnabar-render.pkg.tar.zst
+          asset_content_type: application/vnd.debian.binary-package
