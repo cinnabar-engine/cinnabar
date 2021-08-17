@@ -31,10 +31,11 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          sudo docker build -f arch.dockerfile -t ce-arch . && sudo docker run -d --name ce-arch-test ce-arch chmod +x /app/tests/arch.sh
+          sudo docker build -f arch.dockerfile -t ce-arch .
 
       - name: Configure
         run: |
+          sudo docker run -d --name ce-arch-test ce-arch chmod +x /app/tests/arch.sh
           sudo docker exec ce-arch-test /app/tests/arch.sh configure
 
       - name: Build
