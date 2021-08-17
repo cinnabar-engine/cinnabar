@@ -36,11 +36,13 @@ jobs:
       - name: Configure
         run: |
           sudo docker run ce-arch /app/tests/arch.sh configure
-
-      - name: Build
-        run: |
           sudo docker run ce-arch /app/tests/arch.sh build
-
-      - name: Package
-        run: |
           sudo docker run ce-arch /app/tests/arch.sh package
+
+      # - name: Build
+      #   run: |
+      #     sudo docker run ce-arch /app/tests/arch.sh build
+
+      # - name: Package
+      #   run: |
+      #     sudo docker run ce-arch /app/tests/arch.sh package
