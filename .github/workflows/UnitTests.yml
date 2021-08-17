@@ -41,12 +41,11 @@ jobs:
         run: |
           sudo docker exec ce-arch-test /app/tests/arch.sh build
 
-       - name: Package
-         run: |
-           sudo docker exec ce-arch-test /app/tests/arch.sh package
+      - name: Package
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh package
 
-       - name: Cleanup
-         run: |
-           sudo docker rm ce-arch-test -f
-           sudo docker rmi ce-arch -f
-
+      - name: Cleanup
+        run: |
+          sudo docker rm ce-arch-test -f
+          sudo docker rmi ce-arch -f
