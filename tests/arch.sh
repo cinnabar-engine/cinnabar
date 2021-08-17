@@ -68,7 +68,7 @@ function package {
 
 }
 
-# set -x
+set -x
 cd $(dirname $0)/..
 ls
 
