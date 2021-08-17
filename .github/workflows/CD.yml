@@ -6,6 +6,8 @@ on:
   workflow_dispatch:
 jobs:
   create-release:
+    runs-on: ubuntu-latest
+    steps:
     - name: version
       run: echo "::set-output name=version::$(./bin/azblogfilter --version)"
       id: version
