@@ -49,6 +49,7 @@ function prep_arch { #(TARGET)
 function apkg-arch {
 	cd $1
 	makepkg
+	mv *.pkg.tar.zst ..
 	cd ..
 }
 
@@ -60,11 +61,13 @@ function package {
 	prep_arch render
 
 	cd pkg
+	ls
 	
 	for a in "./"*/
 	do
 		apkg-arch $(basename $a)
 	done
+	rm -rf */
 
 }
 
