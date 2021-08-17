@@ -30,17 +30,26 @@ jobs:
         run: |
           tests/debian.sh package
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: debian-artifact
+          path: pkg/
+
   Release:
     runs-on: ubuntu-latest
     needs: Debian
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: debian-artifact
+
       - name: libcinnabar-core.deb
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./pkg/libcinnabar-core.deb
+          asset_path: ./libcinnabar-core.deb
           asset_name: libcinnabar-core.deb
           asset_content_type: application/vnd.debian.binary-package
 
@@ -50,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./pkg/libcinnabar-core-dev.deb
+          asset_path: ./libcinnabar-core-dev.deb
           asset_name: libcinnabar-core-dev.deb
           asset_content_type: application/vnd.debian.binary-package
 
@@ -60,7 +69,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./pkg/libcinnabar-renderv.deb
+          asset_path: ./libcinnabar-renderv.deb
           asset_name: libcinnabar-render.deb
           asset_content_type: application/vnd.debian.binary-package
 
@@ -70,7 +79,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./pkg/libcinnabar-render-dev.deb
+          asset_path: ./libcinnabar-render-dev.deb
           asset_name: libcinnabar-render-dev.deb
           asset_content_type: application/vnd.debian.binary-package
       - name: release
