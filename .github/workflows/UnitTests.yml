@@ -47,7 +47,7 @@ jobs:
         run: |
           sudo docker exec ce-arch-test /app/tests/arch.sh package
 
-      - name: Cleanup
+      - name: Clean Up
         run: |
           sudo docker stop ce-arch-test
           sudo docker rm ce-arch-test -f
