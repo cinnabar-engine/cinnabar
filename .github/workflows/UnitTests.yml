@@ -4,11 +4,11 @@ jobs:
   Debian:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Dependacies
-        run: sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
-      # Checkout the branch
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependacies
+        run: sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev
 
       - name: Configure
         run: |
@@ -17,7 +17,7 @@ jobs:
         run: |
           tests/debian.sh build
 
-      - name: Packaging
+      - name: Package
         run: |
           tests/debian.sh package
   Arch:
@@ -25,19 +25,19 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
-      - name: Install Dependacies
+
+      - name: Install Dependencies
         run: |
-          sudo docker build -f arch.dockerfile . -t ce-arch
-          sudo docker run ce-arch
+          sudo docker build -f arch.dockerfile -t ce-arch .
 
       - name: Configure
         run: |
-          sudo docker run ce-arch cd /app
-          sudo docker run ce-arch mkdir build
-          sudo docker run ce-arch cd build
-          sudo docker run ce-arch cmake ..
+          sudo docker run ce-arch /apps/test/arch.sh configure
 
       - name: Build
         run: |
-          sudo docker run ce-arch cd /app
-          sudo docker run ce-arch cmake --build ./build
+          sudo docker run ce-arch /apps/test/arch.sh build
+
+      - name: Package
+        run: |
+          sudo docker run ce-arch /apps/test/arch.sh package
