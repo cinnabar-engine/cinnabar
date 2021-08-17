@@ -32,6 +32,7 @@ jobs:
 
   Release:
     runs-on: ubuntu-latest
+    needs: Debian
     steps:
       - name: libcinnabar-core.deb
         uses: actions/upload-release-asset@v1
@@ -74,7 +75,6 @@ jobs:
           asset_content_type: application/vnd.debian.binary-package
       - name: release
         uses: actions/create-release@v1
-        needs: Debian
         id: create_release
         with:
           draft: true
