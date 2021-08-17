@@ -7,23 +7,6 @@ on:
   #   tags:
   #     - "*"
 jobs:
-  create-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: version
-        run: echo "::set-output name=version::$(./bin/azblogfilter --version)"
-        id: version
-      - name: release
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          draft: true
-          prerelease: true
-          release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ github.ref }}
-          body: hello world
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
   Debian:
     runs-on: ubuntu-latest
     steps:
@@ -52,7 +35,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ jobs.Release.steps.release.outputs.upload_url }}
           asset_path: ./pkg/libcinnabar-core.deb
           asset_name: libcinnabar-core.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -62,7 +45,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ jobs.Release.steps.release.outputs.upload_url }}
           asset_path: ./pkg/libcinnabar-core-dev.deb
           asset_name: libcinnabar-core-dev.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -72,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ jobs.Release.steps.release.outputs.upload_url }}
           asset_path: ./pkg/libcinnabar-renderv.deb
           asset_name: libcinnabar-render.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -82,7 +65,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ jobs.Release.steps.release.outputs.upload_url }}
           asset_path: ./pkg/libcinnabar-render-dev.deb
           asset_name: libcinnabar-render-dev.deb
           asset_content_type: application/vnd.debian.binary-package
+
+  Release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: true
+          prerelease: true
+          release_name: test
+          tag_name: ${{ github.ref }}
+          body: hello world
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
