@@ -1,0 +1,8 @@
+Package: libcinnabar-render-dev
+Version: 0.0.0
+Section: development
+Priority: optional
+Architecture: all
+Depends: libcinnabar-render, libsdl2-dev, libglew-dev, libglm-dev, libassimp-dev
+Maintainer: tumblegamer@gmail.com
+Description: Cinnabar Renderer development files

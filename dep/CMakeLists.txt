@@ -47,7 +47,7 @@ get_filename_component(SDL2_LIBRARY_DIR ${SDL2_LIBRARY} DIRECTORY)
 message(NOTICE "SDL2_LIBRARY_DIR " ${SDL2_LIBRARY_DIR})
 endif()
 
-# GLM
+# glm
 find_package(glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 message(NOTICE "GLM_INCLUDE_DIRS " ${GLM_INCLUDE_DIRS})
@@ -92,7 +92,7 @@ PARENT_SCOPE
 )
 endif()
 
-# Include
+# include
 set(CE_INCLUDES
 	${OPENGL_INCLUDE_DIR}
 	${GLEW_INCLUDE_DIRS}

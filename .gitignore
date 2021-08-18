@@ -1,2 +1,7 @@
 build/
-res/*.dll
+packaging/*
+dockerfile
+!*/dockerfile
+
+!packaging/*.sh
+pkg
