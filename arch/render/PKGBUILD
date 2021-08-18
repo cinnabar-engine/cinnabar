@@ -1,0 +1,33 @@
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=cinnabar-render
+pkgver=0.0.0
+pkgrel=1
+pkgdesc="Cinnabar Renderer"
+arch=("x86_64")
+url=""
+license=('GPL')
+groups=()
+depends=(sdl2 glew glm assimp)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=()
+noextract=()
+md5sums=() #autofill using updpkgsums
+
+build() {
+	echo "CINNABAR BUILD()"
+}
+
+package() {
+  mkdir -p $pkgdir/usr/{lib,include/$pkgname}
+
+  cp ../lib$pkgname.so $pkgdir/usr/lib
+  cp ../include/* $pkgdir/usr/include/$pkgname
+}

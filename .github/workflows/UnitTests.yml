@@ -1,0 +1,54 @@
+name: Unit Testing
+on: [push, pull_request]
+jobs:
+  Debian:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update -y
+          sudo apt upgrade -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+
+      - name: Configure
+        run: |
+          tests/debian.sh configure
+      - name: Build
+        run: |
+          tests/debian.sh build
+
+      - name: Package
+        run: |
+          tests/debian.sh package
+  Arch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependencies
+        run: |
+          sudo docker build -f arch.dockerfile -t ce-arch .
+          sudo docker run -it -d --name ce-arch-test ce-arch
+          sudo docker exec ce-arch-test chmod +x /app/tests/arch.sh
+
+      - name: Configure
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh configure
+
+      - name: Build
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh build
+
+      - name: Package
+        run: |
+          sudo docker exec ce-arch-test /app/tests/arch.sh package
+
+      - name: Clean Up
+        run: |
+          sudo docker stop ce-arch-test
+          sudo docker rm ce-arch-test -f
+          sudo docker rmi ce-arch -f
