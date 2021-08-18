@@ -154,28 +154,3 @@ jobs:
           asset_path: ./cinnabar-render.pkg.tar.zst
           asset_name: cinnabar-render.pkg.tar.zst
           asset_content_type: application/vnd.debian.binary-package
-  Windows:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout Branch
-        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
-
-      - name: Install Dependencies
-        run: |
-          echo Hello World
-
-      - name: Configure
-        run: |
-          tests\windows.bat configure
-      - name: Build
-        run: |
-          tests\windows.bat build
-
-      - name: Package
-        run: |
-          tests\windows.bat package
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: windows-artifact
-          path: pkg/

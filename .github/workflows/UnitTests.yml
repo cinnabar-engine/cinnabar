@@ -52,3 +52,23 @@ jobs:
           sudo docker stop ce-arch-test
           sudo docker rm ce-arch-test -f
           sudo docker rmi ce-arch -f
+   Windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - name: Install Dependencies
+        run: |
+          echo Hello World
+
+      - name: Configure
+        run: |
+          tests\windows.bat configure
+      - name: Build
+        run: |
+          tests\windows.bat build
+
+      - name: Package
+        run: |
+          tests\windows.bat package
