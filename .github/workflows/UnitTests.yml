@@ -67,7 +67,7 @@ jobs:
           mkdir c:/lib
           wget -O glew.zip $env:GLEW_DOWNLOAD
 
-          unzip glew.zip c:\lib
+          unzip glew.zip -d c:\lib
 
           set "PATH=%PATH%;C:\lib\glew-2.1.0\bin"
 
