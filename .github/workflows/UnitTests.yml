@@ -71,8 +71,14 @@ jobs:
         run: |
           mkdir c:/lib
           wget -O glew.zip $env:GLEW_DOWNLOAD
+          wget -O sdl2.zip $env:SDL2_DOWNLOAD
+          wget -O glm.zip $env:GLM_DOWNLOAD
 
           unzip glew.zip -d c:\lib
+          unzip sdl2.zip -d c:\lib
+          unzip glm.zip -d c:\lib
+
+          tree c:\lib
 
           # vcpkg integrate install
           # vcpkg install sdl2 glew glm
