@@ -66,7 +66,7 @@ call :prep-win core
 call :prep-win render
 
 for /f "tokens=*" %%a in ('dir /b /s /a:d *') do (
-	wpkg-win %%a
+	call :wpkg-win %%a
 	rd /s /q %%A
 )
 
