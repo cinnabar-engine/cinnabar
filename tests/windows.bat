@@ -64,6 +64,7 @@ goto :eof
 mkdir pkg
 call :prep-win core
 call :prep-win render
+cd pkg
 
 for /f "tokens=*" %%a in ('dir /b /s /a:d *') do (
 	call :wpkg-win %%a
