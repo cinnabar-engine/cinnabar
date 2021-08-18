@@ -61,15 +61,15 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
+      - run: choco install wget unzip -y
       - name: Install Dependencies
         run: |
-          choco install wget unzip -y
           mkdir c:/lib
           wget -O glew.zip %GLEW_DOWNLOAD%
 
           unzip glew.zip c:\lib
 
-          set PATH=%PATH;\C:\lib:\glew-2.1.0\bin
+          set "PATH=%PATH;C:\lib\glew-2.1.0\bin"
 
           # vcpkg integrate install
           # vcpkg install sdl2 glew glm
