@@ -69,7 +69,7 @@ jobs:
 
           unzip glew.zip c:\lib
 
-          set "PATH=%PATH;C:\lib\glew-2.1.0\bin"
+          set "PATH=%PATH%;C:\lib\glew-2.1.0\bin"
 
           # vcpkg integrate install
           # vcpkg install sdl2 glew glm
