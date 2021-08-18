@@ -57,6 +57,7 @@ jobs:
     runs-on: windows-latest
     env:
       GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
+      GLEW_PATH: C:\lib\glew-2.1.0\bin
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
@@ -69,8 +70,6 @@ jobs:
 
           unzip glew.zip -d c:\lib
 
-          set "PATH=%PATH%;C:\lib\glew-2.1.0\bin"
-
           # vcpkg integrate install
           # vcpkg install sdl2 glew glm
           # # :: Install-Package sdl2 -Force
@@ -80,6 +79,8 @@ jobs:
 
       - name: Configure
         run: |
+          set "PATH=%PATH%;$env:GLEW_PATH"
+
           tests\windows.bat configure
       - name: Build
         run: |
