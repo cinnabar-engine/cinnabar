@@ -52,7 +52,7 @@ jobs:
           sudo docker stop ce-arch-test
           sudo docker rm ce-arch-test -f
           sudo docker rmi ce-arch -f
-   Windows:
+  Windows:
     runs-on: windows-latest
     steps:
       - name: Checkout Branch
