@@ -13,12 +13,15 @@ goto :eof
 	mkdir build
 	cd build
 	cmake ..
+	if %errorlevel% neq 0 exit /b %errorlevel%
 goto :eof
 
 :build
 	cmake --build build --target clean
 	cmake --build build --target cinnabar-core
+	if %errorlevel% neq 0 exit /b %errorlevel%
 	cmake --build build --target cinnabar-render
+	if %errorlevel% neq 0 exit /b %errorlevel%
 goto :eof
 
 :prep-win
