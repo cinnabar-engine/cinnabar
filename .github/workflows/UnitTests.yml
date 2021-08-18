@@ -63,6 +63,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          vcpkg integrate install
           vcpkg install sdl2 glew glm
           # :: Install-Package sdl2 -Force
           # :: Install-Package glew -Force
