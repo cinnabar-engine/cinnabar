@@ -90,6 +90,8 @@ jobs:
         run: |
           set PATH=%PATH%;$env:GLEW_PATH
 
+          path
+
           tests\windows.bat configure
       - name: Build
         run: |
