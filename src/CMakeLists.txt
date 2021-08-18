@@ -3,6 +3,7 @@ include_directories(
 	${CE_INCLUDES}
 )
 
+
 add_subdirectory(cinnabar-engine/core)
 add_subdirectory(cinnabar-engine/render)
 add_subdirectory(demo)
