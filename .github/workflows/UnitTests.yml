@@ -61,7 +61,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          echo Hello World
+          Install-Package sdl2 glew glm
+
 
       - name: Configure
         run: |
