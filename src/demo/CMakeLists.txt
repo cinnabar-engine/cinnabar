@@ -18,5 +18,5 @@ target_link_libraries(${NAME}
 
 set_target_properties(
 	${NAME} PROPERTIES
-	VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:${NAME}>"
+	VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/res"
 )
