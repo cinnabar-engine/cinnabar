@@ -88,7 +88,7 @@ jobs:
 
       - name: Configure
         run: |
-        $env:Path += ";$env:GLEW_PATH"
+          $env:Path += ";$env:GLEW_PATH"
 
           path
 
