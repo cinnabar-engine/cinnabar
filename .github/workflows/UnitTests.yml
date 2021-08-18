@@ -59,8 +59,8 @@ jobs:
       GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
       GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
       SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-2.0.16-win32-x64.zip
-      GLEW_PATH: C:\lib\glew-2.1.0\bin
-      SDL2DIR: C:\lib\SDL2-2.0.14
+      GLEW_PATH: C:\lib\glew-2.2.0\bin
+      SDL2DIR: C:\lib\SDL2-2.0.16
       GLM_ROOT_DIR: C:\lib\glm
     steps:
       - name: Checkout Branch
@@ -77,8 +77,6 @@ jobs:
           unzip glew.zip -d c:\lib
           unzip sdl2.zip -d c:\lib
           unzip glm.zip -d c:\lib
-
-          tree c:\lib
 
           # vcpkg integrate install
           # vcpkg install sdl2 glew glm
