@@ -56,18 +56,26 @@ jobs:
   Windows:
     runs-on: windows-latest
     env:
-      VCPKG_TARGET_TRIPLET: "x64-windows"
+      GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
       - name: Install Dependencies
         run: |
-          vcpkg integrate install
-          vcpkg install sdl2 glew glm
-          # :: Install-Package sdl2 -Force
-          # :: Install-Package glew -Force
-          # # Install-Package glm -Force
+          choco install wget unzip -y
+          mkdir c:/lib
+          wget -O glew.zip %GLEW_DOWNLOAD%
+
+          unzip glew.zip c:/lib
+
+          set PATH=%PATH;L:\glew-2.1.0\bin
+
+          # vcpkg integrate install
+          # vcpkg install sdl2 glew glm
+          # # :: Install-Package sdl2 -Force
+          # # :: Install-Package glew -Force
+          # # # Install-Package glm -Force
 
 
       - name: Configure
