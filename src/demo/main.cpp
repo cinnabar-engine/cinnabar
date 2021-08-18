@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "cinnabar-render.hpp"
+#include "render/cinnabar-render.hpp"
 #include "core/time.hpp"
 #include "core/tpnt_log.h"
 

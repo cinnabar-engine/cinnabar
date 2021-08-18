@@ -18,6 +18,7 @@ jobs:
           sudo apt update -y
           sudo apt upgrade -y
           sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+          chmod +x tests/debian.sh
 
       - name: Configure
         run: |
@@ -71,9 +72,63 @@ jobs:
           name: arch-artifact
           path: pkg/
 
+  Windows:
+    runs-on: windows-latest
+    env:
+      GLEW_PATH: C:\lib\glew-2.2.0\bin
+      SDL2DIR: C:\lib\SDL2-2.0.16
+      GLM_ROOT_DIR: C:\lib\glm
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+
+      - run: choco install wget unzip 7zip -y
+      - name: Install Dependencies
+        env:
+          GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
+          GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
+          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip
+        run: |
+          mkdir c:/lib
+          wget -O glew.zip $env:GLEW_DOWNLOAD
+          wget -O sdl2.zip $env:SDL2_DOWNLOAD
+          wget -O glm.zip $env:GLM_DOWNLOAD
+
+          unzip glew.zip -d c:\lib
+          unzip sdl2.zip -d c:\lib
+          unzip glm.zip -d c:\lib
+
+          # vcpkg integrate install
+          # vcpkg install sdl2 glew glm
+          # # :: Install-Package sdl2 -Force
+          # # :: Install-Package glew -Force
+          # # # Install-Package glm -Force
+
+
+      - name: Configure
+        run: |
+          $env:Path += ";$env:GLEW_PATH"
+
+          echo $env:PATH
+
+          tests\windows.bat configure
+      - name: Build
+        run: |
+          tests\windows.bat build
+
+      - name: Package
+        run: |
+          tests\windows.bat package
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: windows-artifact
+          path: pkg/
+
+
   Release:
     runs-on: ubuntu-latest
-    needs: [Debian, Arch]
+    needs: [Debian, Arch, Windows]
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -82,6 +137,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: arch-artifact
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: windows-artifact
 
       - name: release
         uses: actions/create-release@v1
@@ -154,3 +213,43 @@ jobs:
           asset_path: ./cinnabar-render.pkg.tar.zst
           asset_name: cinnabar-render.pkg.tar.zst
           asset_content_type: application/vnd.debian.binary-package
+
+      - name: cinnabar-core.dll
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cinnabar-core.dll
+          asset_name: cinnabar-core.dll
+          asset_content_type:  application/x-msdownload
+
+      - name: cinnabar-core.zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cinnabar-core.zip
+          asset_name: cinnabar-core.zip
+          asset_content_type:  application/zip
+
+      - name: cinnabar-render.dll
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cinnabar-render.dll
+          asset_name: cinnabar-render.dll
+          asset_content_type:  application/x-msdownload
+
+      - name: cinnabar-render.zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cinnabar-render.zip
+          asset_name: cinnabar-render.zip
+          asset_content_type:  application/zip

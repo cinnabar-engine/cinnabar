@@ -1,4 +1,9 @@
 set(BUILD_SHARED_LIBS TRUE)
+
+if(WIN32)
+include(C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
+endif()
+
 find_package(PkgConfig REQUIRED)
 
 # find_library(STD_CPP_FS stdc++fs)
@@ -8,12 +13,21 @@ find_package(PkgConfig REQUIRED)
 
 # OpenGL
 cmake_policy(SET CMP0072 NEW)
+if(MINGW)
+set(OPENGL_LIBRARY gl)
+else()
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
+if(UNIX)
 set(OPENGL_LIBRARY ${OPENGL_opengl_LIBRARY})
+ENDIF()
+if(WIN32)
+set(OPENGL_LIBRARY ${OPENGL_gl_LIBRARY})
+ENDIF()
+endif()
 message(NOTICE "OPENGL_LIBRARY " ${OPENGL_LIBRARY})
-message(NOTICE "OPENGL_LIBRARIES " ${OPENGL_LIBRARIES})
-message(NOTICE "OPENGL_INCLUDE_DIR " ${OPENGL_INCLUDE_DIR})
+#message(NOTICE "OPENGL_LIBRARIES " ${OPENGL_LIBRARIES})
+#message(NOTICE "OPENGL_INCLUDE_DIR " ${OPENGL_INCLUDE_DIR})
 
 # glew
 find_package(GLEW REQUIRED)
@@ -35,21 +49,21 @@ find_package(glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 message(NOTICE "GLM_INCLUDE_DIRS " ${GLM_INCLUDE_DIRS})
 
-# assimp
+# ASSIMP
 #find_package(assimp REQUIRED)
 #message(NOTICE "ASSIMP_LIBRARY " ${OPENGL_LIBRARY})
 #message(NOTICE "ASSIMP_LIBRARIES " ${OPENGL_LIBRARIES})
 #message(NOTICE "ASSIMP_INCLUDE_DIR " ${OPENGL_INCLUDE_DIR})
 
 
-# libs
+# Libs
 set(CE_LIBS
 	${OPENGL_LIBRARY}
 	${GLEW_LIBRARIES}
 	${SDL2_LIBRARIES}
-	${ASSIMP_LIBRARIES}
-	stdc++fs
+	#${ASSIMP_LIBRARIES}
 	${CMAKE_DL_LIBS}
+	#stdc++fs
 
 	PARENT_SCOPE
 )
@@ -60,6 +74,7 @@ set(CE_INCLUDES
 	${GLEW_INCLUDE_DIRS}
 	${SDL2_INCLUDE_DIRS}
 	${GLM_INCLUDE_DIRS}
-	${ASSIMP_INCLUDE_DIR}
+	#${ASSIMP_INCLUDE_DIR}
 	PARENT_SCOPE
 )
+
