@@ -3,7 +3,7 @@
 #include <iostream>
 #include <map>
 
-#include <core/tpnt_log.h>
+#include <cinnabar-core/tpnt_log.h>
 
 #include "asset_manager.hpp"
 

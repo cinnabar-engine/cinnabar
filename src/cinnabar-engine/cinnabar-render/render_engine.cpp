@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include <core/tpnt_log.h>
+#include <cinnabar-core/tpnt_log.h>
 
 void ce::RenderEngine::clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

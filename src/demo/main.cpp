@@ -2,9 +2,9 @@
 
 #include <glm/glm.hpp>
 
-#include "render/cinnabar-render.hpp"
-#include "core/time.hpp"
-#include "core/tpnt_log.h"
+#include <cinnabar-core/time.hpp>
+#include <cinnabar-core/tpnt_log.h>
+#include <cinnabar-render/cinnabar-render.hpp>
 
 int main(int argc, char* argv[]) {
 	ce::Time* time = new ce::Time();

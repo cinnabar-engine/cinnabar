@@ -1,7 +1,7 @@
 #include "texture.hpp"
 
-#include <core/tpnt_log.h>
 #include "asset_manager.hpp"
+#include <cinnabar-core/tpnt_log.h>
 
 ce::Texture::Texture(std::string filename, GLenum type)
 	: m_width(0), m_height(0), m_channelCount(0), m_type(type) {

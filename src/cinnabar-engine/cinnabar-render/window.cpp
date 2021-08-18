@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include <glm/glm.hpp>
 
-#include "core/tpnt_log.h"
+#include <cinnabar-core/tpnt_log.h>
 
 ce::Window::Window(const char* title)
 	: m_window(NULL), m_context(NULL) {

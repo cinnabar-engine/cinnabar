@@ -6,7 +6,7 @@
 
 #include "stb_image.h"
 
-#include <core/tpnt_log.h>
+#include <cinnabar-core/tpnt_log.h>
 
 std::string ce::assetManager::getTextFile(std::string path, bool mustExist) {
 	std::fstream file;

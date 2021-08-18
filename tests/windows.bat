@@ -32,7 +32,7 @@ set PAKNAME=%NAME%
 
 set LIB=build\run\debug\%PAKNAME%.dll
 set SYMBOLS=build\run\debug\%PAKNAME%.lib
-set INCLUDE=src\cinnabar-engine\%TARGET%
+set INCLUDE=src\cinnabar-engine\%NAME%
 
 mkdir pkg\%PAKNAME%\include
 mkdir pkg\%PAKNAME%\lib

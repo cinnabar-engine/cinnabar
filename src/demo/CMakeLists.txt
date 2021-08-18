@@ -1,4 +1,4 @@
-set(NAME cinnabar-render-demo)
+set(NAME demo)
 
 file(GLOB_RECURSE SRC
 	"*.cpp"

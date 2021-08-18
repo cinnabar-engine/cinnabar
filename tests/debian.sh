@@ -25,7 +25,7 @@ function prep_deb { #(TARGET)
 	DEBIANDEV=./debian/$TARGET/dev
 
 	LIB=./build/run/$PAKNAME.so
-	INCLUDE=./src/cinnabar-engine/$TARGET
+	INCLUDE=./src/cinnabar-engine/$NAME
 
 	rm -rf pkg/${PAKNAME}
 	rm -rf pkg/${PAKNAMEDEV}

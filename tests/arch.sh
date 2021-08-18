@@ -25,7 +25,7 @@ function prep_arch { #(TARGET)
 	ARCH=./arch/$TARGET
 
 	LIB=./build/run/lib$PAKNAME.so
-	INCLUDE=./src/cinnabar-engine/$TARGET
+	INCLUDE=./src/cinnabar-engine/$NAME
 
 	PKGROOT=./pkg/$PAKNAME/pkg/$PAKNAME
 	

@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <core/transform.hpp>
+#include <cinnabar-core/transform.hpp>
 
 #include "shader.hpp"
 
