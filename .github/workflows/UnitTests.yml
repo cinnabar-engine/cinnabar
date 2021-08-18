@@ -55,6 +55,8 @@ jobs:
           sudo docker rmi ce-arch -f
   Windows:
     runs-on: windows-latest
+    env:
+      VCPKG_TARGET_TRIPLET: "x64-windows"
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.

@@ -157,7 +157,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [ ] GUI
 - [ ] Portals
 - [ ] VR support
-- [ ] Port to Windows
+- [X] Port to Windows
 - [ ] Port to MacOS
 - [ ] Port to Emscripten
 - [ ] Port to Android
