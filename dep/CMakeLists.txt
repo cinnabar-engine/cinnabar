@@ -1,4 +1,9 @@
 set(BUILD_SHARED_LIBS TRUE)
+
+if(WIN32)
+include(C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
+endif()
+
 find_package(PkgConfig REQUIRED)
 
 # find_library(STD_CPP_FS stdc++fs)
