@@ -63,7 +63,7 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
-      - run: choco install wget unzip -y
+      - run: choco install wget unzip 7zip -y
       - name: Install Dependencies
         env:
           GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
