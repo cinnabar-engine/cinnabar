@@ -61,7 +61,9 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          Install-Package sdl2 glew glm
+          Install-Package sdl2
+          Install-Package glew
+          Install-Package glm
 
 
       - name: Configure
