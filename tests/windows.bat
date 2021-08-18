@@ -56,10 +56,19 @@ set SYMBOLS=
 set INCLUDE=
 goto :eof
 
+:wpkg-win
+7z a %1.zip %1
+goto :eof
+
 :package
 mkdir pkg
 call :prep-win core
 call :prep-win render
+
+for /f "tokens=*" %%a in ('dir /b /s /a:d *') do (
+	wpkg-win %%a
+	rd /s /q %%A
+)
 
 :: zip the dll files intozip files
 :: Zip the headerfiles and lib files into development zip files
