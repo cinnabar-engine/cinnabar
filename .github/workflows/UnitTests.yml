@@ -57,7 +57,11 @@ jobs:
     runs-on: windows-latest
     env:
       GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
+      GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
+      SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-2.0.16-win32-x64.zip
       GLEW_PATH: C:\lib\glew-2.1.0\bin
+      SDL2DIR: C:\lib\SDL2-2.0.14
+      GLM_ROOT_DIR: C:\lib\glm
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
@@ -79,7 +83,7 @@ jobs:
 
       - name: Configure
         run: |
-          set "PATH=%PATH%;$env:GLEW_PATH"
+          set "PATH=%PATH%;${env:GLEW_PATH}"
 
           tests\windows.bat configure
       - name: Build

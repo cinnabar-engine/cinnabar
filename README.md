@@ -15,7 +15,7 @@ Choose Compiler:
 * Desktop development with C++ (C++ core desktop features)
 * MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
 * Windows 10 SDK (10.0.19041.0)
-Download the [dependancies](#libraries) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path and put the .dll files in the res folder.
+Download the [dependancies](#Dependancies) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path and put the .dll files in the res folder.
 
 #### MinGW
 ```bash
@@ -72,6 +72,13 @@ Linux:
 cd res
 ../build/run/cinnabar-engine
 ```
+
+## Dependancies
+* [CMake](https://cmake.org/)
+* [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
+* [Simple Directmedia Layer](https://www.libsdl.org/)
+* [GLEW](http://glew.sourceforge.net/)
+* [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
 
 ## Libraries
 * Build Pipeline: [CMake](https://cmake.org/)
