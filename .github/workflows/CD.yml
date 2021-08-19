@@ -3,8 +3,8 @@ on:
   push:
     tags:
       - "*"
-    branches:
-      - release
+    # branches:
+    #   - release
   workflow_dispatch:
 jobs:
   Debian:
@@ -104,7 +104,6 @@ jobs:
           # # :: Install-Package glew -Force
           # # # Install-Package glm -Force
 
-
       - name: Configure
         run: |
           $env:Path += ";$env:GLEW_PATH"
@@ -124,7 +123,6 @@ jobs:
         with:
           name: windows-artifact
           path: pkg/
-
 
   Release:
     runs-on: ubuntu-latest
@@ -222,7 +220,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cinnabar-core.dll
           asset_name: cinnabar-core.dll
-          asset_content_type:  application/x-msdownload
+          asset_content_type: application/x-msdownload
 
       - name: cinnabar-core.zip
         uses: actions/upload-release-asset@v1
@@ -232,7 +230,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cinnabar-core.zip
           asset_name: cinnabar-core.zip
-          asset_content_type:  application/zip
+          asset_content_type: application/zip
 
       - name: cinnabar-render.dll
         uses: actions/upload-release-asset@v1
@@ -242,7 +240,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cinnabar-render.dll
           asset_name: cinnabar-render.dll
-          asset_content_type:  application/x-msdownload
+          asset_content_type: application/x-msdownload
 
       - name: cinnabar-render.zip
         uses: actions/upload-release-asset@v1
@@ -252,4 +250,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cinnabar-render.zip
           asset_name: cinnabar-render.zip
-          asset_content_type:  application/zip
+          asset_content_type: application/zip

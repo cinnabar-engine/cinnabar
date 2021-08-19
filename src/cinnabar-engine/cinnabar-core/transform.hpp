@@ -9,6 +9,9 @@ namespace ce {
 
 		Transform();
 		~Transform();
+
+		Transform* getParent() { return m_parent; }
+		void setParent(Transform* parent) { m_parent = parent; }
 		glm::vec3 getPosition() { return m_pos; }
 		void setPosition(glm::vec3 pos) { m_pos = pos; }
 		void setPosition(float x, float y, float z) { setPosition(glm::vec3(x, y, z)); }
@@ -47,6 +50,7 @@ namespace ce {
 		glm::vec3 getUp(bool useYaw = true, bool usePitch = true, bool useRoll = true);
 
 	 private:
+		Transform* m_parent;
 		/*
 		 * Pitch: X
 		 * Yaw: Y
