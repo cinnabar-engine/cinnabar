@@ -18,7 +18,10 @@ Choose Compiler:
 - Desktop development with C++ (C++ core desktop features)
 - MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
 - Windows 10 SDK (10.0.19041.0)
-  Download the [dependancies](#Dependancies) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path and put the .dll files in the res folder.
+
+Download and extract the [dependencies](#Dependencies) to a folder of your choosing,
+set the environment variables of `GLM_ROOT_DIR` and `SDL2DIR`, add the bins of
+pkg and glew to path, and put the .dll files in the res folder.
 
 #### MinGW
 
@@ -31,10 +34,10 @@ pacman -S cmake mingw-w64-x86_64-glew mingw-w64-x86_64-glm mingw-w64-x86_64-SDL2
 
 ##### pkg-config
 
-in here https://download-fallback.gnome.org/binaries/
-go to win32 or win34
-the go to dependecites and pickup gettext-runtime and pkg-config that isnt a dev veriso
-then go to glib and get the latest verison that isnt a dev verision
+On the [gnome binaries website](https://download-fallback.gnome.org/binaries/),
+navigate to win32 or win64 (for 32 or 64 bit), dependencies,
+and download the latest non-dev versions of gettext-runtime and pkg-config.
+Navigate back to the parent directory, glib, then download the latest non-dev version of glib.
 
 ### Debian
 
@@ -79,7 +82,7 @@ cd res
 ../build/run/cinnabar-engine
 ```
 
-## Dependancies
+## Dependencies
 
 - [CMake](https://cmake.org/)
 - [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
