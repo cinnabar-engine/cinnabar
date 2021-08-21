@@ -7,29 +7,35 @@
 Use the build tool [CMake](https://cmake.org/install/) to build cinnabar.
 
 ### Windows
+
 Choose Compiler:
-* [Visual Studio](https://visualstudio.microsoft.com/)/[MSBuild](https://aka.ms/buildtools) - *[setup](#visual-studio-installer)*
-* [MinGW](http://mingw-w64.org/doku.php/download) - *[setup](#msysmingw)*
+
+- [Visual Studio](https://visualstudio.microsoft.com/)/[MSBuild](https://aka.ms/buildtools) - _[setup](#visual-studio-installer)_
+- [MinGW](http://mingw-w64.org/doku.php/download) - _[setup](#msysmingw)_
 
 #### Visual Studio Installer
-* Desktop development with C++ (C++ core desktop features)
-* MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
-* Windows 10 SDK (10.0.19041.0)
-Download the [dependancies](#Dependancies) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path and put the .dll files in the res folder.
+
+- Desktop development with C++ (C++ core desktop features)
+- MSVC V142 - VS 2016 C++ x64/x86 build tools (Latest)
+- Windows 10 SDK (10.0.19041.0)
+  Download the [dependancies](#Dependancies) and extract them to a folder and set the envirement variables of `GLM_ROOT_DIR` and `SDL2DIR` then add the bins of pkg and glew to path and put the .dll files in the res folder.
 
 #### MinGW
+
 ```bash
 pacman -Syu
-pacman -Su 
+pacman -Su
 pacman -S --needed base-devel mingw-w64-x86_64-toolchain
 pacman -S cmake mingw-w64-x86_64-glew mingw-w64-x86_64-glm mingw-w64-x86_64-SDL2
 ```
 
 ##### pkg-config
-in here https://download-fallback.gnome.org/binaries/ 
+
+in here https://download-fallback.gnome.org/binaries/
 go to win32 or win34
-the  go to dependecites and pickup gettext-runtime and pkg-config  that isnt a dev veriso
+the go to dependecites and pickup gettext-runtime and pkg-config that isnt a dev veriso
 then go to glib and get the latest verison that isnt a dev verision
+
 ### Debian
 
 ```bash
@@ -74,23 +80,25 @@ cd res
 ```
 
 ## Dependancies
-* [CMake](https://cmake.org/)
-* [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
-* [Simple Directmedia Layer](https://www.libsdl.org/)
-* [GLEW](http://glew.sourceforge.net/)
-* [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
+
+- [CMake](https://cmake.org/)
+- [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
+- [Simple Directmedia Layer](https://www.libsdl.org/)
+- [GLEW](http://glew.sourceforge.net/)
+- [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
 
 ## Libraries
-* Build Pipeline: [CMake](https://cmake.org/)
-* Library Helper: [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
-* Window: [Simple Directmedia Layer](https://www.libsdl.org/)
-* Rendering: [OpenGL](https://www.opengl.org/)
-* OpenGL Extention Loader: [GLEW](http://glew.sourceforge.net/)
-* Maths: [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
-* Image: [STB Image](https://github.com/nothings/stb/blob/master/stb_image.h)
-* Text Files: [std:fstream](https://gcc.gnu.org/onlinedocs/libstdc++/libstdc++-html-USERS-4.2/fstream.html)
-* Logger: [Tumpnt Logger](https://github.com/Tumpnt/TumpntAudio/blob/master/src/core/tpnt_log.h)
-* Time: [TumbleTime](https://github.com/tumble1999/tumble-time)
+
+- Build Pipeline: [CMake](https://cmake.org/)
+- Library Helper: [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
+- Window: [Simple Directmedia Layer](https://www.libsdl.org/)
+- Rendering: [OpenGL](https://www.opengl.org/)
+- OpenGL Extention Loader: [GLEW](http://glew.sourceforge.net/)
+- Maths: [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
+- Image: [STB Image](https://github.com/nothings/stb/blob/master/stb_image.h)
+- Text Files: [std:fstream](https://gcc.gnu.org/onlinedocs/libstdc++/libstdc++-html-USERS-4.2/fstream.html)
+- Logger: [Tumpnt Logger](https://github.com/Tumpnt/TumpntAudio/blob/master/src/core/tpnt_log.h)
+- Time: [TumbleTime](https://github.com/tumble1999/tumble-time)
 
 ## Contributing
 
@@ -98,77 +106,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Todo
 
-- [x] CMake
-- [x] Logger
-- [x] SDL2
-- [x] GLSL
-- [x] Triangle
-- [x] Vertex colors
-- [x] Indices
-- [x] Shader class
-- [x] Quad rendering
-- [x] Texture mapping
-- [x] Uniforms
-- [x] Mesh class
-- [x] Texture class
-- [x] Matricies
-- [x] Perspective camera
-- [x] 3D cube
-- [x] 3D transforms
-- [x] WASD
-- [x] Basic input handling
-- [x] Mouse controlled camera
-- [x] Window class
-- [x] Resize context on window resize
-- [x] Time class
-- [x] Camera class
-- [x] Smooth input
-- [x] Materials
-- [x] Render system
-- [x] Multiple Objects rendering at the same time
-- [x] Mesh importing
-- [x] Full UV mapping support
-- [x] Full vertex color support
-- [ ] Framebuffers
-- [ ] Render to texture
-- [ ] Fully customizable materials
-- [x] Normals
-- [ ] Normal maps
-- [x] Matcap shader
-- [x] Compile as library
-- [ ] Depth manipulation
-- [ ] Skybox
-- [ ] Simple object classes (combine assets and automatically manage rendering (not sure if this should acutally be done))
-- [ ] GL lines
-- [ ] Sprites (i think you can do GL_POINTS and draw the images in a frag shader)
-- [ ] Supersampling and subsampling
-- [ ] Antialiasing
-  - [ ] MSAA
-  - [ ] FXAA
-  - [ ] MSAA with FXAA
-- [ ] Mipmaps
-- [ ] Anisotropic filtering
-- [ ] Texture filtering
-- [ ] Nearest
-- [ ] Linear
-- [ ] Bilinear
-- [ ] Trilinear
-- [ ] Supersampling / subsampling interpolation
-  - [ ] Nearest
-  - [ ] Bilinear
-  - [ ] Bicubic
-  - [ ] Trilinear
-  - [ ] Lanczos
-- [ ] Lights
-- [ ] Text
-- [ ] GUI
-- [ ] Portals
-- [ ] VR support
-- [X] Port to Windows
-- [ ] Port to MacOS
-- [ ] Port to Emscripten
-- [ ] Port to Android
-- [ ] Port to iOS
+Moved to: https://github.com/cinnabar-engine/cinnabar/projects/3
 
 ### Physics engine (make a seperate project)
 
