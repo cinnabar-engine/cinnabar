@@ -1,7 +1,5 @@
 build/
-packaging/*
 dockerfile
 !*/dockerfile
 
-!packaging/*.sh
 pkg

@@ -1,4 +1,4 @@
-#include "time.hpp"
+#include <cinnabar-core/time.hpp>
 
 #include <SDL.h>
 

@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "vertex.hpp"
+#include <cinnabar-render/vertex.hpp>
 
 namespace ce {
 	struct ShaderFile {

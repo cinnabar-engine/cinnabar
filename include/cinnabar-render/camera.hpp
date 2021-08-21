@@ -5,7 +5,7 @@
 
 #include <cinnabar-core/transform.hpp>
 
-#include "shader.hpp"
+#include <cinnabar-render/shader.hpp>
 
 namespace ce {
 	class Camera {

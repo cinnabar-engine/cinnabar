@@ -1,7 +1,8 @@
 #pragma once
 
-#include "asset_manager.hpp"
 #include <GL/glew.h>
+
+#include <cinnabar-render/asset_manager.hpp>
 
 namespace ce {
 	class Texture {

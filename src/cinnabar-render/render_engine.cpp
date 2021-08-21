@@ -1,4 +1,4 @@
-#include "render_engine.hpp"
+#include <cinnabar-render/render_engine.hpp>
 
 #include <GL/glew.h>
 

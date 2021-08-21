@@ -1,4 +1,4 @@
-#include "asset_manager.hpp"
+#include <cinnabar-render/asset_manager.hpp>
 
 #include <algorithm>
 #include <fstream>

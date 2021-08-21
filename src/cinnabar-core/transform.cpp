@@ -1,4 +1,4 @@
-#include "transform.hpp"
+#include <cinnabar-core/transform.hpp>
 
 #include <glm/gtc/matrix_transform.hpp>
 

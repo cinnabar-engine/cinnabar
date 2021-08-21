@@ -1,7 +1,7 @@
-#include "mesh.hpp"
+#include <cinnabar-render/mesh.hpp>
 
-#include "shader.hpp"
-#include "vertex.hpp"
+#include <cinnabar-render/shader.hpp>
+#include <cinnabar-render/vertex.hpp>
 
 ce::Mesh::Mesh()
 	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertArraySize(0), m_indexArraySize(0) {}

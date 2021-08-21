@@ -2,9 +2,9 @@
 
 #include <GL/glew.h>
 
-#include "asset_manager.hpp"
-#include "shader.hpp"
-#include "vertex.hpp"
+#include <cinnabar-render/asset_manager.hpp>
+#include <cinnabar-render/shader.hpp>
+#include <cinnabar-render/vertex.hpp>
 
 namespace ce {
 	class Mesh {

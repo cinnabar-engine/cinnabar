@@ -1,11 +1,11 @@
-#include "shader.hpp"
+#include <cinnabar-render/shader.hpp>
 
 #include <iostream>
 #include <map>
 
 #include <cinnabar-core/tpnt_log.h>
 
-#include "asset_manager.hpp"
+#include <cinnabar-render/asset_manager.hpp>
 
 void checkCompileErrors(GLuint shader, GLint shaderType) {
 	std::string type;

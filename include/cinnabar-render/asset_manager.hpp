@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "assets.hpp"
+#include <cinnabar-render/assets.hpp>
 
 namespace ce {
 	namespace assetManager {

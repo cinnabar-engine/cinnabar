@@ -4,10 +4,10 @@
 
 #include <cinnabar-core/transform.hpp>
 
-#include "camera.hpp"
-#include "material.hpp"
-#include "mesh.hpp"
-#include "window.hpp"
+#include <cinnabar-render/camera.hpp>
+#include <cinnabar-render/material.hpp>
+#include <cinnabar-render/mesh.hpp>
+#include <cinnabar-render/window.hpp>
 
 namespace ce {
 	class RenderEngine {

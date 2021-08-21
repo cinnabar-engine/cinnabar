@@ -2,10 +2,10 @@
 
 #include <glm/glm.hpp>
 
-#include "asset_manager.hpp"
+#include <cinnabar-render/asset_manager.hpp>
 
-#include "shader.hpp"
-#include "texture.hpp"
+#include <cinnabar-render/shader.hpp>
+#include <cinnabar-render/texture.hpp>
 
 namespace ce {
 	class Material {

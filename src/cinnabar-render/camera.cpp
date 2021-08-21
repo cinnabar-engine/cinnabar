@@ -1,7 +1,9 @@
-#include "camera.hpp"
+#include <cinnabar-render/camera.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <cinnabar-render/shader.hpp>
 
 ce::Camera::Camera()
 	: transform(NULL),
