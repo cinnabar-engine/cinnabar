@@ -1,4 +1,8 @@
 #!/bin/bash
+WORKING=$(dirname $PWD/${0/.})
+PROJECTS=$(cat $WORKING/projects.txt)
+echo WORKING:$WORKING
+echo PROJECTS:${PROJECTS[@]}
 
 function configure {
 	rm -rf build
@@ -9,57 +13,54 @@ function configure {
 
 function build {
 	cmake --build ./build --target clean
-	cmake --build ./build --target cinnabar-core
-	cmake --build ./build --target cinnabar-render
+	for PROJECT in $PROJECTS
+	do
+		cmake --build ./build --target $PROJECT
+	done
 	
 }
 
-function prep_deb { #(TARGET)
-	TARGET=$1
-	NAME=cinnabar-$1
+function prep_deb {
+	PROJECT=$1
 
-	PAKNAME=lib$NAME
-	DEBIAN=./debian/$TARGET/runtime
+	PAKNAME=lib$PROJECT
+	DEBIAN=./packaging/$PROJECT/debian/runtime
 
 	PAKNAMEDEV=$PAKNAME-dev
-	DEBIANDEV=./debian/$TARGET/dev
+	DEBIANDEV=./packaging/$PROJECT/debian/dev
 
 	LIB=./build/run/$PAKNAME.so
-	INCLUDE=./src/cinnabar-engine/$NAME
+	INCLUDE=./include/$PROJECT
 
 	rm -rf pkg/${PAKNAME}
 	rm -rf pkg/${PAKNAMEDEV}
 	mkdir -p pkg/${PAKNAME}/{DEBIAN,usr/lib}
-	mkdir -p pkg/${PAKNAMEDEV}/{DEBIAN,usr/include/$NAME}
+	mkdir -p pkg/${PAKNAMEDEV}/{DEBIAN,usr/include/$PROJECT}
 
 	cp -r ${DEBIAN}/* pkg/${PAKNAME}/DEBIAN
 	cp ${LIB} pkg/${PAKNAME}/usr/lib
 
 
 	cp -r ${DEBIANDEV}/* pkg/${PAKNAMEDEV}/DEBIAN
-	cp -r ${INCLUDE}/*.hpp pkg/${PAKNAMEDEV}/usr/include/${NAME}
-	cp -r ${INCLUDE}/*.h pkg/${PAKNAMEDEV}/usr/include/${NAME}
-	if [ -f pkg/${PAKNAMEDEV}/usr/include/${NAME}/stb_image.h ]
-	then
-		rm pkg/${PAKNAMEDEV}/usr/include/${NAME}/stb_image.h
-	fi
+	cp -r ${INCLUDE}/* pkg/${PAKNAMEDEV}/usr/include/${PROJECT}
 
 }
 
 function package {
 	rm -rf pkg
 
-	prep_deb core
-	prep_deb render
+	for PROJECT in $PROJECTS
+	do
+		prep_deb $PROJECT
+	done
 
 	cd pkg
 
-	for a in "./"*/
+	for folder in "./"*/
 	do
-		dpkg-deb --build $(basename $a)
+		dpkg-deb --build $(basename $folder)
+		rm -r $(basename $folder)
 	done
-
-	rm -rf */
 }
 
 cd $(dirname $0)/..

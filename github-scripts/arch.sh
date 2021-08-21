@@ -1,4 +1,8 @@
 #!/bin/bash
+WORKING=$(dirname $PWD/${0/.})
+PROJECTS=$(cat $WORKING/projects.txt)
+echo WORKING:$WORKING
+echo PROJECTS:{PROJECTS[@]}
 
 function configure {
 	rm -rf build
@@ -9,23 +13,20 @@ function configure {
 
 function build {
 	cmake --build ./build --target clean
-	cmake --build ./build --target cinnabar-core
-	cmake --build ./build --target cinnabar-render	
+	for PROJECT in $PROJECTS
+	do
+		cmake --build ./build --target $PROJECTS
+	done	
 }
 
-
-
-
-
 function prep_arch { #(TARGET)
-	TARGET=$1
-	NAME=cinnabar-$1
+	PROJECT=$1
 
-	PAKNAME=$NAME
-	ARCH=./arch/$TARGET
+	PAKNAME=$PROJECT
+	ARCH=./packaging/$PROJECT/arch
 
 	LIB=./build/run/lib$PAKNAME.so
-	INCLUDE=./src/cinnabar-engine/$NAME
+	INCLUDE=./include/$PROJECT
 
 	PKGROOT=./pkg/$PAKNAME/pkg/$PAKNAME
 	
@@ -37,12 +38,7 @@ function prep_arch { #(TARGET)
 	cp ${LIB} pkg/${PAKNAME}
 
 	#dev
-	cp -r ${INCLUDE}/*.hpp pkg/${PAKNAME}/include
-	cp -r ${INCLUDE}/*.h pkg/${PAKNAME}/include
-	if [ -f pkg/${PAKNAME}/include/stb_image.h ]
-	then
-		rm pkg/${PAKNAME}/include/stb_image.h
-	fi
+	cp -r ${INCLUDE}/* pkg/${PAKNAME}/include
 }
 
 
@@ -57,8 +53,10 @@ function package {
 	rm -rf pkg
 	mkdir pkg
 
-	prep_arch core
-	prep_arch render
+	for PROJECT in $PROJECTS
+	do
+		prep_arch $PROJECT
+	done
 
 	cd pkg
 	ls
@@ -66,12 +64,11 @@ function package {
 	for a in "./"*/
 	do
 		apkg-arch $(basename $a)
+		rm -r $(basename $a)
 	done
-	rm -rf */
-
 }
 
-cd $(dirname $0)/..
+cd $WORKING/..
 case $1 in
 
   configure)
