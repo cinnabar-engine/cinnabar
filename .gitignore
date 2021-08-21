@@ -5,3 +5,7 @@ dockerfile
 
 !packaging/*.sh
 pkg
+
+*.dll
+*.lib
+*.so
