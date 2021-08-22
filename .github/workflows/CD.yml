@@ -116,9 +116,14 @@ jobs:
           echo $env:PATH
 
           github-scripts\windows.bat configure
+
       - name: Build
         run: |
           github-scripts\windows.bat build
+
+      - name: Build Docs
+        run: |
+          github-scripts\windows.bat build_docs
 
       - name: Package
         run: |
