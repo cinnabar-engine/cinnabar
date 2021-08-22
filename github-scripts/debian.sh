@@ -13,9 +13,9 @@ function configure {
 
 function build {
 	cmake --build ./build --target clean
-	for PROJECT in $PROJECTS
+	for P in $PROJECTS
 	do
-		cmake --build ./build --target $PROJECT
+		cmake --build ./build --target $P
 	done
 	
 }
@@ -49,17 +49,17 @@ function prep_deb {
 function package {
 	rm -rf pkg
 
-	for PROJECT in $PROJECTS
+	for P in $PROJECTS
 	do
-		prep_deb $PROJECT
+		prep_deb $P
 	done
 
 	cd pkg
 
-	for folder in "./"*/
+	for F in "./"*/
 	do
-		dpkg-deb --build $(basename $folder)
-		rm -r $(basename $folder)
+		dpkg-deb --build $(basename $F)
+		rm -r $(basename $F)
 	done
 }
 

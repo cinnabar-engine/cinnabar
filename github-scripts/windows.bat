@@ -1,6 +1,8 @@
 @echo off
 SETLOCAL EnableDelayedExpansion
-cd %~dp0\..
+set WORKING=%~dp0
+set PROJECTS=%WORKING%\projects.txt
+cd %WORKING%\..
 if not "%1" equ "" goto %1
 echo usage: %0 [action]
 echo actions:
@@ -18,60 +20,48 @@ goto :eof
 
 :build
 	cmake --build build --target clean
-	cmake --build build --target cinnabar-core
-	if %errorlevel% neq 0 exit /b %errorlevel%
-	cmake --build build --target cinnabar-render
-	if %errorlevel% neq 0 exit /b %errorlevel%
+	for /f "usebackq tokens=*" %%P in ("%PROJECTS%") do (
+		cmake --build build --target %%P
+	)
 goto :eof
 
 :prep-win
-@echo on
-set TARGET=%1
-set NAME=cinnabar-%1
-set PAKNAME=%NAME%
+	@echo on
+	set PROJECT=%1
+	set PAKNAME=%PROJECT%
 
-set LIB=build\run\debug\%PAKNAME%.dll
-set SYMBOLS=build\run\debug\%PAKNAME%.lib
-set INCLUDE=src\cinnabar-engine\%NAME%
+	set LIB=build\run\debug\%PAKNAME%.dll
+	set SYMBOLS=build\run\debug\%PAKNAME%.lib
+	set INCLUDE=include\%PROJECT%
 
-mkdir pkg\%PAKNAME%\include
-mkdir pkg\%PAKNAME%\lib
+	mkdir pkg\%PAKNAME%\include
+	mkdir pkg\%PAKNAME%\lib
 
-copy %LIB% pkg
+	copy %LIB% pkg
 
-copy %LIB% pkg\%PAKNAME%\lib
-copy %SYMBOLS% pkg\%PAKNAME%\lib
+	copy %LIB% pkg\%PAKNAME%\lib
+	copy %SYMBOLS% pkg\%PAKNAME%\lib
 
-copy %INCLUDE%\*.hpp pkg\%PAKNAME%\include
-copy %INCLUDE%\*.h pkg\%PAKNAME%\include
-del pkg\%PAKNAME%\include\stb_image.h
+	copy %INCLUDE%\* pkg\%PAKNAME%\include
 
-
-set TARGET=
-set NAME=
-set PAKNAME=
-
-set LIB=
-set SYMBOLS=
-set INCLUDE=
-goto :eof
+	goto :eof
 
 :wpkg-win
-7z a %1.zip %1
+	7z a %1.zip %1
 goto :eof
 
 :package
-mkdir pkg
-call :prep-win core
-call :prep-win render
-cd pkg
+	mkdir pkg
+	
+	for /f "usebackq tokens=*" %%P in ("%PROJECTS%") do (
+		call :prep-win %%P
+	)
 
-for /f "tokens=*" %%a in ('dir /b /s /a:d *') do (
-	call :wpkg-win %%a
-	rd /s /q %%A
-)
+	cd pkg
 
-:: zip the dll files intozip files
-:: Zip the headerfiles and lib files into development zip files
+	for /f "tokens=*" %%F in ('dir /b /s /a:d *') do (
+		call :wpkg-win %%F
+		rd /s /q %%F
+	)
 goto :eof
 

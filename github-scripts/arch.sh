@@ -13,9 +13,9 @@ function configure {
 
 function build {
 	cmake --build ./build --target clean
-	for PROJECT in $PROJECTS
+	for P in $PROJECTS
 	do
-		cmake --build ./build --target $PROJECTS
+		cmake --build ./build --target $P
 	done	
 }
 
@@ -53,18 +53,18 @@ function package {
 	rm -rf pkg
 	mkdir pkg
 
-	for PROJECT in $PROJECTS
+	for P in $PROJECTS
 	do
-		prep_arch $PROJECT
+		prep_arch $P
 	done
 
 	cd pkg
 	ls
 	
-	for a in "./"*/
+	for F in "./"*/
 	do
-		apkg-arch $(basename $a)
-		rm -r $(basename $a)
+		apkg-arch $(basename $F)
+		rm -r $(basename $F)
 	done
 }
 
