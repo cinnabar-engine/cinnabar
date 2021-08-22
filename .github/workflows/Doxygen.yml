@@ -1,14 +1,19 @@
 name: Documentation Gneration
 on: [push, pull_request]
 jobs:
-  Debian:
+  Doxygen:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
       - name: Install Doxygen
         run: |
-          doxygen --help
-          # cd tmp
-          # git clone https://github.com/doxygen/doxygen.git /tmp/doxygen
-          # cd /tmp/doxygen
+          cd tmp
+          git clone https://github.com/doxygen/doxygen.git
+          cd doxygen
+          mkdir build
+          cd build
+          cmake ..
+          make
+          sudo make install
+          doxygen --version
