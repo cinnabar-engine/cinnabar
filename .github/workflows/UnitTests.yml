@@ -17,9 +17,14 @@ jobs:
       - name: Configure
         run: |
           github-scripts/debian.sh configure
+
       - name: Build
         run: |
           github-scripts/debian.sh build
+
+      - name: Build Docs
+        run: |
+          github-scripts/debian.sh build_docs
 
       - name: Package
         run: |
