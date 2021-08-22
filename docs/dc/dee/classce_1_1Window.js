@@ -7,6 +7,6 @@ var classce_1_1Window =
     [ "getWindow", "dc/dee/classce_1_1Window.html#a12f9cf184d7972bd5339e4d98a894826", null ],
     [ "getWindowSize", "dc/dee/classce_1_1Window.html#a4c227112a311b7f1419ca3fe916aa841", null ],
     [ "mouseVisible", "dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44", null ],
-    [ "setMouseVisibility", "dc/dee/classce_1_1Window.html#a974e5760de9f32f6d44468d1f8a6e543", null ],
+    [ "setMouseVisibility", "dc/dee/classce_1_1Window.html#a0ee8fb8c95e6341f03af2c17bcb4338c", null ],
     [ "swapBuffers", "dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33", null ]
 ];

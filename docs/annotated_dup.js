@@ -15,6 +15,5 @@ var annotated_dup =
       [ "Texture", "d2/de2/classce_1_1Texture.html", "d2/de2/classce_1_1Texture" ],
       [ "Vertex", "d8/d43/structce_1_1Vertex.html", "d8/d43/structce_1_1Vertex" ],
       [ "Window", "dc/dee/classce_1_1Window.html", "dc/dee/classce_1_1Window" ]
-    ] ],
-    [ "IndexedVertex", "d2/d0b/structIndexedVertex.html", "d2/d0b/structIndexedVertex" ]
+    ] ]
 ];
