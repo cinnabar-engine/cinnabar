@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['camera_1',['Camera',['../dd/d8a/classce_1_1Camera.html',1,'ce']]]
+  ['indexedvertex_1',['IndexedVertex',['../d2/d0b/structIndexedVertex.html',1,'']]]
 ];
