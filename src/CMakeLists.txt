@@ -1,9 +1,8 @@
 include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/cinnabar-engine
+	${PROJECT_SOURCE_DIR}/include
 	${CE_INCLUDES}
 )
 
-
-add_subdirectory(cinnabar-engine/cinnabar-core)
-add_subdirectory(cinnabar-engine/cinnabar-render)
+add_subdirectory(cinnabar-core)
+add_subdirectory(cinnabar-render)
 add_subdirectory(cinnabar-render-demo)
