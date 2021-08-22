@@ -26,7 +26,7 @@ jobs:
           doxyfile-path: "doxygen/doxyfile"
       - name: Deploy
         run: |
-          cp -r build/docs/html docs
+          cp -r build/docs/html/* docs
 
       - name: commit
         run: |
