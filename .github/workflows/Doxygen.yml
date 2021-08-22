@@ -1,4 +1,4 @@
-name: Unit Testing
+name: Documentation Gneration
 on: [push, pull_request]
 jobs:
   Debian:
