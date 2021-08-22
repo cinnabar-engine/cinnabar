@@ -1,6 +1,6 @@
 Package: libcinnabar-render
 Version: 0.0.0
-Section: development
+Section: lib
 Priority: optional
 Architecture: all
 Depends: libsdl2-2.0-0, libglew2.1, libassimp5
