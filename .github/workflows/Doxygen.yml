@@ -23,6 +23,6 @@ jobs:
           doxyfile-path: "doxygen/doxyfile"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./build/docs
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/docs
