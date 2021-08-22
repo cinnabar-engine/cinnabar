@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['texture_188',['Texture',['../d2/de2/classce_1_1Texture.html',1,'ce']]],
-  ['texturefile_189',['TextureFile',['../dd/dc5/structce_1_1TextureFile.html',1,'ce']]],
-  ['time_190',['Time',['../df/d10/classce_1_1Time.html',1,'ce']]],
-  ['transform_191',['Transform',['../d3/dfa/classce_1_1Transform.html',1,'ce']]]
+  ['vertex_166',['Vertex',['../d8/d43/structce_1_1Vertex.html',1,'ce']]]
 ];

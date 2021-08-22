@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Cinnabar: src/cinnabar-engine/cinnabar-render/texture.hpp Source File</title>
+<title>Cinnabar: include/cinnabar-render/texture.hpp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -89,39 +89,41 @@ $(document).ready(function(){initNavTree('d1/de0/texture_8hpp_source.html','../.
 <div class="contents">
 <a href="../../d1/de0/texture_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d6/d15/asset__manager_8hpp.html">asset_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;GL/glew.h&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d2/dd6/namespacece.html">ce</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="../../d2/de2/classce_1_1Texture.html">    7</a></span>&#160;    <span class="keyword">class </span><a class="code" href="../../d2/de2/classce_1_1Texture.html">Texture</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;     <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <a class="code" href="../../d2/de2/classce_1_1Texture.html#ac90ad67f22b5a97225493d0d8b1de5da">Texture</a>(std::string filename, GLenum type = GL_TEXTURE_2D);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <a class="code" href="../../d2/de2/classce_1_1Texture.html#ac90ad67f22b5a97225493d0d8b1de5da">Texture</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, GLsizei width, GLsizei height, GLenum color_space = GL_RGBA, GLenum type = GL_TEXTURE_2D);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <a class="code" href="../../d2/de2/classce_1_1Texture.html#a7837149b1d1c4b3680ad8e153be080ac">~Texture</a>();</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="../../d2/de2/classce_1_1Texture.html#a48e5b54f548942293341f5144aa148e4">bind</a>(), <a class="code" href="../../d2/de2/classce_1_1Texture.html#a1cde8c3530abfd32856b4c8cb7177eda">unbind</a>(), <a class="code" href="../../d2/de2/classce_1_1Texture.html#ac9c7d258191e4d7bfe76889a3706ce08">activate</a>(<span class="keywordtype">int</span> slot);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;     <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        GLuint m_texture;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">int</span> m_width, m_height, m_channelCount;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_type;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordtype">bool</span> loadData(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, GLsizei width, GLsizei height, GLenum color_space = GL_RGBA, GLenum type = GL_TEXTURE_2D);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    };</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="ttc" id="aasset__manager_8hpp_html"><div class="ttname"><a href="../../d6/d15/asset__manager_8hpp.html">asset_manager.hpp</a></div></div>
-<div class="ttc" id="aclassce_1_1Texture_html"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html">ce::Texture</a></div><div class="ttdef"><b>Definition:</b> texture.hpp:7</div></div>
-<div class="ttc" id="aclassce_1_1Texture_html_a1cde8c3530abfd32856b4c8cb7177eda"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#a1cde8c3530abfd32856b4c8cb7177eda">ce::Texture::unbind</a></div><div class="ttdeci">void unbind()</div><div class="ttdef"><b>Definition:</b> texture.cpp:53</div></div>
-<div class="ttc" id="aclassce_1_1Texture_html_a48e5b54f548942293341f5144aa148e4"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#a48e5b54f548942293341f5144aa148e4">ce::Texture::bind</a></div><div class="ttdeci">void bind()</div><div class="ttdef"><b>Definition:</b> texture.cpp:43</div></div>
-<div class="ttc" id="aclassce_1_1Texture_html_a7837149b1d1c4b3680ad8e153be080ac"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#a7837149b1d1c4b3680ad8e153be080ac">ce::Texture::~Texture</a></div><div class="ttdeci">~Texture()</div><div class="ttdef"><b>Definition:</b> texture.cpp:39</div></div>
-<div class="ttc" id="aclassce_1_1Texture_html_ac90ad67f22b5a97225493d0d8b1de5da"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#ac90ad67f22b5a97225493d0d8b1de5da">ce::Texture::Texture</a></div><div class="ttdeci">Texture(std::string filename, GLenum type=GL_TEXTURE_2D)</div><div class="ttdef"><b>Definition:</b> texture.cpp:6</div></div>
-<div class="ttc" id="aclassce_1_1Texture_html_ac9c7d258191e4d7bfe76889a3706ce08"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#ac9c7d258191e4d7bfe76889a3706ce08">ce::Texture::activate</a></div><div class="ttdeci">void activate(int slot)</div><div class="ttdef"><b>Definition:</b> texture.cpp:48</div></div>
-<div class="ttc" id="anamespacece_html"><div class="ttname"><a href="../../d2/dd6/namespacece.html">ce</a></div><div class="ttdef"><b>Definition:</b> time.hpp:3</div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;GL/glew.h&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d9/d12/cinnabar-render_2asset__manager_8hpp.html">cinnabar-render/asset_manager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d2/dd6/namespacece.html">ce</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="../../d2/de2/classce_1_1Texture.html">    8</a></span>&#160;    <span class="keyword">class </span><a class="code" href="../../d2/de2/classce_1_1Texture.html">Texture</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;     <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="../../d2/de2/classce_1_1Texture.html#ac90ad67f22b5a97225493d0d8b1de5da">   10</a></span>&#160;        <a class="code" href="../../d2/de2/classce_1_1Texture.html#ac90ad67f22b5a97225493d0d8b1de5da">Texture</a>(std::string filename, GLenum type = GL_TEXTURE_2D);</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="../../d2/de2/classce_1_1Texture.html#a6968e11da5ebf907de1455cbcf500515">   11</a></span>&#160;        <a class="code" href="../../d2/de2/classce_1_1Texture.html#a6968e11da5ebf907de1455cbcf500515">Texture</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, GLsizei width, GLsizei height, GLenum color_space = GL_RGBA, GLenum type = GL_TEXTURE_2D);</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="../../d2/de2/classce_1_1Texture.html#a7837149b1d1c4b3680ad8e153be080ac">   12</a></span>&#160;        <a class="code" href="../../d2/de2/classce_1_1Texture.html#a7837149b1d1c4b3680ad8e153be080ac">~Texture</a>();</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="../../d2/de2/classce_1_1Texture.html#ac9c7d258191e4d7bfe76889a3706ce08">   14</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="../../d2/de2/classce_1_1Texture.html#a48e5b54f548942293341f5144aa148e4">bind</a>(), <a class="code" href="../../d2/de2/classce_1_1Texture.html#a1cde8c3530abfd32856b4c8cb7177eda">unbind</a>(), <a class="code" href="../../d2/de2/classce_1_1Texture.html#ac9c7d258191e4d7bfe76889a3706ce08">activate</a>(<span class="keywordtype">int</span> slot);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;     <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        GLuint m_texture;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">int</span> m_width, m_height, m_channelCount;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_type;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">bool</span> loadData(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, GLsizei width, GLsizei height, GLenum color_space = GL_RGBA, GLenum type = GL_TEXTURE_2D);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    };</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="ttc" id="acinnabar-render_2asset__manager_8hpp_html"><div class="ttname"><a href="../../d9/d12/cinnabar-render_2asset__manager_8hpp.html">asset_manager.hpp</a></div></div>
+<div class="ttc" id="aclassce_1_1Texture_html"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html">ce::Texture</a></div><div class="ttdef"><b>Definition:</b> texture.hpp:8</div></div>
+<div class="ttc" id="aclassce_1_1Texture_html_a1cde8c3530abfd32856b4c8cb7177eda"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#a1cde8c3530abfd32856b4c8cb7177eda">ce::Texture::unbind</a></div><div class="ttdeci">void unbind()</div></div>
+<div class="ttc" id="aclassce_1_1Texture_html_a48e5b54f548942293341f5144aa148e4"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#a48e5b54f548942293341f5144aa148e4">ce::Texture::bind</a></div><div class="ttdeci">void bind()</div></div>
+<div class="ttc" id="aclassce_1_1Texture_html_a6968e11da5ebf907de1455cbcf500515"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#a6968e11da5ebf907de1455cbcf500515">ce::Texture::Texture</a></div><div class="ttdeci">Texture(const void *data, GLsizei width, GLsizei height, GLenum color_space=GL_RGBA, GLenum type=GL_TEXTURE_2D)</div></div>
+<div class="ttc" id="aclassce_1_1Texture_html_a7837149b1d1c4b3680ad8e153be080ac"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#a7837149b1d1c4b3680ad8e153be080ac">ce::Texture::~Texture</a></div><div class="ttdeci">~Texture()</div></div>
+<div class="ttc" id="aclassce_1_1Texture_html_ac90ad67f22b5a97225493d0d8b1de5da"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#ac90ad67f22b5a97225493d0d8b1de5da">ce::Texture::Texture</a></div><div class="ttdeci">Texture(std::string filename, GLenum type=GL_TEXTURE_2D)</div></div>
+<div class="ttc" id="aclassce_1_1Texture_html_ac9c7d258191e4d7bfe76889a3706ce08"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html#ac9c7d258191e4d7bfe76889a3706ce08">ce::Texture::activate</a></div><div class="ttdeci">void activate(int slot)</div></div>
+<div class="ttc" id="anamespacece_html"><div class="ttname"><a href="../../d2/dd6/namespacece.html">ce</a></div><div class="ttdef"><b>Definition:</b> asset_manager.hpp:5</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_f9985dab73debbe034f8b45304db55a4.html">cinnabar-engine</a></li><li class="navelem"><a class="el" href="../../dir_0c5e531fb361abf1ae0cf71bfb37cb9e.html">cinnabar-render</a></li><li class="navelem"><a class="el" href="../../d1/de0/texture_8hpp.html">texture.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_b4588f22dabb929260c1f97f00410727.html">cinnabar-render</a></li><li class="navelem"><a class="el" href="../../d1/de0/texture_8hpp.html">texture.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

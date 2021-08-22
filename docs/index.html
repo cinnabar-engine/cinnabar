@@ -88,17 +88,17 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> <a href="https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml"><img src="https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml/badge.svg" alt="Unit Testing" style="pointer-events: none;" class="inline"/></a></p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Prerequisites</h1>
 <p>Use the build tool <a href="https://cmake.org/install/">CMake</a> to build cinnabar.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md2"></a>
 Windows</h2>
 <p>Choose Compiler:</p>
 <ul>
 <li><a href="https://visualstudio.microsoft.com/">Visual Studio</a>/<a href="https://aka.ms/buildtools">MSBuild</a> - <em><a href="#visual-studio-installer">setup</a></em></li>
 <li><a href="http://mingw-w64.org/doku.php/download">MinGW</a> - <em><a href="#msysmingw">setup</a></em></li>
 </ul>
-<h3><a class="anchor" id="autotoc_md7"></a>
+<h3><a class="anchor" id="autotoc_md3"></a>
 Visual Studio Installer</h3>
 <ul>
 <li>Desktop development with C++ (C++ core desktop features)</li>
@@ -106,31 +106,31 @@ Visual Studio Installer</h3>
 <li>Windows 10 SDK (10.0.19041.0)</li>
 </ul>
 <p>Download and extract the <a href="#Dependencies">dependencies</a> to a folder of your choosing, set the environment variables of <code>GLM_ROOT_DIR</code> and <code>SDL2DIR</code>, add the bins of pkg and glew to path, and put the .dll files in the res folder.</p>
-<h3><a class="anchor" id="autotoc_md8"></a>
+<h3><a class="anchor" id="autotoc_md4"></a>
 MinGW</h3>
 <div class="fragment"><div class="line">pacman -Syu</div>
 <div class="line">pacman -Su</div>
 <div class="line">pacman -S --needed base-devel mingw-w64-x86_64-toolchain</div>
 <div class="line">pacman -S cmake mingw-w64-x86_64-glew mingw-w64-x86_64-glm mingw-w64-x86_64-SDL2</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md5"></a>
 pkg-config</h4>
 <p>On the <a href="https://download-fallback.gnome.org/binaries/">gnome binaries website</a>, navigate to win32 or win64 (for 32 or 64 bit), dependencies, and download the latest non-dev versions of gettext-runtime and pkg-config. Navigate back to the parent directory, glib, then download the latest non-dev version of glib.</p>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
 Debian</h2>
 <div class="fragment"><div class="line">sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 Arch</h2>
 <div class="fragment"><div class="line">sudo pacman -S base-devel cmake sdl2 glew glm assimp</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
 Redhat/Fedora</h2>
 <div class="fragment"><div class="line">sudo dnf install kernel-devel cmake sdl // TODO</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md13"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Build Instructions</h1>
 <div class="fragment"><div class="line">mkdir build</div>
 <div class="line">cd build</div>
 <div class="line">cmake ..</div>
 <div class="line">cmake --build .</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
 Running</h1>
 <p>Windows:</p>
 <div class="fragment"><div class="line">cd res</div>
@@ -138,7 +138,7 @@ Running</h1>
 </div><!-- fragment --><p>Linux:</p>
 <div class="fragment"><div class="line">cd res</div>
 <div class="line">../build/run/cinnabar-engine</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
 Dependencies</h1>
 <ul>
 <li><a href="https://cmake.org/">CMake</a></li>
@@ -147,7 +147,7 @@ Dependencies</h1>
 <li><a href="http://glew.sourceforge.net/">GLEW</a></li>
 <li><a href="https://glm.g-truc.net/0.9.9/index.html">OpenGL Mathematics</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Libraries</h1>
 <ul>
 <li>Build Pipeline: <a href="https://cmake.org/">CMake</a></li>
@@ -161,13 +161,13 @@ Libraries</h1>
 <li>Logger: <a href="https://github.com/Tumpnt/TumpntAudio/blob/master/src/core/tpnt_log.h">Tumpnt Logger</a></li>
 <li>Time: <a href="https://github.com/tumble1999/tumble-time">TumbleTime</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Contributing</h1>
 <p>Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.</p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Todo</h1>
 <p>Moved to: <a href="https://github.com/cinnabar-engine/cinnabar/projects/3">https://github.com/cinnabar-engine/cinnabar/projects/3</a></p>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 Physics engine (make a seperate project)</h2>
 <ul>
 <li>[ ] Shapes<ul>
@@ -202,12 +202,12 @@ Physics engine (make a seperate project)</h2>
 <li>[ ] Port to Android</li>
 <li>[ ] Port to iOS</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Networking (make a seperate project)</h2>
 <ul>
 <li>TODO: Make todo list</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 SceneGraph (make a seperate project)</h2>
 <ul>
 <li>[ ] States</li>
@@ -215,7 +215,7 @@ SceneGraph (make a seperate project)</h2>
 <li>[ ] Map management</li>
 <li>[ ] XML based scene graph import</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Misc</h2>
 <ul>
 <li>[ ] Events System</li>

@@ -26,33 +26,28 @@ var NAVTREE =
 [
   [ "Cinnabar", "index.html", [
     [ "Cinnabar Engine", "index.html", [
-      [ "Prerequisites", "index.html#autotoc_md5", [
-        [ "Windows", "index.html#autotoc_md6", [
-          [ "Visual Studio Installer", "index.html#autotoc_md7", null ],
-          [ "MinGW", "index.html#autotoc_md8", [
-            [ "pkg-config", "index.html#autotoc_md9", null ]
+      [ "Prerequisites", "index.html#autotoc_md1", [
+        [ "Windows", "index.html#autotoc_md2", [
+          [ "Visual Studio Installer", "index.html#autotoc_md3", null ],
+          [ "MinGW", "index.html#autotoc_md4", [
+            [ "pkg-config", "index.html#autotoc_md5", null ]
           ] ]
         ] ],
-        [ "Debian", "index.html#autotoc_md10", null ],
-        [ "Arch", "index.html#autotoc_md11", null ],
-        [ "Redhat/Fedora", "index.html#autotoc_md12", null ]
+        [ "Debian", "index.html#autotoc_md6", null ],
+        [ "Arch", "index.html#autotoc_md7", null ],
+        [ "Redhat/Fedora", "index.html#autotoc_md8", null ]
       ] ],
-      [ "Build Instructions", "index.html#autotoc_md13", null ],
-      [ "Running", "index.html#autotoc_md14", null ],
-      [ "Dependencies", "index.html#autotoc_md15", null ],
-      [ "Libraries", "index.html#autotoc_md16", null ],
-      [ "Contributing", "index.html#autotoc_md17", null ],
-      [ "Todo", "index.html#autotoc_md18", [
-        [ "Physics engine (make a seperate project)", "index.html#autotoc_md19", null ],
-        [ "Networking (make a seperate project)", "index.html#autotoc_md20", null ],
-        [ "SceneGraph (make a seperate project)", "index.html#autotoc_md21", null ],
-        [ "Misc", "index.html#autotoc_md22", null ]
+      [ "Build Instructions", "index.html#autotoc_md9", null ],
+      [ "Running", "index.html#autotoc_md10", null ],
+      [ "Dependencies", "index.html#autotoc_md11", null ],
+      [ "Libraries", "index.html#autotoc_md12", null ],
+      [ "Contributing", "index.html#autotoc_md13", null ],
+      [ "Todo", "index.html#autotoc_md14", [
+        [ "Physics engine (make a seperate project)", "index.html#autotoc_md15", null ],
+        [ "Networking (make a seperate project)", "index.html#autotoc_md16", null ],
+        [ "SceneGraph (make a seperate project)", "index.html#autotoc_md17", null ],
+        [ "Misc", "index.html#autotoc_md18", null ]
       ] ]
-    ] ],
-    [ "Systems", "de/daa/md_CREDITS.html", [
-      [ "CI/CD", "de/daa/md_CREDITS.html#autotoc_md1", null ],
-      [ "Testing", "de/daa/md_CREDITS.html#autotoc_md2", null ],
-      [ "Platforms", "de/daa/md_CREDITS.html#autotoc_md3", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -79,14 +74,15 @@ var NAVTREE =
         [ "Functions", "globals_func.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
-    ] ]
+    ] ],
+    [ "Examples", "examples.html", "examples" ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"de/daf/time_8cpp.html"
+"index.html#autotoc_md15"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
