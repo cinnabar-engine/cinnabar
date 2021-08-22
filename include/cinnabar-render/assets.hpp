@@ -11,12 +11,9 @@
 namespace ce {
 	struct ShaderFile {
 		std::string
-			vertName = "",
-			geomName = "",
-			fragName = "",
-			vertex = "",
-			geometry = "",
-			fragment = "";
+			vert = "",
+			geom = "",
+			frag = "";
 	};
 	struct TextureFile {
 		unsigned char* data = NULL;

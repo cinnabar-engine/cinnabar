@@ -84,12 +84,12 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 		fragmentShader = 0,
 		geometryShader = 0;
 
-	if (shaderFile.vertex != "")
-		vertexShader = createShader(GL_VERTEX_SHADER, setupShaderDefs(shaderFile.vertex, options));
-	if (shaderFile.fragment != "")
-		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.fragment, options));
-	if (shaderFile.geometry != "")
-		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geometry, options));
+	if (shaderFile.vert != "")
+		vertexShader = createShader(GL_VERTEX_SHADER, setupShaderDefs(shaderFile.vert, options));
+	if (shaderFile.frag != "")
+		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.frag, options));
+	if (shaderFile.geom != "")
+		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geom, options));
 	linkProgram(vertexShader, fragmentShader, vertexShader);
 	GLint attrCount, uniformCount, customAttrCount;
 	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &attrCount);
