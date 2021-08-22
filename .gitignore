@@ -6,6 +6,8 @@ dockerfile
 !packaging/*.sh
 pkg
 
+doxygen/out
+
 *.dll
 *.lib
 *.so
