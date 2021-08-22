@@ -1,3 +1,6 @@
+.vscode/*
+*.kdev4
+
 build/
 dockerfile
 !*/dockerfile
