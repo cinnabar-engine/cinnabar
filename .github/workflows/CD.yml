@@ -23,9 +23,14 @@ jobs:
       - name: Configure
         run: |
           github-scripts/debian.sh configure
+
       - name: Build
         run: |
           github-scripts/debian.sh build
+
+      - name: Build Docs
+        run: |
+          github-scripts/debian.sh build_docs
 
       - name: Package
         run: |
@@ -172,6 +177,16 @@ jobs:
           asset_name: libcinnabar-core-dev.deb
           asset_content_type: application/vnd.debian.binary-package
 
+      - name: libcinnabar-core-doc.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libcinnabar-core-doc.deb
+          asset_name: libcinnabar-core-doc.deb
+          asset_content_type: application/vnd.debian.binary-package
+
       - name: libcinnabar-render.deb
         uses: actions/upload-release-asset@v1
         env:
@@ -190,6 +205,16 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./libcinnabar-render-dev.deb
           asset_name: libcinnabar-render-dev.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: libcinnabar-render-doc.deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libcinnabar-render-doc.deb
+          asset_name: libcinnabar-render-doc.deb
           asset_content_type: application/vnd.debian.binary-package
 
       - name: cinnabar-core.pkg.tar.zst
