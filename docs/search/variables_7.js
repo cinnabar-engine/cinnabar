@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['indices_418',['indices',['../de/d07/structce_1_1MeshFile.html#ab5cc21fb4bd4c3c0f1d07970105499ed',1,'ce::MeshFile']]]
+  ['mesh_5ffolder_321',['MESH_FOLDER',['../d5/d4b/namespacece_1_1assetManager_1_1defaults.html#a272c3a9700255a351d11e22b231a9f25',1,'ce::assetManager::defaults']]],
+  ['mesh_5fmissing_322',['MESH_MISSING',['../d5/d4b/namespacece_1_1assetManager_1_1defaults.html#afb6225212f991bb769590d6240fecf18',1,'ce::assetManager::defaults']]]
 ];
