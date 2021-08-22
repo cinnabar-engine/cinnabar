@@ -71,27 +71,27 @@ $(function() {
 <div class="title">window.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<a href="../../d2/d5a/window_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>ce {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d2/dd6/namespacece.html">ce</a> {</div>
 <div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="../../dc/dee/classce_1_1Window.html">    7</a></span>&#160;    <span class="keyword">class </span><a class="code" href="../../dc/dee/classce_1_1Window.html">Window</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;     <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <a class="code" href="../../dc/dee/classce_1_1Window.html">Window</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* title);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        ~<a class="code" href="../../dc/dee/classce_1_1Window.html">Window</a>();</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <a class="code" href="../../dc/dee/classce_1_1Window.html#ac29680ad6c71c98144516a8d185b3ffa">Window</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* title);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <a class="code" href="../../dc/dee/classce_1_1Window.html#a5dd19a1343e3c0ada2dc87ae08d31035">~Window</a>();</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordtype">void</span> swapBuffers();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">swapBuffers</a>();</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        SDL_Window* getWindow() { <span class="keywordflow">return</span> m_window; };</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        SDL_GLContext getContext() { <span class="keywordflow">return</span> m_context; };</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="../../dc/dee/classce_1_1Window.html#a12f9cf184d7972bd5339e4d98a894826">   14</a></span>&#160;        SDL_Window* <a class="code" href="../../dc/dee/classce_1_1Window.html#a12f9cf184d7972bd5339e4d98a894826">getWindow</a>() { <span class="keywordflow">return</span> m_window; };</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="../../dc/dee/classce_1_1Window.html#a48f4c7c9cc06c9552df1120873383a3b">   15</a></span>&#160;        SDL_GLContext <a class="code" href="../../dc/dee/classce_1_1Window.html#a48f4c7c9cc06c9552df1120873383a3b">getContext</a>() { <span class="keywordflow">return</span> m_context; };</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        glm::vec2 getWindowSize();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">float</span> getAspectRatio();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        glm::vec2 <a class="code" href="../../dc/dee/classce_1_1Window.html#a4c227112a311b7f1419ca3fe916aa841">getWindowSize</a>();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">float</span> <a class="code" href="../../dc/dee/classce_1_1Window.html#a1017234b851143b2ea86a3212bb72602">getAspectRatio</a>();</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">bool</span> mouseVisible() { <span class="keywordflow">return</span> m_mouseVisible; };</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> setMouseVisibility(<span class="keywordtype">bool</span> enabled);</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="../../dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44">   20</a></span>&#160;        <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="../../dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44">mouseVisible</a>() { <span class="keywordflow">return</span> m_mouseVisible; };</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="../../dc/dee/classce_1_1Window.html#a974e5760de9f32f6d44468d1f8a6e543">setMouseVisibility</a>(<span class="keywordtype">bool</span> enabled);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;     <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        SDL_Window* m_window;</div>
@@ -101,6 +101,16 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    };</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
 <div class="ttc" id="aclassce_1_1Window_html"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html">ce::Window</a></div><div class="ttdef"><b>Definition:</b> window.hpp:7</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a1017234b851143b2ea86a3212bb72602"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a1017234b851143b2ea86a3212bb72602">ce::Window::getAspectRatio</a></div><div class="ttdeci">float getAspectRatio()</div><div class="ttdef"><b>Definition:</b> window.cpp:47</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a12f9cf184d7972bd5339e4d98a894826"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a12f9cf184d7972bd5339e4d98a894826">ce::Window::getWindow</a></div><div class="ttdeci">SDL_Window * getWindow()</div><div class="ttdef"><b>Definition:</b> window.hpp:14</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a48f4c7c9cc06c9552df1120873383a3b"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a48f4c7c9cc06c9552df1120873383a3b">ce::Window::getContext</a></div><div class="ttdeci">SDL_GLContext getContext()</div><div class="ttdef"><b>Definition:</b> window.hpp:15</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a4c227112a311b7f1419ca3fe916aa841"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a4c227112a311b7f1419ca3fe916aa841">ce::Window::getWindowSize</a></div><div class="ttdeci">glm::vec2 getWindowSize()</div><div class="ttdef"><b>Definition:</b> window.cpp:42</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a5dd19a1343e3c0ada2dc87ae08d31035"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a5dd19a1343e3c0ada2dc87ae08d31035">ce::Window::~Window</a></div><div class="ttdeci">~Window()</div><div class="ttdef"><b>Definition:</b> window.cpp:33</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a826685443fe186024e648c765091ce44"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44">ce::Window::mouseVisible</a></div><div class="ttdeci">static bool mouseVisible()</div><div class="ttdef"><b>Definition:</b> window.hpp:20</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a974e5760de9f32f6d44468d1f8a6e543"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a974e5760de9f32f6d44468d1f8a6e543">ce::Window::setMouseVisibility</a></div><div class="ttdeci">static void setMouseVisibility(bool enabled)</div><div class="ttdef"><b>Definition:</b> window.cpp:53</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_ac29680ad6c71c98144516a8d185b3ffa"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#ac29680ad6c71c98144516a8d185b3ffa">ce::Window::Window</a></div><div class="ttdeci">Window(const char *title)</div><div class="ttdef"><b>Definition:</b> window.cpp:8</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_afd634de095bd3cf954aa5757768cbb33"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">ce::Window::swapBuffers</a></div><div class="ttdeci">void swapBuffers()</div><div class="ttdef"><b>Definition:</b> window.cpp:38</div></div>
+<div class="ttc" id="anamespacece_html"><div class="ttname"><a href="../../d2/dd6/namespacece.html">ce</a></div><div class="ttdef"><b>Definition:</b> time.hpp:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
