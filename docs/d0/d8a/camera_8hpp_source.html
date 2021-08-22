@@ -71,34 +71,47 @@ $(function() {
 <div class="title">camera.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<a href="../../d0/d8a/camera_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cinnabar-core/transform.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d6/deb/transform_8hpp.html">cinnabar-core/transform.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;shader.hpp&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d9/d52/shader_8hpp.html">shader.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ce {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d2/dd6/namespacece.html">ce</a> {</div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="../../dd/d8a/classce_1_1Camera.html">   11</a></span>&#160;    <span class="keyword">class </span><a class="code" href="../../dd/d8a/classce_1_1Camera.html">Camera</a> {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;     <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <a class="code" href="../../dd/d8a/classce_1_1Camera.html">Camera</a>();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        ~<a class="code" href="../../dd/d8a/classce_1_1Camera.html">Camera</a>();</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <a class="code" href="../../dd/d8a/classce_1_1Camera.html#a26a587d166d5a193cc9315fc0453a75d">Camera</a>();</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <a class="code" href="../../dd/d8a/classce_1_1Camera.html#a1e13581958afbb3bb0f6eb18b9866b0b">~Camera</a>();</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        glm::mat4 getViewMatrix();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        glm::mat4 getProjection(<span class="keywordtype">double</span> aspectRatio) { <span class="keywordflow">return</span> glm::perspective(this-&gt;fov, aspectRatio, this-&gt;nearClip, this-&gt;farClip); };</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        glm::mat4 <a class="code" href="../../dd/d8a/classce_1_1Camera.html#a24f9d2ad6bc37fe04f0634d9dc238139">getViewMatrix</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="../../dd/d8a/classce_1_1Camera.html#a7fb818600591218c61ef4d893b897800">   17</a></span>&#160;        glm::mat4 <a class="code" href="../../dd/d8a/classce_1_1Camera.html#a7fb818600591218c61ef4d893b897800">getProjection</a>(<span class="keywordtype">double</span> aspectRatio) { <span class="keywordflow">return</span> glm::perspective(this-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#aaebd0e1fb19c9d9443d82423e9f962b6">fov</a>, aspectRatio, this-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#af2477ba3e42e75ad46f833a4d36c48df">nearClip</a>, this-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#adfac9c85905e8b2e7a5bdcb53e24c1f1">farClip</a>); };</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordtype">void</span> limitPitch();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">void</span> sendToShader(<a class="code" href="../../d3/d8c/classce_1_1Shader.html">ce::Shader</a>* shader, <span class="keywordtype">double</span> aspectRatio);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="../../dd/d8a/classce_1_1Camera.html#ae0a5803c3cbbf867f8bfba6a1fa876ff">limitPitch</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="../../dd/d8a/classce_1_1Camera.html#ae5bd962558192b914343a1b31b7de985">sendToShader</a>(<a class="code" href="../../d3/d8c/classce_1_1Shader.html">ce::Shader</a>* shader, <span class="keywordtype">double</span> aspectRatio);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <a class="code" href="../../d3/dfa/classce_1_1Transform.html">ce::Transform</a>* transform;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">double</span> fov, nearClip, farClip;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">   22</a></span>&#160;        <a class="code" href="../../d3/dfa/classce_1_1Transform.html">ce::Transform</a>* <a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="../../dd/d8a/classce_1_1Camera.html#adfac9c85905e8b2e7a5bdcb53e24c1f1">   23</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="../../dd/d8a/classce_1_1Camera.html#aaebd0e1fb19c9d9443d82423e9f962b6">fov</a>, <a class="code" href="../../dd/d8a/classce_1_1Camera.html#af2477ba3e42e75ad46f833a4d36c48df">nearClip</a>, <a class="code" href="../../dd/d8a/classce_1_1Camera.html#adfac9c85905e8b2e7a5bdcb53e24c1f1">farClip</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    };</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="ttc" id="aclassce_1_1Camera_html"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a></div><div class="ttdef"><b>Definition:</b> camera.hpp:11</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_a1e13581958afbb3bb0f6eb18b9866b0b"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#a1e13581958afbb3bb0f6eb18b9866b0b">ce::Camera::~Camera</a></div><div class="ttdeci">~Camera()</div><div class="ttdef"><b>Definition:</b> camera.cpp:14</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_a24f9d2ad6bc37fe04f0634d9dc238139"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#a24f9d2ad6bc37fe04f0634d9dc238139">ce::Camera::getViewMatrix</a></div><div class="ttdeci">glm::mat4 getViewMatrix()</div><div class="ttdef"><b>Definition:</b> camera.cpp:18</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_a26a587d166d5a193cc9315fc0453a75d"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#a26a587d166d5a193cc9315fc0453a75d">ce::Camera::Camera</a></div><div class="ttdeci">Camera()</div><div class="ttdef"><b>Definition:</b> camera.cpp:6</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_a7fb818600591218c61ef4d893b897800"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#a7fb818600591218c61ef4d893b897800">ce::Camera::getProjection</a></div><div class="ttdeci">glm::mat4 getProjection(double aspectRatio)</div><div class="ttdef"><b>Definition:</b> camera.hpp:17</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_aaebd0e1fb19c9d9443d82423e9f962b6"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#aaebd0e1fb19c9d9443d82423e9f962b6">ce::Camera::fov</a></div><div class="ttdeci">double fov</div><div class="ttdef"><b>Definition:</b> camera.hpp:23</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_ad245c36dc6fb521d913f53a577b0310a"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">ce::Camera::transform</a></div><div class="ttdeci">ce::Transform * transform</div><div class="ttdef"><b>Definition:</b> camera.hpp:22</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_adfac9c85905e8b2e7a5bdcb53e24c1f1"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#adfac9c85905e8b2e7a5bdcb53e24c1f1">ce::Camera::farClip</a></div><div class="ttdeci">double farClip</div><div class="ttdef"><b>Definition:</b> camera.hpp:23</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_ae0a5803c3cbbf867f8bfba6a1fa876ff"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#ae0a5803c3cbbf867f8bfba6a1fa876ff">ce::Camera::limitPitch</a></div><div class="ttdeci">void limitPitch()</div><div class="ttdef"><b>Definition:</b> camera.cpp:36</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_ae5bd962558192b914343a1b31b7de985"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#ae5bd962558192b914343a1b31b7de985">ce::Camera::sendToShader</a></div><div class="ttdeci">void sendToShader(ce::Shader *shader, double aspectRatio)</div><div class="ttdef"><b>Definition:</b> camera.cpp:46</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_af2477ba3e42e75ad46f833a4d36c48df"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#af2477ba3e42e75ad46f833a4d36c48df">ce::Camera::nearClip</a></div><div class="ttdeci">double nearClip</div><div class="ttdef"><b>Definition:</b> camera.hpp:23</div></div>
 <div class="ttc" id="aclassce_1_1Shader_html"><div class="ttname"><a href="../../d3/d8c/classce_1_1Shader.html">ce::Shader</a></div><div class="ttdef"><b>Definition:</b> shader.hpp:14</div></div>
 <div class="ttc" id="aclassce_1_1Transform_html"><div class="ttname"><a href="../../d3/dfa/classce_1_1Transform.html">ce::Transform</a></div><div class="ttdef"><b>Definition:</b> transform.hpp:6</div></div>
+<div class="ttc" id="anamespacece_html"><div class="ttname"><a href="../../d2/dd6/namespacece.html">ce</a></div><div class="ttdef"><b>Definition:</b> time.hpp:3</div></div>
+<div class="ttc" id="ashader_8hpp_html"><div class="ttname"><a href="../../d9/d52/shader_8hpp.html">shader.hpp</a></div></div>
+<div class="ttc" id="atransform_8hpp_html"><div class="ttname"><a href="../../d6/deb/transform_8hpp.html">transform.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

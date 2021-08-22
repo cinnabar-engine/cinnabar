@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>ce</b></li><li class="navelem"><a class="el" href="../../dd/d8a/classce_1_1Camera.html">Camera</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../d2/dd6/namespacece.html">ce</a></li><li class="navelem"><a class="el" href="../../dd/d8a/classce_1_1Camera.html">Camera</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,40 +75,219 @@ $(function() {
 <div class="title">ce::Camera Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="../../d0/d8a/camera_8hpp_source.html">camera.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a24f9d2ad6bc37fe04f0634d9dc238139"><td class="memItemLeft" align="right" valign="top"><a id="a24f9d2ad6bc37fe04f0634d9dc238139"></a>
-glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>getViewMatrix</b> ()</td></tr>
+<tr class="memitem:a26a587d166d5a193cc9315fc0453a75d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#a26a587d166d5a193cc9315fc0453a75d">Camera</a> ()</td></tr>
+<tr class="separator:a26a587d166d5a193cc9315fc0453a75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e13581958afbb3bb0f6eb18b9866b0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#a1e13581958afbb3bb0f6eb18b9866b0b">~Camera</a> ()</td></tr>
+<tr class="separator:a1e13581958afbb3bb0f6eb18b9866b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f9d2ad6bc37fe04f0634d9dc238139"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#a24f9d2ad6bc37fe04f0634d9dc238139">getViewMatrix</a> ()</td></tr>
 <tr class="separator:a24f9d2ad6bc37fe04f0634d9dc238139"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fb818600591218c61ef4d893b897800"><td class="memItemLeft" align="right" valign="top"><a id="a7fb818600591218c61ef4d893b897800"></a>
-glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>getProjection</b> (double aspectRatio)</td></tr>
+<tr class="memitem:a7fb818600591218c61ef4d893b897800"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#a7fb818600591218c61ef4d893b897800">getProjection</a> (double aspectRatio)</td></tr>
 <tr class="separator:a7fb818600591218c61ef4d893b897800"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0a5803c3cbbf867f8bfba6a1fa876ff"><td class="memItemLeft" align="right" valign="top"><a id="ae0a5803c3cbbf867f8bfba6a1fa876ff"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>limitPitch</b> ()</td></tr>
+<tr class="memitem:ae0a5803c3cbbf867f8bfba6a1fa876ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#ae0a5803c3cbbf867f8bfba6a1fa876ff">limitPitch</a> ()</td></tr>
 <tr class="separator:ae0a5803c3cbbf867f8bfba6a1fa876ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5bd962558192b914343a1b31b7de985"><td class="memItemLeft" align="right" valign="top"><a id="ae5bd962558192b914343a1b31b7de985"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sendToShader</b> (<a class="el" href="../../d3/d8c/classce_1_1Shader.html">ce::Shader</a> *shader, double aspectRatio)</td></tr>
+<tr class="memitem:ae5bd962558192b914343a1b31b7de985"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#ae5bd962558192b914343a1b31b7de985">sendToShader</a> (<a class="el" href="../../d3/d8c/classce_1_1Shader.html">ce::Shader</a> *shader, double aspectRatio)</td></tr>
 <tr class="separator:ae5bd962558192b914343a1b31b7de985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ad245c36dc6fb521d913f53a577b0310a"><td class="memItemLeft" align="right" valign="top"><a id="ad245c36dc6fb521d913f53a577b0310a"></a>
-<a class="el" href="../../d3/dfa/classce_1_1Transform.html">ce::Transform</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>transform</b></td></tr>
+<tr class="memitem:ad245c36dc6fb521d913f53a577b0310a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dfa/classce_1_1Transform.html">ce::Transform</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a></td></tr>
 <tr class="separator:ad245c36dc6fb521d913f53a577b0310a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaebd0e1fb19c9d9443d82423e9f962b6"><td class="memItemLeft" align="right" valign="top"><a id="aaebd0e1fb19c9d9443d82423e9f962b6"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>fov</b></td></tr>
+<tr class="memitem:aaebd0e1fb19c9d9443d82423e9f962b6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#aaebd0e1fb19c9d9443d82423e9f962b6">fov</a></td></tr>
 <tr class="separator:aaebd0e1fb19c9d9443d82423e9f962b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2477ba3e42e75ad46f833a4d36c48df"><td class="memItemLeft" align="right" valign="top"><a id="af2477ba3e42e75ad46f833a4d36c48df"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>nearClip</b></td></tr>
+<tr class="memitem:af2477ba3e42e75ad46f833a4d36c48df"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#af2477ba3e42e75ad46f833a4d36c48df">nearClip</a></td></tr>
 <tr class="separator:af2477ba3e42e75ad46f833a4d36c48df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfac9c85905e8b2e7a5bdcb53e24c1f1"><td class="memItemLeft" align="right" valign="top"><a id="adfac9c85905e8b2e7a5bdcb53e24c1f1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>farClip</b></td></tr>
+<tr class="memitem:adfac9c85905e8b2e7a5bdcb53e24c1f1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8a/classce_1_1Camera.html#adfac9c85905e8b2e7a5bdcb53e24c1f1">farClip</a></td></tr>
 <tr class="separator:adfac9c85905e8b2e7a5bdcb53e24c1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a26a587d166d5a193cc9315fc0453a75d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26a587d166d5a193cc9315fc0453a75d">&#9670;&nbsp;</a></span>Camera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ce::Camera::Camera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e13581958afbb3bb0f6eb18b9866b0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e13581958afbb3bb0f6eb18b9866b0b">&#9670;&nbsp;</a></span>~Camera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ce::Camera::~Camera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7fb818600591218c61ef4d893b897800"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fb818600591218c61ef4d893b897800">&#9670;&nbsp;</a></span>getProjection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 ce::Camera::getProjection </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>aspectRatio</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24f9d2ad6bc37fe04f0634d9dc238139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f9d2ad6bc37fe04f0634d9dc238139">&#9670;&nbsp;</a></span>getViewMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 ce::Camera::getViewMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae0a5803c3cbbf867f8bfba6a1fa876ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0a5803c3cbbf867f8bfba6a1fa876ff">&#9670;&nbsp;</a></span>limitPitch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Camera::limitPitch </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae5bd962558192b914343a1b31b7de985"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5bd962558192b914343a1b31b7de985">&#9670;&nbsp;</a></span>sendToShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Camera::sendToShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d8c/classce_1_1Shader.html">ce::Shader</a> *&#160;</td>
+          <td class="paramname"><em>shader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>aspectRatio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adfac9c85905e8b2e7a5bdcb53e24c1f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfac9c85905e8b2e7a5bdcb53e24c1f1">&#9670;&nbsp;</a></span>farClip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ce::Camera::farClip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaebd0e1fb19c9d9443d82423e9f962b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaebd0e1fb19c9d9443d82423e9f962b6">&#9670;&nbsp;</a></span>fov</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ce::Camera::fov</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2477ba3e42e75ad46f833a4d36c48df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2477ba3e42e75ad46f833a4d36c48df">&#9670;&nbsp;</a></span>nearClip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ce::Camera::nearClip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad245c36dc6fb521d913f53a577b0310a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad245c36dc6fb521d913f53a577b0310a">&#9670;&nbsp;</a></span>transform</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/dfa/classce_1_1Transform.html">ce::Transform</a>* ce::Camera::transform</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/cinnabar-engine/cinnabar-render/<a class="el" href="../../d0/d8a/camera_8hpp_source.html">camera.hpp</a></li>
-<li>src/cinnabar-engine/cinnabar-render/camera.cpp</li>
+<li>src/cinnabar-engine/cinnabar-render/<a class="el" href="../../d1/d6b/camera_8cpp.html">camera.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
