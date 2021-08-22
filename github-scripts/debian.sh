@@ -20,16 +20,6 @@ function build {
 	
 }
 
-function build_docs {
-	rm -r doxygen-out
-	mkdir doxygen-out
-	for P in $PROJECTS
-	do
-		doxygen doxygen/$P.doxyfile
-	done
-
-}
-
 function prep_deb {
 	PROJECT=$1
 
