@@ -3,68 +3,60 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 #include "stb_image.h"
 
+#include <cinnabar-core/asset_manager.hpp>
 #include <cinnabar-core/tpnt_log.h>
 
-std::string ce::assetManager::getTextFile(std::string path, bool mustExist) {
-	std::fstream file;
-	std::string text = "";
-	file.exceptions(std::fstream::failbit | std::fstream::badbit);
-	try {
-		file.open(path);
-		if (!file.good()) {
-			if (mustExist)
-				LOG_WARN("FILE_DOES_NOT_EXIST: %s", path.c_str());
-			return "";
-		}
-		std::stringstream filestream;
-		filestream << file.rdbuf();
-		file.close();
-		text = filestream.str();
-		LOG_SUCCESS("LOADED_FILE: %s", path.c_str());
-	} catch (std::fstream::failure e) {
-		LOG_ERROR("FILE_NOT_SUCCESSFULLY_READ: (%s) %s", path.c_str(), e.what()); // TODO: figure out why files not exist create an iostream error instead of expected error
-	}
-	return text;
+namespace ce::assetManager::defaults {
+	std::string
+		SHADER_FOLDER = "shaders",
+		TEXTURE_FOLDER = "textures",
+		MESH_FOLDER = "meshes",
+		SHADER_MISSING = "missing",
+		TEXTURE_MISSING = "missing.png",
+		MESH_MISSING = "missing.obj";
 }
 
 ce::ShaderFile ce::assetManager::getShaderFile(std::string vert, std::string geom, std::string frag) {
 	ShaderFile shaderFile;
-	shaderFile.vertName = vert;
-	shaderFile.geomName = geom;
-	shaderFile.fragName = frag;
 
-	if (frag != "") {
-		shaderFile.fragment = getTextFile(defaults::SHADER_FOLDER + "/" + frag + ".frag", false);
-		if (shaderFile.fragment == "")
-			shaderFile.fragment = getTextFile(defaults::SHADER_FOLDER + "/" + frag + ".fs");
-	}
 	if (vert != "") {
-		shaderFile.vertex = getTextFile(defaults::SHADER_FOLDER + "/" + vert + ".vert", false);
-		if (shaderFile.vertex == "")
-			shaderFile.vertex = getTextFile(defaults::SHADER_FOLDER + "/" + vert + ".vs");
+		shaderFile.vert = getTextFile(defaults::SHADER_FOLDER + "/" + vert + ".vert", false);
+		if (shaderFile.vert == "")
+			shaderFile.vert = getTextFile(defaults::SHADER_FOLDER + "/" + defaults::SHADER_MISSING + ".vs");
 	}
 	if (geom != "") {
-		shaderFile.geometry = getTextFile(defaults::SHADER_FOLDER + "/" + geom + ".geom", false);
-		if (shaderFile.geometry == "")
-			shaderFile.geometry = getTextFile(defaults::SHADER_FOLDER + "/" + geom + ".gs");
+		shaderFile.geom = getTextFile(defaults::SHADER_FOLDER + "/" + geom + ".geom", false);
+	}
+	if (frag != "") {
+		shaderFile.frag = getTextFile(defaults::SHADER_FOLDER + "/" + frag + ".frag", false);
+		if (shaderFile.frag == "")
+			shaderFile.frag = getTextFile(defaults::SHADER_FOLDER + "/" + defaults::SHADER_MISSING + ".fs");
 	}
 
 	return shaderFile;
 }
 
-ce::TextureFile ce::assetManager::getTextureFile(std::string filename) {
-	std::string path = defaults::TEXTURE_FOLDER + "/" + filename;
+ce::TextureFile ce::assetManager::getTextureFile(std::string path) {
 	// stbi_set_flip_vertically_on_load(1);
-	LOG_SUCCESS("LOADED_TEXTURE: %s", path.c_str());
-
 	TextureFile textureFile;
-	textureFile.data = stbi_load(path.c_str(), &textureFile.width,
-		&textureFile.height, &textureFile.channelCount, 0);
-	if (textureFile.data == NULL)
-		return getTextureFile("missing.png");
+	textureFile.data = stbi_load(
+		(defaults::RESOURCE_FOLDER + "/" + defaults::TEXTURE_FOLDER + "/" + path).c_str(),
+		&textureFile.width,
+		&textureFile.height,
+		&textureFile.channelCount,
+		0);
+	if (textureFile.data == NULL) {
+		LOG_WARN("Failed to load texture: %s", path.c_str());
+		if (path == defaults::TEXTURE_MISSING)
+			return TextureFile();
+		else
+			return getTextureFile(defaults::TEXTURE_MISSING);
+	} else
+		LOG_SUCCESS("Loaded texture: %s", path.c_str());
 	return textureFile;
 }
 
@@ -101,12 +93,11 @@ std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
 }
 
 // TODO: system for other file types (not the actual loading of them, just detection of types)
-ce::MeshFile ce::assetManager::getMeshFile(std::string filename) {
-	std::string path = defaults::MESH_FOLDER + "/" + filename;
-	std::ifstream file(path);
+ce::MeshFile ce::assetManager::getMeshFile(std::string path) {
+	std::ifstream file(defaults::RESOURCE_FOLDER + "/" + defaults::MESH_FOLDER + "/" + path);
 	if (!file.is_open()) {
-		LOG_INFO("couldn't load model %s", filename.c_str());
-		if (filename == "missing.obj")
+		LOG_WARN("Failed to load mesh: %s", path.c_str());
+		if (path == defaults::MESH_MISSING)
 			return MeshFile();
 		else
 			return getMeshFile("missing.obj");
@@ -203,5 +194,6 @@ ce::MeshFile ce::assetManager::getMeshFile(std::string filename) {
 			// TODO: optimize mesh (find and remove repeat verticies)
 		}
 	}
+	LOG_SUCCESS("Loaded mesh: %s", path.c_str());
 	return mesh;
 }

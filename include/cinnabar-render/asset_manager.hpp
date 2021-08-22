@@ -2,27 +2,27 @@
 
 #include <string>
 
+#include <cinnabar-core/asset_manager.hpp>
+
 #include <cinnabar-render/assets.hpp>
 
 namespace ce {
 	namespace assetManager {
 		namespace defaults {
-			const std::string
-				SHADER_FOLDER = "shaders",
-				TEXTURE_FOLDER = "textures",
-				MESH_FOLDER = "meshes",
-				SHADER_MISSING = "",
-				TEXTURE_MISSING = "",
-				MESH_MISSING = "missing.obj";
+			extern std::string
+				SHADER_FOLDER,
+				TEXTURE_FOLDER,
+				MESH_FOLDER,
+				SHADER_MISSING,
+				TEXTURE_MISSING,
+				MESH_MISSING;
 		}
-
-		std::string getTextFile(std::string file, bool mustExist = true);
 
 		ShaderFile getShaderFile(std::string vert, std::string geom, std::string frag);
 		inline ShaderFile getShaderFile(std::string name) { return getShaderFile(name, name, name); };
-		TextureFile getTextureFile(std::string filename);
+		TextureFile getTextureFile(std::string path);
 		void freeTextureFile(TextureFile textureFile);
 
-		MeshFile getMeshFile(std::string filename);
+		MeshFile getMeshFile(std::string path);
 	};
 }
