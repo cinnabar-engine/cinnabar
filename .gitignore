@@ -1,9 +1,10 @@
+.vscode/*
+*.kdev4
+
 build/
-packaging/*
 dockerfile
 !*/dockerfile
 
-!packaging/*.sh
 pkg
 
 *.dll

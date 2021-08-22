@@ -18,18 +18,18 @@ jobs:
           sudo apt update -y
           sudo apt upgrade -y
           sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
-          chmod +x tests/debian.sh
+          chmod +x github-scripts/debian.sh
 
       - name: Configure
         run: |
-          tests/debian.sh configure
+          github-scripts/debian.sh configure
       - name: Build
         run: |
-          tests/debian.sh build
+          github-scripts/debian.sh build
 
       - name: Package
         run: |
-          tests/debian.sh package
+          github-scripts/debian.sh package
 
       - uses: actions/upload-artifact@v2
         with:
@@ -44,21 +44,21 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          sudo docker build -f arch.dockerfile -t ce-arch .
+          sudo docker build -f packaging/arch.dockerfile -t ce-arch .
           sudo docker run -it -d --name ce-arch-test ce-arch
-          sudo docker exec ce-arch-test chmod +x /app/tests/arch.sh
+          sudo docker exec ce-arch-test chmod +x /app/github-scripts/arch.sh
 
       - name: Configure
         run: |
-          sudo docker exec ce-arch-test /app/tests/arch.sh configure
+          sudo docker exec ce-arch-test /app/github-scripts/arch.sh configure
 
       - name: Build
         run: |
-          sudo docker exec ce-arch-test /app/tests/arch.sh build
+          sudo docker exec ce-arch-test /app/github-scripts/arch.sh build
 
       - name: Package
         run: |
-          sudo docker exec ce-arch-test /app/tests/arch.sh package
+          sudo docker exec ce-arch-test /app/github-scripts/arch.sh package
           sudo docker cp ce-arch-test:/app/pkg .
 
       - name: Clean Up
@@ -110,14 +110,14 @@ jobs:
 
           echo $env:PATH
 
-          tests\windows.bat configure
+          github-scripts\windows.bat configure
       - name: Build
         run: |
-          tests\windows.bat build
+          github-scripts\windows.bat build
 
       - name: Package
         run: |
-          tests\windows.bat package
+          github-scripts\windows.bat package
 
       - uses: actions/upload-artifact@v2
         with:
