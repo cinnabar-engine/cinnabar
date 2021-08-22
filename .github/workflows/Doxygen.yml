@@ -6,6 +6,9 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+      - name: Prepare docs
+        run: |
+          mkdir build/docs
       # - name: Install Doxygen
       #   run: |
       #     cd /tmp
