@@ -1,0 +1,14 @@
+name: Unit Testing
+on: [push, pull_request]
+jobs:
+  Debian:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+      - name: Install Doxygen
+        run: |
+          doxygen --help
+          # cd tmp
+          # git clone https://github.com/doxygen/doxygen.git /tmp/doxygen
+          # cd /tmp/doxygen
