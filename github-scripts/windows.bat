@@ -21,7 +21,7 @@ goto :eof
 :build
 	cmake --build build --target clean
 	for /f "usebackq tokens=*" %%P in ("%PROJECTS%") do (
-		cmake --build build --target %%p
+		cmake --build build --target %%P
 	)
 goto :eof
 
@@ -59,9 +59,9 @@ goto :eof
 
 	cd pkg
 
-	for /f "tokens=*" %%a in ('dir /b /s /a:d *') do (
-		call :wpkg-win %%a
-		rd /s /q %%a
+	for /f "tokens=*" %%F in ('dir /b /s /a:d *') do (
+		call :wpkg-win %%F
+		rd /s /q %%F
 	)
 goto :eof
 
