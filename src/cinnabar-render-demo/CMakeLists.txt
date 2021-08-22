@@ -21,7 +21,8 @@ set_target_properties(
 	VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/res"
 )
 
-ADD_CUSTOM_TARGET(cinnabar-render-demo-resources ALL
+add_custom_command(TARGET ${NAME}
+	POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E create_symlink
 		${PROJECT_SOURCE_DIR}/resources/${NAME}
 		${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources
