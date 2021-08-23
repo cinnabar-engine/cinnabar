@@ -17,6 +17,7 @@ jobs:
       - name: Configure
         run: |
           github-scripts/debian.sh configure
+
       - name: Build
         run: |
           github-scripts/debian.sh build

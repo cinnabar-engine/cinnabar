@@ -1,3 +1,5 @@
+/** @example */
+
 #include <iostream>
 
 #include <glm/glm.hpp>

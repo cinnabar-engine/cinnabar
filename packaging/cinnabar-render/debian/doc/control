@@ -1,0 +1,8 @@
+Package: libcinnabar-render-doc
+Version: 0.0.0
+Section: doc
+Priority: optional
+Architecture: all
+Depends:
+Maintainer: tumblegamer@gmail.com
+Description: Reference manual for Cinnabar Render

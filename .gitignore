@@ -7,6 +7,8 @@ dockerfile
 
 pkg
 
+doxygen-out
+
 *.dll
 *.lib
 *.so
