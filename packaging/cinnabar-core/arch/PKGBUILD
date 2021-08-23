@@ -2,7 +2,7 @@
 pkgname=cinnabar-core
 pkgver=0.0.0
 pkgrel=1
-pkgdesc="Cinnabar Core"
+pkgdesc="Core utilities for the cinnabar game engine"
 arch=("x86_64")
 url=""
 license=('GPL')
@@ -17,18 +17,24 @@ backup=()
 options=()
 install=
 changelog=
-source=()
+source=('project-path')
 noextract=()
-md5sums=() #autofill using updpkgsums
+md5sums=('SKIP') #autofill using updpkgsums
 
 build() {
-	echo "CINNABAR BUILD()"
+	projectPath=$(cat project-path)
+	cd "$projectPath"
+	echo "$(rm -rf build)"
+	mkdir build
+	cd build
+	cmake ..
+	cmake --build . --target "$pkgname"
 }
 
 package() {
-	echo "CINNABAR PACKAGE()"
-  mkdir -p $pkgdir/usr/{lib,include/$pkgname}
+	projectPath=$(cat project-path)
+	mkdir -p "$pkgdir/usr/"{lib,"include/$pkgname"}
 
-  cp ../lib$pkgname.so $pkgdir/usr/lib
-  cp ../include/* $pkgdir/usr/include/$pkgname
+	cp "$projectPath/build/run/lib$pkgname.so" "$pkgdir/usr/lib"
+	cp -r "$projectPath/include/$pkgname"/* "$pkgdir/usr/include/$pkgname"
 }

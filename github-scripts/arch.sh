@@ -1,8 +1,8 @@
 #!/bin/bash
-WORKING=$(dirname $PWD/${0/.})
-PROJECTS=$(cat $WORKING/projects.txt)
+WORKING=$(dirname "$PWD/${0/.}")
+PROJECTS=$(cat "$WORKING/projects.txt")
 echo WORKING:$WORKING
-echo PROJECTS:{PROJECTS[@]}
+echo PROJECTS:${PROJECTS[@]}
 
 function configure {
 	rm -rf build
@@ -13,84 +13,53 @@ function configure {
 
 function build {
 	cmake --build ./build --target clean
-	for P in $PROJECTS
-	do
+	for P in $PROJECTS; do
 		cmake --build ./build --target $P
-	done	
-}
-
-function prep_arch { #(TARGET)
-	PROJECT=$1
-
-	PAKNAME=$PROJECT
-	ARCH=./packaging/$PROJECT/arch
-
-	LIB=./build/run/lib$PAKNAME.so
-	INCLUDE=./include/$PROJECT
-
-	PKGROOT=./pkg/$PAKNAME/pkg/$PAKNAME
-	
-	mkdir -p pkg/${PAKNAME}/include
-
-	cp -r ${ARCH}/* pkg/${PAKNAME}
-
-	# runtime
-	cp ${LIB} pkg/${PAKNAME}
-
-	#dev
-	cp -r ${INCLUDE}/* pkg/${PAKNAME}/include
-}
-
-
-function apkg-arch {
-	cd $1
-	makepkg
-	mv *.pkg.tar.zst ../$1.pkg.tar.zst
-	cd ..
+	done
 }
 
 function package {
-	rm -rf pkg
-	mkdir pkg
+	rm -rf "$WORKING/pkg"
+	mkdir "$WORKING/pkg"
 
-	for P in $PROJECTS
-	do
-		prep_arch $P
-	done
+	for PROJECT in $PROJECTS; do
+		# setup makepkg environment
+		ARCH=$WORKING/../packaging/$PROJECT/arch
+		TMP=$WORKING/pkg/tmp
+		mkdir "$TMP"
+		cp -r "$ARCH"/* "$TMP"
+		echo "$WORKING/.." > "$TMP/project-path"
 
-	cd pkg
-	ls
-	
-	for F in "./"*/
-	do
-		apkg-arch $(basename $F)
-		rm -r $(basename $F)
+		# makepkg and grab package file
+		cd "$TMP"
+		makepkg
+		mv "$TMP/"*".pkg.tar.zst" "$WORKING/pkg/$PROJECT.pkg.tar.zst"
+		cd "$WORKING/pkg"
+
+		# delete makepkg folder
+		rm -rf "$TMP"
 	done
 }
 
-cd $WORKING/..
+cd "$WORKING/.."
 case $1 in
-
-  configure)
-	set -x
-  	configure
-    ;;
-
-  build)
-	set -x
-  	build
-    ;;
-
-  package)
-	set -x
-  	package
-    ;;
-*)
-echo "usage: $0 [action]
-
-actions:
-	configure
-	build
-	package"
+	configure)
+		set -x
+		configure
+		;;
+	build)
+		set -x
+		build
+		;;
+	package)
+		set -x
+		package
+		;;
+	*)
+		echo "usage: $0 [action]"
+		echo
+		echo "actions:"
+		echo "	configure"
+		echo "	build"
+		echo "	package"
 esac
-
