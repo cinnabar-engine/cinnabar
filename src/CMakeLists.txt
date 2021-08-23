@@ -1,6 +1,6 @@
 include_directories(
 	${PROJECT_SOURCE_DIR}/include
-	${CE_INCLUDES}
+	${CE_INCLUDE}
 )
 
 add_subdirectory(cinnabar-core)
