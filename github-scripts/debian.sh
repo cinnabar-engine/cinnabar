@@ -61,6 +61,7 @@ function prep_deb {
 	cp -r ${DEBIANDEV}/* pkg/${PAKNAMEDEV}/DEBIAN
 	cp -r ${INCLUDE}/* pkg/${PAKNAMEDEV}/usr/include/${PROJECT}
 	cp -r ${DOC}/man/man3/ce_* pkg/${PAKNAMEDEV}/usr/share/man/man3
+	rm pkg/${PAKNAMEDEV}/usr/share/man/man3/ce_assetManager*
 	gzip pkg/${PAKNAMEDEV}/usr/share/man/man3/*
 
 	cp -r ${DEBIANDOC}/* pkg/${PAKNAMEDOC}/DEBIAN
