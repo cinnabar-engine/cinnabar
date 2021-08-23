@@ -28,9 +28,9 @@ ce::RenderEngine::RenderEngine(glm::vec4 clearColor)
 	: m_aspectRatio(0) {
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
-		LOG_ERROR((const char*)glewGetErrorString(err));
+		LOG_ERROR("GLEW error: %s", (const char*)glewGetErrorString(err));
 	}
-	LOG_INFO("Status: Using GLEW %s", (const char*)glewGetString(GLEW_VERSION));
+	LOG_INFO("GLEW version: %s", (const char*)glewGetString(GLEW_VERSION));
 	/*if () { // TODO: get GL version
 		LOG_ERROR("Wrong GL version %s", );
 		SDL_Quit();

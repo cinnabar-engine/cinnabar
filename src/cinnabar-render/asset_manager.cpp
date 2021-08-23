@@ -185,7 +185,7 @@ ce::MeshFile ce::assetManager::getMeshFile(std::string path) {
 				face.push_back(vertex);
 			}
 			if (face.size() < 3) {
-				LOG_INFO("invalid face polygon %i", face.size()); // TODO better exception handling
+				LOG_INFO("invalid face polygon %zu", face.size()); // TODO better exception handling
 				throw;
 			}
 			std::vector<GLuint> indices = genNgonIndices(face.size(), mesh.verts.size());
