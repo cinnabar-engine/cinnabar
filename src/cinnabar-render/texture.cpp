@@ -4,10 +4,8 @@
 
 #include <cinnabar-render/asset_manager.hpp>
 
-ce::Texture::Texture(std::string filename, GLenum type)
+ce::Texture::Texture(TextureFile textureFile, GLenum type)
 	: m_width(0), m_height(0), m_channelCount(0), m_type(type) {
-	TextureFile textureFile = ce::assetManager::getTextureFile(filename);
-
 	m_width = textureFile.width;
 	m_height = textureFile.height;
 	m_channelCount = textureFile.channelCount;
@@ -20,10 +18,11 @@ ce::Texture::Texture(std::string filename, GLenum type)
 	glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_REPEAT);
 
 
-	if (this->loadData(textureFile.data, textureFile.width, textureFile.height, GL_RGBA, type)) {
-		LOG_SUCCESS("Loaded texture: %s", filename.c_str());
-	} else
-		LOG_ERROR("TEXTURE_LOADING_FAILED: %s", filename.c_str());
+	if (this->loadData(textureFile.data, textureFile.width, textureFile.height, textureFile.channelCount == 3 ? GL_RGB : GL_RGBA, type)) {
+		LOG_SUCCESS("Loaded texture");
+	} else {
+		LOG_ERROR("Failed to load texture");
+	}
 	ce::assetManager::freeTextureFile(textureFile);
 }
 
@@ -33,7 +32,7 @@ ce::Texture::Texture(const void* data, GLsizei width, GLsizei height, GLenum col
 	if (this->loadData(data, width, height, color_space, type)) {
 		LOG_SUCCESS("Loaded texture");
 	} else {
-		LOG_ERROR("TEXTURE_LOADING_FAILED");
+		LOG_ERROR("Failed to load texture");
 	}
 }
 
