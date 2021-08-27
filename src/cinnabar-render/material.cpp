@@ -7,7 +7,7 @@ ce::Material::Material(Shader* shader)
 }
 
 ce::Material::~Material() {
-	delete m_shader;
+	delete m_shader; // TODO: what if someone passes in a shader or texture that gets reused?
 	delete m_texture;
 }
 
