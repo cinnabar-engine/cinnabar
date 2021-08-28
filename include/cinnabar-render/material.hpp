@@ -23,7 +23,7 @@ namespace ce {
 		Shader* getShader() { return m_shader; }
 		void setTexture(std::string texture) { setTexture(new Texture(texture)); }
 		void setTexture(TextureFile texture) { setTexture(new Texture(texture)); }
-		void setTexture(Texture* texture) { m_texture = texture; }
+		void setTexture(Texture* texture) { m_texture = texture; update(); }
 
 		void bind();
 		void unbind();
