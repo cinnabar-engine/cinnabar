@@ -81,8 +81,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"index.html#autotoc_md13"
+"_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html",
+"tpnt__log_8h.html#ab0281efe267c67734146d54e868262c8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
