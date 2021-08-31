@@ -18,7 +18,7 @@ var searchData=
   ['getroll_207',['getRoll',['../d3/dfa/classce_1_1Transform.html#a27ac03692c4f588a370353a34a749a0e',1,'ce::Transform']]],
   ['getrotation_208',['getRotation',['../d3/dfa/classce_1_1Transform.html#a26d31216404565554f70e9fa1264024a',1,'ce::Transform']]],
   ['getscale_209',['getScale',['../d3/dfa/classce_1_1Transform.html#a9d0f8f2675d012ee79187e9433632da0',1,'ce::Transform']]],
-  ['getshader_210',['getShader',['../d5/d2e/classce_1_1Material.html#a7907b176a5c73c00e522cc47c019f6e5',1,'ce::Material::getShader()'],['../d3/d8c/classce_1_1Shader.html#a265211834fcbb74f6471336749392cf9',1,'ce::Shader::getShader()']]],
+  ['getshader_210',['getShader',['../d3/d8c/classce_1_1Shader.html#a265211834fcbb74f6471336749392cf9',1,'ce::Shader']]],
   ['getshaderfile_211',['getShaderFile',['../d7/da0/namespacece_1_1assetManager.html#abfa95f278b81fe4dce81f3fa046ece0a',1,'ce::assetManager::getShaderFile(std::string vert, std::string geom, std::string frag)'],['../d7/da0/namespacece_1_1assetManager.html#a6e57faba630fcba77997e16808bdd7a8',1,'ce::assetManager::getShaderFile(std::string name)']]],
   ['gettextfile_212',['getTextFile',['../d7/da0/namespacece_1_1assetManager.html#ab7925c90ed44920dd6a7d68003b0f1d1',1,'ce::assetManager']]],
   ['gettexturefile_213',['getTextureFile',['../d7/da0/namespacece_1_1assetManager.html#ac1cad06f663a6ab4dc958df6c879f9d5',1,'ce::assetManager']]],
