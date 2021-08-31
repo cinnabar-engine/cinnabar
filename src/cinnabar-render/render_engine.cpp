@@ -14,7 +14,7 @@ void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform
 
 	// TODO: get rid of unneccecary binding
 	mesh->sendToShader(material->shader, true);
-	shader->setUniform("transform.model", transform->getMatrix());
+	material->shader->setUniform("transform.model", transform->getMatrix());
 	camera->sendToShader(material->shader, m_aspectRatio); // TODO: make aspect ratio need to be sent to camera manually on window resize, remove m_aspectRatio from renderEngine
 
 	// Bind Things

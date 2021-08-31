@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 
-#include <glm/glm.hpp>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 #include <cinnabar-render/assets.hpp>
 
@@ -39,9 +39,13 @@ namespace ce {
 			vertexAttribPointer(Attribute attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
 
 		template <typename T>
-		void setUniform(const std::string name, T value);
+		void setUniform(const std::string name, const T& value);
 		template <typename T>
-		void setUniform(GLint location, T value);
+		void setUniform(GLint location, const T& value);
+		template <typename T>
+		void setUniformArray(const std::string name, GLsizei count, const T* value);
+		template <typename T>
+		void setUniformArray(GLint location, GLsizei count, const T* value);
 		void
 			setUniform(const std::string name, float x, float y),
 			setUniform(const std::string name, float x, float y, float z),

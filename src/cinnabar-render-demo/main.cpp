@@ -20,20 +20,18 @@ int main(int argc, char* argv[]) {
 
 
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
-	ce::Shader* blobShader = new ce::Shader("matcap");
-	ce::Texture* blobTexture = new ce::Texture("matcap.png");
+	ce::Material* blobMaterial = new ce::Material("matcap");
 	ce::Transform* blobPos = new ce::Transform();
 	blobPos->setScale(0.5f, 0.5f, 0.5f);
-	blobShader->setUniform("material.texture", blobTexture);
+	blobMaterial->textures[0] = new ce::Texture("matcap.png");
 
 	ce::Mesh* environmentMesh = new ce::Mesh("environment.obj");
-	ce::Shader* environmentGroundShader = new ce::Shader("basic");
-	ce::Texture* environmentGroundTexture = new ce::Texture("floor.png");
-	ce::Shader* environmentBuildingsShader = new ce::Shader("basic");
-	ce::Texture* environmentBuildingsTexture = new ce::Texture("color.png");
+	ce::Shader* environmentShader = new ce::Shader("basic");
+	ce::Material* environmentGroundMaterial = new ce::Material(environmentShader);
+	ce::Material* environmentBuildingsMaterial = new ce::Material(environmentShader);
 	ce::Transform* environmentPos = new ce::Transform();
-	environmentGroundShader->setUniform("material.texture", environmentGroundTexture);
-	environmentBuildingsShader->setUniform("material.texture", environmentBuildingsTexture);
+	environmentGroundMaterial->textures[0] = new ce::Texture("floor.png");
+	environmentBuildingsMaterial->textures[0] = new ce::Texture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 
 	double mouseSens = 0.05;
@@ -149,8 +147,8 @@ int main(int argc, char* argv[]) {
 
 		// Render
 		renderEngine->clear();
-		renderEngine->render(blobMesh, blobShader, blobPos, camera);
-		renderEngine->render(environmentMesh, environmentGroundShader, environmentPos, camera);
+		renderEngine->render(blobMesh, blobMaterial, blobPos, camera);
+		renderEngine->render(environmentMesh, environmentGroundMaterial, environmentPos, camera);
 
 		window->swapBuffers();
 
@@ -158,12 +156,16 @@ int main(int argc, char* argv[]) {
 		time->waitUntilDelta(deltaTimeMin);
 	}
 	delete blobMesh;
-	delete blobShader;
+	blobMaterial->deleteContents();
+	delete blobMaterial;
 	delete blobPos;
 
 	delete environmentMesh;
-	delete environmentGroundShader;
-	delete environmentBuildingsShader;
+	environmentGroundMaterial->deleteTextures();
+	delete environmentGroundMaterial;
+	environmentBuildingsMaterial->deleteTextures();
+	delete environmentBuildingsMaterial;
+	delete environmentShader;
 	delete environmentPos;
 
 	delete camera;
