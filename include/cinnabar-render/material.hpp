@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <glm/glm.hpp>
 
 #include <cinnabar-render/asset_manager.hpp>
@@ -20,16 +22,12 @@ namespace ce {
 		~Material();
 		void update();
 
-		Shader* getShader() { return m_shader; }
-		void setTexture(std::string texture) { setTexture(new Texture(texture)); }
-		void setTexture(TextureFile texture) { setTexture(new Texture(texture)); }
-		void setTexture(Texture* texture) { m_texture = texture; update(); }
-
 		void bind();
 		void unbind();
 
-	 private:
-		Shader* m_shader;
-		Texture* m_texture;
+		static GLint MAX_TEXTURES;
+
+		Shader* shader;
+		std::vector<Texture*> textures;
 	};
 }

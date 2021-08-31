@@ -1,5 +1,11 @@
 #include <cinnabar-render/material.hpp>
 
+#include <vector>
+
+ce::Material::MAX_TEXTURES = -1;
+//glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &ce::Material::MAX_TEXTURES);
+//m_textures
+
 ce::Material::Material(Shader* shader)
 	: m_shader(shader),
 	  m_texture(NULL) {
@@ -12,18 +18,21 @@ ce::Material::~Material() {
 }
 
 void ce::Material::update() { // TODO: why does this even exist?
-	if (m_texture != NULL)
-		m_shader->setUniform("material.texture", 1);
+	for (GLint i = 0; i < m_textures.length, i++)
+		if (m_texture != NULL)
+			this->shader->setUniformArray("material.textures", i);
 }
 
 void ce::Material::bind() {
 	m_shader->bind();
-	if (m_texture != NULL)
-		m_texture->activate(1);
+	for (GLint i = 0; i < m_textures.length, i++)
+		if (m_textures[i] != NULL)
+			m_textures[i]->activate(1);
 }
 
 void ce::Material::unbind() {
 	m_shader->unbind();
-	if (m_texture != NULL)
-		m_texture->unbind();
+	for (GLint i = 0; i < m_textures.length, i++)
+		if (m_textures[i] != NULL)
+			m_textures[i]->unbind();
 }

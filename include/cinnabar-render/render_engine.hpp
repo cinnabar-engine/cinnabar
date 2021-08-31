@@ -21,7 +21,7 @@ namespace ce {
 
 		void
 		clear(),
-			render(Mesh*mesh, Material*material, Transform*transform, Camera*camera);
+			render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
 
 	 private:
 		double m_aspectRatio; // TODO: aspect ratio shouldn't be stored, the Camera should store a projection matrix and it should be left to the user (programmer) to recalculate the projection matrix (using Camera functions) when the window size changes
