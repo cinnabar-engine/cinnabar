@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['freetexturefile_191',['freeTextureFile',['../d7/da0/namespacece_1_1assetManager.html#ae2baf94562d57a74e316c88488b97ea2',1,'ce::assetManager']]]
+  ['deletecontents_192',['deleteContents',['../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b',1,'ce::Material']]],
+  ['deletetextures_193',['deleteTextures',['../d5/d2e/classce_1_1Material.html#a577cd315b5fb9684b9a84527f77c763a',1,'ce::Material']]]
 ];

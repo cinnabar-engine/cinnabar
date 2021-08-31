@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['vertexattribpointer_253',['vertexAttribPointer',['../d3/d8c/classce_1_1Shader.html#a37a795e8df58aae314a9c1bf9a713754',1,'ce::Shader::vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer)'],['../d3/d8c/classce_1_1Shader.html#ad1eb44f140951bbf800f550d9da78ebf',1,'ce::Shader::vertexAttribPointer(Attribute attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer)']]]
+  ['unbind_255',['unbind',['../d5/d2e/classce_1_1Material.html#a5b972bbbca1cd85d4fee5d05f794f06b',1,'ce::Material::unbind()'],['../d6/d6e/classce_1_1Mesh.html#a2cc5f436b0aa2c6b054d4688c6d6a947',1,'ce::Mesh::unbind()'],['../d3/d8c/classce_1_1Shader.html#a7db05c427b5002384cb57353fb9e76bb',1,'ce::Shader::unbind()'],['../d2/de2/classce_1_1Texture.html#a1cde8c3530abfd32856b4c8cb7177eda',1,'ce::Texture::unbind()']]],
+  ['update_256',['update',['../df/d10/classce_1_1Time.html#a0c8c3fa43b2499238b1c2c6fefc91cf1',1,'ce::Time::update()'],['../d5/d2e/classce_1_1Material.html#a7f7c21ee36356ba9e48b48a68081274b',1,'ce::Material::update()']]]
 ];
