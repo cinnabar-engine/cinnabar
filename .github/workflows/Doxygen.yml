@@ -1,5 +1,5 @@
 name: Documentation Generation
-on: [push, pull_request]
+on: [push]
 jobs:
   Doxygen:
     runs-on: ubuntu-latest
