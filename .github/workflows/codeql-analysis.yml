@@ -55,12 +55,19 @@ jobs:
       #    and modify them (or add more) to build your code if your project
       #    uses a compiled language
 
-      - run: |
+      - name: Install Dependencies
+        run: |
           sudo apt update -y
           sudo apt upgrade -y
           sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
           chmod +x github-scripts/debian.sh
+
+      - name: Configure
+        run: |
           github-scripts/debian.sh configure
+
+      - name: Build
+        run: |
           github-scripts/debian.sh build
 
       - name: Perform CodeQL Analysis
