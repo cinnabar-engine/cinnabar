@@ -56,6 +56,10 @@ jobs:
       #    uses a compiled language
 
       - run: |
+          sudo apt update -y
+          sudo apt upgrade -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+          chmod +x github-scripts/debian.sh
           github-scripts/debian.sh configure
           github-scripts/debian.sh build
 
