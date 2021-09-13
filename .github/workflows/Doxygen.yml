@@ -1,5 +1,5 @@
 name: Documentation Generation
-on: [push, pull_request]
+on: [push]
 jobs:
   Doxygen:
     runs-on: ubuntu-latest
@@ -29,6 +29,7 @@ jobs:
           cp -r doxygen-out/html/* docs
 
       - name: commit
+        continue-on-error: true
         run: |
           git config --global user.email "octokit@github.com"
           git config --global user.name "Github Actions"

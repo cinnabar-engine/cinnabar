@@ -18,9 +18,14 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef NDEBUG
+#define TPNT_LOGGER_FORMAT "[%s]: "
+#define TPNT_LOGGER_CONTEXT __LINE__, __FUNCTION__
+#else
 #define TPNT_LOGGER_FORMAT "[%s][%s:%d|%s]: "
 #define TPNT_LOGGER_FILE strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__
 #define TPNT_LOGGER_CONTEXT TPNT_LOGGER_FILE, __LINE__, __FUNCTION__
+#endif
 #define TPNT_LOG(LOGTYPE, ...) \
 	printf(TPNT_LOGGER_FORMAT, (LOGTYPE), TPNT_LOGGER_CONTEXT); \
 	printf(__VA_ARGS__); \
