@@ -1,8 +1,8 @@
 name: Unit Testing
-on: 
-  push:
+on:
+  - push:
     - develop
-  pull_request:
+  - pull_request:
 jobs:
   Debian:
     runs-on: ubuntu-latest
