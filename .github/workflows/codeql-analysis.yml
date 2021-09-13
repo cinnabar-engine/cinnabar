@@ -11,7 +11,10 @@
 #
 name: "Code Quality"
 
-on: [push]
+on:
+  push:
+    - develop
+  pull_request:
 jobs:
   analyze:
     name: Analyze
