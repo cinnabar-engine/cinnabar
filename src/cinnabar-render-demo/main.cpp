@@ -21,16 +21,15 @@ int main(int argc, char* argv[]) {
 
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
 	ce::Material* blobMaterial = new ce::Material("matcap");
+	blobMaterial->textures[0] = new ce::Texture("matcap.png");
 	ce::Transform* blobPos = new ce::Transform();
 	blobPos->setScale(0.5f, 0.5f, 0.5f);
-	blobMaterial->setTexture("matcap.png");
 
 	ce::Mesh* environmentMesh = new ce::Mesh("environment.obj");
-	ce::Material* environmentGroundMaterial = new ce::Material("basic");
-	ce::Material* environmentBuildingsMaterial = new ce::Material("basic");
+	ce::Material* environmentMaterial = new ce::Material("multitexture example", {}, 2);
+	environmentMaterial->textures[0] = new ce::Texture("color.png");
+	environmentMaterial->textures[1] = new ce::Texture("floor.png");
 	ce::Transform* environmentPos = new ce::Transform();
-	environmentGroundMaterial->setTexture("floor.png");
-	environmentBuildingsMaterial->setTexture("color.png");
 	environmentPos->setPosition(0.0f, -1.0f, 0.0f);
 
 	double mouseSens = 0.05;
@@ -147,7 +146,7 @@ int main(int argc, char* argv[]) {
 		// Render
 		renderEngine->clear();
 		renderEngine->render(blobMesh, blobMaterial, blobPos, camera);
-		renderEngine->render(environmentMesh, environmentGroundMaterial, environmentPos, camera);
+		renderEngine->render(environmentMesh, environmentMaterial, environmentPos, camera);
 
 		window->swapBuffers();
 
@@ -155,12 +154,13 @@ int main(int argc, char* argv[]) {
 		time->waitUntilDelta(deltaTimeMin);
 	}
 	delete blobMesh;
+	blobMaterial->deleteContents();
 	delete blobMaterial;
 	delete blobPos;
 
 	delete environmentMesh;
-	delete environmentGroundMaterial;
-	delete environmentBuildingsMaterial;
+	environmentMaterial->deleteContents();
+	delete environmentMaterial;
 	delete environmentPos;
 
 	delete camera;

@@ -2,6 +2,11 @@
 
 #include <iostream>
 #include <map>
+#include <string>
+
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <cinnabar-core/tpnt_log.h>
 
@@ -201,21 +206,53 @@ GLint ce::Shader::registerUniform(std::string name) {
 }
 */
 template <typename T>
-void ce::Shader::setUniform(const std::string name, T value) {
+void ce::Shader::setUniformArray(const std::string name, GLsizei count, const T* value) {
+	GLint location = getUniformLocation(name);
+	if (location < Shader::MIN_LOC)
+		return;
+	setUniformArray(location, count, value);
+}
+template <typename T>
+void ce::Shader::setUniform(const std::string name, const T& value) {
 	GLint location = getUniformLocation(name);
 	if (location < Shader::MIN_LOC)
 		return;
 	setUniform(location, value);
 }
-template void ce::Shader::setUniform(const std::string, bool);
-template void ce::Shader::setUniform(const std::string, int);
-template void ce::Shader::setUniform(const std::string, float);
-template void ce::Shader::setUniform(const std::string, glm::vec2);
-template void ce::Shader::setUniform(const std::string, glm::vec3);
-template void ce::Shader::setUniform(const std::string, glm::vec4);
-template void ce::Shader::setUniform(const std::string, glm::mat2);
-template void ce::Shader::setUniform(const std::string, glm::mat3);
-template void ce::Shader::setUniform(const std::string, glm::mat4);
+template <typename T>
+void ce::Shader::setUniform(GLint location, const T& value) {
+	setUniformArray(location, 1, &value);
+}
+template void ce::Shader::setUniform(const std::string, const GLboolean&);
+template void ce::Shader::setUniform(const std::string, const glm::bvec2&);
+template void ce::Shader::setUniform(const std::string, const glm::bvec3&);
+template void ce::Shader::setUniform(const std::string, const glm::bvec4&);
+template void ce::Shader::setUniform(const std::string, const GLint&);
+template void ce::Shader::setUniform(const std::string, const glm::ivec2&);
+template void ce::Shader::setUniform(const std::string, const glm::ivec3&);
+template void ce::Shader::setUniform(const std::string, const glm::ivec4&);
+template void ce::Shader::setUniform(const std::string, const GLuint&);
+template void ce::Shader::setUniform(const std::string, const glm::uvec2&);
+template void ce::Shader::setUniform(const std::string, const glm::uvec3&);
+template void ce::Shader::setUniform(const std::string, const glm::uvec4&);
+template void ce::Shader::setUniform(const std::string, const GLfloat&);
+template void ce::Shader::setUniform(const std::string, const glm::vec2&);
+template void ce::Shader::setUniform(const std::string, const glm::vec3&);
+template void ce::Shader::setUniform(const std::string, const glm::vec4&);
+template void ce::Shader::setUniform(const std::string, const GLdouble&);
+template void ce::Shader::setUniform(const std::string, const glm::dvec2&);
+template void ce::Shader::setUniform(const std::string, const glm::dvec3&);
+template void ce::Shader::setUniform(const std::string, const glm::dvec4&);
+
+template void ce::Shader::setUniform(const std::string, const glm::mat2&);
+template void ce::Shader::setUniform(const std::string, const glm::mat3&);
+template void ce::Shader::setUniform(const std::string, const glm::mat4&);
+template void ce::Shader::setUniform(const std::string, const glm::mat2x3&);
+template void ce::Shader::setUniform(const std::string, const glm::mat3x2&);
+template void ce::Shader::setUniform(const std::string, const glm::mat2x4&);
+template void ce::Shader::setUniform(const std::string, const glm::mat4x2&);
+template void ce::Shader::setUniform(const std::string, const glm::mat3x4&);
+template void ce::Shader::setUniform(const std::string, const glm::mat4x3&);
 void ce::Shader::setUniform(const std::string name, float x, float y) {
 	GLint location = getUniformLocation(name);
 	if (location < Shader::MIN_LOC)
@@ -235,60 +272,46 @@ void ce::Shader::setUniform(const std::string name, float x, float y, float z, f
 	setUniform(location, x, y, z, w);
 }
 
-template <>
-void ce::Shader::setUniform<bool>(GLint location, bool value) {
-	bind();
-	glUniform1i(location, (int)value);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<int>(GLint location, int value) {
-	bind();
-	glUniform1i(location, value);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<float>(GLint location, float value) {
-	bind();
-	glUniform1f(location, value);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<glm::vec2>(GLint location, glm::vec2 value) {
-	bind();
-	glUniform2fv(location, 1, &value[0]);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<glm::vec3>(GLint location, glm::vec3 value) {
-	bind();
-	glUniform3fv(location, 1, &value[0]);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<glm::vec4>(GLint location, glm::vec4 value) {
-	bind();
-	glUniform4fv(location, 1, &value[0]);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<glm::mat2>(GLint location, glm::mat2 mat) {
-	bind();
-	glUniformMatrix2fv(location, 1, GL_FALSE, &mat[0][0]);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<glm::mat3>(GLint location, glm::mat3 mat) {
-	bind();
-	glUniformMatrix3fv(location, 1, GL_FALSE, &mat[0][0]);
-	unbind();
-}
-template <>
-void ce::Shader::setUniform<glm::mat4>(GLint location, glm::mat4 mat) {
-	bind();
-	glUniformMatrix4fv(location, 1, GL_FALSE, &mat[0][0]);
-	unbind();
-}
+#define SHADER_GENERATOR(TYPE, SUFFIX, ...) \
+	template <> \
+	void ce::Shader::setUniformArray<TYPE>(GLint location, GLsizei count, const TYPE* value) { \
+		bind(); \
+		glUniform##SUFFIX(location, count, __VA_ARGS__); \
+		unbind(); \
+	}
+
+SHADER_GENERATOR(GLboolean, 1iv, (GLint*)value)
+SHADER_GENERATOR(glm::bvec2, 2iv, (GLint*)value)
+SHADER_GENERATOR(glm::bvec3, 3iv, (GLint*)value)
+SHADER_GENERATOR(glm::bvec4, 4iv, (GLint*)value)
+SHADER_GENERATOR(GLint, 1iv, value)
+SHADER_GENERATOR(glm::ivec2, 2iv, (GLint*)value)
+SHADER_GENERATOR(glm::ivec3, 3iv, (GLint*)value)
+SHADER_GENERATOR(glm::ivec4, 4iv, (GLint*)value)
+SHADER_GENERATOR(GLuint, 1uiv, value)
+SHADER_GENERATOR(glm::uvec2, 2uiv, (GLuint*)value)
+SHADER_GENERATOR(glm::uvec3, 3uiv, (GLuint*)value)
+SHADER_GENERATOR(glm::uvec4, 4uiv, (GLuint*)value)
+SHADER_GENERATOR(GLfloat, 1fv, value)
+SHADER_GENERATOR(glm::vec2, 2fv, (GLfloat*)value)
+SHADER_GENERATOR(glm::vec3, 3fv, (GLfloat*)value)
+SHADER_GENERATOR(glm::vec4, 4fv, (GLfloat*)value)
+SHADER_GENERATOR(GLdouble, 1dv, value)
+SHADER_GENERATOR(glm::dvec2, 2dv, (GLdouble*)value)
+SHADER_GENERATOR(glm::dvec3, 3dv, (GLdouble*)value)
+SHADER_GENERATOR(glm::dvec4, 4dv, (GLdouble*)value)
+
+SHADER_GENERATOR(glm::mat2, Matrix2fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat3, Matrix3fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat4, Matrix4fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat2x3, Matrix2x3fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat3x2, Matrix3x2fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat2x4, Matrix2x4fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat4x2, Matrix4x2fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat3x4, Matrix3x4fv, GL_FALSE, (GLfloat*)value)
+SHADER_GENERATOR(glm::mat4x3, Matrix4x3fv, GL_FALSE, (GLfloat*)value)
+
+#undef SHADER_GENERATOR
 
 void ce::Shader::setUniform(GLint location, float x, float y) {
 	bind();
