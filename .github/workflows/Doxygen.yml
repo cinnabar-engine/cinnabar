@@ -2,7 +2,7 @@ name: Documentation Generation
 on:
   push:
     branches:
-    - develop
+      - develop
 jobs:
   Doxygen:
     runs-on: ubuntu-latest
