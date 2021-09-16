@@ -101,33 +101,47 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
 	customAttrCount = attrCount - m_attributes.size();
 	if (customAttrCount > 0) {
-		union {
-			GLint size;
-			GLenum type;
-		} garbage;
-		m_attributes.resize(attrCount);
+		GLint size;
+		GLenum type;
+		m_attributes.reserve(attrCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &nameMaxLen);
 		std::vector<GLchar> nameData(nameMaxLen);
-		for (GLuint i = attrCount - customAttrCount; i < attrCount; i++) {
+		for (GLuint i = attrCount - customAttrCount; i < attrCount;) {
 			GLsizei nameLen;
-			glGetActiveAttrib(m_program, i, (GLsizei)nameMaxLen, &nameLen, &garbage.size, &garbage.type, nameData.data());
-			m_attributes[i] = std::string((char*)nameData.data(), nameLen);
+			glGetActiveAttrib(m_program, i, (GLsizei)nameMaxLen, &nameLen, &size, &type, nameData.data());
+
+			m_attributes.push_back(std::string((char*)nameData.data(), nameLen)); // push first item
+			i++;
+			if (size > 1) { // push extra items if array
+				std::string nameString = std::string((char*)nameData.data(), nameLen - 2); // stores "varname["
+				for (GLint j = 1; j < size; j++) {
+					m_uniforms.push_back(nameString + std::to_string(j) + std::string("]"));
+					i++;
+				}
+			}
 		}
 	}
 	if (uniformCount > m_uniforms.size()) {
-		union {
-			GLint size;
-			GLenum type;
-		} garbage;
-		m_uniforms.resize(uniformCount);
+		GLint size;
+		GLenum type;
+		m_uniforms.reserve(uniformCount);
 		GLint nameMaxLen;
 		glGetProgramiv(m_program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &nameMaxLen);
 		std::vector<GLchar> nameData(nameMaxLen);
-		for (GLuint i = 0; i < uniformCount; i++) {
+		for (GLuint i = 0; i < uniformCount;) {
 			GLsizei nameLen;
-			glGetActiveUniform(m_program, i, (GLsizei)nameMaxLen, &nameLen, &garbage.size, &garbage.type, &nameData[0]);
-			m_uniforms[i] = std::string((char*)nameData.data(), nameLen);
+			glGetActiveUniform(m_program, i, (GLsizei)nameMaxLen, &nameLen, &size, &type, &nameData[0]);
+
+			m_uniforms.push_back(std::string((char*)nameData.data(), nameLen)); // push first item
+			i++;
+			if (size > 1) { // push extra items if array
+				std::string nameString = std::string((char*)nameData.data(), nameLen - 2); // stores "varname["
+				for (GLint j = 1; j < size; j++) {
+					m_uniforms.push_back(nameString + std::to_string(j) + std::string("]"));
+					i++;
+				}
+			}
 		}
 	}
 }
