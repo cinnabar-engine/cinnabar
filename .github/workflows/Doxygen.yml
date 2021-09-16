@@ -34,7 +34,7 @@ jobs:
       - name: commit
         continue-on-error: true
         run: |
-          git config --global user.email "octokit@github.com"
+          git config --global user.email "tumblegmaer@gmail.com"
           git config --global user.name "Github Actions"
           git add .
           git commit -m "docs update"
