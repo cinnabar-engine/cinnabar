@@ -35,5 +35,6 @@ namespace ce {
 	struct MeshFile {
 		std::vector<Vertex> verts = {};
 		std::vector<GLuint> indices = {};
+		GLenum format;
 	};
 }

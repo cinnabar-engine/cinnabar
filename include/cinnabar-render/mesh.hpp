@@ -24,6 +24,8 @@ namespace ce {
 		size_t GetIndexCount() { return m_indexArraySize / sizeof(GLuint); };
 		void bind(bool VBO = true, bool EBO = true), unbind(bool VBO = true, bool EBO = true);
 
+		GLenum format;
+
 	 private:
 		GLsizeiptr m_vertArraySize, m_indexArraySize;
 		GLuint m_VAO, m_VBO, m_EBO;

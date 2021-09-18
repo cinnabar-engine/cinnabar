@@ -104,6 +104,7 @@ ce::MeshFile ce::assetManager::getMeshFile(std::string path) {
 	}
 
 	MeshFile mesh;
+	mesh.format = GL_TRIANGLES;
 	std::string line;
 
 	std::vector<glm::vec3> positions;

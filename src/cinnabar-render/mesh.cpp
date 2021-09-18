@@ -15,6 +15,7 @@ ce::Mesh::~Mesh() {
 void ce::Mesh::setMesh(ce::MeshFile meshfile) {
 	m_vertArraySize = meshfile.verts.size() * sizeof(Vertex);
 	m_indexArraySize = meshfile.indices.size() * sizeof(GLuint);
+	format = meshfile.format;
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
