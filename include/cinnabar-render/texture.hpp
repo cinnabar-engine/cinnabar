@@ -18,7 +18,6 @@ namespace ce {
 	 private:
 		GLuint m_texture;
 		int m_width, m_height, m_channelCount;
-		GLenum m_color_space;
 		GLenum m_type;
 		bool loadData(const void* data, GLsizei width, GLsizei height, GLenum color_space = GL_RGBA, GLenum type = GL_TEXTURE_2D);
 	};
