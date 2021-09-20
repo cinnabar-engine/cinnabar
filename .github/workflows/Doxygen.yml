@@ -10,11 +10,6 @@ jobs:
   Doxygen:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure GPG Key
-        run: |
-          echo -n "$PPA_KEY" | base64 --decode | gpg --import
-        env:
-          PPA_KEY: ${{ secrets.PPA_KEY }}
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
       - name: Prepare docs
@@ -25,21 +20,21 @@ jobs:
         with:
           doxyfile-path: "doxygen/doxyfile"
       - name: Deploy
-        run: |
-          cp -r doxygen-out/html/* docs
+        #run: |0
 
-      - name: commit
-        continue-on-error: true
-        run: |
-          git config --global user.email "tumblegmaer@gmail.com"
-          git config --global user.name "Github Actions"
-          git add .
-          git commit -m "docs update"
-          git push
-          exit 0
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_KEY }}
+          publish_dir: ./build/docs/html
+          enable_jekyll: true
+            #cp -r doxygen-out/html/* docs
 
-      # uses: peaceiris/actions-gh-pages@v3
-      # with:
-      #   github_token: ${{ secrets.GITHUB_TOKEN }}
-      #   publish_dir: ./build/docs/html
-      #   enable_jekyll: true
+#       - name: commit
+#         continue-on-error: true
+#         run: |
+#           git config --global user.email "tumblegmaer@gmail.com"
+#           git config --global user.name "Github Actions"
+#           git add .
+#           git commit -m "docs update"
+#           git push
+#           exit 
