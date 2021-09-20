@@ -150,6 +150,16 @@ int main(int argc, char* argv[]) {
 
 		window->swapBuffers();
 
+		// error check
+		// TODO: make this into some function
+		while (true) {
+			GLenum tmp = glGetError();
+			if (tmp == GL_NO_ERROR)
+				break;
+			else
+				LOG_ERROR("Uncaught GL error: 0x%04x", tmp);
+		}
+
 		// framerate cap
 		time->waitUntilDelta(deltaTimeMin);
 	}
