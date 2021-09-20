@@ -12,14 +12,13 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
-      - name: Prepare docs
-        run: |
-          mkdir -p build/docs
-          cp -r doxygen-out/html/* docs
       - name: "Generate Documentation"
         uses: mattnotmitt/doxygen-action@v1
         with:
           doxyfile-path: "doxygen/doxyfile"
+      - name: Prepare docs
+        run: |
+          cp -r doxygen-out/html/* docs
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
