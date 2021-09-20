@@ -15,15 +15,12 @@ namespace ce {
 			geom = "",
 			frag = "";
 	};
-	struct TextureFormat {
+	struct TextureFile {
+		unsigned char* data = NULL; // TODO: what type should this actually be? this has been a void* in some areas
 		GLsizei
 			width = 0,
 			height = 0;
-		GLint internalColorSpace = 0; // TODO: is there a better value for this? GL_NONE exists but doesn't seem correct
-	};
-	struct TextureFile {
-		unsigned char* data = NULL; // TODO: what type should this actually be? this has been a void* in some areas
-		TextureFormat format;
+		GLint internalColorSpace = 0; // TODO: is there a better value for this? GL_NONE exists but doesn't seem correct (also make changes in Texture)
 	};
 	struct MaterialFile {
 		glm::vec4

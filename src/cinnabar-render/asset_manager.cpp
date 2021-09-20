@@ -46,23 +46,23 @@ ce::TextureFile ce::assetManager::getTextureFile(std::string path) {
 	int channelCount;
 	textureFile.data = stbi_load(
 		(defaults::RESOURCE_FOLDER + "/" + defaults::TEXTURE_FOLDER + "/" + path).c_str(),
-		&textureFile.format.width,
-		&textureFile.format.height,
+		&textureFile.width,
+		&textureFile.height,
 		&channelCount,
 		0);
 
 	switch (channelCount) {
 		case 1:
-			textureFile.format.internalColorSpace = GL_RED;
+			textureFile.internalColorSpace = GL_RED;
 			break;
 		case 2:
-			textureFile.format.internalColorSpace = GL_RG;
+			textureFile.internalColorSpace = GL_RG;
 			break;
 		case 3:
-			textureFile.format.internalColorSpace = GL_RGB;
+			textureFile.internalColorSpace = GL_RGB;
 			break;
 		case 4:
-			textureFile.format.internalColorSpace = GL_RGBA;
+			textureFile.internalColorSpace = GL_RGBA;
 			break;
 		default:
 			LOG_WARN("Unsupported texture channel count: %i", channelCount);
