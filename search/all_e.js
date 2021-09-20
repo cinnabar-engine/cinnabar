@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['texture_112',['Texture',['../d2/de2/classce_1_1Texture.html',1,'ce::Texture'],['../d2/de2/classce_1_1Texture.html#a6968e11da5ebf907de1455cbcf500515',1,'ce::Texture::Texture(const void *data, GLsizei width, GLsizei height, GLenum color_space=GL_RGBA, GLenum type=GL_TEXTURE_2D)'],['../d2/de2/classce_1_1Texture.html#a132b6fcda46aa16e328929f32d90613c',1,'ce::Texture::Texture(TextureFile textureFile, GLenum type=GL_TEXTURE_2D)'],['../d2/de2/classce_1_1Texture.html#ac90ad67f22b5a97225493d0d8b1de5da',1,'ce::Texture::Texture(std::string filename, GLenum type=GL_TEXTURE_2D)']]],
+  ['texture_112',['Texture',['../d2/de2/classce_1_1Texture.html',1,'ce::Texture'],['../d2/de2/classce_1_1Texture.html#a49214de563b60318f2b2ba2f660cdd00',1,'ce::Texture::Texture(TextureFile textureFile, GLenum colorSpace=0, GLenum target=GL_TEXTURE_2D)'],['../d2/de2/classce_1_1Texture.html#a780802aa0b076026dec47088c61cbb55',1,'ce::Texture::Texture(std::string filename, GLenum colorSpace=0, GLenum target=GL_TEXTURE_2D)']]],
   ['texture_2ehpp_113',['texture.hpp',['../d1/de0/texture_8hpp.html',1,'']]],
   ['texture_5ffolder_114',['TEXTURE_FOLDER',['../d5/d4b/namespacece_1_1assetManager_1_1defaults.html#a0fb6235321f4c73bd8d2d1645e98bb8f',1,'ce::assetManager::defaults']]],
   ['texture_5fmissing_115',['TEXTURE_MISSING',['../d5/d4b/namespacece_1_1assetManager_1_1defaults.html#a062204f817fbd01e122b53ebc4a13b66',1,'ce::assetManager::defaults']]],

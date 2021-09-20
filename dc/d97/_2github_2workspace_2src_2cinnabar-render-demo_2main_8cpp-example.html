@@ -238,11 +238,21 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line"> </div>
 <div class="line">        window-&gt;<a name="a29"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">swapBuffers</a>();</div>
 <div class="line"> </div>
+<div class="line">        <span class="comment">// error check</span></div>
+<div class="line">        <span class="comment">// TODO: make this into some function</span></div>
+<div class="line">        <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line">            GLenum tmp = glGetError();</div>
+<div class="line">            <span class="keywordflow">if</span> (tmp == GL_NO_ERROR)</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">            <span class="keywordflow">else</span></div>
+<div class="line">                <a name="a30"></a><a class="code" href="../../d4/dd5/tpnt__log_8h.html#ad4a9117ce894e3319e903142347a0f63">LOG_ERROR</a>(<span class="stringliteral">&quot;Uncaught GL error: 0x%04x&quot;</span>, tmp);</div>
+<div class="line">        }</div>
+<div class="line"> </div>
 <div class="line">        <span class="comment">// framerate cap</span></div>
-<div class="line">        time-&gt;<a name="a30"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a68a6066144c2f37751cff9fcfaa25b4c">waitUntilDelta</a>(deltaTimeMin);</div>
+<div class="line">        time-&gt;<a name="a31"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a68a6066144c2f37751cff9fcfaa25b4c">waitUntilDelta</a>(deltaTimeMin);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keyword">delete</span> blobMesh;</div>
-<div class="line">    blobMaterial-&gt;<a name="a31"></a><a class="code" href="../../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b">deleteContents</a>();</div>
+<div class="line">    blobMaterial-&gt;<a name="a32"></a><a class="code" href="../../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b">deleteContents</a>();</div>
 <div class="line">    <span class="keyword">delete</span> blobMaterial;</div>
 <div class="line">    <span class="keyword">delete</span> blobPos;</div>
 <div class="line"> </div>
@@ -293,6 +303,7 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="ttc" id="amain_8cpp_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="../../df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdef"><b>Definition:</b> main.cpp:11</div></div>
 <div class="ttc" id="atime_8hpp_html"><div class="ttname"><a href="../../de/d99/time_8hpp.html">time.hpp</a></div></div>
 <div class="ttc" id="atpnt__log_8h_html"><div class="ttname"><a href="../../d4/dd5/tpnt__log_8h.html">tpnt_log.h</a></div></div>
+<div class="ttc" id="atpnt__log_8h_html_ad4a9117ce894e3319e903142347a0f63"><div class="ttname"><a href="../../d4/dd5/tpnt__log_8h.html#ad4a9117ce894e3319e903142347a0f63">LOG_ERROR</a></div><div class="ttdeci">#define LOG_ERROR(...)</div><div class="ttdef"><b>Definition:</b> tpnt_log.h:40</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
