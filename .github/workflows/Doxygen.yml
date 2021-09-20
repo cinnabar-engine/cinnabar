@@ -2,7 +2,10 @@ name: Documentation Generation
 on:
   push:
     branches:
-      - develop
+      - 'develop'
+  pull_request:
+    branches:
+      - 'develop'
 jobs:
   Doxygen:
     runs-on: ubuntu-latest
@@ -12,17 +15,6 @@ jobs:
       - name: Prepare docs
         run: |
           mkdir -p build/docs
-      # - name: Install Doxygen
-      #   run: |
-      #     cd /tmp
-      #     git clone https://github.com/doxygen/doxygen.git
-      #     cd doxygen
-      #     mkdir build
-      #     cd build
-      #     cmake ..
-      #     make
-      #     sudo make install
-      #     doxygen --version
       - name: "Generate Documentation"
         uses: mattnotmitt/doxygen-action@v1
         with:
