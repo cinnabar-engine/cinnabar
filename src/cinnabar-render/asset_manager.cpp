@@ -43,12 +43,32 @@ ce::ShaderFile ce::assetManager::getShaderFile(std::string vert, std::string geo
 ce::TextureFile ce::assetManager::getTextureFile(std::string path) {
 	// stbi_set_flip_vertically_on_load(1);
 	TextureFile textureFile;
+	int channelCount;
 	textureFile.data = stbi_load(
 		(defaults::RESOURCE_FOLDER + "/" + defaults::TEXTURE_FOLDER + "/" + path).c_str(),
-		&textureFile.width,
-		&textureFile.height,
-		&textureFile.channelCount,
+		&textureFile.format.width,
+		&textureFile.format.height,
+		&channelCount,
 		0);
+
+	switch (channelCount) {
+		case 1:
+			textureFile.format.internalColorSpace = GL_RED;
+			break;
+		case 2:
+			textureFile.format.internalColorSpace = GL_RG;
+			break;
+		case 3:
+			textureFile.format.internalColorSpace = GL_RGB;
+			break;
+		case 4:
+			textureFile.format.internalColorSpace = GL_RGBA;
+			break;
+		default:
+			LOG_WARN("Unsupported texture channel count: %i", channelCount);
+			textureFile.data == NULL;
+	}
+
 	if (textureFile.data == NULL) {
 		LOG_WARN("Failed to load texture: %s", path.c_str());
 		if (path == defaults::TEXTURE_MISSING)
@@ -57,6 +77,7 @@ ce::TextureFile ce::assetManager::getTextureFile(std::string path) {
 			return getTextureFile(defaults::TEXTURE_MISSING);
 	} else
 		LOG_SUCCESS("Loaded texture: %s", path.c_str());
+
 	return textureFile;
 }
 

@@ -7,18 +7,19 @@
 namespace ce {
 	class Texture {
 	 public:
-		Texture(std::string filename, GLenum type = GL_TEXTURE_2D)
-			: Texture(ce::assetManager::getTextureFile(filename), type){};
-		Texture(TextureFile textureFile, GLenum type = GL_TEXTURE_2D);
-		Texture(const void* data, GLsizei width, GLsizei height, GLenum color_space = GL_RGBA, GLenum type = GL_TEXTURE_2D);
+		Texture(std::string filename, GLenum colorSpace = 0, GLenum target = GL_TEXTURE_2D) // TODO: default colorSpace should change based on TextureFile.channelCount (GL_RED, GL_RG, GL_RGB, GL_RGBA)
+			: Texture(ce::assetManager::getTextureFile(filename), colorSpace, target){};
+		Texture(TextureFile textureFile, GLenum colorSpace = 0, GLenum target = GL_TEXTURE_2D);
 		~Texture();
 
 		void bind(), unbind(), activate(int slot);
 
 	 private:
 		GLuint m_texture;
-		int m_width, m_height, m_channelCount;
-		GLenum m_type;
-		bool loadData(const void* data, GLsizei width, GLsizei height, GLenum color_space = GL_RGBA, GLenum type = GL_TEXTURE_2D);
+		TextureFormat m_format;
+		GLenum m_colorSpace;
+		GLenum m_target;
+
+		bool loadData(TextureFile textureFile, GLenum colorSpace = 0, GLenum target = GL_TEXTURE_2D);
 	};
 }
