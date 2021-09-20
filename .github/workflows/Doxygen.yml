@@ -20,21 +20,9 @@ jobs:
         with:
           doxyfile-path: "doxygen/doxyfile"
       - name: Deploy
-        #run: |0
-
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GH_KEY }}
           publish_dir: ./build/docs/html
+          publish_branch: docs
           enable_jekyll: true
-            #cp -r doxygen-out/html/* docs
-
-#       - name: commit
-#         continue-on-error: true
-#         run: |
-#           git config --global user.email "tumblegmaer@gmail.com"
-#           git config --global user.name "Github Actions"
-#           git add .
-#           git commit -m "docs update"
-#           git push
-#           exit 
