@@ -10,6 +10,11 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
+      - name: Initialize Code Quality Analysis
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
+
       - name: Install Dependencies
         run: |
           sudo apt update -y
@@ -24,6 +29,8 @@ jobs:
       - name: Build
         run: |
           github-scripts/debian.sh build
+      - name: Perform Code Quality Analysis
+        uses: github/codeql-action/analyze@v1
 
       - name: Package
         run: |
