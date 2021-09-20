@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         run: |
-          github-scripts/debian.sh build
+          github-scripts/debian.sh builds
 
       - name: Package
         run: |
