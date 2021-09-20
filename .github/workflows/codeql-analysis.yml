@@ -10,7 +10,7 @@
 # supported CodeQL languages.
 #
 name: "Code Quality"
-on: [push, pull_request]
+on: [push]
 jobs:
   analyze:
     name: Analyze
