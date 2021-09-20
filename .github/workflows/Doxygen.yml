@@ -15,6 +15,7 @@ jobs:
       - name: Prepare docs
         run: |
           mkdir -p build/docs
+          cp -r doxygen-out/html/* docs
       - name: "Generate Documentation"
         uses: mattnotmitt/doxygen-action@v1
         with:
@@ -23,6 +24,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GH_KEY }}
-          publish_dir: ./build/docs/html
+          publish_dir: ./docs
           publish_branch: docs
           enable_jekyll: true
