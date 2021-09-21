@@ -167,8 +167,17 @@ jobs:
         with:
           name: windows-artifact
 
+    # ----------------
+    # Get Verision
+    # ----------------
+
       - id: get_version
         uses: battila7/get-version-action@v2
+
+
+    # ----------------
+    # Create Release
+    # ----------------
 
       - name: release
         uses: actions/create-release@v1
@@ -181,6 +190,12 @@ jobs:
           body: hello world
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+    # ----------------
+    # Add Artifacts
+    # ----------------
+
+      # Debain
 
       - name: libcinnabar-core.deb
         uses: actions/upload-release-asset@v1
@@ -242,6 +257,9 @@ jobs:
           asset_name: libcinnabar-render-doc.deb
           asset_content_type: application/vnd.debian.binary-package
 
+
+      # Arch LInux
+
       - name: cinnabar-core.pkg.tar.zst
         uses: actions/upload-release-asset@v1
         env:
@@ -261,6 +279,9 @@ jobs:
           asset_path: ./cinnabar-render.pkg.tar.zst
           asset_name: cinnabar-render.pkg.tar.zst
           asset_content_type: application/vnd.debian.binary-package
+
+
+      # Windows
 
       - name: cinnabar-core.dll
         uses: actions/upload-release-asset@v1
