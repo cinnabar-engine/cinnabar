@@ -107,18 +107,18 @@ jobs:
       - run: choco install wget unzip 7zip -y
       - name: Install Dependencies
         env:
-          GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
-          GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
-          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip
+          GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32-dev-win.zip
+          GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8-dev-win.zip
+          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC-dev-win.zip
         run: |
           mkdir c:/lib
-          wget -O glew.zip $env:GLEW_DOWNLOAD
-          wget -O sdl2.zip $env:SDL2_DOWNLOAD
-          wget -O glm.zip $env:GLM_DOWNLOAD
+          wget -O glew-dev-win.zip $env:GLEW_DOWNLOAD
+          wget -O sdl2-dev-win.zip $env:SDL2_DOWNLOAD
+          wget -O glm-dev-win.zip $env:GLM_DOWNLOAD
 
-          unzip glew.zip -d c:\lib
-          unzip sdl2.zip -d c:\lib
-          unzip glm.zip -d c:\lib
+          unzip glew-dev-win.zip -d c:\lib
+          unzip sdl2-dev-win.zip -d c:\lib
+          unzip glm-dev-win.zip -d c:\lib
 
           # vcpkg integrate install
           # vcpkg install sdl2 glew glm
@@ -293,14 +293,14 @@ jobs:
           asset_name: cinnabar-core.dll
           asset_content_type: application/x-msdownload
 
-      - name: cinnabar-core.zip
+      - name: cinnabar-core-dev-win.zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cinnabar-core.zip
-          asset_name: cinnabar-core.zip
+          asset_path: ./cinnabar-core-dev-win.zip
+          asset_name: cinnabar-core-dev-win.zip
           asset_content_type: application/zip
 
       - name: cinnabar-render.dll
@@ -313,12 +313,12 @@ jobs:
           asset_name: cinnabar-render.dll
           asset_content_type: application/x-msdownload
 
-      - name: cinnabar-render.zip
+      - name: cinnabar-render-dev-win.zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cinnabar-render.zip
-          asset_name: cinnabar-render.zip
+          asset_path: ./cinnabar-render-dev-win.zip
+          asset_name: cinnabar-render-dev-win.zip
           asset_content_type: application/zip
