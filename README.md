@@ -1,6 +1,7 @@
 # Cinnabar Engine
 
 [![Unit Testing](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml)
+[![Code Quality](https://github.com/cinnabar-engine/cinnabar/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/codeql-analysis.yml)
 
 ## Prerequisites
 
