@@ -39,7 +39,7 @@ message(NOTICE "GLM_INCLUDE_DIRS " ${GLM_INCLUDE_DIRS})
 #message(NOTICE "ASSIMP_INCLUDE_DIR " ${ASSIMP_INCLUDE_DIR})
 
 
-set(CE_LIBS
+set(CE_LIBS # TODO: get rid of this prefix and prevent linking to things that don't need it
 	${OPENGL_LIBRARY}
 	${GLEW_LIBRARIES}
 	${SDL2_LIBRARIES}
