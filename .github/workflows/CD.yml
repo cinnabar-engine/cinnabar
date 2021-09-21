@@ -187,7 +187,7 @@ jobs:
           prerelease: false
           release_name: Cinnabar ${{ steps.get_version.outputs.version }}
           tag_name: ${{ steps.get_version.outputs.version }}
-          body: hello world
+          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
