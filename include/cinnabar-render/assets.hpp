@@ -16,7 +16,7 @@ namespace ce {
 			frag = "";
 	};
 	struct TextureFile {
-		unsigned char* data = NULL; // TODO: what type should this actually be? this has been a void* in some areas
+		void* data = NULL;
 		GLsizei
 			width = 0,
 			height = 0;
