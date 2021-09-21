@@ -47,12 +47,12 @@ goto :eof
 	goto :eof
 
 :wpkg-win
-	7z a %1.zip %1
+	7z a %1-dev-win.zip %1
 goto :eof
 
 :package
 	mkdir pkg
-	
+
 	for /f "usebackq tokens=*" %%P in ("%PROJECTS%") do (
 		call :prep-win %%P
 	)
@@ -64,4 +64,3 @@ goto :eof
 		rd /s /q %%F
 	)
 goto :eof
-
