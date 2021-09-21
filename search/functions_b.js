@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['texture_252',['Texture',['../d2/de2/classce_1_1Texture.html#a780802aa0b076026dec47088c61cbb55',1,'ce::Texture::Texture(std::string filename, GLenum colorSpace=0, GLenum target=GL_TEXTURE_2D)'],['../d2/de2/classce_1_1Texture.html#a49214de563b60318f2b2ba2f660cdd00',1,'ce::Texture::Texture(TextureFile textureFile, GLenum colorSpace=0, GLenum target=GL_TEXTURE_2D)']]],
-  ['time_253',['Time',['../df/d10/classce_1_1Time.html#ad3988f964989a95b6be4de7438eb0d24',1,'ce::Time']]],
-  ['transform_254',['Transform',['../d3/dfa/classce_1_1Transform.html#a7e59d5fd97674166d753f68b41e5c7e2',1,'ce::Transform']]],
-  ['translate_255',['translate',['../d3/dfa/classce_1_1Transform.html#a8ff17e7b51999ad9d31f76f9110d2c5f',1,'ce::Transform::translate(glm::vec3 delta)'],['../d3/dfa/classce_1_1Transform.html#aa876674cec53e5b9b5e768013b3433ca',1,'ce::Transform::translate(float x, float y, float z)']]]
+  ['unbind_250',['unbind',['../d5/d2e/classce_1_1Material.html#a5b972bbbca1cd85d4fee5d05f794f06b',1,'ce::Material::unbind()'],['../d6/d6e/classce_1_1Mesh.html#a2cc5f436b0aa2c6b054d4688c6d6a947',1,'ce::Mesh::unbind()'],['../d3/d8c/classce_1_1Shader.html#a7db05c427b5002384cb57353fb9e76bb',1,'ce::Shader::unbind()'],['../d2/de2/classce_1_1Texture.html#a1cde8c3530abfd32856b4c8cb7177eda',1,'ce::Texture::unbind()']]],
+  ['update_251',['update',['../df/d10/classce_1_1Time.html#a0c8c3fa43b2499238b1c2c6fefc91cf1',1,'ce::Time::update()'],['../d5/d2e/classce_1_1Material.html#a7f7c21ee36356ba9e48b48a68081274b',1,'ce::Material::update()']]]
 ];

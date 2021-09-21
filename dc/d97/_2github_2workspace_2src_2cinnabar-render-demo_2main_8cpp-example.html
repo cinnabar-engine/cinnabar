@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../de/d99/time_8hpp.html">cinnabar-core/time.hpp</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../d4/dd5/tpnt__log_8h.html">cinnabar-core/tpnt_log.h</a>&gt;</span></div>
@@ -122,38 +123,38 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line"> </div>
 <div class="line">    <span class="keywordtype">double</span> mouseSens = 0.05;</div>
 <div class="line">    <a name="_a13"></a><a class="code" href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a>* camera = <span class="keyword">new</span> <a class="code" href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a>();</div>
-<div class="line">    <span class="comment">// TODO: Seperate so i can put in a player class later</span></div>
+<div class="line">    camera-&gt;<a name="a14"></a><a class="code" href="../../dd/d8a/classce_1_1Camera.html#a7277e0bb44600c3f2e5303d11c01ce71">projection</a> = glm::perspective(glm::radians(75.0), (<span class="keywordtype">double</span>)window-&gt;<a name="a15"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#a1017234b851143b2ea86a3212bb72602">getAspectRatio</a>(), 0.1, 100.0);</div>
 <div class="line">    glm::vec3 cameraVelocity(0.0f);</div>
-<div class="line">    camera-&gt;<a name="a14"></a><a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a class="code" href="../../d3/dfa/classce_1_1Transform.html#a14a831dbe5adac246eb3d45f8617c1cc">setPosition</a>(0.0f, 0.0f, 1.5f);</div>
+<div class="line">    camera-&gt;<a name="a16"></a><a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a class="code" href="../../d3/dfa/classce_1_1Transform.html#a14a831dbe5adac246eb3d45f8617c1cc">setPosition</a>(0.0f, 0.0f, 1.5f);</div>
 <div class="line">    <span class="comment">/*</span></div>
 <div class="line"><span class="comment">     * Game Loop</span></div>
 <div class="line"><span class="comment">     */</span></div>
 <div class="line">    SDL_Event event;</div>
 <div class="line">    <span class="keywordtype">bool</span> running = <span class="keyword">true</span>;</div>
 <div class="line">    <span class="keywordflow">while</span> (running) {</div>
-<div class="line">        time-&gt;<a name="a15"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a0c8c3fa43b2499238b1c2c6fefc91cf1">update</a>();</div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;fps: &quot;</span> &lt;&lt; time-&gt;<a name="a16"></a><a class="code" href="../../df/d10/classce_1_1Time.html#ae35c4009d9e9ce7c3662d193406353e4">getFPS</a>() &lt;&lt; std::endl;</div>
+<div class="line">        time-&gt;<a name="a17"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a0c8c3fa43b2499238b1c2c6fefc91cf1">update</a>();</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;fps: &quot;</span> &lt;&lt; time-&gt;<a name="a18"></a><a class="code" href="../../df/d10/classce_1_1Time.html#ae35c4009d9e9ce7c3662d193406353e4">getFPS</a>() &lt;&lt; std::endl;</div>
 <div class="line"> </div>
 <div class="line">        <span class="keywordflow">while</span> (SDL_PollEvent(&amp;event)) {</div>
 <div class="line">            <span class="keywordflow">switch</span> (event.type) {</div>
 <div class="line">                <span class="keywordflow">case</span> SDL_MOUSEMOTION: {</div>
-<div class="line">                    <span class="keywordflow">if</span> (<a name="a17"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44">ce::Window::mouseVisible</a>())</div>
+<div class="line">                    <span class="keywordflow">if</span> (<a name="a19"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44">ce::Window::mouseVisible</a>())</div>
 <div class="line">                        <span class="keywordflow">break</span>;</div>
 <div class="line">                    glm::vec2 mouseDelta(event.motion.xrel, event.motion.yrel);</div>
 <div class="line">                    mouseDelta *= -mouseSens;</div>
-<div class="line">                    camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a18"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a3c95052e0a012fc4193f4b8b7d1892bd">yaw</a>(mouseDelta.x);</div>
-<div class="line">                    camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a19"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#aa286ed240bf3d27814a96486d4af6537">pitch</a>(mouseDelta.y);</div>
-<div class="line">                    camera-&gt;<a name="a20"></a><a class="code" href="../../dd/d8a/classce_1_1Camera.html#ae0a5803c3cbbf867f8bfba6a1fa876ff">limitPitch</a>();</div>
+<div class="line">                    camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a20"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a3c95052e0a012fc4193f4b8b7d1892bd">yaw</a>(mouseDelta.x);</div>
+<div class="line">                    camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a21"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#aa286ed240bf3d27814a96486d4af6537">pitch</a>(mouseDelta.y);</div>
+<div class="line">                    camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a22"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#aca2b4ae45aab2a2dfe5c332109445082">setPitch</a>(std::clamp(camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a23"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#adf027458a8f443091a897320c4525c06">getPitch</a>(), -90.0f, 90.0f));</div>
 <div class="line">                    <span class="keywordflow">break</span>;</div>
 <div class="line">                }</div>
 <div class="line">                <span class="keywordflow">case</span> SDL_MOUSEBUTTONDOWN: {</div>
 <div class="line">                    <span class="keywordflow">if</span> (<a class="code" href="../../dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44">ce::Window::mouseVisible</a>())</div>
-<div class="line">                        <a name="a21"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#a0ee8fb8c95e6341f03af2c17bcb4338c">ce::Window::setMouseVisibility</a>(<span class="keyword">false</span>);</div>
+<div class="line">                        <a name="a24"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#a0ee8fb8c95e6341f03af2c17bcb4338c">ce::Window::setMouseVisibility</a>(<span class="keyword">false</span>);</div>
 <div class="line">                    <span class="keywordflow">break</span>;</div>
 <div class="line">                }</div>
 <div class="line">                <span class="keywordflow">case</span> SDL_KEYDOWN: {</div>
 <div class="line">                    <span class="keywordtype">double</span></div>
-<div class="line">                        cameraSpeed = 2.5 * time-&gt;<a name="a22"></a><a class="code" href="../../df/d10/classce_1_1Time.html#aafa2262f28683c4c7dc9abe547862379">getDeltaTime</a>(),</div>
+<div class="line">                        cameraSpeed = 2.5 * time-&gt;<a name="a25"></a><a class="code" href="../../df/d10/classce_1_1Time.html#aafa2262f28683c4c7dc9abe547862379">getDeltaTime</a>(),</div>
 <div class="line">                        cameraRollSpeed = 3600.0 * time-&gt;<a class="code" href="../../df/d10/classce_1_1Time.html#aafa2262f28683c4c7dc9abe547862379">getDeltaTime</a>();</div>
 <div class="line">                    <span class="keywordflow">switch</span> (event.key.keysym.sym) {</div>
 <div class="line">                        <span class="keywordflow">case</span> SDLK_w:</div>
@@ -176,7 +177,7 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line">                            <span class="keywordflow">break</span>;</div>
 <div class="line"> </div>
 <div class="line">                        <span class="keywordflow">case</span> SDLK_q:</div>
-<div class="line">                            camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a23"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a1609c10bce7200c361aad9180c38c054">roll</a>(cameraRollSpeed);</div>
+<div class="line">                            camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a26"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a1609c10bce7200c361aad9180c38c054">roll</a>(cameraRollSpeed);</div>
 <div class="line">                            <span class="keywordflow">break</span>;</div>
 <div class="line">                        <span class="keywordflow">case</span> SDLK_e:</div>
 <div class="line">                            camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a class="code" href="../../d3/dfa/classce_1_1Transform.html#a1609c10bce7200c361aad9180c38c054">roll</a>(-cameraRollSpeed);</div>
@@ -211,6 +212,7 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line">                }</div>
 <div class="line">                <span class="keywordflow">case</span> SDL_WINDOWEVENT: {</div>
 <div class="line">                    renderEngine-&gt;<a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#abc70d7825b513f8c804a90bdf0ec150e">setSize</a>(window-&gt;<a class="code" href="../../dc/dee/classce_1_1Window.html#a4c227112a311b7f1419ca3fe916aa841">getWindowSize</a>());</div>
+<div class="line">                    camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#a7277e0bb44600c3f2e5303d11c01ce71">projection</a> = glm::perspective(glm::radians(75.0), (<span class="keywordtype">double</span>)window-&gt;<a class="code" href="../../dc/dee/classce_1_1Window.html#a1017234b851143b2ea86a3212bb72602">getAspectRatio</a>(), 0.1, 100.0);</div>
 <div class="line">                    <span class="keywordflow">break</span>;</div>
 <div class="line">                }</div>
 <div class="line">            }</div>
@@ -223,20 +225,20 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line"> </div>
 <div class="line">        <span class="comment">// Move camera</span></div>
 <div class="line">        glm::vec3</div>
-<div class="line">            cameraRight = camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a24"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#ad0afd1a8035650c74053bb9665983160">getRight</a>(<span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>),</div>
+<div class="line">            cameraRight = camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a27"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#ad0afd1a8035650c74053bb9665983160">getRight</a>(<span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>),</div>
 <div class="line">            cameraUp = glm::vec3(0.0f, 1.0f, 0.0f),</div>
-<div class="line">            cameraFront = camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a25"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a238b8f76a7890852e0dd97b05cda87b6">getForward</a>(<span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>);</div>
-<div class="line">        camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a26"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a8ff17e7b51999ad9d31f76f9110d2c5f">translate</a>(</div>
+<div class="line">            cameraFront = camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a28"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a238b8f76a7890852e0dd97b05cda87b6">getForward</a>(<span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>);</div>
+<div class="line">        camera-&gt;<a class="code" href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">transform</a>-&gt;<a name="a29"></a><a class="code" href="../../d3/dfa/classce_1_1Transform.html#a8ff17e7b51999ad9d31f76f9110d2c5f">translate</a>(</div>
 <div class="line">            (cameraRight * cameraVelocity.x) +</div>
 <div class="line">            (cameraUp * cameraVelocity.y) +</div>
 <div class="line">            (cameraFront * cameraVelocity.z));</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// Render</span></div>
-<div class="line">        renderEngine-&gt;<a name="a27"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#ada1c5a74d8a302ddbe27b818efb29de3">clear</a>();</div>
-<div class="line">        renderEngine-&gt;<a name="a28"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758">render</a>(blobMesh, blobMaterial, blobPos, camera);</div>
+<div class="line">        renderEngine-&gt;<a name="a30"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#ada1c5a74d8a302ddbe27b818efb29de3">clear</a>();</div>
+<div class="line">        renderEngine-&gt;<a name="a31"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758">render</a>(blobMesh, blobMaterial, blobPos, camera);</div>
 <div class="line">        renderEngine-&gt;<a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758">render</a>(environmentMesh, environmentMaterial, environmentPos, camera);</div>
 <div class="line"> </div>
-<div class="line">        window-&gt;<a name="a29"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">swapBuffers</a>();</div>
+<div class="line">        window-&gt;<a name="a32"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">swapBuffers</a>();</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// error check</span></div>
 <div class="line">        <span class="comment">// TODO: make this into some function</span></div>
@@ -245,14 +247,14 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line">            <span class="keywordflow">if</span> (tmp == GL_NO_ERROR)</div>
 <div class="line">                <span class="keywordflow">break</span>;</div>
 <div class="line">            <span class="keywordflow">else</span></div>
-<div class="line">                <a name="a30"></a><a class="code" href="../../d4/dd5/tpnt__log_8h.html#ad4a9117ce894e3319e903142347a0f63">LOG_ERROR</a>(<span class="stringliteral">&quot;Uncaught GL error: 0x%04x&quot;</span>, tmp);</div>
+<div class="line">                <a name="a33"></a><a class="code" href="../../d4/dd5/tpnt__log_8h.html#ad4a9117ce894e3319e903142347a0f63">LOG_ERROR</a>(<span class="stringliteral">&quot;Uncaught GL error: 0x%04x&quot;</span>, tmp);</div>
 <div class="line">        }</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// framerate cap</span></div>
-<div class="line">        time-&gt;<a name="a31"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a68a6066144c2f37751cff9fcfaa25b4c">waitUntilDelta</a>(deltaTimeMin);</div>
+<div class="line">        time-&gt;<a name="a34"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a68a6066144c2f37751cff9fcfaa25b4c">waitUntilDelta</a>(deltaTimeMin);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keyword">delete</span> blobMesh;</div>
-<div class="line">    blobMaterial-&gt;<a name="a32"></a><a class="code" href="../../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b">deleteContents</a>();</div>
+<div class="line">    blobMaterial-&gt;<a name="a35"></a><a class="code" href="../../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b">deleteContents</a>();</div>
 <div class="line">    <span class="keyword">delete</span> blobMaterial;</div>
 <div class="line">    <span class="keyword">delete</span> blobPos;</div>
 <div class="line"> </div>
@@ -269,9 +271,9 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="acinnabar-render_8hpp_html"><div class="ttname"><a href="../../da/d4a/cinnabar-render_8hpp.html">cinnabar-render.hpp</a></div></div>
-<div class="ttc" id="aclassce_1_1Camera_html"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a></div><div class="ttdef"><b>Definition:</b> camera.hpp:11</div></div>
-<div class="ttc" id="aclassce_1_1Camera_html_ad245c36dc6fb521d913f53a577b0310a"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">ce::Camera::transform</a></div><div class="ttdeci">ce::Transform * transform</div><div class="ttdef"><b>Definition:</b> camera.hpp:22</div></div>
-<div class="ttc" id="aclassce_1_1Camera_html_ae0a5803c3cbbf867f8bfba6a1fa876ff"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#ae0a5803c3cbbf867f8bfba6a1fa876ff">ce::Camera::limitPitch</a></div><div class="ttdeci">void limitPitch()</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a></div><div class="ttdef"><b>Definition:</b> camera.hpp:10</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_a7277e0bb44600c3f2e5303d11c01ce71"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#a7277e0bb44600c3f2e5303d11c01ce71">ce::Camera::projection</a></div><div class="ttdeci">glm::mat4 projection</div><div class="ttdef"><b>Definition:</b> camera.hpp:20</div></div>
+<div class="ttc" id="aclassce_1_1Camera_html_ad245c36dc6fb521d913f53a577b0310a"><div class="ttname"><a href="../../dd/d8a/classce_1_1Camera.html#ad245c36dc6fb521d913f53a577b0310a">ce::Camera::transform</a></div><div class="ttdeci">ce::Transform * transform</div><div class="ttdef"><b>Definition:</b> camera.hpp:19</div></div>
 <div class="ttc" id="aclassce_1_1Material_html"><div class="ttname"><a href="../../d5/d2e/classce_1_1Material.html">ce::Material</a></div><div class="ttdef"><b>Definition:</b> material.hpp:13</div></div>
 <div class="ttc" id="aclassce_1_1Material_html_a5b01305639a85c7f2145c2bd399a654b"><div class="ttname"><a href="../../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b">ce::Material::deleteContents</a></div><div class="ttdeci">void deleteContents()</div></div>
 <div class="ttc" id="aclassce_1_1Material_html_a80de01f41699a1f0c095f8188dbc6c76"><div class="ttname"><a href="../../d5/d2e/classce_1_1Material.html#a80de01f41699a1f0c095f8188dbc6c76">ce::Material::textures</a></div><div class="ttdeci">std::vector&lt; Texture * &gt; textures</div><div class="ttdef"><b>Definition:</b> material.hpp:30</div></div>
@@ -294,13 +296,16 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="ttc" id="aclassce_1_1Transform_html_a5e886c5f84dac500b3478059682a7746"><div class="ttname"><a href="../../d3/dfa/classce_1_1Transform.html#a5e886c5f84dac500b3478059682a7746">ce::Transform::setScale</a></div><div class="ttdeci">void setScale(glm::vec3 scale)</div><div class="ttdoc">Set the Scale of the transform.</div><div class="ttdef"><b>Definition:</b> transform.hpp:177</div></div>
 <div class="ttc" id="aclassce_1_1Transform_html_a8ff17e7b51999ad9d31f76f9110d2c5f"><div class="ttname"><a href="../../d3/dfa/classce_1_1Transform.html#a8ff17e7b51999ad9d31f76f9110d2c5f">ce::Transform::translate</a></div><div class="ttdeci">void translate(glm::vec3 delta)</div><div class="ttdoc">Translate (or move) the transform.</div><div class="ttdef"><b>Definition:</b> transform.hpp:64</div></div>
 <div class="ttc" id="aclassce_1_1Transform_html_aa286ed240bf3d27814a96486d4af6537"><div class="ttname"><a href="../../d3/dfa/classce_1_1Transform.html#aa286ed240bf3d27814a96486d4af6537">ce::Transform::pitch</a></div><div class="ttdeci">void pitch(float delta)</div><div class="ttdoc">Rotate the transform's pitch.</div><div class="ttdef"><b>Definition:</b> transform.hpp:85</div></div>
+<div class="ttc" id="aclassce_1_1Transform_html_aca2b4ae45aab2a2dfe5c332109445082"><div class="ttname"><a href="../../d3/dfa/classce_1_1Transform.html#aca2b4ae45aab2a2dfe5c332109445082">ce::Transform::setPitch</a></div><div class="ttdeci">void setPitch(float pitch)</div><div class="ttdoc">Set the Pitch of the transfomr.</div><div class="ttdef"><b>Definition:</b> transform.hpp:79</div></div>
 <div class="ttc" id="aclassce_1_1Transform_html_ad0afd1a8035650c74053bb9665983160"><div class="ttname"><a href="../../d3/dfa/classce_1_1Transform.html#ad0afd1a8035650c74053bb9665983160">ce::Transform::getRight</a></div><div class="ttdeci">glm::vec3 getRight(bool useYaw=true, bool usePitch=true, bool useRoll=true)</div><div class="ttdoc">Get transform's Right vector.</div></div>
+<div class="ttc" id="aclassce_1_1Transform_html_adf027458a8f443091a897320c4525c06"><div class="ttname"><a href="../../d3/dfa/classce_1_1Transform.html#adf027458a8f443091a897320c4525c06">ce::Transform::getPitch</a></div><div class="ttdeci">float getPitch()</div><div class="ttdoc">Get the Pitch of the transform.</div><div class="ttdef"><b>Definition:</b> transform.hpp:91</div></div>
 <div class="ttc" id="aclassce_1_1Window_html"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html">ce::Window</a></div><div class="ttdef"><b>Definition:</b> window.hpp:7</div></div>
 <div class="ttc" id="aclassce_1_1Window_html_a0ee8fb8c95e6341f03af2c17bcb4338c"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a0ee8fb8c95e6341f03af2c17bcb4338c">ce::Window::setMouseVisibility</a></div><div class="ttdeci">static void setMouseVisibility(bool enabled)</div></div>
+<div class="ttc" id="aclassce_1_1Window_html_a1017234b851143b2ea86a3212bb72602"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a1017234b851143b2ea86a3212bb72602">ce::Window::getAspectRatio</a></div><div class="ttdeci">float getAspectRatio()</div></div>
 <div class="ttc" id="aclassce_1_1Window_html_a4c227112a311b7f1419ca3fe916aa841"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a4c227112a311b7f1419ca3fe916aa841">ce::Window::getWindowSize</a></div><div class="ttdeci">glm::vec2 getWindowSize()</div></div>
 <div class="ttc" id="aclassce_1_1Window_html_a826685443fe186024e648c765091ce44"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#a826685443fe186024e648c765091ce44">ce::Window::mouseVisible</a></div><div class="ttdeci">static bool mouseVisible()</div><div class="ttdef"><b>Definition:</b> window.hpp:20</div></div>
 <div class="ttc" id="aclassce_1_1Window_html_afd634de095bd3cf954aa5757768cbb33"><div class="ttname"><a href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">ce::Window::swapBuffers</a></div><div class="ttdeci">void swapBuffers()</div></div>
-<div class="ttc" id="amain_8cpp_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="../../df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdef"><b>Definition:</b> main.cpp:11</div></div>
+<div class="ttc" id="amain_8cpp_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="../../df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdef"><b>Definition:</b> main.cpp:12</div></div>
 <div class="ttc" id="atime_8hpp_html"><div class="ttname"><a href="../../de/d99/time_8hpp.html">time.hpp</a></div></div>
 <div class="ttc" id="atpnt__log_8h_html"><div class="ttname"><a href="../../d4/dd5/tpnt__log_8h.html">tpnt_log.h</a></div></div>
 <div class="ttc" id="atpnt__log_8h_html_ad4a9117ce894e3319e903142347a0f63"><div class="ttname"><a href="../../d4/dd5/tpnt__log_8h.html#ad4a9117ce894e3319e903142347a0f63">LOG_ERROR</a></div><div class="ttdeci">#define LOG_ERROR(...)</div><div class="ttdef"><b>Definition:</b> tpnt_log.h:40</div></div>
