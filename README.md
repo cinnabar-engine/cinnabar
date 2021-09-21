@@ -3,6 +3,7 @@
 [![Unit Testing](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml)
 [![Code Quality](https://github.com/cinnabar-engine/cinnabar/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/codeql-analysis.yml)
 [![Documentation Generation](https://github.com/cinnabar-engine/cinnabar/actions/workflows/Doxygen.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/Doxygen.yml)
+[![Continuous Delivery](https://github.com/cinnabar-engine/cinnabar/actions/workflows/CD.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/CD.yml)
 
 ## Prerequisites
 
