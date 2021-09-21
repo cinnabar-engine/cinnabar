@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <cinnabar-core/time.hpp>
 #include <cinnabar-core/tpnt_log.h>
@@ -34,7 +35,7 @@ int main(int argc, char* argv[]) {
 
 	double mouseSens = 0.05;
 	ce::Camera* camera = new ce::Camera();
-	// TODO: Seperate so i can put in a player class later
+	camera->projection = glm::perspective(glm::radians(75.0), (double)window->getAspectRatio(), 0.1, 100.0);
 	glm::vec3 cameraVelocity(0.0f);
 	camera->transform->setPosition(0.0f, 0.0f, 1.5f);
 	/*
@@ -55,7 +56,7 @@ int main(int argc, char* argv[]) {
 					mouseDelta *= -mouseSens;
 					camera->transform->yaw(mouseDelta.x);
 					camera->transform->pitch(mouseDelta.y);
-					camera->limitPitch();
+					camera->transform->setPitch(std::clamp(camera->transform->getPitch(), -90.0f, 90.0f));
 					break;
 				}
 				case SDL_MOUSEBUTTONDOWN: {
@@ -123,6 +124,7 @@ int main(int argc, char* argv[]) {
 				}
 				case SDL_WINDOWEVENT: {
 					renderEngine->setSize(window->getWindowSize());
+					camera->projection = glm::perspective(glm::radians(75.0), (double)window->getAspectRatio(), 0.1, 100.0);
 					break;
 				}
 			}

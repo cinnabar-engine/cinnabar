@@ -15,15 +15,14 @@ void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform
 	// TODO: get rid of unneccecary binding
 	mesh->sendToShader(material->shader, true);
 	material->shader->setUniform("transform.model", transform->getMatrix());
-	camera->sendToShader(material->shader, m_aspectRatio); // TODO: make aspect ratio need to be sent to camera manually on window resize, remove m_aspectRatio from renderEngine
+	camera->sendToShader(material->shader);
 
 	// Bind Things
 	mesh->bind();
 	material->bind();
 }
 
-ce::RenderEngine::RenderEngine(glm::vec4 clearColor)
-	: m_aspectRatio(0) {
+ce::RenderEngine::RenderEngine(glm::vec4 clearColor) {
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		LOG_ERROR("GLEW error: %s", (const char*)glewGetErrorString(err));
@@ -56,7 +55,6 @@ void ce::RenderEngine::setClearColor(glm::vec4 color) {
 
 void ce::RenderEngine::setSize(glm::vec2 size) {
 	glViewport(0, 0, size.x, size.y);
-	m_aspectRatio = size.x / size.y;
 }
 void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
 	bind(mesh, material, transform, camera);

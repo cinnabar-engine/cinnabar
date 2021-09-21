@@ -1,7 +1,6 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 #include <cinnabar-core/transform.hpp>
 
@@ -14,12 +13,10 @@ namespace ce {
 		~Camera();
 
 		glm::mat4 getViewMatrix();
-		glm::mat4 getProjection(double aspectRatio) { return glm::perspective(this->fov, aspectRatio, this->nearClip, this->farClip); };
 
-		void limitPitch();
-		void sendToShader(ce::Shader* shader, double aspectRatio);
+		void sendToShader(ce::Shader* shader);
 
 		ce::Transform* transform;
-		double fov, nearClip, farClip;
+		glm::mat4 projection;
 	};
 }
