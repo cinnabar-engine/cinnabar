@@ -6,10 +6,7 @@
 #include <cinnabar-render/shader.hpp>
 
 ce::Camera::Camera()
-	: transform(NULL),
-	  fov(glm::radians(75.0)),
-	  nearClip(0.1),
-	  farClip(100.0) {
+	: transform(NULL) {
 	this->transform = new Transform();
 }
 
@@ -35,17 +32,7 @@ glm::mat4 ce::Camera::getViewMatrix() {
 	return transformMatrix;
 }
 
-void ce::Camera::limitPitch() {
-	// TODO: this shouldn't be part of camera, this is related to movement and should be added to the movement scripts
-	float cameraPitch = this->transform->getPitch();
-	if (cameraPitch > 90.0f)
-		cameraPitch = 90.0f;
-	if (cameraPitch < -90.0f)
-		cameraPitch = -90.0f;
-	this->transform->setPitch(cameraPitch);
-}
-
-void ce::Camera::sendToShader(ce::Shader* shader, double aspectRatio) {
+void ce::Camera::sendToShader(ce::Shader* shader) {
 	shader->setUniform("transform.view", getViewMatrix());
-	shader->setUniform("transform.proj", getProjection(aspectRatio));
+	shader->setUniform("transform.proj", this->projection);
 }

@@ -17,16 +17,12 @@ namespace ce {
 
 		void setSize(glm::vec2 size);
 		void setClearColor(glm::vec4 color);
-		double getAspectRatio() { return m_aspectRatio; };
 
 		void
-		clear(),
+			clear(),
 			render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
 
 	 private:
-		double m_aspectRatio; // TODO: aspect ratio shouldn't be stored, the Camera should store a projection matrix and it should be left to the user (programmer) to recalculate the projection matrix (using Camera functions) when the window size changes
-
-		void
-		bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
+		void bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
 	};
 }
