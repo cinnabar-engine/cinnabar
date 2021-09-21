@@ -17,7 +17,6 @@ namespace ce {
 		 * 
 		 */
 		Transform();
-
 		/**
 		 * @brief Destroy the Transform object
 		 * 
@@ -55,7 +54,10 @@ namespace ce {
 		 * @param y New Y position
 		 * @param z New Z position
 		 */
-		void setPosition(float x, float y, float z) { setPosition(glm::vec3(x, y, z)); }
+		void setPosition(float x, float y, float z) { m_pos = glm::vec3(x, y, z); }
+		void setX(float x) { m_pos.x = x; }
+		void setY(float y) { m_pos.y = y; }
+		void setZ(float z) { m_pos.z = z; }
 		/**
 		 * @brief Translate (or move) the transform
 		 * 
@@ -69,7 +71,7 @@ namespace ce {
 		 * @param y Y delta
 		 * @param z Z delta
 		 */
-		void translate(float x, float y, float z) { translate(glm::vec3(x, y, z)); }
+		void translate(float x, float y, float z) { m_pos += glm::vec3(x, y, z); }
 
 		/**
 		 * @brief Set the Pitch of the transfomr
@@ -147,7 +149,7 @@ namespace ce {
 		 * @param y Yaw
 		 * @param z Roll
 		 */
-		void setRotation(float x, float y, float z) { setRotation(glm::vec3(x, y, z)); }
+		void setRotation(float x, float y, float z) { m_rot = glm::vec3(x, y, z); }
 		/**
 		 * @brief Rotate the transform by an amount
 		 * 
@@ -161,7 +163,7 @@ namespace ce {
 		 * @param y Yaw
 		 * @param z Roll
 		 */
-		void rotate(float x, float y, float z) { rotate(glm::vec3(x, y, z)); }
+		void rotate(float x, float y, float z) { m_rot += glm::vec3(x, y, z); }
 
 		/**
 		 * @brief Get the Scale of the transform
@@ -182,13 +184,16 @@ namespace ce {
 		 * @param y 
 		 * @param z 
 		 */
-		void setScale(float x, float y, float z) { setScale(glm::vec3(x, y, z)); }
+		void setScale(float x, float y, float z) { m_scale = glm::vec3(x, y, z); }
 		/**
 		 * @brief Evenly set the Scale of the transform
 		 * 
 		 * @param a Scale amount
 		 */
-		void setScale(float a) { setScale(a, a, a); }
+		void setScale(float scale) { m_scale = glm::vec3(scale); }
+		void setScaleX(float x) { m_scale.x = x; }
+		void setScaleY(float y) { m_scale.y = y; }
+		void setScaleZ(float z) { m_scale.z = z; }
 		/**
 		 * @brief Scale the transform via x,y,z
 		 * 
@@ -202,7 +207,7 @@ namespace ce {
 		 * @param y 
 		 * @param z 
 		 */
-		void scale(float x, float y, float z) { scale(glm::vec3(x, y, z)); }
+		void scale(float x, float y, float z) { m_scale *= glm::vec3(x, y, z); }
 		/**
 		 * @brief Evenly scale the transform
 		 * 
