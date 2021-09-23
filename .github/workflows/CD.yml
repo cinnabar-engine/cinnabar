@@ -82,7 +82,7 @@ jobs:
       - name: Package
         run: |
           sudo docker exec ce-arch-test /app/github-scripts/arch.sh package
-          sudo docker cp ce-arch-test:/app/pkg .
+          sudo docker cp ce-arch-test:/app/github-scripts/pkg .
 
       - name: Clean Up
         run: |
@@ -150,7 +150,7 @@ jobs:
 
   Release:
     runs-on: ubuntu-latest
-    needs: [Debian, Arch, Windows]
+    needs: [Debian, Arch]
     steps:
 
     # ----------------
