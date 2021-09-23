@@ -1,0 +1,54 @@
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
+#
+# You may wish to alter this file to override the set of languages analyzed,
+# or to provide custom queries or build logic.
+#
+# ******** NOTE ********
+# We have attempted to detect the languages in your repository. Please check
+# the `language` matrix defined below to confirm you have the correct set of
+# supported CodeQL languages.
+#
+name: "Code Quality"
+on: [push,pull_request]
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["cpp"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          # config-file: ./.github/codeql/codeql-config.yml
+          languages: ${{ matrix.language }}
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update -y
+          sudo apt upgrade -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+          chmod +x github-scripts/debian.sh
+
+      - name: Configure
+        run: |
+          github-scripts/debian.sh configure
+
+      - name: Build
+        run: |
+          github-scripts/debian.sh build
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1

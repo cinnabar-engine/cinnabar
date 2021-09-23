@@ -1,0 +1,29 @@
+title: Cinnabar Docs
+
+repository: cinnabar-engine/cinnabar
+permalink: pretty
+production: true
+
+markdown: kramdown
+theme: minima
+kramdown:
+  math-engine: mathjax
+  auto_ids: false
+  input: GFM
+  entity-output: as_char
+  footnote-nr: "1"
+  toc-levels: 1..6
+  gfm-quirks: paragraph_end
+  syntax-highlighter-opts:
+    default-lang: plaintext
+  syntax-highlighter: rouge
+  smart-quotes: lsquo,rsquo,ldquo,rdquo
+
+exclude:
+  - "*.sh"
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+
+include:
+  - "_*"

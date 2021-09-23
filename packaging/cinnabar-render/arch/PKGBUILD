@@ -1,0 +1,40 @@
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=cinnabar-render
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="OpenGL renderer for the cinnabar game engine"
+arch=("x86_64")
+url=""
+license=('GPL')
+groups=()
+depends=(sdl2 glew glm)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=('project-path')
+noextract=()
+md5sums=('SKIP') #autofill using updpkgsums
+
+build() {
+	projectPath=$(cat project-path)
+	cd "$projectPath"
+	echo "$(rm -rf build)"
+	mkdir build
+	cd build
+	cmake ..
+	cmake --build . --target "$pkgname"
+}
+
+package() {
+	projectPath=$(cat project-path)
+	mkdir -p "$pkgdir/usr/"{lib,"include/$pkgname"}
+
+	cp "$projectPath/build/run/lib$pkgname.so" "$pkgdir/usr/lib"
+	cp -r "$projectPath/include/$pkgname"/* "$pkgdir/usr/include/$pkgname"
+}

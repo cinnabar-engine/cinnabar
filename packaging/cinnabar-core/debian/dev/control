@@ -1,0 +1,8 @@
+Package: libcinnabar-core-dev
+Version: 1.0.0
+Section: development
+Priority: optional
+Architecture: all
+Depends: libcinnabar-core, libsdl2-dev, libglm-dev
+Maintainer: tumblegamer@gmail.com
+Description: Cinnabar Core development files

@@ -6,23 +6,32 @@ TabWidth: '3'
 AccessModifierOffset: '-2'
 ConstructorInitializerIndentWidth: '3'
 ContinuationIndentWidth: '3'
+MaxEmptyLinesToKeep: '2'
 ObjCBlockIndentWidth: '3'
 UseTab: ForContinuationAndIndentation
 IndentCaseLabels: 'true'
 #IndentPPDirectives: BeforeHash
+#IndentAccessModifiers: 'true' # clang 13 only, this should replace AccessModifierOffset
 NamespaceIndentation: All
 #SpacesInLineCommentPrefix: 1 # clang 13 only
 #SortIncludes # clang 13 only, setting needs to be figured out
 
+AlignAfterOpenBracket: DontAlign
+AlignConsecutiveMacros: 'false'
+AlignConsecutiveAssignments: 'false'
+AlignConsecutiveDeclarations: 'false'
+AlignEscapedNewlines: DontAlign
+AlignOperands: 'false'
+AlignTrailingComments: 'false'
 DerivePointerAlignment: 'false'
 PointerAlignment: Left
 
-BreakBeforeBraces: Attach
-# https://reviews.llvm.org/D33029 add this when it gets implemented
 BreakAfterJavaFieldAnnotations: 'true'
+# https://reviews.llvm.org/D33029 add this when it gets implemented
+BreakBeforeBraces: Attach
 BreakBeforeBinaryOperators: None
 
-AllowShortBlocksOnASingleLine: 'false'
+AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: 'false'
 #AllowShortEnumsOnASingleLine: true # this breaks things?
 AllowShortFunctionsOnASingleLine: Inline
