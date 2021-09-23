@@ -61,11 +61,11 @@ namespace ce {
 		/**
 		 * @brief Translate (or move) the transform
 		 * 
-		 * @param delta  the amount to move by
+		 * @param delta The amount to move by
 		 */
 		void translate(glm::vec3 delta) { m_pos += delta; }
 		/**
-		 * @brief Translate or move the transform by and X,Y,Z amount
+		 * @brief Translate (move) the transform
 		 * 
 		 * @param x X delta
 		 * @param y Y delta
@@ -74,7 +74,7 @@ namespace ce {
 		void translate(float x, float y, float z) { m_pos += glm::vec3(x, y, z); }
 
 		/**
-		 * @brief Set the Pitch of the transfomr
+		 * @brief Set the pitch of the transform
 		 * 
 		 * @param pitch 
 		 */
@@ -86,64 +86,64 @@ namespace ce {
 		 */
 		void pitch(float delta) { m_rot.x += delta; }
 		/**
-		 * @brief Get the Pitch of the transform
+		 * @brief Get the pitch of the transform
 		 * 
 		 * @return float 
 		 */
 		float getPitch() { return m_rot.x; }
 
 		/**
-		 * @brief Set the Yaw of the transform
+		 * @brief Set the yaw of the transform
 		 * 
 		 * @param yaw 
 		 */
 		void setYaw(float yaw) { m_rot.y = yaw; }
 		/**
-		 * @brief Rotate the transform's Yaw
+		 * @brief Rotate the transform's yaw
 		 * 
 		 * @param delta 
 		 */
 		void yaw(float delta) { m_rot.y += delta; }
 		/**
-		 * @brief Get the Yaw of the transform
+		 * @brief Get the yaw of the transform
 		 * 
-		 * @return float 
+		 * @return float
 		 */
 		float getYaw() { return m_rot.y; }
 
 		/**
-		 * @brief Set the Roll of the transform
+		 * @brief Set the roll of the transform
 		 * 
-		 * @param roll 
+		 * @param roll
 		 */
 		void setRoll(float roll) { m_rot.z = roll; }
 		/**
-		 * @brief Rotate the transform's Roll
+		 * @brief Rotate the transform's roll
 		 * 
-		 * @param delta 
+		 * @param delta
 		 */
 		void roll(float delta) { m_rot.z += delta; }
 		/**
-		 * @brief Get the Roll of the transform
+		 * @brief Get the roll of the transform
 		 * 
-		 * @return float 
+		 * @return float
 		 */
 		float getRoll() { return m_rot.z; }
 
 		/**
-		 * @brief Get the Rotation of the transform
+		 * @brief Get the rotation of the transform
 		 * 
-		 * @return glm::vec3 
+		 * @return glm::vec3
 		 */
 		glm::vec3 getRotation() { return m_rot; }
 		/**
-		 * @brief Set the Rotation of the transform
+		 * @brief Set the rotation of the transform
 		 * 
-		 * @param rot 
+		 * @param rot
 		 */
 		void setRotation(glm::vec3 rot) { m_rot = rot; }
 		/**
-		 * @brief Set the Rotation of the transform
+		 * @brief Set the rotation of the transform
 		 * 
 		 * @param x Pitch
 		 * @param y Yaw
@@ -166,42 +166,42 @@ namespace ce {
 		void rotate(float x, float y, float z) { m_rot += glm::vec3(x, y, z); }
 
 		/**
-		 * @brief Get the Scale of the transform
+		 * @brief Get the scale of the transform
 		 * 
-		 * @return glm::vec3 
+		 * @return glm::vec3
 		 */
 		glm::vec3 getScale() { return m_scale; }
 		/**
-		 * @brief Set the Scale of the transform
+		 * @brief Set the scale of the transform
 		 * 
-		 * @param scale 
+		 * @param scale
 		 */
 		void setScale(glm::vec3 scale) { m_scale = scale; }
 		/**
-		 * @brief Set the Scale object via X,Y,Z
+		 * @brief Set the scale of the transform
 		 * 
-		 * @param x 
-		 * @param y 
-		 * @param z 
+		 * @param x
+		 * @param y
+		 * @param z
 		 */
 		void setScale(float x, float y, float z) { m_scale = glm::vec3(x, y, z); }
 		/**
-		 * @brief Evenly set the Scale of the transform
+		 * @brief Evenly set the scale of the transform
 		 * 
-		 * @param a Scale amount
+		 * @param scale
 		 */
 		void setScale(float scale) { m_scale = glm::vec3(scale); }
 		void setScaleX(float x) { m_scale.x = x; }
 		void setScaleY(float y) { m_scale.y = y; }
 		void setScaleZ(float z) { m_scale.z = z; }
 		/**
-		 * @brief Scale the transform via x,y,z
+		 * @brief Scale the transform
 		 * 
 		 * @param delta 
 		 */
 		void scale(glm::vec3 delta) { m_scale *= delta; }
 		/**
-		 * @brief Scale the transform by X,Y,Z
+		 * @brief Scale the transform
 		 * 
 		 * @param x 
 		 * @param y 
@@ -216,35 +216,35 @@ namespace ce {
 		void scale(float a) { scale(a, a, a); }
 
 		/**
-		 * @brief Get the Trasnform Matrix
+		 * @brief Get the transformation matrix
 		 * 
 		 * @return glm::mat4 
 		 */
 		glm::mat4 getMatrix();
 		/**
-		 * @brief Get transform's Forward vector
+		 * @brief Get the forward vector
 		 * 
-		 * @param useYaw 
-		 * @param usePitch 
-		 * @param useRoll 
-		 * @return glm::vec3 
+		 * @param useYaw
+		 * @param usePitch
+		 * @param useRoll
+		 * @return glm::vec3
 		 */
 		glm::vec3 getForward(bool useYaw = true, bool usePitch = true, bool useRoll = true);
 		/**
-		 * @brief Get transform's Right vector
+		 * @brief Get the right vector
 		 * 
-		 * @param useYaw 
-		 * @param usePitch 
-		 * @param useRoll 
+		 * @param useYaw
+		 * @param usePitch
+		 * @param useRoll
 		 * @return glm::vec3
 		 */
 		glm::vec3 getRight(bool useYaw = true, bool usePitch = true, bool useRoll = true);
 		/**
-		 * @brief Get transform's Up vector
+		 * @brief Get the up vector
 		 * 
-		 * @param useYaw 
-		 * @param usePitch 
-		 * @param useRoll 
+		 * @param useYaw
+		 * @param usePitch
+		 * @param useRoll
 		 * @return glm::vec3
 		 */
 		glm::vec3 getUp(bool useYaw = true, bool usePitch = true, bool useRoll = true);
