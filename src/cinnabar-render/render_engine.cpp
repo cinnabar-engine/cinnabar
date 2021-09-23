@@ -1,6 +1,8 @@
 #include <cinnabar-render/render_engine.hpp>
 
+#define GLFW_INCLUDE_NONE
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include <cinnabar-core/tpnt_log.h>
 
@@ -23,11 +25,11 @@ void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform
 }
 
 ce::RenderEngine::RenderEngine(glm::vec4 clearColor) {
-	GLenum err = glewInit();
+	/*GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		LOG_ERROR("GLEW error: %s", (const char*)glewGetErrorString(err));
 	}
-	LOG_INFO("GLEW version: %s", (const char*)glewGetString(GLEW_VERSION));
+	LOG_INFO("GLEW version: %s", (const char*)glewGetString(GLEW_VERSION));*/
 	/*if () { // TODO: get GL version
 		LOG_ERROR("Wrong GL version %s", );
 		SDL_Quit();
@@ -46,7 +48,7 @@ ce::RenderEngine::RenderEngine(glm::vec4 clearColor) {
 	setClearColor(clearColor);
 }
 ce::RenderEngine::~RenderEngine() {
-	SDL_Quit();
+	glfwTerminate();
 }
 
 void ce::RenderEngine::setClearColor(glm::vec4 color) {

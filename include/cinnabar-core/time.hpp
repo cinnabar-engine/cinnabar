@@ -47,7 +47,7 @@ namespace ce {
 		double getFPS() { return m_fps; };
 
 	 private:
-		unsigned long m_now, m_last;
+		double m_now, m_last;
 		double m_dt, m_fps;
 	};
 }

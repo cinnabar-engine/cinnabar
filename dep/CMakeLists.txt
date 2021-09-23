@@ -8,7 +8,7 @@ else()
 	find_package(OpenGL REQUIRED)
 	if(UNIX)
 		set(OPENGL_LIBRARY ${OPENGL_opengl_LIBRARY})
-		endif()
+	endif()
 	if(WIN32)
 		set(OPENGL_LIBRARY ${OPENGL_gl_LIBRARY})
 	endif()
@@ -20,13 +20,8 @@ find_package(GLEW REQUIRED)
 message(NOTICE "GLEW_LIBRARIES " ${GLEW_LIBRARIES})
 message(NOTICE "GLEW_INCLUDE_DIRS " ${GLEW_INCLUDE_DIRS})
 
-# SDL
-find_package(SDL2 REQUIRED)
-message(NOTICE "SDL2_LIBRARY " ${SDL2_LIBRARY})
-message(NOTICE "SDL2MAIN_LIBRARY " ${SDL2MAIN_LIBRARY})
-message(NOTICE "SDL2_LIBRARIES " ${SDL2_LIBRARIES})
-message(NOTICE "SDL2_INCLUDE_DIR " ${SDL2_INCLUDE_DIR})
-message(NOTICE "SDL2_INCLUDE_DIRS " ${SDL2_INCLUDE_DIRS})
+# glfw
+find_package(glfw3 REQUIRED)
 
 # glm
 find_package(glm REQUIRED)
@@ -42,7 +37,7 @@ message(NOTICE "GLM_INCLUDE_DIRS " ${GLM_INCLUDE_DIRS})
 set(CE_LIBS # TODO: get rid of this prefix and prevent linking to things that don't need it
 	${OPENGL_LIBRARY}
 	${GLEW_LIBRARIES}
-	${SDL2_LIBRARIES}
+	glfw
 	#${ASSIMP_LIBRARIES}
 	${CMAKE_DL_LIBS}
 
@@ -51,7 +46,6 @@ set(CE_LIBS # TODO: get rid of this prefix and prevent linking to things that do
 set(CE_INCLUDE
 	${OPENGL_INCLUDE_DIR}
 	${GLEW_INCLUDE_DIRS}
-	${SDL2_INCLUDE_DIRS}
 	${GLM_INCLUDE_DIRS}
 	#${ASSIMP_INCLUDE_DIR}
 

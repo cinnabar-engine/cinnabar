@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -9,11 +11,93 @@
 #include <cinnabar-core/tpnt_log.h>
 #include <cinnabar-render/cinnabar-render.hpp>
 
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) { // TODO: get window class from callback instead of GLFWwindow
+	switch (action) {
+		case GLFW_PRESS: {
+			double
+				cameraSpeed = 2.5 * time->getDeltaTime(),
+				cameraRollSpeed = 3600.0 * time->getDeltaTime();
+			switch (key) {
+				case GLFW_KEY_W:
+					cameraVelocity.z = cameraSpeed;
+					break;
+				case GLFW_KEY_S:
+					cameraVelocity.z = -cameraSpeed;
+					break;
+				case GLFW_KEY_A:
+					cameraVelocity.x = cameraSpeed;
+					break;
+				case GLFW_KEY_D:
+					cameraVelocity.x = -cameraSpeed;
+					break;
+				case GLFW_KEY_SPACE:
+					cameraVelocity.y = cameraSpeed;
+					break;
+				case GLFW_KEY_LEFT_SHIFT:
+					cameraVelocity.y = -cameraSpeed;
+					break;
+
+				case GLFW_KEY_Q:
+					camera->transform->roll(cameraRollSpeed);
+					break;
+				case GLFW_KEY_E:
+					camera->transform->roll(-cameraRollSpeed);
+					break;
+
+				case GLFW_KEY_ESCAPE:
+					window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+					break;
+			}
+			break;
+		}
+		case GLFW_RELEASE: {
+			switch (key) { // note that this movement is terrible and should absolutely not be used in a proper engine
+				case GLFW_KEY_W:
+				case GLFW_KEY_S:
+					cameraVelocity.z = 0;
+					break;
+				case GLFW_KEY_A:
+				case GLFW_KEY_D:
+					cameraVelocity.x = 0;
+					break;
+				case GLFW_KEY_SPACE:
+				case GLFW_KEY_LEFT_SHIFT:
+					cameraVelocity.y = 0;
+					break;
+			}
+			break;
+		}
+	}
+}
+void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) { // TODO: get window class from callback instead of GLFWwindow
+	if (window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
+		return;
+	glm::vec2 mouseDelta(xpos, ypos);
+	mouseDelta *= -mouseSens;
+	camera->transform->yaw(mouseDelta.x);
+	camera->transform->pitch(mouseDelta.y);
+	camera->transform->setPitch(std::clamp(camera->transform->getPitch(), -90.0f, 90.0f));
+}
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) { // TODO: get window class from callback instead of GLFWwindow
+	if (action == GLFW_PRESS)
+		if (window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
+			window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+void windowSizeCallback(GLFWwindow* window, int width, int height) { // TODO: get window class from callback instead of GLFWwindow
+	//renderEngine->setSize(window->getWindowSize());
+	{
+		int w, h;
+		glfwGetFramebufferSize(m_window, &w, &h);
+		renderEngine->setSize(w, h);
+	}
+	camera->projection = glm::perspective(glm::radians(75.0), (double)window->getAspectRatio(), 0.1, 100.0);
+}
+
 int main(int argc, char* argv[]) {
 	ce::Time* time = new ce::Time();
 
 	ce::Window* window = new ce::Window("Cinnabar");
-	SDL_GL_SetSwapInterval(0); // disable vsync
+	glfwSwapInterval(0); // disable vsync // TODO: static window function for vsync
 	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 
 	ce::RenderEngine* renderEngine = new ce::RenderEngine();
@@ -38,97 +122,20 @@ int main(int argc, char* argv[]) {
 	camera->projection = glm::perspective(glm::radians(75.0), (double)window->getAspectRatio(), 0.1, 100.0);
 	glm::vec3 cameraVelocity(0.0f);
 	camera->transform->setPosition(0.0f, 0.0f, 1.5f);
-	/*
-	 * Game Loop
-	 */
-	SDL_Event event;
-	bool running = true;
-	while (running) {
+
+	if (glfwRawMouseMotionSupported()) // TODO: make function for all these GLFW functions and figure out for multiple windows
+		window->setInputMode(GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+	glfwSetKeyCallback(window->getWindow(), keyCallback);
+	glfwSetCursorPosCallback(window->getWindow(), cursorPositionCallback);
+	glfwSetMouseButtonCallback(window->getWindow(), mouseButtonCallback);
+	glfwSetWindowSizeCallback(window->getWindow(), windowSizeCallback);
+
+
+	while (!glfwWindowShouldClose(window->getWindow())) { // TODO: make function for this and figure out multiple window demo
 		time->update();
 		std::cout << "fps: " << time->getFPS() << std::endl;
 
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-				case SDL_MOUSEMOTION: {
-					if (ce::Window::mouseVisible())
-						break;
-					glm::vec2 mouseDelta(event.motion.xrel, event.motion.yrel);
-					mouseDelta *= -mouseSens;
-					camera->transform->yaw(mouseDelta.x);
-					camera->transform->pitch(mouseDelta.y);
-					camera->transform->setPitch(std::clamp(camera->transform->getPitch(), -90.0f, 90.0f));
-					break;
-				}
-				case SDL_MOUSEBUTTONDOWN: {
-					if (ce::Window::mouseVisible())
-						ce::Window::setMouseVisibility(false);
-					break;
-				}
-				case SDL_KEYDOWN: {
-					double
-						cameraSpeed = 2.5 * time->getDeltaTime(),
-						cameraRollSpeed = 3600.0 * time->getDeltaTime();
-					switch (event.key.keysym.sym) {
-						case SDLK_w:
-							cameraVelocity.z = cameraSpeed;
-							break;
-						case SDLK_s:
-							cameraVelocity.z = -cameraSpeed;
-							break;
-						case SDLK_d:
-							cameraVelocity.x = cameraSpeed;
-							break;
-						case SDLK_a:
-							cameraVelocity.x = -cameraSpeed;
-							break;
-						case SDLK_SPACE:
-							cameraVelocity.y = cameraSpeed;
-							break;
-						case SDLK_LSHIFT:
-							cameraVelocity.y = -cameraSpeed;
-							break;
-
-						case SDLK_q:
-							camera->transform->roll(cameraRollSpeed);
-							break;
-						case SDLK_e:
-							camera->transform->roll(-cameraRollSpeed);
-							break;
-
-						case SDLK_ESCAPE:
-							ce::Window::setMouseVisibility(true);
-							break;
-					}
-					break;
-				}
-				case SDL_KEYUP: {
-					switch (event.key.keysym.sym) { // note that this movement is terrible and should absolutely not be used in a proper engine
-						case SDLK_w:
-						case SDLK_s:
-							cameraVelocity.z = 0;
-							break;
-						case SDLK_d:
-						case SDLK_a:
-							cameraVelocity.x = 0;
-							break;
-						case SDLK_SPACE:
-						case SDLK_LSHIFT:
-							cameraVelocity.y = 0;
-							break;
-					}
-					break;
-				}
-				case SDL_QUIT: {
-					running = false;
-					break;
-				}
-				case SDL_WINDOWEVENT: {
-					renderEngine->setSize(window->getWindowSize());
-					camera->projection = glm::perspective(glm::radians(75.0), (double)window->getAspectRatio(), 0.1, 100.0);
-					break;
-				}
-			}
-		}
+		glfwPollEvents();
 
 		// Rotate blob
 		blobPos->roll(25.0 * time->getDeltaTime());

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SDL.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 namespace ce {
@@ -11,19 +12,15 @@ namespace ce {
 
 		void swapBuffers();
 
-		SDL_Window* getWindow() { return m_window; };
-		SDL_GLContext getContext() { return m_context; };
+		GLFWwindow* getWindow() { return m_window; };
 
 		glm::vec2 getWindowSize();
 		float getAspectRatio();
 
-		static bool mouseVisible() { return m_mouseVisible; };
-		static void setMouseVisibility(bool enabled);
+		void setInputMode(int mode, int value);
+		int getInputMode(int mode);
 
 	 private:
-		SDL_Window* m_window;
-		SDL_GLContext m_context;
-
-		static inline bool m_mouseVisible = true;
+		GLFWwindow* m_window;
 	};
 }
