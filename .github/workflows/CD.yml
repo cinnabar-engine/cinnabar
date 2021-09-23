@@ -2,6 +2,7 @@ name: Continuous Delivery
 on:
   push:
     tags: ['*']
+    branches: ['release']
   workflow_dispatch:
 jobs:
   Debian:
