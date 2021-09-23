@@ -108,9 +108,9 @@ jobs:
       - run: choco install wget unzip 7zip -y
       - name: Install Dependencies
         env:
-          GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32-dev-win.zip
-          GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8-dev-win.zip
-          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC-dev-win.zip
+          GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
+          GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
+          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip
         run: |
           mkdir c:/lib
           wget -O glew-dev-win.zip $env:GLEW_DOWNLOAD
@@ -150,7 +150,7 @@ jobs:
 
   Release:
     runs-on: ubuntu-latest
-    needs: [Debian, Arch]
+    needs: [Debian, Arch, Windows]
     steps:
 
     # ----------------
