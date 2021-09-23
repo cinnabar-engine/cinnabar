@@ -1,8 +1,8 @@
 #!/bin/bash
 WORKING=$(dirname "$PWD/${0/.}")
 PROJECTS=$(cat "$WORKING/projects.txt")
-echo "WORKING:$WORKING"
-echo "PROJECTS:${PROJECTS[@]}"
+echo "WORKING: $WORKING"
+echo "PROJECTS: ${PROJECTS[@]}"
 
 function configure {
 	rm -rf build
@@ -28,49 +28,56 @@ function build_docs {
 
 function package {
 	rm -rf "$WORKING/pkg"
+	mkdir "$WORKING/pkg"
 
 	for PROJECT in $PROJECTS; do
-		PAKNAME=lib$PROJECT
-		DEBIAN=./packaging/$PROJECT/debian/runtime
+		for SUBPROJECT in "$WORKING/../packaging/$PROJECT/arch/"*"/"; do
+			PKGWORKING=$WORKING/pkg/tmp
 
-		PAKNAMEDEV=$PAKNAME-dev
-		DEBIANDEV=./packaging/$PROJECT/debian/dev
+			# setup build environment
+			mkdir "$PKGWORKING"
+			cp -r "$WORKING/../packaging/$PROJECT/debian/$SUBPROJECT/"* "$PKGWORKING"
 
-		PAKNAMEDOC=$PAKNAME-doc
-		DEBIANDOC=./packaging/$PROJECT/debian/doc
+			# edit build environment
+			echo "$WORKING/.." > "$PKGWORKING/project-path"
+			echo "pkgver=$1" | cat - "$PKGWORKING/PKGBUILD" > "$PKGWORKING/tmp"
+			mv "$PKGWORKING/tmp" "$PKGWORKING/PKGBUILD"
 
-		LIB=./build/run/$PAKNAME.so
-		INCLUDE=./include/$PROJECT
-		DOC=./doxygen-out/$PROJECT
+			# build and grab package file
+			cd "$PKGWORKING"
+			makedeb
+			mv "$PKGWORKING/"*".pkg.tar.zst" "$WORKING/pkg/$SUBPROJECT.pkg.tar.zst"
+			cd "$WORKING/pkg"
 
-		echo "DOC:${DOC}"
-
-		rm -rf "pkg/${PAKNAME}"
-		rm -rf "pkg/${PAKNAMEDEV}"
-		rm -rf "pkg/${PAKNAMEDOC}"
-		mkdir -p "pkg/${PAKNAME}/{DEBIAN,usr/lib}"
-		mkdir -p "pkg/${PAKNAMEDEV}/{DEBIAN,usr/{include/$PROJECT,share/man/man3}}"
-		mkdir -p "pkg/${PAKNAMEDOC}/{DEBIAN,usr/share/doc/$PAKNAMEDOC}"
-
-		cp -r "${DEBIAN}/*" "pkg/${PAKNAME}/DEBIAN"
-		cp "${LIB}" "pkg/${PAKNAME}/usr/lib"
-
-		cp -r "${DEBIANDEV}/*" "pkg/${PAKNAMEDEV}/DEBIAN"
-		cp -r "${INCLUDE}/*" "pkg/${PAKNAMEDEV}/usr/include/${PROJECT}"
-		cp -r "${DOC}/man/man3/ce_*" "pkg/${PAKNAMEDEV}/usr/share/man/man3"
-		rm "pkg/${PAKNAMEDEV}/usr/share/man/man3/ce_assetManager*"
-		gzip "pkg/${PAKNAMEDEV}/usr/share/man/man3/*"
-
-		cp -r "${DEBIANDOC}/*" "pkg/${PAKNAMEDOC}/DEBIAN"
-		cp -r "${DOC}/*" "pkg/${PAKNAMEDOC}/usr/share/doc/${PAKNAMEDOC}"
+			# delete build folder
+			rm -rf "$PKGWORKING"
+		done
 	done
 
-	cd pkg
-
-	for F in "./"*/; do
-		dpkg-deb --build "$(basename $F)"
-		rm -r "$(basename $F)"
-	done
+#		LIB=./build/run/$PAKNAME.so
+#		INCLUDE=./include/$PROJECT
+#		DOC=./doxygen-out/$PROJECT
+#
+#		echo "DOC: ${DOC}"
+#
+#		rm -rf "pkg/${PAKNAME}"
+#		rm -rf "pkg/${PAKNAMEDEV}"
+#		rm -rf "pkg/${PAKNAMEDOC}"
+#		mkdir -p "pkg/${PAKNAME}/"{"DEBIAN","usr/lib"}
+#		mkdir -p "pkg/${PAKNAMEDEV}/"{"DEBIAN","usr/"{"include/$PROJECT","share/man/man3"}}
+#		mkdir -p "pkg/${PAKNAMEDOC}/"{"DEBIAN","usr/share/doc/$PAKNAMEDOC"}
+#
+#		cp -r "${DEBIAN}/"* "pkg/${PAKNAME}/DEBIAN"
+#		cp "${LIB}" "pkg/${PAKNAME}/usr/lib"
+#
+#		cp -r "${DEBIANDEV}/"* "pkg/${PAKNAMEDEV}/DEBIAN"
+#		cp -r "${INCLUDE}/"* "pkg/${PAKNAMEDEV}/usr/include/${PROJECT}"
+#		cp -r "${DOC}/man/man3/ce_"* "pkg/${PAKNAMEDEV}/usr/share/man/man3"
+#		rm "pkg/${PAKNAMEDEV}/usr/share/man/man3/ce_assetManager"* # temporary docs fix
+#		gzip "pkg/${PAKNAMEDEV}/usr/share/man/man3/"*
+#
+#		cp -r "${DEBIANDOC}/"* "pkg/${PAKNAMEDOC}/DEBIAN"
+#		cp -r "${DOC}/"* "pkg/${PAKNAMEDOC}/usr/share/doc/${PAKNAMEDOC}"
 }
 
 cd "$WORKING/.."

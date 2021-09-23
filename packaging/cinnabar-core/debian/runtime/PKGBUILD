@@ -1,0 +1,40 @@
+# Maintainer: Your Name <youremail@domain.com>
+projectName=cinnabar-core
+
+pkgname=lib$projectName
+pkgrel=1
+pkgdesc="Core utilities for the cinnabar game engine"
+arch=("any")
+url=""
+license=('GPL')
+groups=()
+depends=(libsdl2-2.0-0 libglew2.1)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=('project-path')
+noextract=()
+md5sums=('SKIP') #autofill using updpkgsums
+
+build() {
+	projectPath=$(cat project-path)
+	cd "$projectPath"
+	echo "$(rm -rf build)"
+	mkdir build
+	cd build
+	cmake ..
+	cmake --build . --target "$projectName"
+}
+
+package() {
+	projectPath=$(cat project-path)
+	mkdir -p "$pkgdir/usr/lib"
+
+	cp "$projectPath/build/run/lib$projectName.so" "$pkgdir/usr/lib"
+}

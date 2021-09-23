@@ -1,7 +1,0 @@
-Package: libcinnabar-render
-Section: lib
-Priority: optional
-Architecture: all
-Depends: libsdl2-2.0-0, libglew2.1, libassimp5
-Maintainer: tumblegamer@gmail.com
-Description: Cinnabar Renderer

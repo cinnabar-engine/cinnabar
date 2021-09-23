@@ -1,8 +1,8 @@
 #!/bin/bash
 WORKING=$(dirname "$PWD/${0/.}")
 PROJECTS=$(cat "$WORKING/projects.txt")
-echo "WORKING:$WORKING"
-echo "PROJECTS:${PROJECTS[@]}"
+echo "WORKING: $WORKING"
+echo "PROJECTS: {PROJECTS[@]}"
 
 function configure {
 	rm -rf build
@@ -23,23 +23,27 @@ function package {
 	mkdir "$WORKING/pkg"
 
 	for PROJECT in $PROJECTS; do
-		# setup makepkg environment
-		ARCH=$WORKING/../packaging/$PROJECT/arch
-		TMP=$WORKING/pkg/tmp
-		mkdir "$TMP"
-		cp -r "$ARCH"/* "$TMP"
-		echo "$WORKING/.." > "$TMP/project-path"
-		echo "pkgver=$1" | cat - "$TMP/PKGBUILD" > "$TMP/tmp"
-		mv "$TMP/tmp" "$TMP/PKGBUILD"
+		for SUBPROJECT in "$WORKING/../packaging/$PROJECT/arch/"*"/"; do
+		PKGWORKING=$WORKING/pkg/tmp
 
-		# makepkg and grab package file
-		cd "$TMP"
+		# setup build environment
+		mkdir "$PKGWORKING"
+		cp -r "$WORKING/../packaging/$PROJECT/arch/$SUBPROJECT/"* "$PKGWORKING"
+
+		# edit build environment
+		echo "$WORKING/.." > "$PKGWORKING/project-path"
+		echo "pkgver=$1" | cat - "$PKGWORKING/PKGBUILD" > "$PKGWORKING/tmp"
+		mv "$PKGWORKING/tmp" "$PKGWORKING/PKGBUILD"
+
+		# build and grab package file
+		cd "$PKGWORKING"
 		makepkg
-		mv "$TMP/"*".pkg.tar.zst" "$WORKING/pkg/$PROJECT.pkg.tar.zst"
+		mv "$PKGWORKING/"*".pkg.tar.zst" "$WORKING/pkg/$SUBPROJECT.pkg.tar.zst"
 		cd "$WORKING/pkg"
 
-		# delete makepkg folder
-		rm -rf "$TMP"
+		# delete build folder
+		rm -rf "$PKGWORKING"
+		done
 	done
 }
 

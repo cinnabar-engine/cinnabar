@@ -1,7 +1,0 @@
-Package: libcinnabar-core-doc
-Section: doc
-Priority: optional
-Architecture: all
-Depends:
-Maintainer: tumblegamer@gmail.com
-Description: Reference manual for Cinnabar Core
