@@ -28,9 +28,6 @@ ce::Window::Window(const char* title)
 	}
 
 	glfwMakeContextCurrent(m_window); // TODO: i think each window comes with its own context, this should probably be a seperate function
-
-	// TODO: this somewhere
-	//glfwWindowShouldClose(m_window);
 }
 ce::Window::~Window() {
 	glfwDestroyWindow(m_window);
