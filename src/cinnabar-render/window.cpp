@@ -37,13 +37,22 @@ void ce::Window::swapBuffers() {
 	glfwSwapBuffers(m_window);
 }
 
-glm::vec2 ce::Window::getWindowSize() {
+glm::ivec2 ce::Window::getWindowSize() {
+	int w, h;
+	glfwGetWindowSize(m_window, &w, &h);
+	return glm::ivec2(w, h);
+}
+glm::ivec2 ce::Window::getFramebufferSize() {
 	int w, h;
 	glfwGetFramebufferSize(m_window, &w, &h);
-	return glm::vec2(w, h);
+	return glm::ivec2(w, h);
 }
-float ce::Window::getAspectRatio() {
-	glm::vec2 size = getWindowSize();
+double ce::Window::getWindowAspectRatio() {
+	glm::ivec2 size = getWindowSize();
+	return size.x / size.y;
+}
+double ce::Window::getFramebufferAspectRatio() {
+	glm::ivec2 size = getFramebufferSize();
 	return size.x / size.y;
 }
 

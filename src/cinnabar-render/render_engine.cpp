@@ -55,7 +55,7 @@ void ce::RenderEngine::setClearColor(glm::vec4 color) {
 	glClearColor(color.r, color.g, color.b, color.a);
 }
 
-void ce::RenderEngine::setSize(glm::vec2 size) {
+void ce::RenderEngine::setFramebufferSize(glm::vec2 size) {
 	glViewport(0, 0, size.x, size.y);
 }
 void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {

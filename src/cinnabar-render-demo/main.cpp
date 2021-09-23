@@ -84,13 +84,8 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 			window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 void windowSizeCallback(GLFWwindow* window, int width, int height) { // TODO: get window class from callback instead of GLFWwindow
-	//renderEngine->setSize(window->getWindowSize());
-	{
-		int w, h;
-		glfwGetFramebufferSize(m_window, &w, &h);
-		renderEngine->setSize(w, h);
-	}
-	camera->projection = glm::perspective(glm::radians(75.0), (double)window->getAspectRatio(), 0.1, 100.0);
+	renderEngine->setFramebufferSize(window->getFramebufferSize());
+	camera->projection = glm::perspective(glm::radians(75.0), (double)window->getFramebufferAspectRatio(), 0.1, 100.0);
 }
 
 int main(int argc, char* argv[]) {
@@ -101,7 +96,7 @@ int main(int argc, char* argv[]) {
 	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 
 	ce::RenderEngine* renderEngine = new ce::RenderEngine();
-	renderEngine->setSize(window->getWindowSize());
+	renderEngine->setSize(window->getFramebufferSize());
 
 
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
