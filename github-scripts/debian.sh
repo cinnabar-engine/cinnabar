@@ -46,9 +46,8 @@ function package {
 
 			# build and grab package file
 			cd "$PKGWORKING"
-			makedeb
-			exit 1
-			mv "$PKGWORKING/"*".pkg.tar.zst" "$WORKING/pkg/$SUBPROJECT.pkg.tar.zst"
+			makedeb --nodeps
+			mv "$PKGWORKING/"*".deb" "$WORKING/pkg/"
 			cd "$WORKING/pkg"
 
 			# delete build folder

@@ -27,8 +27,8 @@ function package {
 		for SUBPROJECT in "./"*"/"; do
 			PKGWORKING=$WORKING/pkg/tmp
 
-		# setup build environment
-				mkdir "$PKGWORKING"
+			# setup build environment
+			mkdir "$PKGWORKING"
 			cp -r "$WORKING/../packaging/$PROJECT/arch/$SUBPROJECT/"* "$PKGWORKING"
 
 			# edit build environment
@@ -38,8 +38,8 @@ function package {
 
 			# build and grab package file
 			cd "$PKGWORKING"
-			makepkg
-			mv "$PKGWORKING/"*".pkg.tar.zst" "$WORKING/pkg/$SUBPROJECT.pkg.tar.zst"
+			makepkg --nodeps
+			mv "$PKGWORKING/"*".pkg.tar.zst" "$WORKING/pkg/"
 			cd "$WORKING/pkg"
 
 			# delete build folder
