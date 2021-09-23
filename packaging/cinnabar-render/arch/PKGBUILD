@@ -1,6 +1,5 @@
 # Maintainer: Your Name <youremail@domain.com>
 pkgname=cinnabar-render
-pkgver=1.0.0
 pkgrel=1
 pkgdesc="OpenGL renderer for the cinnabar game engine"
 arch=("x86_64")

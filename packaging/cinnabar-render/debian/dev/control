@@ -1,5 +1,4 @@
 Package: libcinnabar-render-dev
-Version: 1.0.0
 Section: development
 Priority: optional
 Architecture: all

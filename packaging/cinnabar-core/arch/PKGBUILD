@@ -1,6 +1,5 @@
 # Maintainer: Your Name <youremail@domain.com>
 pkgname=cinnabar-core
-pkgver=1.0.0
 pkgrel=1
 pkgdesc="Core utilities for the cinnabar game engine"
 arch=("x86_64")

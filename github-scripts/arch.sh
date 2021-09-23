@@ -1,8 +1,8 @@
 #!/bin/bash
 WORKING=$(dirname "$PWD/${0/.}")
 PROJECTS=$(cat "$WORKING/projects.txt")
-echo WORKING:$WORKING
-echo PROJECTS:${PROJECTS[@]}
+echo "WORKING:$WORKING"
+echo "PROJECTS:${PROJECTS[@]}"
 
 function configure {
 	rm -rf build
@@ -29,6 +29,8 @@ function package {
 		mkdir "$TMP"
 		cp -r "$ARCH"/* "$TMP"
 		echo "$WORKING/.." > "$TMP/project-path"
+		echo "pkgver=$1" | cat - "$TMP/PKGBUILD" > "$TMP/tmp"
+		mv "$TMP/tmp" "$TMP/PKGBUILD"
 
 		# makepkg and grab package file
 		cd "$TMP"
@@ -42,18 +44,18 @@ function package {
 }
 
 cd "$WORKING/.."
-case $1 in
-	configure)
+case "$1" in
+	"configure")
 		set -x
 		configure
 		;;
-	build)
+	"build")
 		set -x
 		build
 		;;
-	package)
+	"package")
 		set -x
-		package
+		package "$2"
 		;;
 	*)
 		echo "usage: $0 [action]"
@@ -61,5 +63,5 @@ case $1 in
 		echo "actions:"
 		echo "	configure"
 		echo "	build"
-		echo "	package"
+		echo "	package <version>"
 esac

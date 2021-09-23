@@ -1,5 +1,4 @@
 Package: libcinnabar-core
-Version: 1.0.0
 Section: lib
 Priority: optional
 Architecture: all

@@ -1,5 +1,4 @@
 Package: libcinnabar-core-doc
-Version: 1.0.0
 Section: doc
 Priority: optional
 Architecture: all
