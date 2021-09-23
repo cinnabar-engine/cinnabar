@@ -2,6 +2,7 @@ name: Continuous Delivery
 on:
   push:
     tags: ['*']
+  workflow_dispatch:
 jobs:
   Debian:
     runs-on: ubuntu-latest
