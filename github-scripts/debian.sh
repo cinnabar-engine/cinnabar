@@ -31,7 +31,8 @@ function package {
 	mkdir "$WORKING/pkg"
 
 	for PROJECT in $PROJECTS; do
-		for SUBPROJECT in "$WORKING/../packaging/$PROJECT/arch/"*"/"; do
+		cd "$WORKING/../packaging/$PROJECT/debian"
+		for SUBPROJECT in "./"*"/"; do
 			PKGWORKING=$WORKING/pkg/tmp
 
 			# setup build environment
@@ -46,6 +47,7 @@ function package {
 			# build and grab package file
 			cd "$PKGWORKING"
 			makedeb
+			exit 1
 			mv "$PKGWORKING/"*".pkg.tar.zst" "$WORKING/pkg/$SUBPROJECT.pkg.tar.zst"
 			cd "$WORKING/pkg"
 
