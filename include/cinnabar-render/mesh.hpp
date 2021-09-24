@@ -1,7 +1,5 @@
 #pragma once
 
-#include <GL/glew.h>
-
 #include <cinnabar-render/asset_manager.hpp>
 #include <cinnabar-render/shader.hpp>
 #include <cinnabar-render/vertex.hpp>
