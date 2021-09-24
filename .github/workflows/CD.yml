@@ -34,7 +34,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: debian-artifact
-          path: pkg/
+          path: github-scripts/pkg/
 
   Arch:
     runs-on: ubuntu-latest
@@ -45,16 +45,15 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo docker build -f packaging/arch.dockerfile -t ce-arch .
-          sudo docker run -it -d --name ce-arch-test ce-arch
-          sudo docker exec ce-arch-test chmod +x /app/github-scripts/arch.sh
+          sudo docker run -it -d --name ce-arch-test ce-arch -v "$(pwd)":/app:rw ce-arch
+          sudo docker exec ce-arch-test chmod +x ./github-scripts/arch.sh
 
       - id: get_version
         uses: battila7/get-version-action@v2
 
       - name: Package
         run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh package ${{ steps.get_version.outputs.version }}
-          sudo docker cp ce-arch-test:/app/github-scripts/pkg .
+          sudo docker exec ce-arch-test ./github-scripts/arch.sh package ${{ steps.get_version.outputs.version }}
 
       - name: Clean Up
         run: |
@@ -65,7 +64,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: arch-artifact
-          path: pkg/
+          path: github-scripts/pkg/
 
   Windows:
     runs-on: windows-latest
@@ -112,7 +111,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: windows-artifact
-          path: pkg/
+          path: github-scripts/pkg/
 
   Release:
     runs-on: ubuntu-latest
