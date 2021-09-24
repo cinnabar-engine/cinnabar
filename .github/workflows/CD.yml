@@ -2,7 +2,6 @@ name: Continuous Delivery
 on:
   push:
     tags: ['*']
-  workflow_dispatch:
 jobs:
   Debian:
     runs-on: ubuntu-latest
@@ -14,32 +13,15 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt upgrade -y
-          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev -y
           chmod +x github-scripts/debian.sh
 
-      - name: Configure
-        run: |
-          github-scripts/debian.sh configure
-
-      - name: Build
-        run: |
-          github-scripts/debian.sh build
-
-      - run: mkdir doxygen-out
-
-      - name: "Generate Core Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-core.doxyfile"
-
-      - name: "Generate Render Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-render.doxyfile"
+      - id: get_version
+        uses: battila7/get-version-action@v2
 
       - name: Package
         run: |
-          github-scripts/debian.sh package
+          github-scripts/debian.sh package ${{ steps.get_version.outputs.version }}
 
       - uses: actions/upload-artifact@v2
         with:
@@ -58,29 +40,12 @@ jobs:
           sudo docker run -it -d --name ce-arch-test ce-arch
           sudo docker exec ce-arch-test chmod +x /app/github-scripts/arch.sh
 
-      - name: Configure
-        run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh configure
-
-      - name: Build
-        run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh build
-
-      - run: mkdir doxygen-out
-
-      - name: "Generate Core Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-core.doxyfile"
-
-      - name: "Generate Render Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-render.doxyfile"
+      - id: get_version
+        uses: battila7/get-version-action@v2
 
       - name: Package
         run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh package
+          sudo docker exec ce-arch-test /app/github-scripts/arch.sh package ${{ steps.get_version.outputs.version }}
           sudo docker cp ce-arch-test:/app/github-scripts/pkg .
 
       - name: Clean Up
@@ -119,12 +84,6 @@ jobs:
           unzip glew-dev-win.zip -d c:\lib
           unzip sdl2-dev-win.zip -d c:\lib
           unzip glm-dev-win.zip -d c:\lib
-
-          # vcpkg integrate install
-          # vcpkg install sdl2 glew glm
-          # # :: Install-Package sdl2 -Force
-          # # :: Install-Package glew -Force
-          # # # Install-Package glm -Force
 
       - name: Configure
         run: |

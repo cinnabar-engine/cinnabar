@@ -1,9 +1,10 @@
 # Maintainer: Your Name <youremail@domain.com>
+projectName=cinnabar-core
+
 pkgname=cinnabar-render
-pkgver=1.0.0
 pkgrel=1
 pkgdesc="OpenGL renderer for the cinnabar game engine"
-arch=("x86_64")
+arch=("any")
 url=""
 license=('GPL')
 groups=()
@@ -28,13 +29,15 @@ build() {
 	mkdir build
 	cd build
 	cmake ..
-	cmake --build . --target "$pkgname"
+	cmake --build . --target "$projectName"
 }
 
 package() {
 	projectPath=$(cat project-path)
-	mkdir -p "$pkgdir/usr/"{lib,"include/$pkgname"}
+	mkdir -p "$pkgdir/usr/"{"include/$projectName","share/doc/$projectName","share/man/man3/$projectName","lib"}
 
-	cp "$projectPath/build/run/lib$pkgname.so" "$pkgdir/usr/lib"
-	cp -r "$projectPath/include/$pkgname"/* "$pkgdir/usr/include/$pkgname"
+	cp -r "$projectPath/include/$projectName/"* "$pkgdir/usr/include/$projectName"
+	cp -r "$projectPath/doxygen-out/$projectName/"* "$pkgdir/usr/share/doc/$projectName"
+	cp -r "$projectPath/doxygen-out/$projectName/man/man3/ce"* "$pkgdir/usr/share/man/man3/$projectName"
+	cp "$projectPath/build/run/lib$projectName.so" "$pkgdir/usr/lib"
 }

@@ -1,13 +1,14 @@
 # Maintainer: Your Name <youremail@domain.com>
-pkgname=cinnabar-core
-pkgver=1.0.0
+projectName=cinnabar-core
+
+pkgname=lib$projectName-dev
 pkgrel=1
-pkgdesc="Core utilities for the cinnabar game engine"
-arch=("x86_64")
+pkgdesc="Cinnabar Core development files"
+arch=("any")
 url=""
 license=('GPL')
 groups=()
-depends=(sdl2 glm)
+depends=(libcinnabar-core libsdl2-dev libglm-dev)
 makedepends=()
 optdepends=()
 provides=()
@@ -28,13 +29,12 @@ build() {
 	mkdir build
 	cd build
 	cmake ..
-	cmake --build . --target "$pkgname"
+	cmake --build . --target "$projectName"
 }
 
 package() {
 	projectPath=$(cat project-path)
-	mkdir -p "$pkgdir/usr/"{lib,"include/$pkgname"}
+	mkdir -p "$pkgdir/usr/include/$projectName"
 
-	cp "$projectPath/build/run/lib$pkgname.so" "$pkgdir/usr/lib"
-	cp -r "$projectPath/include/$pkgname"/* "$pkgdir/usr/include/$pkgname"
+	cp -r "$projectPath/include/$projectName/"* "$pkgdir/usr/include/$projectName"
 }

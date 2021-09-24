@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "release
 develop
@@ -7,4 +7,4 @@ bugfix/
 prerelease/
 hotfix/
 support/
-v"|git flow init $*
+"|git flow init -f $*
