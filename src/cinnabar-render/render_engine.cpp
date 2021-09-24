@@ -75,7 +75,7 @@ void ce::RenderEngine::setSize(glm::vec2 size) {
 }
 void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
 	bind(mesh, material, transform, camera);
-	glDrawElements(mesh->format, (GLsizei)mesh->GetIndexCount(), GL_UNSIGNED_INT, NULL);
+	glDrawElements((GLenum)mesh->format, (GLsizei)mesh->GetIndexCount(), GL_UNSIGNED_INT, NULL);
 	mesh->unbind(); // TODO: is unbinding needed, and does it reduce performance?
 	material->unbind();
 }

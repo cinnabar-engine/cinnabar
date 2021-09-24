@@ -10,6 +10,7 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/asset_manager.hpp>
 
 void checkCompileErrors(GLuint shader, GLint shaderType) {
@@ -175,14 +176,14 @@ GLint ce::Shader::getUniformLocation(const std::string name) {
 	return std::distance(m_uniforms.begin(), location);
 }
 
-void ce::Shader::vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer) {
+void ce::Shader::vertexAttribPointer(std::string attrib, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void* pointer) {
 	GLint location = getAttribLocation(attrib);
-	vertexAttribPointer((Attribute)location, size, type, normalized, stride, pointer);
+	vertexAttribPointer((Attribute)location, (GLint)size, (GLenum)type, (GLboolean)normalized, (GLsizei)stride, pointer);
 }
-void ce::Shader::vertexAttribPointer(Attribute location, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer) {
+void ce::Shader::vertexAttribPointer(Attribute location, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void* pointer) {
 	if ((GLint)location < Shader::MIN_LOC)
 		return;
-	glVertexAttribPointer((GLint)location, size, type, normalized, stride, pointer);
+	glVertexAttribPointer((GLint)location, (GLint)size, (GLenum)type, (GLboolean)normalized, (GLsizei)stride, pointer);
 	glEnableVertexAttribArray((GLint)location);
 }
 
@@ -288,32 +289,32 @@ void ce::Shader::setUniform(const std::string name, float x, float y, float z, f
 
 #define SHADER_GENERATOR(TYPE, SUFFIX, ...) \
 	template <> \
-	void ce::Shader::setUniformArray<TYPE>(glm::int32 location, GLsizei count, const TYPE* value) { \
+	void ce::Shader::setUniformArray<TYPE>(glm::int32 location, glm::uint32 count, const TYPE* value) { \
 		bind(); \
 		glUniform##SUFFIX(location, count, __VA_ARGS__); \
 		unbind(); \
 	}
 
-SHADER_GENERATOR(bool, 1iv, (glm::int32*)value)
-SHADER_GENERATOR(glm::bvec2, 2iv, (glm::int32*)value)
-SHADER_GENERATOR(glm::bvec3, 3iv, (glm::int32*)value)
-SHADER_GENERATOR(glm::bvec4, 4iv, (glm::int32*)value)
+SHADER_GENERATOR(bool, 1iv, (GLint*)value)
+SHADER_GENERATOR(glm::bvec2, 2iv, (GLint*)value)
+SHADER_GENERATOR(glm::bvec3, 3iv, (GLint*)value)
+SHADER_GENERATOR(glm::bvec4, 4iv, (GLint*)value)
 SHADER_GENERATOR(glm::int32, 1iv, value)
-SHADER_GENERATOR(glm::ivec2, 2iv, (glm::int32*)value)
-SHADER_GENERATOR(glm::ivec3, 3iv, (glm::int32*)value)
-SHADER_GENERATOR(glm::ivec4, 4iv, (glm::int32*)value)
+SHADER_GENERATOR(glm::ivec2, 2iv, (GLint*)value)
+SHADER_GENERATOR(glm::ivec3, 3iv, (GLint*)value)
+SHADER_GENERATOR(glm::ivec4, 4iv, (GLint*)value)
 SHADER_GENERATOR(glm::uint32, 1uiv, value)
-SHADER_GENERATOR(glm::uvec2, 2uiv, (glm::uint32*)value)
-SHADER_GENERATOR(glm::uvec3, 3uiv, (glm::uint32*)value)
-SHADER_GENERATOR(glm::uvec4, 4uiv, (glm::uint32*)value)
+SHADER_GENERATOR(glm::uvec2, 2uiv, (GLuint*)value)
+SHADER_GENERATOR(glm::uvec3, 3uiv, (GLuint*)value)
+SHADER_GENERATOR(glm::uvec4, 4uiv, (GLuint*)value)
 SHADER_GENERATOR(glm::float32, 1fv, value)
-SHADER_GENERATOR(glm::vec2, 2fv, (glm::float32*)value)
-SHADER_GENERATOR(glm::vec3, 3fv, (glm::float32*)value)
-SHADER_GENERATOR(glm::vec4, 4fv, (glm::float32*)value)
+SHADER_GENERATOR(glm::vec2, 2fv, (GLfloat*)value)
+SHADER_GENERATOR(glm::vec3, 3fv, (GLfloat*)value)
+SHADER_GENERATOR(glm::vec4, 4fv, (GLfloat*)value)
 SHADER_GENERATOR(glm::float64, 1dv, value)
-SHADER_GENERATOR(glm::dvec2, 2dv, (glm::float64*)value)
-SHADER_GENERATOR(glm::dvec3, 3dv, (glm::float64*)value)
-SHADER_GENERATOR(glm::dvec4, 4dv, (glm::float64*)value)
+SHADER_GENERATOR(glm::dvec2, 2dv, (GLdouble*)value)
+SHADER_GENERATOR(glm::dvec3, 3dv, (GLdouble*)value)
+SHADER_GENERATOR(glm::dvec4, 4dv, (GLdouble*)value)
 
 SHADER_GENERATOR(glm::mat2, Matrix2fv, GL_FALSE, (GLfloat*)value)
 SHADER_GENERATOR(glm::mat3, Matrix3fv, GL_FALSE, (GLfloat*)value)

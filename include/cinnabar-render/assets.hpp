@@ -5,6 +5,7 @@
 
 #include <glm/glm.hpp>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/vertex.hpp>
 
 namespace ce {
@@ -34,6 +35,6 @@ namespace ce {
 	struct MeshFile {
 		std::vector<Vertex> verts = {};
 		std::vector<glm::uint32> indices = {};
-		glm::int32 format; // TODO: create enums
+		Meshformat format;
 	};
 }
