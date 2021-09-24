@@ -1,0 +1,18 @@
+#include <cinnabar-render/types.hpp>
+
+#include <GL/glew.h>
+
+const ce::BufferBit
+	ce::COLOR_BUFFER_BIT = GL_COLOR_BUFFER_BIT,
+	ce::DEPTH_BUFFER_BIT = GL_DEPTH_BUFFER_BIT,
+	ce::STENCIL_BUFFER_BIT = GL_STENCIL_BUFFER_BIT;
+
+const ce::DepthFunc
+	ce::DEPTH_NEVER = GL_NEVER,
+	ce::DEPTH_LESS = GL_LESS,
+	ce::DEPTH_EQUAL = GL_EQUAL,
+	ce::DEPTH_LEQUAL = GL_LEQUAL,
+	ce::DEPTH_GREATER = GL_GREATER,
+	ce::DEPTH_NOTEQUAL = GL_NOTEQUAL,
+	ce::DEPTH_GEQUAL = GL_GEQUAL,
+	ce::DEPTH_ALWAYS = GL_ALWAYS;

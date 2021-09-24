@@ -4,21 +4,6 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
-const ce::RenderEngine::BufferBit
-	ce::RenderEngine::COLOR_BUFFER_BIT = GL_COLOR_BUFFER_BIT,
-	ce::RenderEngine::DEPTH_BUFFER_BIT = GL_DEPTH_BUFFER_BIT,
-	ce::RenderEngine::STENCIL_BUFFER_BIT = GL_STENCIL_BUFFER_BIT;
-
-const ce::RenderEngine::DepthFunc
-	ce::RenderEngine::DEPTH_NEVER = GL_NEVER,
-	ce::RenderEngine::DEPTH_LESS = GL_LESS,
-	ce::RenderEngine::DEPTH_EQUAL = GL_EQUAL,
-	ce::RenderEngine::DEPTH_LEQUAL = GL_LEQUAL,
-	ce::RenderEngine::DEPTH_GREATER = GL_GREATER,
-	ce::RenderEngine::DEPTH_NOTEQUAL = GL_NOTEQUAL,
-	ce::RenderEngine::DEPTH_GEQUAL = GL_GEQUAL,
-	ce::RenderEngine::DEPTH_ALWAYS = GL_ALWAYS;
-
 void ce::RenderEngine::clear(BufferBit buffer) {
 	glClear((GLbitfield)buffer);
 }

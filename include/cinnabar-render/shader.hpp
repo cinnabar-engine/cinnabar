@@ -7,6 +7,7 @@
 
 #include <glm/glm.hpp>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/assets.hpp>
 
 namespace ce {
