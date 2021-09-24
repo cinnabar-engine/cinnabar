@@ -4,10 +4,11 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/asset_manager.hpp>
 
-void ce::Texture::init(TextureFile textureFile, GLenum colorSpace, TextureTarget target) {
-	glGenTextures(1, &(GLuint)m_texture);
+void ce::Texture::init(TextureFile textureFile, ColorSpace colorSpace, TextureTarget target) {
+	glGenTextures(1, (GLuint*)&m_texture);
 	bind();
 	glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_S, GL_REPEAT); // TODO: proper system for setting texture parameters
 	glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -22,7 +23,7 @@ void ce::Texture::init(TextureFile textureFile, GLenum colorSpace, TextureTarget
 }
 
 ce::Texture::~Texture() {
-	glDeleteTextures(1, &(GLuint)m_texture);
+	glDeleteTextures(1, (GLuint*)&m_texture);
 }
 
 void ce::Texture::bind() {
@@ -41,7 +42,7 @@ void ce::Texture::unbind() {
 	glBindTexture((GLenum)m_target, 0);
 }
 
-bool ce::Texture::loadData(TextureFile textureFile, GLenum colorSpace, TextureTarget target) {
+bool ce::Texture::loadData(TextureFile textureFile, ColorSpace colorSpace, TextureTarget target) {
 	m_target = target;
 	if (!colorSpace)
 		switch (textureFile.internalColorSpace) {
@@ -59,7 +60,7 @@ bool ce::Texture::loadData(TextureFile textureFile, GLenum colorSpace, TextureTa
 
 	if (textureFile.data) {
 		bind();
-		glTexImage2D((GLenum)m_target, 0, textureFile.internalColorSpace, textureFile.width, textureFile.height, 0, colorSpace,
+		glTexImage2D((GLenum)m_target, 0, (GLenum)textureFile.internalColorSpace, textureFile.width, textureFile.height, 0, (GLenum)colorSpace,
 			GL_UNSIGNED_BYTE, textureFile.data);
 		glGenerateMipmap((GLenum)m_target);
 		unbind();
