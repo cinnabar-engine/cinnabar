@@ -26,10 +26,13 @@ build() {
 	projectPath=$(cat project-path)
 	cd "$projectPath"
 	echo "$(rm -rf build)"
-	mkdir build
-	cd build
-	cmake ..
-	cmake --build . --target "$projectName"
+	mkdir "build"
+	cd "build"
+	cmake ".."
+	cmake --build "." --target "$projectName"
+
+	cd "$projectPath"
+	doxygen "doxygen/$projectName.doxyfile"
 }
 
 package() {

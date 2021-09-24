@@ -30,6 +30,9 @@ build() {
 	cd build
 	cmake ..
 	cmake --build . --target "$projectName"
+
+	cd "$projectPath"
+	doxygen "doxygen/$projectName.doxyfile"
 }
 
 package() {
