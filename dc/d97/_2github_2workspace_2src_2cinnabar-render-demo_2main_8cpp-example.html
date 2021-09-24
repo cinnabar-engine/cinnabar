@@ -234,11 +234,11 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line">            (cameraFront * cameraVelocity.z));</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// Render</span></div>
-<div class="line">        renderEngine-&gt;<a name="a30"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#ada1c5a74d8a302ddbe27b818efb29de3">clear</a>();</div>
-<div class="line">        renderEngine-&gt;<a name="a31"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758">render</a>(blobMesh, blobMaterial, blobPos, camera);</div>
+<div class="line">        renderEngine-&gt;<a name="a30"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#a62d6b5dfea414b4624af95a2a53933bd">clear</a>(<a name="a31"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#acf053790804c46e12a32ad90ebe6015da5486be85e44f0f8699eb8b5554114a2b">ce::RenderEngine::COLOR_BUFFER_BIT</a> | <a name="a32"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#acf053790804c46e12a32ad90ebe6015da4b155fe33fcf09796e36f9081d180361">ce::RenderEngine::DEPTH_BUFFER_BIT</a>);</div>
+<div class="line">        renderEngine-&gt;<a name="a33"></a><a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758">render</a>(blobMesh, blobMaterial, blobPos, camera);</div>
 <div class="line">        renderEngine-&gt;<a class="code" href="../../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758">render</a>(environmentMesh, environmentMaterial, environmentPos, camera);</div>
 <div class="line"> </div>
-<div class="line">        window-&gt;<a name="a32"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">swapBuffers</a>();</div>
+<div class="line">        window-&gt;<a name="a34"></a><a class="code" href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">swapBuffers</a>();</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// error check</span></div>
 <div class="line">        <span class="comment">// TODO: make this into some function</span></div>
@@ -247,14 +247,14 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="line">            <span class="keywordflow">if</span> (tmp == GL_NO_ERROR)</div>
 <div class="line">                <span class="keywordflow">break</span>;</div>
 <div class="line">            <span class="keywordflow">else</span></div>
-<div class="line">                <a name="a33"></a><a class="code" href="../../d4/dd5/tpnt__log_8h.html#ad4a9117ce894e3319e903142347a0f63">LOG_ERROR</a>(<span class="stringliteral">&quot;Uncaught GL error: 0x%04x&quot;</span>, tmp);</div>
+<div class="line">                <a name="a35"></a><a class="code" href="../../d4/dd5/tpnt__log_8h.html#ad4a9117ce894e3319e903142347a0f63">LOG_ERROR</a>(<span class="stringliteral">&quot;Uncaught GL error: 0x%04x&quot;</span>, tmp);</div>
 <div class="line">        }</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// framerate cap</span></div>
-<div class="line">        time-&gt;<a name="a34"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a68a6066144c2f37751cff9fcfaa25b4c">waitUntilDelta</a>(deltaTimeMin);</div>
+<div class="line">        time-&gt;<a name="a36"></a><a class="code" href="../../df/d10/classce_1_1Time.html#a68a6066144c2f37751cff9fcfaa25b4c">waitUntilDelta</a>(deltaTimeMin);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keyword">delete</span> blobMesh;</div>
-<div class="line">    blobMaterial-&gt;<a name="a35"></a><a class="code" href="../../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b">deleteContents</a>();</div>
+<div class="line">    blobMaterial-&gt;<a name="a37"></a><a class="code" href="../../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b">deleteContents</a>();</div>
 <div class="line">    <span class="keyword">delete</span> blobMaterial;</div>
 <div class="line">    <span class="keyword">delete</span> blobPos;</div>
 <div class="line"> </div>
@@ -279,9 +279,11 @@ $(document).ready(function(){initNavTree('dc/d97/_2github_2workspace_2src_2cinna
 <div class="ttc" id="aclassce_1_1Material_html_a80de01f41699a1f0c095f8188dbc6c76"><div class="ttname"><a href="../../d5/d2e/classce_1_1Material.html#a80de01f41699a1f0c095f8188dbc6c76">ce::Material::textures</a></div><div class="ttdeci">std::vector&lt; Texture * &gt; textures</div><div class="ttdef"><b>Definition:</b> material.hpp:30</div></div>
 <div class="ttc" id="aclassce_1_1Mesh_html"><div class="ttname"><a href="../../d6/d6e/classce_1_1Mesh.html">ce::Mesh</a></div><div class="ttdef"><b>Definition:</b> mesh.hpp:10</div></div>
 <div class="ttc" id="aclassce_1_1RenderEngine_html"><div class="ttname"><a href="../../d2/df2/classce_1_1RenderEngine.html">ce::RenderEngine</a></div><div class="ttdef"><b>Definition:</b> render_engine.hpp:13</div></div>
+<div class="ttc" id="aclassce_1_1RenderEngine_html_a62d6b5dfea414b4624af95a2a53933bd"><div class="ttname"><a href="../../d2/df2/classce_1_1RenderEngine.html#a62d6b5dfea414b4624af95a2a53933bd">ce::RenderEngine::clear</a></div><div class="ttdeci">void clear(GLbitfield buffer=DEPTH_BUFFER_BIT)</div></div>
 <div class="ttc" id="aclassce_1_1RenderEngine_html_a70e7efacb3731c0c4181a39d48517758"><div class="ttname"><a href="../../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758">ce::RenderEngine::render</a></div><div class="ttdeci">void render(Mesh *mesh, Material *material, Transform *transform, Camera *camera)</div></div>
 <div class="ttc" id="aclassce_1_1RenderEngine_html_abc70d7825b513f8c804a90bdf0ec150e"><div class="ttname"><a href="../../d2/df2/classce_1_1RenderEngine.html#abc70d7825b513f8c804a90bdf0ec150e">ce::RenderEngine::setSize</a></div><div class="ttdeci">void setSize(glm::vec2 size)</div></div>
-<div class="ttc" id="aclassce_1_1RenderEngine_html_ada1c5a74d8a302ddbe27b818efb29de3"><div class="ttname"><a href="../../d2/df2/classce_1_1RenderEngine.html#ada1c5a74d8a302ddbe27b818efb29de3">ce::RenderEngine::clear</a></div><div class="ttdeci">void clear()</div></div>
+<div class="ttc" id="aclassce_1_1RenderEngine_html_acf053790804c46e12a32ad90ebe6015da4b155fe33fcf09796e36f9081d180361"><div class="ttname"><a href="../../d2/df2/classce_1_1RenderEngine.html#acf053790804c46e12a32ad90ebe6015da4b155fe33fcf09796e36f9081d180361">ce::RenderEngine::DEPTH_BUFFER_BIT</a></div><div class="ttdeci">@ DEPTH_BUFFER_BIT</div><div class="ttdef"><b>Definition:</b> render_engine.hpp:17</div></div>
+<div class="ttc" id="aclassce_1_1RenderEngine_html_acf053790804c46e12a32ad90ebe6015da5486be85e44f0f8699eb8b5554114a2b"><div class="ttname"><a href="../../d2/df2/classce_1_1RenderEngine.html#acf053790804c46e12a32ad90ebe6015da5486be85e44f0f8699eb8b5554114a2b">ce::RenderEngine::COLOR_BUFFER_BIT</a></div><div class="ttdeci">@ COLOR_BUFFER_BIT</div><div class="ttdef"><b>Definition:</b> render_engine.hpp:16</div></div>
 <div class="ttc" id="aclassce_1_1Texture_html"><div class="ttname"><a href="../../d2/de2/classce_1_1Texture.html">ce::Texture</a></div><div class="ttdef"><b>Definition:</b> texture.hpp:8</div></div>
 <div class="ttc" id="aclassce_1_1Time_html"><div class="ttname"><a href="../../df/d10/classce_1_1Time.html">ce::Time</a></div><div class="ttdef"><b>Definition:</b> time.hpp:4</div></div>
 <div class="ttc" id="aclassce_1_1Time_html_a0c8c3fa43b2499238b1c2c6fefc91cf1"><div class="ttname"><a href="../../df/d10/classce_1_1Time.html#a0c8c3fa43b2499238b1c2c6fefc91cf1">ce::Time::update</a></div><div class="ttdeci">void update(bool dt=true, bool fps=true)</div><div class="ttdoc">Updates the FPS and DeltaTime and makes a GameTick.</div></div>
