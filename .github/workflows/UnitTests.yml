@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         run: |
-          github-scripts/debian.sh builds
+          github-scripts/debian.sh build
 
   Arch:
     runs-on: ubuntu-latest
