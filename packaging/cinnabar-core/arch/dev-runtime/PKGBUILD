@@ -32,6 +32,7 @@ build() {
 	cmake --build "." --target "$projectName"
 
 	cd "$projectPath"
+	echo "$(rm -rf doxygen-out)"
 	mkdir "doxygen-out"
 	doxygen "doxygen/$projectName.doxyfile"
 }
