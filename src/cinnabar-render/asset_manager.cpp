@@ -66,7 +66,7 @@ ce::TextureFile ce::assetManager::getTextureFile(std::string path) {
 			break;
 		default:
 			LOG_WARN("Unsupported texture channel count: %i", channelCount);
-			textureFile.data == NULL;
+			textureFile.data = NULL;
 	}
 
 	if (textureFile.data == NULL) {
