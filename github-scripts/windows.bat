@@ -4,7 +4,7 @@ set WORKING=%~dp0
 set PROJECTS=%WORKING%\projects.txt
 cd %WORKING%\..
 if not "%1" equ "" (
-	call "%~1"
+	call %1
 	if %errorlevel% equ 0 exit /b 0
 )
 echo "usage: %0 [action]"
