@@ -10,7 +10,8 @@ var classce_1_1RenderEngine =
     [ "clear", "d2/df2/classce_1_1RenderEngine.html#a62d6b5dfea414b4624af95a2a53933bd", null ],
     [ "render", "d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758", null ],
     [ "setClearColor", "d2/df2/classce_1_1RenderEngine.html#a437d392509ee2b792c3e504abb2be98c", null ],
-    [ "setClearDepth", "d2/df2/classce_1_1RenderEngine.html#ac36507c6846209da73eb51857837fe16", null ],
-    [ "setClearStencil", "d2/df2/classce_1_1RenderEngine.html#a98d6c68fe826c7c5f4ca2dd1b12b0413", null ],
+    [ "setClearDepth", "d2/df2/classce_1_1RenderEngine.html#a012c1f26a61ad96ec1fbbc14d2faf538", null ],
+    [ "setClearStencil", "d2/df2/classce_1_1RenderEngine.html#a187f93b018a42342d0725786dea1981c", null ],
+    [ "setDepthFunc", "d2/df2/classce_1_1RenderEngine.html#afb0079a0b63f0542cee0a163ee17580c", null ],
     [ "setSize", "d2/df2/classce_1_1RenderEngine.html#abc70d7825b513f8c804a90bdf0ec150e", null ]
 ];
