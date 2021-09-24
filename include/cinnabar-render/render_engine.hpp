@@ -12,22 +12,25 @@
 namespace ce {
 	class RenderEngine {
 	 public:
-		typedef enum {
-			COLOR_BUFFER_BIT = GL_COLOR_BUFFER_BIT,
-			DEPTH_BUFFER_BIT = GL_DEPTH_BUFFER_BIT,
-			STENCIL_BUFFER_BIT = GL_STENCIL_BUFFER_BIT,
-		} BufferBit;
-		typedef enum {
-			DEPTH_NEVER = GL_NEVER,
-			DEPTH_LESS = GL_LESS,
-			DEPTH_EQUAL = GL_EQUAL,
-			DEPTH_LEQUAL = GL_LEQUAL,
-			DEPTH_GREATER = GL_GREATER,
-			DEPTH_NOTEQUAL = GL_NOTEQUAL,
-			DEPTH_GEQUAL = GL_GEQUAL,
-			DEPTH_ALWAYS = GL_ALWAYS,
-		} DepthFunc;
-		typedef enum {
+		typedef glm::uint32 BufferBit;
+		extern static const BufferBit
+			COLOR_BUFFER_BIT,
+			DEPTH_BUFFER_BIT,
+			STENCIL_BUFFER_BIT;
+
+		typedef glm::uint32 DepthFunc;
+		extern static const DepthFunc
+			DEPTH_NEVER,
+			DEPTH_LESS,
+			DEPTH_EQUAL,
+			DEPTH_LEQUAL,
+			DEPTH_GREATER,
+			DEPTH_NOTEQUAL,
+			DEPTH_GEQUAL,
+			DEPTH_ALWAYS;
+
+		typedef glm::uint32 RenderOption;
+		
 			/*GL_BLEND,
 			GL_CLIP_DISTANCE?,
 			GL_CULL_FACE, // TODO: create cull settings function
@@ -54,8 +57,8 @@ namespace ce {
 			GL_SCISSOR_TEST
 			GL_STENCIL_TEST // TODO: glStencilFunc glStencilOp
 			GL_PROGRAM_POINT_SIZE*/
-		} RenderOption;
-	 
+
+
 		RenderEngine(glm::vec4 clearColor = glm::vec4());
 		~RenderEngine();
 
