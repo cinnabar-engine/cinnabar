@@ -21,7 +21,7 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt upgrade -y
-          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev makedeb -y
           chmod +x github-scripts/debian.sh
 
       - id: get_version
