@@ -134,7 +134,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: windows-artifact
-          path: github-scripts/pkg/
+          path: pkg/
 
   Release:
     runs-on: ubuntu-latest
