@@ -1,5 +1,7 @@
 #include <cinnabar-render/texture.hpp>
 
+#include <GL/glew.h>
+
 #include <cinnabar-core/tpnt_log.h>
 
 #include <cinnabar-render/asset_manager.hpp>

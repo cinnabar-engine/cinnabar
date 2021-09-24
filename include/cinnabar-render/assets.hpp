@@ -16,10 +16,10 @@ namespace ce {
 	};
 	struct TextureFile {
 		void* data = NULL;
-		GLsizei
+		glm::uint32
 			width = 0,
 			height = 0;
-		GLint internalColorSpace = 0; // TODO: is there a better value for this? GL_NONE exists but doesn't seem correct (also make changes in Texture)
+		glm::int32 internalColorSpace = 0; // TODO: is there a better value for this? GL_NONE exists but doesn't seem correct (also make changes in Texture)
 	};
 	struct MaterialFile {
 		glm::vec4
@@ -33,7 +33,7 @@ namespace ce {
 	};
 	struct MeshFile {
 		std::vector<Vertex> verts = {};
-		std::vector<GLuint> indices = {};
-		GLenum format;
+		std::vector<glm::uint32> indices = {};
+		glm::int32 format; // TODO: create enums
 	};
 }

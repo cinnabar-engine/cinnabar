@@ -23,16 +23,16 @@ namespace ce {
 
 		void setSize(glm::vec2 size);
 
-		void setRenderOption(GLenum option, bool enable);
+		void setRenderOption(GLenum option, bool enable); // TODO: create enum for option
 
 		void setClearColor(glm::vec4 color);
-		void setClearDepth(GLfloat depth);
-		void setClearStencil(GLint stencil);
+		void setClearDepth(glm::float32 depth);
+		void setClearStencil(glm::int32 stencil);
 
-		void setDepthFunc(GLenum func);
+		void setDepthFunc(GLenum func); // TODO: create enum for function
 
 		void
-			clear(GLbitfield buffer = DEPTH_BUFFER_BIT),
+			clear(BufferBit buffer = DEPTH_BUFFER_BIT),
 			render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
 
 	 private:

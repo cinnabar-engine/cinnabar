@@ -4,8 +4,8 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
-void ce::RenderEngine::clear(GLbitfield buffer) {
-	glClear(buffer);
+void ce::RenderEngine::clear(BufferBit buffer) {
+	glClear((GLbitfield)buffer);
 }
 
 void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {

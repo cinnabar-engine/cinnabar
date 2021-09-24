@@ -28,14 +28,14 @@ namespace ce {
 
 		void bind(), unbind();
 
-		GLuint getShader();
-		GLint
+		glm::uint32 getShader();
+		glm::int32
 			getAttribLocation(const std::string name),
 			getUniformLocation(const std::string name);
 
 		void
-			vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer),
-			vertexAttribPointer(Attribute attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
+			vertexAttribPointer(std::string attrib, glm::int32 size, GLenum type, bool normalized, glm::uint32 stride, const void* pointer), // TODO: deal with type
+			vertexAttribPointer(Attribute attrib, glm::int32 size, GLenum type, bool normalized, glm::uint32 stride, const void* pointer);
 
 		template <typename T>
 		void setUniform(const std::string name, const T& value);

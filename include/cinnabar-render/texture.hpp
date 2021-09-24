@@ -18,8 +18,8 @@ namespace ce {
 		void bind(), unbind(), activate(int slot);
 
 	 private:
-		GLuint m_texture;
-		GLenum m_target;
+		glm::uint32 m_texture;
+		GLenum m_target; // TODO: create target enum
 
 		void init(TextureFile textureFile, GLenum colorSpace = 0, GLenum target = GL_TEXTURE_2D);
 		bool loadData(TextureFile textureFile, GLenum colorSpace = 0, GLenum target = GL_TEXTURE_2D);
