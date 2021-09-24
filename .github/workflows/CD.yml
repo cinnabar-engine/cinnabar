@@ -45,7 +45,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo docker build -f packaging/arch.dockerfile -t ce-arch .
-          sudo docker run -it -d --name ce-arch-test ce-arch -v "$(pwd)":/app:rw ce-arch
+          sudo docker run -it -d --name ce-arch-test -v "$(pwd)":/app:rw ce-arch
           sudo docker exec ce-arch-test chmod +x ./github-scripts/arch.sh
 
       - id: get_version
