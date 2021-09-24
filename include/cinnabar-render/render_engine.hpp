@@ -23,6 +23,8 @@ namespace ce {
 
 		void setSize(glm::vec2 size);
 
+		void setRenderOption(GLenum option, bool enable)
+
 		void setClearColor(glm::vec4 color);
 		void setClearDepth(GLfloat depth);
 		void setClearStencil(GLint stencil);

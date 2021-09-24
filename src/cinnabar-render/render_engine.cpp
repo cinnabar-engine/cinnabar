@@ -49,6 +49,13 @@ ce::RenderEngine::~RenderEngine() {
 	SDL_Quit();
 }
 
+void ce::RenderEngine::setRenderOption(GLenum option, bool enable) {
+	if (enable)
+		glEnable(option);
+	else
+		glDisable(option);
+}
+
 void ce::RenderEngine::setClearColor(glm::vec4 color) {
 	glClearColor(color.r, color.g, color.b, color.a);
 }
