@@ -17,6 +17,16 @@ namespace ce {
 			DEPTH_BUFFER_BIT = GL_DEPTH_BUFFER_BIT,
 			STENCIL_BUFFER_BIT = GL_STENCIL_BUFFER_BIT,
 		} BufferBit;
+		typedef enum {
+			DEPTH_NEVER = GL_NEVER,
+			DEPTH_LESS = GL_LESS,
+			DEPTH_EQUAL = GL_EQUAL,
+			DEPTH_LEQUAL = GL_LEQUAL,
+			DEPTH_GREATER = GL_GREATER,
+			DEPTH_NOTEQUAL = GL_NOTEQUAL,
+			DEPTH_GEQUAL = GL_GEQUAL,
+			DEPTH_ALWAYS = GL_ALWAYS,
+		} DepthFunc;
 	 
 		RenderEngine(glm::vec4 clearColor = glm::vec4());
 		~RenderEngine();
@@ -29,7 +39,7 @@ namespace ce {
 		void setClearDepth(glm::float32 depth);
 		void setClearStencil(glm::int32 stencil);
 
-		void setDepthFunc(GLenum func); // TODO: create enum for function
+		void setDepthFunc(DepthFunc func);
 
 		void
 			clear(BufferBit buffer = DEPTH_BUFFER_BIT),

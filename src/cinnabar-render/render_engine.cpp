@@ -66,8 +66,8 @@ void ce::RenderEngine::setClearStencil(GLint stencil) {
 	glClearStencil(stencil);
 }
 
-void ce::RenderEngine::setDepthFunc(GLenum func) {
-	glDepthFunc(func);
+void ce::RenderEngine::setDepthFunc(DepthFunc func) {
+	glDepthFunc((GLenum)func);
 }
 
 void ce::RenderEngine::setSize(glm::vec2 size) {
