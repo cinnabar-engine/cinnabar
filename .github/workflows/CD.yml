@@ -59,7 +59,7 @@ jobs:
         run: |
           sudo docker exec ce-arch-test useradd ce
           sudo docker exec ce-arch-test chown ce:ce /app -R
-          sudo docker exec ce-arch-test RUN chmod 7777 /app -R
+          sudo docker exec ce-arch-test chmod 7777 /app -R
 
 
       - name: Set Perms
