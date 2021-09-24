@@ -59,7 +59,7 @@ jobs:
         run: |
           sudo docker exec ce-arch-test useradd ce
           sudo docker exec ce-arch-test chown ce:ce /app -R
-          sudo docker exec ce-arch-test RUN chmod 7777 /app -R
+          sudo docker exec ce-arch-test chmod 7777 /app -R
 
 
       - name: Set Perms
@@ -134,7 +134,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: windows-artifact
-          path: github-scripts/pkg/
+          path: pkg/
 
   Release:
     runs-on: ubuntu-latest
