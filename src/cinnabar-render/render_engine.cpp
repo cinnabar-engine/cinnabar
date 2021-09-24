@@ -52,11 +52,15 @@ ce::RenderEngine::~RenderEngine() {
 void ce::RenderEngine::setClearColor(glm::vec4 color) {
 	glClearColor(color.r, color.g, color.b, color.a);
 }
-void ce::RenderEngine::setClearDepth(float depth) {
+void ce::RenderEngine::setClearDepth(GLfloat depth) {
 	glClearDepth(depth);
 }
-void ce::RenderEngine::setClearStencil(int stencil) {
+void ce::RenderEngine::setClearStencil(GLint stencil) {
 	glClearStencil(stencil);
+}
+
+void ce::RenderEngine::setDepthFunc(GLenum func) {
+	glDepthFunc(func);
 }
 
 void ce::RenderEngine::setSize(glm::vec2 size) {

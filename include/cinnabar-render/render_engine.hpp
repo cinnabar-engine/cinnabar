@@ -24,8 +24,10 @@ namespace ce {
 		void setSize(glm::vec2 size);
 
 		void setClearColor(glm::vec4 color);
-		void setClearDepth(float depth);
-		void setClearStencil(int stencil);
+		void setClearDepth(GLfloat depth);
+		void setClearStencil(GLint stencil);
+
+		void setDepthFunc(GLenum func);
 
 		void
 			clear(GLbitfield buffer = DEPTH_BUFFER_BIT),
