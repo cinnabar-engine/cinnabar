@@ -20,7 +20,7 @@ namespace ce {
 		glm::uint32
 			width = 0,
 			height = 0;
-		glm::int32 internalColorSpace = 0; // TODO: is there a better value for this? GL_NONE exists but doesn't seem correct (also make changes in Texture)
+		TextureFormat internalColorSpace = TEXTUREFORMAT_NONE;
 	};
 	struct MaterialFile {
 		glm::vec4
