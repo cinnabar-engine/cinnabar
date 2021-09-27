@@ -1,7 +1,5 @@
 #pragma once
 
-#include <GL/glew.h>
-
 #include <cinnabar-render/asset_manager.hpp>
 #include <cinnabar-render/shader.hpp>
 #include <cinnabar-render/vertex.hpp>
@@ -21,15 +19,15 @@ namespace ce {
 
 		void sendToShader(ce::Shader* shader, bool bind = true);
 
-		size_t GetIndexCount() { return m_indexArraySize / sizeof(GLuint); };
+		size_t GetIndexCount() { return m_indexArraySize / sizeof(glm::uint32); };
 		void bind(bool VBO = true, bool EBO = true), unbind(bool VBO = true, bool EBO = true);
 
-		GLenum format;
+		glm::int32 format; // TODO: create enums
 
 	 private:
-		GLsizeiptr m_vertArraySize, m_indexArraySize;
-		GLuint m_VAO, m_VBO, m_EBO;
+		size_t m_vertArraySize, m_indexArraySize;
+		glm::uint32 m_VAO, m_VBO, m_EBO;
 
-		void initVAO(Vertex* verts, GLuint* indices);
+		void initVAO(Vertex* verts, glm::uint32_t* indices);
 	};
 }

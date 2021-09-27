@@ -3,9 +3,9 @@
 #include <string>
 #include <vector>
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/vertex.hpp>
 
 namespace ce {
@@ -17,10 +17,10 @@ namespace ce {
 	};
 	struct TextureFile {
 		void* data = NULL;
-		GLsizei
+		glm::uint32
 			width = 0,
 			height = 0;
-		GLint internalColorSpace = 0; // TODO: is there a better value for this? GL_NONE exists but doesn't seem correct (also make changes in Texture)
+		TextureFormat internalColorSpace = TEXTUREFORMAT_NONE;
 	};
 	struct MaterialFile {
 		glm::vec4
@@ -34,7 +34,7 @@ namespace ce {
 	};
 	struct MeshFile {
 		std::vector<Vertex> verts = {};
-		std::vector<GLuint> indices = {};
-		GLenum format;
+		std::vector<glm::uint32> indices = {};
+		MeshFormat format;
 	};
 }

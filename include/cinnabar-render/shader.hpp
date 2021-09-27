@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/assets.hpp>
 
 namespace ce {
@@ -29,36 +29,36 @@ namespace ce {
 
 		void bind(), unbind();
 
-		GLuint getShader();
-		GLint
+		glm::uint32 getShader();
+		glm::int32
 			getAttribLocation(const std::string name),
 			getUniformLocation(const std::string name);
 
 		void
-			vertexAttribPointer(std::string attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer),
-			vertexAttribPointer(Attribute attrib, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
+			vertexAttribPointer(std::string attrib, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void* pointer),
+			vertexAttribPointer(Attribute attrib, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void* pointer);
 
 		template <typename T>
 		void setUniform(const std::string name, const T& value);
 		template <typename T>
-		void setUniform(GLint location, const T& value);
+		void setUniform(glm::int32 location, const T& value);
 		template <typename T>
-		void setUniformArray(const std::string name, GLsizei count, const T* value);
+		void setUniformArray(const std::string name, glm::uint32 count, const T* value);
 		template <typename T>
-		void setUniformArray(GLint location, GLsizei count, const T* value);
+		void setUniformArray(glm::int32 location, glm::uint32 count, const T* value);
 		void
 			setUniform(const std::string name, float x, float y),
 			setUniform(const std::string name, float x, float y, float z),
 			setUniform(const std::string name, float x, float y, float z, float w),
 
-			setUniform(GLint location, float x, float y),
-			setUniform(GLint location, float x, float y, float z),
-			setUniform(GLint location, float x, float y, float z, float w);
+			setUniform(glm::int32 location, float x, float y),
+			setUniform(glm::int32 location, float x, float y, float z),
+			setUniform(glm::int32 location, float x, float y, float z, float w);
 
 	 private:
-		inline static const GLint MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
+		inline static const glm::int32 MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
 
-		GLuint m_program;
+		glm::uint32 m_program;
 		std::vector<std::string>
 			m_attributes = {
 				"aPosition",
@@ -68,7 +68,7 @@ namespace ce {
 			},
 			m_uniforms;
 
-		void linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint geometryShader);
+		void linkProgram(glm::uint32 vertexShader, glm::uint32 fragmentShader, glm::uint32 geometryShader);
 
 		//int registerAttribute(std::string name),
 		//	registerUniform(std::string name);

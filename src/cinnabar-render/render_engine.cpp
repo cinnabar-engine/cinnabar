@@ -6,8 +6,8 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
-void ce::RenderEngine::clear(GLbitfield buffer) {
-	glClear(buffer);
+void ce::RenderEngine::clear(BufferBit buffer) {
+	glClear((GLbitfield)buffer);
 }
 
 void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
@@ -51,11 +51,11 @@ ce::RenderEngine::~RenderEngine() {
 	glfwTerminate();
 }
 
-void ce::RenderEngine::setRenderOption(GLenum option, bool enable) {
+void ce::RenderEngine::setRenderOption(RenderOption option, bool enable) {
 	if (enable)
-		glEnable(option);
+		glEnable((GLenum)option);
 	else
-		glDisable(option);
+		glDisable((GLenum)option);
 }
 
 void ce::RenderEngine::setClearColor(glm::vec4 color) {
@@ -68,8 +68,8 @@ void ce::RenderEngine::setClearStencil(GLint stencil) {
 	glClearStencil(stencil);
 }
 
-void ce::RenderEngine::setDepthFunc(GLenum func) {
-	glDepthFunc(func);
+void ce::RenderEngine::setDepthFunc(DepthFunc func) {
+	glDepthFunc((GLenum)func);
 }
 
 void ce::RenderEngine::setFramebufferSize(glm::vec2 size) {
@@ -77,7 +77,7 @@ void ce::RenderEngine::setFramebufferSize(glm::vec2 size) {
 }
 void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
 	bind(mesh, material, transform, camera);
-	glDrawElements(mesh->format, (GLsizei)mesh->GetIndexCount(), GL_UNSIGNED_INT, NULL);
+	glDrawElements((GLenum)mesh->format, (GLsizei)mesh->GetIndexCount(), GL_UNSIGNED_INT, NULL);
 	mesh->unbind(); // TODO: is unbinding needed, and does it reduce performance?
 	material->unbind();
 }

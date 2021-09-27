@@ -2,6 +2,7 @@
 #include <cinnabar-core/transform.hpp>
 
 // render
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/asset_manager.hpp>
 #include <cinnabar-render/assets.hpp>
 #include <cinnabar-render/camera.hpp>
