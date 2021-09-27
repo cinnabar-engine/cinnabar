@@ -12,7 +12,7 @@ add_executable(${NAME}
 
 target_link_libraries(${NAME}
 	${CMAKE_LIBS}
-	${SDL2_LIBS}
+	${GLFW_LIBS}
 	${GLM_LIBS}
 	cinnabar-core
 	cinnabar-render
