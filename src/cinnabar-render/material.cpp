@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include <GL/glew.h>
+
 ce::Material::Material(Shader* shader, size_t textureCount)
 	: shader(shader),
 	  textures(std::vector<Texture*>(textureCount, NULL)) {

@@ -6,6 +6,7 @@
 #include <string>
 
 #include "stb_image.h"
+#include <GL/glew.h>
 
 #include <cinnabar-core/asset_manager.hpp>
 #include <cinnabar-core/tpnt_log.h>
@@ -46,8 +47,8 @@ ce::TextureFile ce::assetManager::getTextureFile(std::string path) {
 	int channelCount;
 	textureFile.data = stbi_load(
 		(defaults::RESOURCE_FOLDER + "/" + defaults::TEXTURE_FOLDER + "/" + path).c_str(),
-		&textureFile.width,
-		&textureFile.height,
+		(int*)&textureFile.width,
+		(int*)&textureFile.height,
 		&channelCount,
 		0);
 

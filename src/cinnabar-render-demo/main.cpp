@@ -146,7 +146,7 @@ int main(int argc, char* argv[]) {
 			(cameraFront * cameraVelocity.z));
 
 		// Render
-		renderEngine->clear(ce::RenderEngine::COLOR_BUFFER_BIT | ce::RenderEngine::DEPTH_BUFFER_BIT);
+		renderEngine->clear(ce::COLOR_BUFFER_BIT | ce::DEPTH_BUFFER_BIT);
 		renderEngine->render(blobMesh, blobMaterial, blobPos, camera);
 		renderEngine->render(environmentMesh, environmentMaterial, environmentPos, camera);
 
@@ -154,13 +154,13 @@ int main(int argc, char* argv[]) {
 
 		// error check
 		// TODO: make this into some function
-		while (true) {
+		/*while (true) {
 			GLenum tmp = glGetError();
 			if (tmp == GL_NO_ERROR)
 				break;
 			else
 				LOG_ERROR("Uncaught GL error: 0x%04x", tmp);
-		}
+		}*/
 
 		// framerate cap
 		time->waitUntilDelta(deltaTimeMin);
