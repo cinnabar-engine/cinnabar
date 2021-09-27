@@ -6,8 +6,8 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
-void ce::RenderEngine::clear() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void ce::RenderEngine::clear(GLbitfield buffer) {
+	glClear(buffer);
 }
 
 void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
@@ -51,8 +51,25 @@ ce::RenderEngine::~RenderEngine() {
 	glfwTerminate();
 }
 
+void ce::RenderEngine::setRenderOption(GLenum option, bool enable) {
+	if (enable)
+		glEnable(option);
+	else
+		glDisable(option);
+}
+
 void ce::RenderEngine::setClearColor(glm::vec4 color) {
 	glClearColor(color.r, color.g, color.b, color.a);
+}
+void ce::RenderEngine::setClearDepth(GLfloat depth) {
+	glClearDepth(depth);
+}
+void ce::RenderEngine::setClearStencil(GLint stencil) {
+	glClearStencil(stencil);
+}
+
+void ce::RenderEngine::setDepthFunc(GLenum func) {
+	glDepthFunc(func);
 }
 
 void ce::RenderEngine::setFramebufferSize(glm::vec2 size) {

@@ -1,8 +1,7 @@
 name: Continuous Delivery
 on:
   push:
-    tags:
-      - ['*']
+    tags: ['*']
 jobs:
   Debian:
     runs-on: ubuntu-latest
@@ -10,78 +9,74 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
+      - name: Who am I?
+        run: whoami
+
+      - name: Setup Makedeb
+        run: |
+            wget -qO - 'https://proget.hunterwittenborn.com/debian-feeds/makedeb.pub' | \
+            gpg --dearmor | \
+            sudo tee /usr/share/keyrings/makedeb-archive-keyring.gpg &> /dev/null
+            echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=all] https://proget.hunterwittenborn.com/ makedeb main' | \
+            sudo tee /etc/apt/sources.list.d/makedeb.list
+
       - name: Install Dependencies
         run: |
           sudo apt update -y
           sudo apt upgrade -y
-          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev makedeb doxygen -y
           chmod +x github-scripts/debian.sh
 
-      - name: Configure
-        run: |
-          github-scripts/debian.sh configure
-
-      - name: Build
-        run: |
-          github-scripts/debian.sh build
-
-      - run: mkdir doxygen-out
-
-      - name: "Generate Core Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-core.doxyfile"
-
-      - name: "Generate Render Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-render.doxyfile"
+      - id: get_version
+        uses: battila7/get-version-action@v2
 
       - name: Package
         run: |
-          github-scripts/debian.sh package
+          github-scripts/debian.sh package ${{ steps.get_version.outputs.version }}
 
       - uses: actions/upload-artifact@v2
         with:
           name: debian-artifact
-          path: pkg/
+          path: github-scripts/pkg/
 
   Arch:
     runs-on: ubuntu-latest
     steps:
+      - name: Who am I?
+        run: whoami
+
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
 
       - name: Install Dependencies
         run: |
           sudo docker build -f packaging/arch.dockerfile -t ce-arch .
-          sudo docker run -it -d --name ce-arch-test ce-arch
-          sudo docker exec ce-arch-test chmod +x /app/github-scripts/arch.sh
+          sudo docker run -it -d --name ce-arch-test -v "$(pwd)":/app:rw ce-arch
+          #sudo docker exec ce-arch-test pacman -Syu --noconfirm && pacman -S base-devel cmake sdl2 glew glm doxygen --noconfirm --needed
 
-      - name: Configure
+
+      - name: Create User
         run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh configure
+          sudo docker exec ce-arch-test useradd ce
+          sudo docker exec ce-arch-test chown ce:ce /app -R
+          sudo docker exec ce-arch-test chmod 7777 /app -R
 
-      - name: Build
+
+      - name: Set Perms
         run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh build
+          sudo docker exec ce-arch-test chmod +x ./github-scripts/arch.sh
 
-      - run: mkdir doxygen-out
+      - name: (Docker) Who am I?
+        run:
+          sudo docker exec ce-arch-test whoami
 
-      - name: "Generate Core Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-core.doxyfile"
 
-      - name: "Generate Render Documentation"
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: "doxygen/cinnabar-render.doxyfile"
+      - id: get_version
+        uses: battila7/get-version-action@v2
 
       - name: Package
         run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh package
-          sudo docker cp ce-arch-test:/app/pkg .
+          sudo docker exec ce-arch-test su ce ./github-scripts/arch.sh package ${{ steps.get_version.outputs.version }}
 
       - name: Clean Up
         run: |
@@ -92,7 +87,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: arch-artifact
-          path: pkg/
+          path: github-scripts/pkg/
 
   Windows:
     runs-on: windows-latest
@@ -107,9 +102,9 @@ jobs:
       - run: choco install wget unzip 7zip -y
       - name: Install Dependencies
         env:
-          GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32-dev-win.zip
-          GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8-dev-win.zip
-          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC-dev-win.zip
+          GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
+          GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
+          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip
         run: |
           mkdir c:/lib
           wget -O glew-dev-win.zip $env:GLEW_DOWNLOAD
@@ -119,12 +114,6 @@ jobs:
           unzip glew-dev-win.zip -d c:\lib
           unzip sdl2-dev-win.zip -d c:\lib
           unzip glm-dev-win.zip -d c:\lib
-
-          # vcpkg integrate install
-          # vcpkg install sdl2 glew glm
-          # # :: Install-Package sdl2 -Force
-          # # :: Install-Package glew -Force
-          # # # Install-Package glm -Force
 
       - name: Configure
         run: |
@@ -168,7 +157,7 @@ jobs:
           name: windows-artifact
 
     # ----------------
-    # Get Verision
+    # Get Version
     # ----------------
 
       - id: get_version
@@ -182,12 +171,13 @@ jobs:
       - name: release
         uses: actions/create-release@v1
         id: create_release
+        continue-on-error: true
         with:
-          draft: false
+          draft: true
           prerelease: false
           release_name: Cinnabar ${{ steps.get_version.outputs.version }}
           tag_name: ${{ steps.get_version.outputs.version }}
-          body_path: CHANGELOG.md
+          body_path: ${{ env.GITHUB_WORKSPACE }}CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -195,7 +185,7 @@ jobs:
     # Add Artifacts
     # ----------------
 
-      # Debain
+      # Debian
 
       - name: libcinnabar-core.deb
         uses: actions/upload-release-asset@v1
@@ -258,7 +248,7 @@ jobs:
           asset_content_type: application/vnd.debian.binary-package
 
 
-      # Arch LInux
+      # Arch Linux
 
       - name: cinnabar-core.pkg.tar.zst
         uses: actions/upload-release-asset@v1

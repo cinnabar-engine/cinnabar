@@ -1,0 +1,45 @@
+# Maintainer: Your Name <youremail@domain.com>
+projectName=cinnabar-render
+
+pkgname=lib$projectName-dev
+pkgrel=1
+pkgdesc="Cinnabar Render development files"
+arch=("any")
+url=""
+license=('GPL')
+groups=()
+depends=(libcinnabar-render libsdl2-dev libglew-dev libglm-dev)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=('project-path')
+noextract=()
+md5sums=('SKIP') #autofill using updpkgsums
+
+build() {
+	projectPath=$(cat project-path)
+	cd "$projectPath"
+	echo "$(rm -rf build)"
+	mkdir build
+	cd build
+	cmake ..
+	cmake --build . --target "$projectName"
+
+	cd "$projectPath"
+	echo "$(rm -rf doxygen-out)"
+	mkdir "doxygen-out"
+	doxygen "doxygen/$projectName.doxyfile"
+}
+
+package() {
+	projectPath=$(cat project-path)
+	mkdir -p "$pkgdir/usr/include/$projectName"
+
+	cp -r "$projectPath/include/$projectName/"* "$pkgdir/usr/include/$projectName"
+}

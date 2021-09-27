@@ -1,8 +1,8 @@
 #!/bin/bash
 WORKING=$(dirname "$PWD/${0/.}")
 PROJECTS=$(cat "$WORKING/projects.txt")
-echo WORKING:$WORKING
-echo PROJECTS:${PROJECTS[@]}
+echo "WORKING: $WORKING"
+echo "PROJECTS: {PROJECTS[@]}"
 
 function configure {
 	rm -rf build
@@ -23,37 +23,44 @@ function package {
 	mkdir "$WORKING/pkg"
 
 	for PROJECT in $PROJECTS; do
-		# setup makepkg environment
-		ARCH=$WORKING/../packaging/$PROJECT/arch
-		TMP=$WORKING/pkg/tmp
-		mkdir "$TMP"
-		cp -r "$ARCH"/* "$TMP"
-		echo "$WORKING/.." > "$TMP/project-path"
+		cd "$WORKING/../packaging/$PROJECT/arch"
+		for SUBPROJECT in "./"*"/"; do
+			PKGWORKING=$WORKING/pkg/tmp
 
-		# makepkg and grab package file
-		cd "$TMP"
-		makepkg
-		mv "$TMP/"*".pkg.tar.zst" "$WORKING/pkg/$PROJECT.pkg.tar.zst"
-		cd "$WORKING/pkg"
+			# setup build environment
+			mkdir "$PKGWORKING"
+			cp -r "$WORKING/../packaging/$PROJECT/arch/$SUBPROJECT/"* "$PKGWORKING"
 
-		# delete makepkg folder
-		rm -rf "$TMP"
+			# edit build environment
+			echo "$WORKING/.." > "$PKGWORKING/project-path"
+			echo "pkgver=$1" | cat - "$PKGWORKING/PKGBUILD" > "$PKGWORKING/tmp"
+			mv "$PKGWORKING/tmp" "$PKGWORKING/PKGBUILD"
+
+			# build and grab package file
+			cd "$PKGWORKING"
+			makepkg --nodeps
+			mv "$PKGWORKING/"*".pkg.tar.zst" "$WORKING/pkg/"
+			cd "$WORKING/pkg"
+
+			# delete build folder
+			rm -rf "$PKGWORKING"
+		done
 	done
 }
 
 cd "$WORKING/.."
-case $1 in
-	configure)
+case "$1" in
+	"configure")
 		set -x
 		configure
 		;;
-	build)
+	"build")
 		set -x
 		build
 		;;
-	package)
+	"package")
 		set -x
-		package
+		package "$2"
 		;;
 	*)
 		echo "usage: $0 [action]"
@@ -61,5 +68,5 @@ case $1 in
 		echo "actions:"
 		echo "	configure"
 		echo "	build"
-		echo "	package"
+		echo "	package <version>"
 esac

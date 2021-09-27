@@ -1,6 +1,6 @@
 include_directories(
-	${PROJECT_SOURCE_DIR}/include
 	${CE_INCLUDE}
+	${PROJECT_SOURCE_DIR}/include
 )
 
 file(GLOB PROJECTS

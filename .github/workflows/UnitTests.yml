@@ -14,7 +14,7 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt upgrade -y
-          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev -y
           chmod +x github-scripts/debian.sh
 
       - name: Configure
@@ -23,11 +23,8 @@ jobs:
 
       - name: Build
         run: |
-          github-scripts/debian.sh builds
+          github-scripts/debian.sh build
 
-      - name: Package
-        run: |
-          github-scripts/debian.sh package
   Arch:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +34,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo docker build -f packaging/arch.dockerfile -t ce-arch .
-          sudo docker run -it -d --name ce-arch-test ce-arch
+          sudo docker run -it -d --name ce-arch-test -v "$(pwd)":/app:rw ce-arch
           sudo docker exec ce-arch-test chmod +x /app/github-scripts/arch.sh
 
       - name: Configure
@@ -47,10 +44,6 @@ jobs:
       - name: Build
         run: |
           sudo docker exec ce-arch-test /app/github-scripts/arch.sh build
-
-      - name: Package
-        run: |
-          sudo docker exec ce-arch-test /app/github-scripts/arch.sh package
 
       - name: Clean Up
         run: |
@@ -96,10 +89,7 @@ jobs:
           echo $env:PATH
 
           github-scripts\windows.bat configure
+
       - name: Build
         run: |
           github-scripts\windows.bat build
-
-      - name: Package
-        run: |
-          github-scripts\windows.bat package

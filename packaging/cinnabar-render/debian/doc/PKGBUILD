@@ -1,0 +1,46 @@
+# Maintainer: Your Name <youremail@domain.com>
+projectName=cinnabar-render
+
+pkgname=lib$projectName-doc
+pkgrel=1
+pkgdesc="Reference manual for Cinnabar Render"
+arch=("any")
+url=""
+license=('GPL')
+groups=()
+depends=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=('project-path')
+noextract=()
+md5sums=('SKIP') #autofill using updpkgsums
+
+build() {
+	projectPath=$(cat project-path)
+	cd "$projectPath"
+	echo "$(rm -rf build)"
+	mkdir build
+	cd build
+	cmake ..
+	cmake --build . --target "$projectName"
+
+	cd "$projectPath"
+	echo "$(rm -rf doxygen-out)"
+	mkdir "doxygen-out"
+	doxygen "doxygen/$projectName.doxyfile"
+}
+
+package() {
+	projectPath=$(cat project-path)
+	mkdir -p "$pkgdir/usr/"{"share/doc/$projectName","share/man/man3/$projectName"}
+
+	cp -r "$projectPath/doxygen-out/$projectName/"* "$pkgdir/usr/share/doc/$projectName"
+	cp -r "$projectPath/doxygen-out/$projectName/man/man3/ce"* "$pkgdir/usr/share/man/man3/$projectName"
+}

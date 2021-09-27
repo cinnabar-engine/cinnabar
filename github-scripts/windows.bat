@@ -3,27 +3,30 @@ SETLOCAL EnableDelayedExpansion
 set WORKING=%~dp0
 set PROJECTS=%WORKING%\projects.txt
 cd %WORKING%\..
-if not "%1" equ "" goto %1
-echo usage: %0 [action]
-echo actions:
-echo 	configure
-echo 	build
-echo 	package
-goto :eof
+if not "%1" equ "" (
+	call :%1
+	if %errorlevel% equ 0 exit /b 0
+)
+echo "usage: %0 [action]"
+echo "actions:"
+echo "	configure"
+echo "	build"
+echo "	package"
+exit /b 0
 
 :configure
 	mkdir build
 	cd build
 	cmake ..
 	if %errorlevel% neq 0 exit /b %errorlevel%
-goto :eof
+exit /b 0
 
 :build
 	cmake --build build --target clean
 	for /f "usebackq tokens=*" %%P in ("%PROJECTS%") do (
 		cmake --build build --target %%P
 	)
-goto :eof
+exit /b 0
 
 :prep-win
 	@echo on
@@ -43,12 +46,11 @@ goto :eof
 	copy %SYMBOLS% pkg\%PAKNAME%\lib
 
 	copy %INCLUDE%\* pkg\%PAKNAME%\include
-
-	goto :eof
+exit /b 0
 
 :wpkg-win
 	7z a %1-dev-win.zip %1
-goto :eof
+exit /b 0
 
 :package
 	mkdir pkg
@@ -63,4 +65,4 @@ goto :eof
 		call :wpkg-win %%F
 		rd /s /q %%F
 	)
-goto :eof
+exit /b 0
