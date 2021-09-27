@@ -11,6 +11,8 @@ add_library(${NAME}
 )
 
 target_link_libraries(${NAME}
+	${OPENGL_LIBS}
+	${GLEW_LIBS}
+	${SDL2_LIBS}
 	cinnabar-core
-	${CE_LIBS}
 )
