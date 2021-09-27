@@ -26,6 +26,7 @@ var dir_b4588f22dabb929260c1f97f00410727 =
     [ "texture.hpp", "d1/de0/texture_8hpp.html", [
       [ "Texture", "d2/de2/classce_1_1Texture.html", "d2/de2/classce_1_1Texture" ]
     ] ],
+    [ "types.hpp", "dd/de3/types_8hpp.html", "dd/de3/types_8hpp" ],
     [ "vertex.hpp", "d1/d2d/vertex_8hpp.html", [
       [ "Vertex", "d8/d43/structce_1_1Vertex.html", "d8/d43/structce_1_1Vertex" ]
     ] ],
