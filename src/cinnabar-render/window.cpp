@@ -7,30 +7,39 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
-ce::Window::Window(const char* title)
+ce::Window::Window(const char* title, int width, int height)
 	: m_window(NULL) {
 
-	if (!glfwInit()) { // TODO: init and terminate glfw seperate from windows
-		LOG_ERROR("Error intialising GLGW");
-		exit(1);
-	}
-	LOG_SUCCESS("GLFW has been initialized");
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	m_window = glfwCreateWindow(1280, 720, title, NULL, NULL);
+	m_window = glfwCreateWindow(width, height, title, NULL, NULL);
 	if (m_window == NULL) {
 		LOG_ERROR("Failed to create GLFW window");
 		glfwTerminate();
 		exit(1);
 	}
 
-	glfwMakeContextCurrent(m_window); // TODO: i think each window comes with its own context, this should probably be a seperate function
+	makeCurrent();
+
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		LOG_ERROR("GLEW error: %s", (const char*)glewGetErrorString(err));
+	}
+	LOG_INFO("GLEW version: %s", (const char*)glewGetString(GLEW_VERSION));
+
+	// OpenGL Setup
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 ce::Window::~Window() {
 	glfwDestroyWindow(m_window);
+}
+
+void ce::Window::makeCurrent() {
+	glfwMakeContextCurrent(m_window);
 }
 
 void ce::Window::swapBuffers() {

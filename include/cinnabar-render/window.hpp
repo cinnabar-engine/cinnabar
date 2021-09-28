@@ -7,8 +7,10 @@
 namespace ce {
 	class Window {
 	 public:
-		Window(const char* title);
+		Window(const char* title, int width = 640, int height = 480);
 		~Window();
+
+		void makeCurrent();
 
 		void swapBuffers();
 

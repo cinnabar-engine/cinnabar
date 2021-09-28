@@ -13,7 +13,7 @@
 namespace ce {
 	class RenderEngine {
 	 public:
-		RenderEngine(glm::vec4 clearColor = glm::vec4());
+		RenderEngine();
 		~RenderEngine();
 
 		void setFramebufferSize(glm::vec2 size);
