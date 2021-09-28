@@ -1,6 +1,8 @@
 #include <cinnabar-render/render_engine.hpp>
 
+#define GLFW_INCLUDE_NONE
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include <cinnabar-core/tpnt_log.h>
 
@@ -30,7 +32,7 @@ ce::RenderEngine::RenderEngine(glm::vec4 clearColor) {
 	LOG_INFO("GLEW version: %s", (const char*)glewGetString(GLEW_VERSION));
 	/*if () { // TODO: get GL version
 		LOG_ERROR("Wrong GL version %s", );
-		SDL_Quit();
+		glfwTerminate();
 		exit(1);
 	}*/
 
@@ -46,7 +48,7 @@ ce::RenderEngine::RenderEngine(glm::vec4 clearColor) {
 	setClearColor(clearColor);
 }
 ce::RenderEngine::~RenderEngine() {
-	SDL_Quit();
+	glfwTerminate();
 }
 
 void ce::RenderEngine::setRenderOption(RenderOption option, bool enable) {
@@ -70,7 +72,7 @@ void ce::RenderEngine::setDepthFunc(DepthFunc func) {
 	glDepthFunc((GLenum)func);
 }
 
-void ce::RenderEngine::setSize(glm::vec2 size) {
+void ce::RenderEngine::setFramebufferSize(glm::vec2 size) {
 	glViewport(0, 0, size.x, size.y);
 }
 void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {

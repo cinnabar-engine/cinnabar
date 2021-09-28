@@ -11,5 +11,5 @@ add_library(${NAME}
 )
 
 target_link_libraries(${NAME}
-	${SDL2_LIBS}
+	${GLFW_LIBS}
 )
