@@ -30,7 +30,5 @@ var dir_b4588f22dabb929260c1f97f00410727 =
     [ "vertex.hpp", "d1/d2d/vertex_8hpp.html", [
       [ "Vertex", "d8/d43/structce_1_1Vertex.html", "d8/d43/structce_1_1Vertex" ]
     ] ],
-    [ "window.hpp", "d2/d5a/window_8hpp.html", [
-      [ "Window", "dc/dee/classce_1_1Window.html", "dc/dee/classce_1_1Window" ]
-    ] ]
+    [ "window.hpp", "d2/d5a/window_8hpp.html", "d2/d5a/window_8hpp" ]
 ];
