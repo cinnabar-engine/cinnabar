@@ -33,10 +33,10 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 				case GLFW_KEY_S:
 					demo::cameraVelocity.z = -cameraSpeed;
 					break;
-				case GLFW_KEY_A:
+				case GLFW_KEY_D:
 					demo::cameraVelocity.x = cameraSpeed;
 					break;
-				case GLFW_KEY_D:
+				case GLFW_KEY_A:
 					demo::cameraVelocity.x = -cameraSpeed;
 					break;
 				case GLFW_KEY_SPACE:
@@ -79,6 +79,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	}
 }
 void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) { // TODO: get window class from callback instead of GLFWwindow
+	glfwSetCursorPos(demo::window->getWindow(), 0, 0);
 	if (demo::window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
 		return;
 	glm::vec2 mouseDelta(xpos, ypos);
@@ -89,8 +90,10 @@ void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) { // T
 }
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) { // TODO: get window class from callback instead of GLFWwindow
 	if (action == GLFW_PRESS)
-		if (demo::window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
+		if (demo::window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED) {
 			demo::window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			glfwSetCursorPos(demo::window->getWindow(), 0, 0);
+		}
 }
 void windowSizeCallback(GLFWwindow* window, int width, int height) { // TODO: get window class from callback instead of GLFWwindow
 	demo::renderEngine->setFramebufferSize(demo::window->getFramebufferSize());
