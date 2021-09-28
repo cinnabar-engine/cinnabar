@@ -10,18 +10,18 @@
 ce::Window::Window(const char* title)
 	: m_window(NULL) {
 
-	if (!glfwInit()) {
-		LOG_ERROR("Error intialising GLEW");
+	if (!glfwInit()) { // TODO: init and terminate glfw seperate from windows
+		LOG_ERROR("Error intialising GLGW");
 		exit(1);
 	}
-	LOG_SUCCESS("SDL has been initialized");
+	LOG_SUCCESS("GLFW has been initialized");
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	m_window = glfwCreateWindow(1280, 720, title, NULL, NULL);
-	if (!m_window) {
+	if (m_window == NULL) {
 		LOG_ERROR("Failed to create GLFW window");
 		glfwTerminate();
 		exit(1);
