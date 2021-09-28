@@ -49,11 +49,11 @@ glm::ivec2 ce::Window::getFramebufferSize() {
 }
 double ce::Window::getWindowAspectRatio() {
 	glm::ivec2 size = getWindowSize();
-	return size.x / size.y;
+	return (double)size.x / (double)size.y;
 }
 double ce::Window::getFramebufferAspectRatio() {
 	glm::ivec2 size = getFramebufferSize();
-	return size.x / size.y;
+	return (double)size.x / (double)size.y;
 }
 
 

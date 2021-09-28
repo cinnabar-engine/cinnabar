@@ -97,7 +97,7 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 }
 void windowSizeCallback(GLFWwindow* window, int width, int height) { // TODO: get window class from callback instead of GLFWwindow
 	demo::renderEngine->setFramebufferSize(demo::window->getFramebufferSize());
-	demo::camera->projection = glm::perspective(glm::radians(75.0), (double)demo::window->getFramebufferAspectRatio(), 0.1, 100.0);
+	demo::camera->projection = glm::perspective(glm::radians(75.0), (double)demo::window->getWindowAspectRatio(), 0.1, 100.0);
 }
 
 int main(int argc, char* argv[]) {
