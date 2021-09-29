@@ -54,7 +54,6 @@ jobs:
     runs-on: windows-latest
     env:
       GLEW_PATH: C:\lib\glew-2.2.0\bin
-      # SDL2DIR: C:\lib\SDL2-2.0.16
       GLM_ROOT_DIR: C:\lib\glm
       GLFW_ROOT: C:\lib\glfw-3.3.4
     steps:
@@ -66,17 +65,14 @@ jobs:
         env:
           GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
           GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
-          # SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip
           GLFW_DOWNLOAD: https://github.com/glfw/glfw/releases/download/3.3.4/glfw-3.3.4.zip
         run: |
           mkdir c:/lib
           wget -O glew.zip $env:GLEW_DOWNLOAD
-          REM # wget -O sdl2.zip $env:SDL2_DOWNLOAD
           wget -O glfw3.zip $env:GLFW_DOWNLOAD
           wget -O glm.zip $env:GLM_DOWNLOAD
 
           unzip glew.zip -d c:\lib
-          REM # unzip sdl2.zip -d c:\lib
           unzip glfw3.zip -d c:\lib
           unzip glm.zip -d c:\lib
 
