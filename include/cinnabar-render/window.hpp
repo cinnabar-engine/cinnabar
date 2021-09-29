@@ -21,6 +21,10 @@ namespace ce {
 		double getWindowAspectRatio();
 		double getFramebufferAspectRatio();
 
+		bool shouldClose() { return glfwWindowShouldClose(getWindow()); }
+
+		static void pollEvents() { glfwPollEvents(); };
+
 		void setInputMode(int mode, int value);
 		int getInputMode(int mode);
 

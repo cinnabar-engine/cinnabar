@@ -16,6 +16,7 @@ namespace ce {
 		RenderEngine();
 		~RenderEngine();
 
+		void vsync(int divisor) { glfwSwapInterval(divisor); }
 		void setFramebufferSize(glm::vec2 size);
 
 		void setRenderOption(RenderOption option, bool enable); // TODO: create enum for option
@@ -28,6 +29,8 @@ namespace ce {
 
 		void clear(BufferBit buffer = DEPTH_BUFFER_BIT);
 		void render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
+
+		int errorCheck();
 
 	 private:
 		void bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera);

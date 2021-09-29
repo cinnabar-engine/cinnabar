@@ -110,17 +110,14 @@ int main(int argc, char* argv[]) {
 
 	demo::window1 = new ce::Window("Cinnabar1");
 	demo::window1->makeCurrent();
-	glfwSwapInterval(0); // disable vsync // TODO: window/renderEngine function for vsync
+	demo::renderEngine->vsync(0);
+	demo::renderEngine->setFramebufferSize(demo::window1->getFramebufferSize());
 	demo::window2 = new ce::Window("Cinnabar2");
-	//demo::window2->makeCurrent();
-	//glfwSwapInterval(0); // disable vsync // TODO: window/renderEngine function for vsync
+	demo::window2->makeCurrent();
+	demo::renderEngine->vsync(0);
+	demo::renderEngine->setFramebufferSize(demo::window2->getFramebufferSize());
 	
 	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
-
-	demo::window1->makeCurrent();
-	demo::renderEngine->setFramebufferSize(demo::window1->getFramebufferSize());
-	demo::window2->makeCurrent();
-	demo::renderEngine->setFramebufferSize(demo::window2->getFramebufferSize());
 
 	demo::camera1 = new ce::Camera();
 	demo::camera1->projection = glm::perspective(glm::radians(75.0), (double)demo::window1->getWindowAspectRatio(), 0.1, 100.0);
@@ -153,11 +150,11 @@ int main(int argc, char* argv[]) {
 	glfwSetWindowSizeCallback(demo::window1->getWindow(), windowSizeCallback);
 
 
-	while (!glfwWindowShouldClose(demo::window1->getWindow())) { // TODO: make function for this and figure out multiple window demo
+	while (!(demo::window1->shouldClose() || demo::window2->shouldClose())) {
 		demo::time->update();
 		std::cout << "fps: " << demo::time->getFPS() << std::endl;
 
-		glfwPollEvents();
+		ce::Window::pollEvents();
 
 		// Rotate blob
 		blobPos->roll(25.0 * demo::time->getDeltaTime());
@@ -186,14 +183,10 @@ int main(int argc, char* argv[]) {
 		demo::window2->swapBuffers();
 
 		// error check
-		// TODO: make this into some function
-		/*while (true) {
-			GLenum tmp = glGetError();
-			if (tmp == GL_NO_ERROR)
-				break;
-			else
-				LOG_ERROR("Uncaught GL error: 0x%04x", tmp);
-		}*/
+		demo::window1->makeCurrent();
+		demo::renderEngine->errorCheck();
+		demo::window2->makeCurrent();
+		demo::renderEngine->errorCheck();
 
 		// framerate cap
 		demo::time->waitUntilDelta(deltaTimeMin);

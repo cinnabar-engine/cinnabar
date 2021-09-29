@@ -69,3 +69,17 @@ void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transfo
 	mesh->unbind(); // TODO: is unbinding needed, and does it reduce performance?
 	material->unbind();
 }
+
+int ce::RenderEngine::errorCheck() {
+	int errorCount;
+	while (true) {
+		GLenum err = glGetError();
+		if (err == GL_NO_ERROR)
+			break;
+		else {
+			LOG_ERROR("Uncaught GL error: 0x%04x", err);
+			errorCount++;
+		}
+	}
+	return errorCount;
+}
