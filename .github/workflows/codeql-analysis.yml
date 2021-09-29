@@ -9,8 +9,8 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-name: "Code Quality"
-on: [push,pull_request]
+name: "Code QL"
+on: [push, pull_request]
 jobs:
   analyze:
     name: Analyze
@@ -39,7 +39,7 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt upgrade -y
-          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev libassimp-dev -y
+          sudo apt install build-essential cmake libglfw3-dev libglew-dev libglm-dev libassimp-dev -y
           chmod +x github-scripts/debian.sh
 
       - name: Configure

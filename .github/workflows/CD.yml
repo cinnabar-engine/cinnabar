@@ -1,7 +1,7 @@
 name: Continuous Delivery
 on:
   push:
-    tags: ['*']
+    tags: ["*"]
 jobs:
   Debian:
     runs-on: ubuntu-latest
@@ -14,17 +14,17 @@ jobs:
 
       - name: Setup Makedeb
         run: |
-            wget -qO - 'https://proget.hunterwittenborn.com/debian-feeds/makedeb.pub' | \
-            gpg --dearmor | \
-            sudo tee /usr/share/keyrings/makedeb-archive-keyring.gpg &> /dev/null
-            echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=all] https://proget.hunterwittenborn.com/ makedeb main' | \
-            sudo tee /etc/apt/sources.list.d/makedeb.list
+          wget -qO - 'https://proget.hunterwittenborn.com/debian-feeds/makedeb.pub' | \
+          gpg --dearmor | \
+          sudo tee /usr/share/keyrings/makedeb-archive-keyring.gpg &> /dev/null
+          echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=all] https://proget.hunterwittenborn.com/ makedeb main' | \
+          sudo tee /etc/apt/sources.list.d/makedeb.list
 
       - name: Install Dependencies
         run: |
           sudo apt update -y
           sudo apt upgrade -y
-          sudo apt install build-essential cmake libsdl2-dev libglew-dev libglm-dev makedeb doxygen -y
+          sudo apt install build-essential cmake libglfw3-dev libglew-dev libglm-dev makedeb doxygen -y
           chmod +x github-scripts/debian.sh
 
       - id: get_version
@@ -54,22 +54,18 @@ jobs:
           sudo docker run -it -d --name ce-arch-test -v "$(pwd)":/app:rw ce-arch
           #sudo docker exec ce-arch-test pacman -Syu --noconfirm && pacman -S base-devel cmake sdl2 glew glm doxygen --noconfirm --needed
 
-
       - name: Create User
         run: |
           sudo docker exec ce-arch-test useradd ce
           sudo docker exec ce-arch-test chown ce:ce /app -R
           sudo docker exec ce-arch-test chmod 7777 /app -R
 
-
       - name: Set Perms
         run: |
           sudo docker exec ce-arch-test chmod +x ./github-scripts/arch.sh
 
       - name: (Docker) Who am I?
-        run:
-          sudo docker exec ce-arch-test whoami
-
+        run: sudo docker exec ce-arch-test whoami
 
       - id: get_version
         uses: battila7/get-version-action@v2
@@ -93,8 +89,9 @@ jobs:
     runs-on: windows-latest
     env:
       GLEW_PATH: C:\lib\glew-2.2.0\bin
-      SDL2DIR: C:\lib\SDL2-2.0.16
+      # SDL2DIR: C:\lib\SDL2-2.0.16
       GLM_ROOT_DIR: C:\lib\glm
+      GLFW_ROOT: C:\lib\glfw-3.3.4
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
@@ -104,16 +101,19 @@ jobs:
         env:
           GLEW_DOWNLOAD: https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
           GLM_DOWNLOAD: https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
-          SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip
+          # SDL2_DOWNLOAD: https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip
+          GLFW_DOWNLOAD: https://github.com/glfw/glfw/releases/download/3.3.4/glfw-3.3.4.zip
         run: |
           mkdir c:/lib
-          wget -O glew-dev-win.zip $env:GLEW_DOWNLOAD
-          wget -O sdl2-dev-win.zip $env:SDL2_DOWNLOAD
-          wget -O glm-dev-win.zip $env:GLM_DOWNLOAD
+          wget -O glew.zip $env:GLEW_DOWNLOAD
+          REM # wget -O sdl2.zip $env:SDL2_DOWNLOAD
+          wget -O glfw3.zip $env:GLFW_DOWNLOAD
+          wget -O glm.zip $env:GLM_DOWNLOAD
 
-          unzip glew-dev-win.zip -d c:\lib
-          unzip sdl2-dev-win.zip -d c:\lib
-          unzip glm-dev-win.zip -d c:\lib
+          unzip glew.zip -d c:\lib
+          REM # unzip sdl2.zip -d c:\lib
+          unzip glfw3.zip -d c:\lib
+          unzip glm.zip -d c:\lib
 
       - name: Configure
         run: |
@@ -140,10 +140,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Debian, Arch, Windows]
     steps:
-
-    # ----------------
-    # Get Artifacts
-    # ----------------
+      # ----------------
+      # Get Artifacts
+      # ----------------
       - uses: actions/download-artifact@v2
         with:
           name: debian-artifact
@@ -156,17 +155,16 @@ jobs:
         with:
           name: windows-artifact
 
-    # ----------------
-    # Get Version
-    # ----------------
+      # ----------------
+      # Get Version
+      # ----------------
 
       - id: get_version
         uses: battila7/get-version-action@v2
 
-
-    # ----------------
-    # Create Release
-    # ----------------
+      # ----------------
+      # Create Release
+      # ----------------
 
       - name: release
         uses: actions/create-release@v1
@@ -181,9 +179,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-    # ----------------
-    # Add Artifacts
-    # ----------------
+      # ----------------
+      # Add Artifacts
+      # ----------------
 
       # Debian
 
@@ -247,7 +245,6 @@ jobs:
           asset_name: libcinnabar-render-doc.deb
           asset_content_type: application/vnd.debian.binary-package
 
-
       # Arch Linux
 
       - name: cinnabar-core.pkg.tar.zst
@@ -269,7 +266,6 @@ jobs:
           asset_path: ./cinnabar-render.pkg.tar.zst
           asset_name: cinnabar-render.pkg.tar.zst
           asset_content_type: application/vnd.debian.binary-package
-
 
       # Windows
 
