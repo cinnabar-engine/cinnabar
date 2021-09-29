@@ -16,7 +16,8 @@ namespace demo {
 	ce::Window* window1 = NULL;
 	ce::Window* window2 = NULL;
 	ce::RenderEngine* renderEngine = NULL;
-	ce::Camera* camera = NULL;
+	ce::Camera* camera1 = NULL;
+	ce::Camera* camera2 = NULL;
 	glm::vec3 cameraVelocity;
 	double mouseSens = 0.05;
 }
@@ -48,10 +49,10 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 					break;
 
 				case GLFW_KEY_Q:
-					demo::camera->transform->roll(cameraRollSpeed);
+					demo::camera1->transform->roll(cameraRollSpeed);
 					break;
 				case GLFW_KEY_E:
-					demo::camera->transform->roll(-cameraRollSpeed);
+					demo::camera1->transform->roll(-cameraRollSpeed);
 					break;
 
 				case GLFW_KEY_ESCAPE:
@@ -85,9 +86,9 @@ void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) { // T
 		return;
 	glm::vec2 mouseDelta(xpos, ypos);
 	mouseDelta *= -demo::mouseSens;
-	demo::camera->transform->yaw(mouseDelta.x);
-	demo::camera->transform->pitch(mouseDelta.y);
-	demo::camera->transform->setPitch(std::clamp(demo::camera->transform->getPitch(), -90.0f, 90.0f));
+	demo::camera1->transform->yaw(mouseDelta.x);
+	demo::camera1->transform->pitch(mouseDelta.y);
+	demo::camera1->transform->setPitch(std::clamp(demo::camera1->transform->getPitch(), -90.0f, 90.0f));
 }
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) { // TODO: get window class from callback instead of GLFWwindow
 	if (action == GLFW_PRESS)
@@ -97,8 +98,9 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 		}
 }
 void windowSizeCallback(GLFWwindow* window, int width, int height) { // TODO: get window class from callback instead of GLFWwindow
+	demo::window1->makeCurrent();
 	demo::renderEngine->setFramebufferSize(demo::window1->getFramebufferSize());
-	demo::camera->projection = glm::perspective(glm::radians(75.0), (double)demo::window1->getWindowAspectRatio(), 0.1, 100.0);
+	demo::camera1->projection = glm::perspective(glm::radians(75.0), (double)demo::window1->getWindowAspectRatio(), 0.1, 100.0);
 }
 
 int main(int argc, char* argv[]) {
@@ -110,8 +112,8 @@ int main(int argc, char* argv[]) {
 	demo::window1->makeCurrent();
 	glfwSwapInterval(0); // disable vsync // TODO: window/renderEngine function for vsync
 	demo::window2 = new ce::Window("Cinnabar2");
-	demo::window2->makeCurrent();
-	glfwSwapInterval(0); // disable vsync // TODO: window/renderEngine function for vsync
+	//demo::window2->makeCurrent();
+	//glfwSwapInterval(0); // disable vsync // TODO: window/renderEngine function for vsync
 	
 	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 
@@ -120,18 +122,22 @@ int main(int argc, char* argv[]) {
 	demo::window2->makeCurrent();
 	demo::renderEngine->setFramebufferSize(demo::window2->getFramebufferSize());
 
-	demo::camera = new ce::Camera();
-	demo::camera->projection = glm::perspective(glm::radians(75.0), (double)demo::window1->getWindowAspectRatio(), 0.1, 100.0);
+	demo::camera1 = new ce::Camera();
+	demo::camera1->projection = glm::perspective(glm::radians(75.0), (double)demo::window1->getWindowAspectRatio(), 0.1, 100.0);
+	demo::camera2 = new ce::Camera(demo::camera1->transform);
+	demo::camera2->projection = glm::perspective(glm::radians(75.0), (double)demo::window1->getWindowAspectRatio(), 0.1, 100.0);
+	demo::camera1->transform->setPosition(0.0f, 0.0f, 1.5f);
 	demo::cameraVelocity = glm::vec3(0.0f);
-	demo::camera->transform->setPosition(0.0f, 0.0f, 1.5f);
 
-
+	demo::window1->makeCurrent();
+	// TODO: better system for setting which window meshes go to
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
 	ce::Material* blobMaterial = new ce::Material("matcap");
 	blobMaterial->textures[0] = new ce::Texture("matcap.png");
 	ce::Transform* blobPos = new ce::Transform();
 	blobPos->setScale(0.5f, 0.5f, 0.5f);
 
+	demo::window2->makeCurrent();
 	ce::Mesh* environmentMesh = new ce::Mesh("environment.obj");
 	ce::Material* environmentMaterial = new ce::Material("multitexture example", {}, 2);
 	environmentMaterial->textures[0] = new ce::Texture("color.png");
@@ -160,10 +166,10 @@ int main(int argc, char* argv[]) {
 
 		// Move camera
 		glm::vec3
-			cameraRight = demo::camera->transform->getRight(true, false, false),
+			cameraRight = demo::camera1->transform->getRight(true, false, false),
 			cameraUp = glm::vec3(0.0f, 1.0f, 0.0f),
-			cameraFront = demo::camera->transform->getForward(true, false, false);
-		demo::camera->transform->translate(
+			cameraFront = demo::camera1->transform->getForward(true, false, false);
+		demo::camera1->transform->translate(
 			(cameraRight * demo::cameraVelocity.x) +
 			(cameraUp * demo::cameraVelocity.y) +
 			(cameraFront * demo::cameraVelocity.z));
@@ -171,10 +177,10 @@ int main(int argc, char* argv[]) {
 		// Render
 		demo::window1->makeCurrent();
 		demo::renderEngine->clear(ce::COLOR_BUFFER_BIT | ce::DEPTH_BUFFER_BIT);
-		demo::renderEngine->render(blobMesh, blobMaterial, blobPos, demo::camera);
+		demo::renderEngine->render(blobMesh, blobMaterial, blobPos, demo::camera1);
 		demo::window2->makeCurrent();
 		demo::renderEngine->clear(ce::COLOR_BUFFER_BIT | ce::DEPTH_BUFFER_BIT);
-		demo::renderEngine->render(environmentMesh, environmentMaterial, environmentPos, demo::camera);
+		demo::renderEngine->render(environmentMesh, environmentMaterial, environmentPos, demo::camera2);
 
 		demo::window1->swapBuffers();
 		demo::window2->swapBuffers();
@@ -202,7 +208,9 @@ int main(int argc, char* argv[]) {
 	delete environmentMaterial;
 	delete environmentPos;
 
-	delete demo::camera;
+	delete demo::camera1->transform;
+	delete demo::camera2;
+	delete demo::camera1;
 
 	delete demo::window1;
 	delete demo::window2;
