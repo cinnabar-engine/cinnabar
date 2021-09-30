@@ -1,11 +1,20 @@
 #include <cinnabar-render/window.hpp>
 
+#include <unordered_map>
+
 #define GLFW_INCLUDE_NONE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include <cinnabar-core/tpnt_log.h>
+
+std::unordered_map<GLFWwindow*, ce::Window*> s_windows;
+
+void glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void glfwCursorPosCallback(GLFWwindow* window, double xpos, double ypos);
+void glfwMouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+void glfwWindowSizeCallback(GLFWwindow* window, int width, int height);
 
 ce::Window::Window(const char* title, int width, int height)
 	: m_window(NULL) {
@@ -16,6 +25,8 @@ ce::Window::Window(const char* title, int width, int height)
 		glfwTerminate();
 		exit(1);
 	}
+
+	s_windows.insert({m_window, this});
 
 	makeCurrent();
 
@@ -73,3 +84,35 @@ void ce::Window::setInputMode(int mode, int value) {
 int ce::Window::getInputMode(int mode) {
 	return glfwGetInputMode(m_window, mode);
 }
+
+void ce::Window::setKeyCallback(KeyCallback keyCallback) {
+	m_keyCallback = keyCallback;
+	glfwSetKeyCallback(m_window, (keyCallback ? glfwKeyCallback : NULL));
+}
+void ce::Window::setCursorPosCallback(CursorPosCallback cursorPosCallback) {
+	m_cursorPosCallback = cursorPosCallback;
+	glfwSetCursorPosCallback(m_window, cursorPosCallback ? glfwCursorPosCallback : NULL);
+}
+void ce::Window::setMouseButtonCallback(MouseButtonCallback mouseButtonCallback) {
+	m_mouseButtonCallback = mouseButtonCallback;
+	glfwSetMouseButtonCallback(m_window, mouseButtonCallback ? glfwMouseButtonCallback : NULL);
+}
+void ce::Window::setWindowSizeCallback(WindowSizeCallback windowSizeCallback) {
+	m_windowSizeCallback = windowSizeCallback;
+	glfwSetWindowSizeCallback(m_window, windowSizeCallback ? glfwWindowSizeCallback : NULL);
+}
+
+
+
+void glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	s_windows.find(window)->second->callKeyCallback(key, scancode, action, mods);
+};
+void glfwCursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
+	s_windows.find(window)->second->callCursorPosCallback(xpos, ypos);
+};
+void glfwMouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+	s_windows.find(window)->second->callMouseButtonCallback(button, action, mods);
+};
+void glfwWindowSizeCallback(GLFWwindow* window, int width, int height) {
+	s_windows.find(window)->second->callWindowSizeCallback(width, height);
+};

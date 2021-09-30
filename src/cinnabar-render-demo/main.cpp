@@ -24,10 +24,10 @@ namespace demo {
 	double mouseSens = 0.05;
 }
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
-void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-void windowSizeCallback(GLFWwindow* window, int width, int height);
+void keyCallback(ce::Window* window, int key, int scancode, int action, int mods);
+void cursorPosCallback(ce::Window* window, double xpos, double ypos);
+void mouseButtonCallback(ce::Window* window, int button, int action, int mods);
+void windowSizeCallback(ce::Window* window, int width, int height);
 
 void makeWindow() {
 	ce::Window* window = new ce::Window(("Cinnabar " + std::to_string(demo::wincams.size())).c_str());
@@ -36,12 +36,12 @@ void makeWindow() {
 	demo::renderEngine->setFramebufferSize(window->getFramebufferSize());	
 	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 
-	if (glfwRawMouseMotionSupported()) // TODO: make function for all these GLFW functions and figure out for multiple windows
+	if (glfwRawMouseMotionSupported()) // TODO: make Window function for this
 		window->setInputMode(GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-	glfwSetKeyCallback(window->getWindow(), keyCallback);
-	glfwSetCursorPosCallback(window->getWindow(), cursorPositionCallback);
-	glfwSetMouseButtonCallback(window->getWindow(), mouseButtonCallback);
-	glfwSetWindowSizeCallback(window->getWindow(), windowSizeCallback);
+	window->setKeyCallback(keyCallback);
+	window->setCursorPosCallback(cursorPosCallback);
+	window->setMouseButtonCallback(mouseButtonCallback);
+	window->setWindowSizeCallback(windowSizeCallback);
 
 	ce::Camera* camera = new ce::Camera(demo::cameraTransform);
 	camera->projection = glm::perspective(glm::radians(75.0), (double)window->getWindowAspectRatio(), 0.1, 100.0);
@@ -49,7 +49,7 @@ void makeWindow() {
 	demo::wincams.push_back({window, camera});
 }
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) { // TODO: get window class from callback instead of GLFWwindow
+void keyCallback(ce::Window* window, int key, int scancode, int action, int mods) {
 	switch (action) {
 		case GLFW_PRESS: {
 			double
@@ -83,7 +83,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 					break;
 
 				case GLFW_KEY_ESCAPE:
-					demo::wincams[0].window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+					window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 					break;
 
 				case GLFW_KEY_EQUAL:
@@ -111,27 +111,27 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 	}
 }
-void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) { // TODO: get window class from callback instead of GLFWwindow
-	glfwSetCursorPos(demo::wincams[0].window->getWindow(), 0, 0);
-	if (demo::wincams[0].window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
+void cursorPosCallback(ce::Window* window, double xpos, double ypos) {
+	if (window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
 		return;
+	glfwSetCursorPos(window->getWindow(), 0, 0);
 	glm::vec2 mouseDelta(xpos, ypos);
 	mouseDelta *= -demo::mouseSens;
-	demo::wincams[0].camera->transform->yaw(mouseDelta.x);
-	demo::wincams[0].camera->transform->pitch(mouseDelta.y);
-	demo::wincams[0].camera->transform->setPitch(std::clamp(demo::wincams[0].camera->transform->getPitch(), -90.0f, 90.0f));
+	demo::cameraTransform->yaw(mouseDelta.x);
+	demo::cameraTransform->pitch(mouseDelta.y);
+	demo::cameraTransform->setPitch(std::clamp(demo::cameraTransform->getPitch(), -90.0f, 90.0f));
 }
-void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) { // TODO: get window class from callback instead of GLFWwindow
+void mouseButtonCallback(ce::Window* window, int button, int action, int mods) {
 	if (action == GLFW_PRESS)
-		if (demo::wincams[0].window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED) {
-			demo::wincams[0].window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			glfwSetCursorPos(demo::wincams[0].window->getWindow(), 0, 0);
+		if (window->getInputMode(GLFW_CURSOR) != GLFW_CURSOR_DISABLED) {
+			window->setInputMode(GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			glfwSetCursorPos(window->getWindow(), 0, 0);
 		}
 }
-void windowSizeCallback(GLFWwindow* window, int width, int height) { // TODO: get window class from callback instead of GLFWwindow
-	demo::wincams[0].window->makeCurrent();
-	demo::renderEngine->setFramebufferSize(demo::wincams[0].window->getFramebufferSize());
-	demo::wincams[0].camera->projection = glm::perspective(glm::radians(75.0), (double)demo::wincams[0].window->getWindowAspectRatio(), 0.1, 100.0);
+void windowSizeCallback(ce::Window* window, int width, int height) {
+	window->makeCurrent();
+	demo::renderEngine->setFramebufferSize(window->getFramebufferSize());
+	demo::wincams[0].camera->projection = glm::perspective(glm::radians(75.0), (double)window->getWindowAspectRatio(), 0.1, 100.0); // TODO: get camera
 }
 
 int main(int argc, char* argv[]) {
