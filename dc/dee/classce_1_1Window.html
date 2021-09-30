@@ -84,7 +84,9 @@ $(document).ready(function(){initNavTree('dc/dee/classce_1_1Window.html','../../
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../dc/d07/classce_1_1Window-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ce::Window Class Reference</div>  </div>
@@ -93,12 +95,25 @@ $(document).ready(function(){initNavTree('dc/dee/classce_1_1Window.html','../../
 
 <p><code>#include &lt;<a class="el" href="../../d2/d5a/window_8hpp_source.html">window.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a3f772c1c43e329af197a12e1ebdc4de1"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a3f772c1c43e329af197a12e1ebdc4de1">KeyCallback</a>) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, int key, int scancode, int action, int mods)</td></tr>
+<tr class="separator:a3f772c1c43e329af197a12e1ebdc4de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78568fa50c431b01fed80184d488d347"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a78568fa50c431b01fed80184d488d347">CursorPosCallback</a>) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, double xpos, double ypos)</td></tr>
+<tr class="separator:a78568fa50c431b01fed80184d488d347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4efe4cc50656568574a8402a3dee4176"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a4efe4cc50656568574a8402a3dee4176">MouseButtonCallback</a>) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, int button, int action, int mods)</td></tr>
+<tr class="separator:a4efe4cc50656568574a8402a3dee4176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab843aa983e0f54a1a01e3c848debea15"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#ab843aa983e0f54a1a01e3c848debea15">WindowSizeCallback</a>) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, int width, int height)</td></tr>
+<tr class="separator:ab843aa983e0f54a1a01e3c848debea15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac29680ad6c71c98144516a8d185b3ffa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#ac29680ad6c71c98144516a8d185b3ffa">Window</a> (const char *title)</td></tr>
-<tr class="separator:ac29680ad6c71c98144516a8d185b3ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31afb98dd54b951c7ab32d3933b4ea22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a31afb98dd54b951c7ab32d3933b4ea22">Window</a> (const char *title, int width=640, int height=480)</td></tr>
+<tr class="separator:a31afb98dd54b951c7ab32d3933b4ea22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dd19a1343e3c0ada2dc87ae08d31035"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a5dd19a1343e3c0ada2dc87ae08d31035">~Window</a> ()</td></tr>
 <tr class="separator:a5dd19a1343e3c0ada2dc87ae08d31035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85b4f08f14a0398a3098793fe048c717"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a85b4f08f14a0398a3098793fe048c717">makeCurrent</a> ()</td></tr>
+<tr class="separator:a85b4f08f14a0398a3098793fe048c717"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd634de095bd3cf954aa5757768cbb33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#afd634de095bd3cf954aa5757768cbb33">swapBuffers</a> ()</td></tr>
 <tr class="separator:afd634de095bd3cf954aa5757768cbb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3fcada6d35b3fefb52ba5f82bfc764d"><td class="memItemLeft" align="right" valign="top">GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#aa3fcada6d35b3fefb52ba5f82bfc764d">getWindow</a> ()</td></tr>
@@ -111,17 +126,97 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abed319d5f6c9f6ad32685935710fe14f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a153fa961e4625e8cbe1bb5d10ad20dd3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a153fa961e4625e8cbe1bb5d10ad20dd3">getFramebufferAspectRatio</a> ()</td></tr>
 <tr class="separator:a153fa961e4625e8cbe1bb5d10ad20dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39159b788f1e0954130281446806309b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a39159b788f1e0954130281446806309b">shouldClose</a> ()</td></tr>
+<tr class="separator:a39159b788f1e0954130281446806309b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dab3a966b0be80d82d9e2e12506afa6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a2dab3a966b0be80d82d9e2e12506afa6">setInputMode</a> (int mode, int value)</td></tr>
 <tr class="separator:a2dab3a966b0be80d82d9e2e12506afa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad18bd16d471c69b9451167e44626e84f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#ad18bd16d471c69b9451167e44626e84f">getInputMode</a> (int mode)</td></tr>
 <tr class="separator:ad18bd16d471c69b9451167e44626e84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f0e9f48a55e3e912de1d35a90bee44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#ae8f0e9f48a55e3e912de1d35a90bee44">setKeyCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html#a3f772c1c43e329af197a12e1ebdc4de1">KeyCallback</a> <a class="el" href="../../df/d0a/main_8cpp.html#ad01a00d66b3cee01c5430439bce1744d">keyCallback</a>)</td></tr>
+<tr class="separator:ae8f0e9f48a55e3e912de1d35a90bee44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a7b1370430e367c2d5f522d36b217c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a5a7b1370430e367c2d5f522d36b217c4">setCursorPosCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html#a78568fa50c431b01fed80184d488d347">CursorPosCallback</a> <a class="el" href="../../df/d0a/main_8cpp.html#a9037ce24d971d1c295ea1eb2771abe56">cursorPosCallback</a>)</td></tr>
+<tr class="separator:a5a7b1370430e367c2d5f522d36b217c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdd0c938a1763de621ce184ef22c68ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#afdd0c938a1763de621ce184ef22c68ce">setMouseButtonCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html#a4efe4cc50656568574a8402a3dee4176">MouseButtonCallback</a> <a class="el" href="../../df/d0a/main_8cpp.html#a93d02e0a270b4c5799fbd345463a8ba9">mouseButtonCallback</a>)</td></tr>
+<tr class="separator:afdd0c938a1763de621ce184ef22c68ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f3e2b5131ae5f1e65150d14722852a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a3f3e2b5131ae5f1e65150d14722852a7">setWindowSizeCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html#ab843aa983e0f54a1a01e3c848debea15">WindowSizeCallback</a> <a class="el" href="../../df/d0a/main_8cpp.html#ac361d1ca9db3bf744c641b2b3faabe9f">windowSizeCallback</a>)</td></tr>
+<tr class="separator:a3f3e2b5131ae5f1e65150d14722852a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bb59e8231f56c9e176e2f65cd6343f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a6bb59e8231f56c9e176e2f65cd6343f1">callKeyCallback</a> (int key, int scancode, int action, int mods)</td></tr>
+<tr class="separator:a6bb59e8231f56c9e176e2f65cd6343f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a296dbf4d93a6c1ecd2d6a183c678d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a76a296dbf4d93a6c1ecd2d6a183c678d">callCursorPosCallback</a> (double xpos, double ypos)</td></tr>
+<tr class="separator:a76a296dbf4d93a6c1ecd2d6a183c678d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78d9a84d417394437a110349376e055d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a78d9a84d417394437a110349376e055d">callMouseButtonCallback</a> (int button, int action, int mods)</td></tr>
+<tr class="separator:a78d9a84d417394437a110349376e055d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3165a497da4e17a674d1eb1572f66f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#ab3165a497da4e17a674d1eb1572f66f9">callWindowSizeCallback</a> (int width, int height)</td></tr>
+<tr class="separator:ab3165a497da4e17a674d1eb1572f66f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a78068bfb136a2dfdf957e8a8840be9be"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dee/classce_1_1Window.html#a78068bfb136a2dfdf957e8a8840be9be">pollEvents</a> ()</td></tr>
+<tr class="separator:a78068bfb136a2dfdf957e8a8840be9be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#_a2">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#_a10">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
 </dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac29680ad6c71c98144516a8d185b3ffa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac29680ad6c71c98144516a8d185b3ffa">&#9670;&nbsp;</a></span>Window()</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a78568fa50c431b01fed80184d488d347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78568fa50c431b01fed80184d488d347">&#9670;&nbsp;</a></span>CursorPosCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* ce::Window::CursorPosCallback) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, double xpos, double ypos)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f772c1c43e329af197a12e1ebdc4de1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f772c1c43e329af197a12e1ebdc4de1">&#9670;&nbsp;</a></span>KeyCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* ce::Window::KeyCallback) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, int key, int scancode, int action, int mods)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4efe4cc50656568574a8402a3dee4176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4efe4cc50656568574a8402a3dee4176">&#9670;&nbsp;</a></span>MouseButtonCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* ce::Window::MouseButtonCallback) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, int button, int action, int mods)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab843aa983e0f54a1a01e3c848debea15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab843aa983e0f54a1a01e3c848debea15">&#9670;&nbsp;</a></span>WindowSizeCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* ce::Window::WindowSizeCallback) (<a class="el" href="../../dc/dee/classce_1_1Window.html">Window</a> *window, int width, int height)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a31afb98dd54b951c7ab32d3933b4ea22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31afb98dd54b951c7ab32d3933b4ea22">&#9670;&nbsp;</a></span>Window()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -130,8 +225,24 @@ Public Member Functions</h2></td></tr>
           <td class="memname">ce::Window::Window </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>title</em></td><td>)</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em> = <code>640</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em> = <code>480</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -156,6 +267,168 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a76a296dbf4d93a6c1ecd2d6a183c678d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a296dbf4d93a6c1ecd2d6a183c678d">&#9670;&nbsp;</a></span>callCursorPosCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::callCursorPosCallback </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>xpos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>ypos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6bb59e8231f56c9e176e2f65cd6343f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bb59e8231f56c9e176e2f65cd6343f1">&#9670;&nbsp;</a></span>callKeyCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::callKeyCallback </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>scancode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>action</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mods</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a78d9a84d417394437a110349376e055d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78d9a84d417394437a110349376e055d">&#9670;&nbsp;</a></span>callMouseButtonCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::callMouseButtonCallback </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>button</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>action</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mods</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3165a497da4e17a674d1eb1572f66f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3165a497da4e17a674d1eb1572f66f9">&#9670;&nbsp;</a></span>callWindowSizeCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::callWindowSizeCallback </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a153fa961e4625e8cbe1bb5d10ad20dd3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a153fa961e4625e8cbe1bb5d10ad20dd3">&#9670;&nbsp;</a></span>getFramebufferAspectRatio()</h2>
 
@@ -187,6 +460,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a18">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -205,6 +480,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a29">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -230,6 +507,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a30">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -247,6 +526,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a26">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -264,6 +545,72 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85b4f08f14a0398a3098793fe048c717"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85b4f08f14a0398a3098793fe048c717">&#9670;&nbsp;</a></span>makeCurrent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::makeCurrent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a15">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="a78068bfb136a2dfdf957e8a8840be9be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78068bfb136a2dfdf957e8a8840be9be">&#9670;&nbsp;</a></span>pollEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ce::Window::pollEvents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a43">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a7b1370430e367c2d5f522d36b217c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a7b1370430e367c2d5f522d36b217c4">&#9670;&nbsp;</a></span>setCursorPosCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::setCursorPosCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html#a78568fa50c431b01fed80184d488d347">CursorPosCallback</a>&#160;</td>
+          <td class="paramname"><em>cursorPosCallback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a21">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -292,8 +639,93 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a14">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a19">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="ae8f0e9f48a55e3e912de1d35a90bee44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8f0e9f48a55e3e912de1d35a90bee44">&#9670;&nbsp;</a></span>setKeyCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::setKeyCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html#a3f772c1c43e329af197a12e1ebdc4de1">KeyCallback</a>&#160;</td>
+          <td class="paramname"><em>keyCallback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a20">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="afdd0c938a1763de621ce184ef22c68ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdd0c938a1763de621ce184ef22c68ce">&#9670;&nbsp;</a></span>setMouseButtonCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::setMouseButtonCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html#a4efe4cc50656568574a8402a3dee4176">MouseButtonCallback</a>&#160;</td>
+          <td class="paramname"><em>mouseButtonCallback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a22">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="a3f3e2b5131ae5f1e65150d14722852a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f3e2b5131ae5f1e65150d14722852a7">&#9670;&nbsp;</a></span>setWindowSizeCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce::Window::setWindowSizeCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html#ab843aa983e0f54a1a01e3c848debea15">WindowSizeCallback</a>&#160;</td>
+          <td class="paramname"><em>windowSizeCallback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a23">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="a39159b788f1e0954130281446806309b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39159b788f1e0954130281446806309b">&#9670;&nbsp;</a></span>shouldClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ce::Window::shouldClose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -311,8 +743,6 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a40">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
-</dl>
 
 </div>
 </div>

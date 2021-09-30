@@ -1,13 +1,8 @@
 var searchData=
 [
-  ['readme_2emd_129',['README.md',['../da/ddd/README_8md.html',1,'']]],
-  ['recalculate_130',['recalculate',['../df/d10/classce_1_1Time.html#a08cbdc5d98de66dcf4da54c3490083bb',1,'ce::Time']]],
-  ['render_131',['render',['../d2/df2/classce_1_1RenderEngine.html#a70e7efacb3731c0c4181a39d48517758',1,'ce::RenderEngine']]],
-  ['render_5fengine_2ehpp_132',['render_engine.hpp',['../d2/d38/render__engine_8hpp.html',1,'']]],
-  ['renderengine_133',['RenderEngine',['../d2/df2/classce_1_1RenderEngine.html',1,'ce::RenderEngine'],['../d2/df2/classce_1_1RenderEngine.html#a4904656ba2ecf6342ab499b06758c964',1,'ce::RenderEngine::RenderEngine()']]],
-  ['renderengine_134',['renderEngine',['../d2/d0d/namespacedemo.html#ad4033f129012a34a394a2a2e70a1a3b0',1,'demo']]],
-  ['renderoption_135',['RenderOption',['../d2/dd6/namespacece.html#a03234249256201310bcecd707a36d661',1,'ce']]],
-  ['resource_5ffolder_136',['RESOURCE_FOLDER',['../d5/d4b/namespacece_1_1assetManager_1_1defaults.html#abf032cb0799a97dce24d18ece6f59a05',1,'ce::assetManager::defaults']]],
-  ['roll_137',['roll',['../d3/dfa/classce_1_1Transform.html#a1609c10bce7200c361aad9180c38c054',1,'ce::Transform']]],
-  ['rotate_138',['rotate',['../d3/dfa/classce_1_1Transform.html#aeed00fcdcb8f6229959e8e028a7c382f',1,'ce::Transform::rotate(glm::vec3 delta)'],['../d3/dfa/classce_1_1Transform.html#aebfebeebdb1030108229ad465e0c8e89',1,'ce::Transform::rotate(float x, float y, float z)']]]
+  ['pitch_134',['pitch',['../d3/dfa/classce_1_1Transform.html#aa286ed240bf3d27814a96486d4af6537',1,'ce::Transform']]],
+  ['pollevents_135',['pollEvents',['../dc/dee/classce_1_1Window.html#a78068bfb136a2dfdf957e8a8840be9be',1,'ce::Window']]],
+  ['position_136',['position',['../d8/d43/structce_1_1Vertex.html#a594a061ebbac41aef7065ff51671b025',1,'ce::Vertex']]],
+  ['position_137',['POSITION',['../d3/d8c/classce_1_1Shader.html#a69f311ef7f666a490a4273a545a5252ba90b4ba73224408e82ade8a072a3712c1',1,'ce::Shader']]],
+  ['projection_138',['projection',['../dd/d8a/classce_1_1Camera.html#a7277e0bb44600c3f2e5303d11c01ce71',1,'ce::Camera']]]
 ];

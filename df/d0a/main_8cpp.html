@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('df/d0a/main_8cpp.html','../../'); init
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;GLFW/glfw3.h&gt;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
 <code>#include &lt;glm/gtc/matrix_transform.hpp&gt;</code><br />
@@ -112,14 +113,16 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0b9e239c8889734711f29fe45551605b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a0b9e239c8889734711f29fe45551605b">keyCallback</a> (GLFWwindow *window, int key, int scancode, int action, int mods)</td></tr>
-<tr class="separator:a0b9e239c8889734711f29fe45551605b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88580ade2e9c5aa911efe862680e2f71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a88580ade2e9c5aa911efe862680e2f71">cursorPositionCallback</a> (GLFWwindow *window, double xpos, double ypos)</td></tr>
-<tr class="separator:a88580ade2e9c5aa911efe862680e2f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae41a3951e1196401047b29ad1d37c6ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#ae41a3951e1196401047b29ad1d37c6ae">mouseButtonCallback</a> (GLFWwindow *window, int button, int action, int mods)</td></tr>
-<tr class="separator:ae41a3951e1196401047b29ad1d37c6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76bee3a0a50df1e6b937f121bb8187b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a76bee3a0a50df1e6b937f121bb8187b6">windowSizeCallback</a> (GLFWwindow *window, int width, int height)</td></tr>
-<tr class="separator:a76bee3a0a50df1e6b937f121bb8187b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad01a00d66b3cee01c5430439bce1744d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#ad01a00d66b3cee01c5430439bce1744d">keyCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *window, int key, int scancode, int action, int mods)</td></tr>
+<tr class="separator:ad01a00d66b3cee01c5430439bce1744d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9037ce24d971d1c295ea1eb2771abe56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a9037ce24d971d1c295ea1eb2771abe56">cursorPosCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *window, double xpos, double ypos)</td></tr>
+<tr class="separator:a9037ce24d971d1c295ea1eb2771abe56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93d02e0a270b4c5799fbd345463a8ba9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a93d02e0a270b4c5799fbd345463a8ba9">mouseButtonCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *window, int button, int action, int mods)</td></tr>
+<tr class="separator:a93d02e0a270b4c5799fbd345463a8ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac361d1ca9db3bf744c641b2b3faabe9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#ac361d1ca9db3bf744c641b2b3faabe9f">windowSizeCallback</a> (<a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *window, int width, int height)</td></tr>
+<tr class="separator:ac361d1ca9db3bf744c641b2b3faabe9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97d51b3092d370119a907b4ab98943ac"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *, <a class="el" href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a97d51b3092d370119a907b4ab98943ac">makeWincam</a> ()</td></tr>
+<tr class="separator:a97d51b3092d370119a907b4ab98943ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -127,12 +130,12 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:aeb34843ebd4b3971c4a58a4f6f378a3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d10/classce_1_1Time.html">ce::Time</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#aeb34843ebd4b3971c4a58a4f6f378a3d">demo::time</a> = NULL</td></tr>
 <tr class="separator:aeb34843ebd4b3971c4a58a4f6f378a3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42387c8fa3bc5772bbfb58ef6b93d4fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#a42387c8fa3bc5772bbfb58ef6b93d4fa">demo::window</a> = NULL</td></tr>
-<tr class="separator:a42387c8fa3bc5772bbfb58ef6b93d4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0212a41db7ec87023951880abadc41be"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *, <a class="el" href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#a0212a41db7ec87023951880abadc41be">demo::wincams</a> = {}</td></tr>
+<tr class="separator:a0212a41db7ec87023951880abadc41be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4033f129012a34a394a2a2e70a1a3b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/df2/classce_1_1RenderEngine.html">ce::RenderEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#ad4033f129012a34a394a2a2e70a1a3b0">demo::renderEngine</a> = NULL</td></tr>
 <tr class="separator:ad4033f129012a34a394a2a2e70a1a3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63d84cbfe8bfda8514b5c810fc5f70e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#a63d84cbfe8bfda8514b5c810fc5f70e3">demo::camera</a> = NULL</td></tr>
-<tr class="separator:a63d84cbfe8bfda8514b5c810fc5f70e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3664e7b3e07e5053514d69591f1988"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dfa/classce_1_1Transform.html">ce::Transform</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#a2a3664e7b3e07e5053514d69591f1988">demo::cameraTransform</a> = NULL</td></tr>
+<tr class="separator:a2a3664e7b3e07e5053514d69591f1988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cf93ff0bfd91c3097af90bb1fbcd092"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#a3cf93ff0bfd91c3097af90bb1fbcd092">demo::cameraVelocity</a></td></tr>
 <tr class="separator:a3cf93ff0bfd91c3097af90bb1fbcd092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab41f34355368cbdb41e590967f49261"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/namespacedemo.html#aab41f34355368cbdb41e590967f49261">demo::mouseSens</a> = 0.05</td></tr>
@@ -154,16 +157,16 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a88580ade2e9c5aa911efe862680e2f71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88580ade2e9c5aa911efe862680e2f71">&#9670;&nbsp;</a></span>cursorPositionCallback()</h2>
+<a id="a9037ce24d971d1c295ea1eb2771abe56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9037ce24d971d1c295ea1eb2771abe56">&#9670;&nbsp;</a></span>cursorPosCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void cursorPositionCallback </td>
+          <td class="memname">void cursorPosCallback </td>
           <td>(</td>
-          <td class="paramtype">GLFWwindow *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *&#160;</td>
           <td class="paramname"><em>window</em>, </td>
         </tr>
         <tr>
@@ -185,13 +188,13 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a15">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a11">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="a0b9e239c8889734711f29fe45551605b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b9e239c8889734711f29fe45551605b">&#9670;&nbsp;</a></span>keyCallback()</h2>
+<a id="ad01a00d66b3cee01c5430439bce1744d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01a00d66b3cee01c5430439bce1744d">&#9670;&nbsp;</a></span>keyCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +202,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void keyCallback </td>
           <td>(</td>
-          <td class="paramtype">GLFWwindow *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *&#160;</td>
           <td class="paramname"><em>window</em>, </td>
         </tr>
         <tr>
@@ -233,7 +236,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a10">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a9">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -263,13 +266,32 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a23">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a34">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="ae41a3951e1196401047b29ad1d37c6ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae41a3951e1196401047b29ad1d37c6ae">&#9670;&nbsp;</a></span>mouseButtonCallback()</h2>
+<a id="a97d51b3092d370119a907b4ab98943ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97d51b3092d370119a907b4ab98943ac">&#9670;&nbsp;</a></span>makeWincam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;<a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a>*, <a class="el" href="../../dd/d8a/classce_1_1Camera.html">ce::Camera</a>*&gt;::iterator makeWincam </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a14">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="a93d02e0a270b4c5799fbd345463a8ba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93d02e0a270b4c5799fbd345463a8ba9">&#9670;&nbsp;</a></span>mouseButtonCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,7 +299,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void mouseButtonCallback </td>
           <td>(</td>
-          <td class="paramtype">GLFWwindow *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *&#160;</td>
           <td class="paramname"><em>window</em>, </td>
         </tr>
         <tr>
@@ -305,13 +327,13 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a19">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a12">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="a76bee3a0a50df1e6b937f121bb8187b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76bee3a0a50df1e6b937f121bb8187b6">&#9670;&nbsp;</a></span>windowSizeCallback()</h2>
+<a id="ac361d1ca9db3bf744c641b2b3faabe9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac361d1ca9db3bf744c641b2b3faabe9f">&#9670;&nbsp;</a></span>windowSizeCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +341,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void windowSizeCallback </td>
           <td>(</td>
-          <td class="paramtype">GLFWwindow *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/dee/classce_1_1Window.html">ce::Window</a> *&#160;</td>
           <td class="paramname"><em>window</em>, </td>
         </tr>
         <tr>
@@ -341,7 +363,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a20">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="../../dc/d97/_2github_2workspace_2src_2cinnabar-render-demo_2main_8cpp-example.html#a13">/github/workspace/src/cinnabar-render-demo/main.cpp</a>.</dd>
 </dl>
 
 </div>
