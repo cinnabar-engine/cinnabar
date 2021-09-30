@@ -21,7 +21,7 @@ namespace ce {
 
 		GLFWwindow* getWindow() { return m_window; };
 
-		glm::ivec2 getWindowSize(); // TODO: make sure window/framebuffer functions are being used correctly (otherwise os scaling will break)
+		glm::ivec2 getWindowSize();
 		glm::ivec2 getFramebufferSize();
 		double getWindowAspectRatio();
 		double getFramebufferAspectRatio();

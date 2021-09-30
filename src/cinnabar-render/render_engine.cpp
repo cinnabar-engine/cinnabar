@@ -26,9 +26,6 @@ void ce::RenderEngine::clear(BufferBit buffer) {
 }
 
 void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
-	// Update Shader Values TODO: shouldn't this be somewhere else instead of the bind command?
-	material->update();
-
 	// TODO: get rid of unneccecary binding
 	mesh->sendToShader(material->shader, true);
 	material->shader->setUniform("transform.model", transform->getMatrix());

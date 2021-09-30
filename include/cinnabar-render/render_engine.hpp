@@ -19,7 +19,7 @@ namespace ce {
 		void vsync(int divisor) { glfwSwapInterval(divisor); }
 		void setFramebufferSize(glm::vec2 size);
 
-		void setRenderOption(RenderOption option, bool enable); // TODO: create enum for option
+		void setRenderOption(RenderOption option, bool enable);
 
 		void setClearColor(glm::vec4 color);
 		void setClearDepth(glm::float32 depth);

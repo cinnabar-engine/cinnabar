@@ -22,7 +22,7 @@ namespace ce {
 		size_t GetIndexCount() { return m_indexArraySize / sizeof(glm::uint32); };
 		void bind(bool VBO = true, bool EBO = true), unbind(bool VBO = true, bool EBO = true);
 
-		glm::int32 format; // TODO: create enums
+		MeshFormat format;
 
 	 private:
 		size_t m_vertArraySize, m_indexArraySize;

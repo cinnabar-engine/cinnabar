@@ -128,7 +128,7 @@ void mouseButtonCallback(ce::Window* window, int button, int action, int mods) {
 void windowSizeCallback(ce::Window* window, int width, int height) {
 	window->makeCurrent();
 	demo::renderEngine->setFramebufferSize(window->getFramebufferSize());
-	demo::wincams.find(window)->second->projection = glm::perspective(glm::radians(75.0), (double)window->getWindowAspectRatio(), 0.1, 100.0); // TODO: get camera
+	demo::wincams.find(window)->second->projection = glm::perspective(glm::radians(75.0), (double)window->getWindowAspectRatio(), 0.1, 100.0);
 }
 
 int main(int argc, char* argv[]) {
@@ -144,7 +144,6 @@ int main(int argc, char* argv[]) {
 
 
 	makeWincam()->first->makeCurrent();
-	// TODO: better system for setting which window meshes go to
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
 	ce::Material* blobMaterial = new ce::Material("matcap");
 	blobMaterial->textures[0] = new ce::Texture("matcap.png");
