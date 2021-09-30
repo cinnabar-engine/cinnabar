@@ -1,6 +1,7 @@
 /** @example */
 
 #include <iostream>
+#include <unordered_map>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -13,11 +14,7 @@
 
 namespace demo {
 	ce::Time* time = NULL;
-	typedef struct {
-		ce::Window* window;
-		ce::Camera* camera;
-	} WinCam;
-	std::vector<WinCam> wincams = {};
+	std::unordered_map<ce::Window*, ce::Camera*> wincams = {};
 	ce::RenderEngine* renderEngine = NULL;
 	ce::Transform* cameraTransform = NULL;
 	glm::vec3 cameraVelocity;
@@ -29,7 +26,7 @@ void cursorPosCallback(ce::Window* window, double xpos, double ypos);
 void mouseButtonCallback(ce::Window* window, int button, int action, int mods);
 void windowSizeCallback(ce::Window* window, int width, int height);
 
-void makeWindow() {
+std::unordered_map<ce::Window*, ce::Camera*>::iterator makeWincam() {
 	ce::Window* window = new ce::Window(("Cinnabar " + std::to_string(demo::wincams.size())).c_str());
 	window->makeCurrent();
 	demo::renderEngine->vsync(0);
@@ -46,7 +43,7 @@ void makeWindow() {
 	ce::Camera* camera = new ce::Camera(demo::cameraTransform);
 	camera->projection = glm::perspective(glm::radians(75.0), (double)window->getWindowAspectRatio(), 0.1, 100.0);
 
-	demo::wincams.push_back({window, camera});
+	return demo::wincams.insert({window, camera}).first;
 }
 
 void keyCallback(ce::Window* window, int key, int scancode, int action, int mods) {
@@ -87,7 +84,7 @@ void keyCallback(ce::Window* window, int key, int scancode, int action, int mods
 					break;
 
 				case GLFW_KEY_EQUAL:
-					makeWindow();
+					makeWincam();
 					break;
 			}
 			break;
@@ -131,7 +128,7 @@ void mouseButtonCallback(ce::Window* window, int button, int action, int mods) {
 void windowSizeCallback(ce::Window* window, int width, int height) {
 	window->makeCurrent();
 	demo::renderEngine->setFramebufferSize(window->getFramebufferSize());
-	demo::wincams[0].camera->projection = glm::perspective(glm::radians(75.0), (double)window->getWindowAspectRatio(), 0.1, 100.0); // TODO: get camera
+	demo::wincams.find(window)->second->projection = glm::perspective(glm::radians(75.0), (double)window->getWindowAspectRatio(), 0.1, 100.0); // TODO: get camera
 }
 
 int main(int argc, char* argv[]) {
@@ -145,9 +142,8 @@ int main(int argc, char* argv[]) {
 	demo::cameraTransform->setPosition(0.0f, 0.0f, 1.5f);
 	demo::cameraVelocity = glm::vec3(0.0f);
 
-	makeWindow();
 
-	demo::wincams[0].window->makeCurrent();
+	makeWincam()->first->makeCurrent();
 	// TODO: better system for setting which window meshes go to
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
 	ce::Material* blobMaterial = new ce::Material("matcap");
@@ -164,12 +160,13 @@ int main(int argc, char* argv[]) {
 
 
 	while (true) {
-		for (std::vector<demo::WinCam>::iterator i = demo::wincams.begin(); i < demo::wincams.end(); i++)
-			if (i->window->shouldClose()) {
-				delete i->window;
-				delete i->camera;
-				demo::wincams.erase(i);
-			}
+		for (std::unordered_map<ce::Window*, ce::Camera*>::iterator it = demo::wincams.begin(); it != demo::wincams.end();)
+			if (it->first->shouldClose()) {
+				delete it->first;
+				delete it->second;
+				it = demo::wincams.erase(it);
+			} else
+				it++;
 		if (demo::wincams.size() == 0)
 			goto close_program;
 
@@ -193,13 +190,13 @@ int main(int argc, char* argv[]) {
 			(cameraUp * demo::cameraVelocity.y) +
 			(cameraFront * demo::cameraVelocity.z));
 
-		for (demo::WinCam wincam : demo::wincams) {
+		for (std::pair<ce::Window*, ce::Camera*> wincam : demo::wincams) {
 			// render
-			wincam.window->makeCurrent();
+			wincam.first->makeCurrent();
 			demo::renderEngine->clear(ce::COLOR_BUFFER_BIT | ce::DEPTH_BUFFER_BIT);
-			demo::renderEngine->render(blobMesh, blobMaterial, blobPos, wincam.camera);
-			demo::renderEngine->render(environmentMesh, environmentMaterial, environmentPos, wincam.camera);
-			wincam.window->swapBuffers();
+			demo::renderEngine->render(blobMesh, blobMaterial, blobPos, wincam.second);
+			demo::renderEngine->render(environmentMesh, environmentMaterial, environmentPos, wincam.second);
+			wincam.first->swapBuffers();
 
 			// error check
 			demo::renderEngine->errorCheck();
@@ -221,9 +218,9 @@ int main(int argc, char* argv[]) {
 	delete environmentMaterial;
 	delete environmentPos;
 
-	for (demo::WinCam wincam : demo::wincams) {
-		delete wincam.window;
-		delete wincam.camera;
+	for (std::pair<ce::Window*, ce::Camera*> wincam : demo::wincams) {
+		delete wincam.first;
+		delete wincam.second;
 	}
 	demo::wincams.clear();
 
