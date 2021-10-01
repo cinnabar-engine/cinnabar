@@ -52,7 +52,7 @@ jobs:
         run: |
           sudo docker build -f packaging/arch.dockerfile -t ce-arch .
           sudo docker run -it -d --name ce-arch-test -v "$(pwd)":/app:rw ce-arch
-          #sudo docker exec ce-arch-test pacman -Syu --noconfirm && pacman -S base-devel cmake sdl2 glew glm doxygen --noconfirm --needed
+          #sudo docker exec ce-arch-test pacman -Syu --noconfirm && pacman -S base-devel cmake glfw-x11 glew glm doxygen --noconfirm --needed
 
       - name: Create User
         run: |
