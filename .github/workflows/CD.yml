@@ -165,7 +165,7 @@ jobs:
       - name: create release
         uses: softprops/action-gh-release@v1
         with:
-          body_path: ${{ env.GITHUB_WORKSPACE }}CHANGELOG.md
+          body_path: ${{ github.workspace }}/CHANGELOG.md
           draft: true
           prerelease: false
           files: ./*
