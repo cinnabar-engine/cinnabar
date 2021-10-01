@@ -9,7 +9,7 @@
 namespace ce {
 	class Camera {
 	 public:
-		Camera();
+		Camera(ce::Transform* transform = new Transform());
 		~Camera();
 
 		glm::mat4 getViewMatrix();

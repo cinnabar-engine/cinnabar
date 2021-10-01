@@ -11,7 +11,9 @@ add_executable(${NAME}
 )
 
 target_link_libraries(${NAME}
-	${CE_LIBS}
+	${CMAKE_LIBS}
+	${GLFW_LIBS}
+	${GLM_LIBS}
 	cinnabar-core
 	cinnabar-render
 )

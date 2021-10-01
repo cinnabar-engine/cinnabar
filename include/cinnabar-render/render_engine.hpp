@@ -4,6 +4,7 @@
 
 #include <cinnabar-core/transform.hpp>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/camera.hpp>
 #include <cinnabar-render/material.hpp>
 #include <cinnabar-render/mesh.hpp>
@@ -12,15 +13,24 @@
 namespace ce {
 	class RenderEngine {
 	 public:
-		RenderEngine(glm::vec4 clearColor = glm::vec4());
+		RenderEngine();
 		~RenderEngine();
 
-		void setSize(glm::vec2 size);
-		void setClearColor(glm::vec4 color);
+		void vsync(int divisor) { glfwSwapInterval(divisor); }
+		void setFramebufferSize(glm::vec2 size);
 
-		void
-			clear(),
-			render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
+		void setRenderOption(RenderOption option, bool enable);
+
+		void setClearColor(glm::vec4 color);
+		void setClearDepth(glm::float32 depth);
+		void setClearStencil(glm::int32 stencil);
+
+		void setDepthFunc(DepthFunc func);
+
+		void clear(BufferBit buffer = DEPTH_BUFFER_BIT);
+		void render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
+
+		int errorCheck();
 
 	 private:
 		void bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera);

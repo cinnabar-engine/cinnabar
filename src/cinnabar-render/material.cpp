@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include <GL/glew.h>
+
 ce::Material::Material(Shader* shader, size_t textureCount)
 	: shader(shader),
 	  textures(std::vector<Texture*>(textureCount, NULL)) {
@@ -20,10 +22,10 @@ void ce::Material::deleteTextures() {
 	this->textures.clear();
 }
 
-void ce::Material::update() { // TODO: this be done when shaders are added, and just loop until failiure instead of checking for textures
-	for (GLint i = 0; i < this->textures.size(); i++)
-		if (this->textures[i] != NULL)
-			this->shader->setUniform("material.textures[" + std::to_string(i) + "]", i);
+void ce::Material::update() {
+	for (GLint i = 0; ; i++)
+		if (this->shader->setUniform("material.textures[" + std::to_string(i) + "]", i) < 0)
+			break;
 }
 
 void ce::Material::bind() {

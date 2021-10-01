@@ -10,4 +10,5 @@
 #include <cinnabar-render/render_engine.hpp>
 #include <cinnabar-render/shader.hpp>
 #include <cinnabar-render/texture.hpp>
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/window.hpp>

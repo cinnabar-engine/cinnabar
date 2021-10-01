@@ -1,29 +1,54 @@
 #pragma once
 
-#include <SDL.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 namespace ce {
 	class Window {
 	 public:
-		Window(const char* title);
+		typedef void (*KeyCallback)(Window* window, int key, int scancode, int action, int mods);
+		typedef void (*CursorPosCallback)(Window* window, double xpos, double ypos);
+		typedef void (*MouseButtonCallback)(Window* window, int button, int action, int mods);
+		typedef void (*WindowSizeCallback)(Window* window, int width, int height);
+
+		Window(const char* title, int width = 640, int height = 480);
 		~Window();
+
+		void makeCurrent();
 
 		void swapBuffers();
 
-		SDL_Window* getWindow() { return m_window; };
-		SDL_GLContext getContext() { return m_context; };
+		GLFWwindow* getWindow() { return m_window; };
 
-		glm::vec2 getWindowSize();
-		float getAspectRatio();
+		glm::ivec2 getWindowSize();
+		glm::ivec2 getFramebufferSize();
+		double getWindowAspectRatio();
+		double getFramebufferAspectRatio();
 
-		static bool mouseVisible() { return m_mouseVisible; };
-		static void setMouseVisibility(bool enabled);
+		bool shouldClose() { return glfwWindowShouldClose(getWindow()); }
+
+		static void pollEvents() { glfwPollEvents(); };
+
+		void setInputMode(int mode, int value);
+		int getInputMode(int mode);
+
+		void setKeyCallback(KeyCallback keyCallback);
+		void setCursorPosCallback(CursorPosCallback cursorPosCallback);
+		void setMouseButtonCallback(MouseButtonCallback mouseButtonCallback);
+		void setWindowSizeCallback(WindowSizeCallback windowSizeCallback);
+
+		void callKeyCallback(int key, int scancode, int action, int mods) { m_keyCallback(this, key, scancode, action, mods); };
+		void callCursorPosCallback(double xpos, double ypos) { m_cursorPosCallback(this, xpos, ypos); };
+		void callMouseButtonCallback(int button, int action, int mods) { m_mouseButtonCallback(this, button, action, mods); };
+		void callWindowSizeCallback(int width, int height) { m_windowSizeCallback(this, width, height); };
 
 	 private:
-		SDL_Window* m_window;
-		SDL_GLContext m_context;
+		GLFWwindow* m_window;
 
-		static inline bool m_mouseVisible = true;
+		KeyCallback m_keyCallback;
+		CursorPosCallback m_cursorPosCallback;
+		MouseButtonCallback m_mouseButtonCallback;
+		WindowSizeCallback m_windowSizeCallback;
 	};
 }

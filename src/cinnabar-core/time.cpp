@@ -1,6 +1,7 @@
 #include <cinnabar-core/time.hpp>
 
-#include <SDL.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 
 ce::Time::Time()
 	: m_dt(0), m_fps(0) {
@@ -10,11 +11,11 @@ ce::Time::Time()
 ce::Time::~Time() {}
 
 void ce::Time::recalculate(bool dt, bool fps) {
-	m_now = SDL_GetPerformanceCounter();
+	m_now = glfwGetTime();
 	if (dt)
-		m_dt = (m_now - m_last) / (double)SDL_GetPerformanceFrequency();
+		m_dt = m_now - m_last;
 	if (fps)
-		m_fps = (double)SDL_GetPerformanceFrequency() / (m_now - m_last);
+		m_fps = 1.0 / (m_now - m_last);
 }
 
 void ce::Time::update(bool dt, bool fps) {

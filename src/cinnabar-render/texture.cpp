@@ -1,16 +1,19 @@
 #include <cinnabar-render/texture.hpp>
 
+#include <GL/glew.h>
+
 #include <cinnabar-core/tpnt_log.h>
 
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/asset_manager.hpp>
 
-void ce::Texture::init(TextureFile textureFile, GLenum colorSpace, GLenum target) {
-	glGenTextures(1, &m_texture);
+void ce::Texture::init(TextureFile textureFile, ColorSpace colorSpace, TextureTarget target) {
+	glGenTextures(1, (GLuint*)&m_texture);
 	bind();
-	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT); // TODO: proper system for setting texture parameters
-	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_REPEAT);
+	glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_S, GL_REPEAT); // TODO: proper system for setting texture parameters
+	glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri((GLenum)target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri((GLenum)target, GL_TEXTURE_MIN_FILTER, GL_REPEAT);
 
 	if (this->loadData(textureFile, colorSpace, target)) {
 		LOG_SUCCESS("Loaded texture");
@@ -20,12 +23,12 @@ void ce::Texture::init(TextureFile textureFile, GLenum colorSpace, GLenum target
 }
 
 ce::Texture::~Texture() {
-	glDeleteTextures(1, &m_texture);
+	glDeleteTextures(1, (GLuint*)&m_texture);
 }
 
 void ce::Texture::bind() {
-	glBindTexture(m_target, m_texture);
-	glEnable(m_target);
+	glBindTexture((GLenum)m_target, (GLuint)m_texture);
+	glEnable((GLenum)m_target);
 }
 
 void ce::Texture::activate(int slot = 0) {
@@ -34,12 +37,12 @@ void ce::Texture::activate(int slot = 0) {
 }
 
 void ce::Texture::unbind() {
-	glDisable(m_target);
+	glDisable((GLenum)m_target);
 	glActiveTexture(0);
-	glBindTexture(m_target, 0);
+	glBindTexture((GLenum)m_target, 0);
 }
 
-bool ce::Texture::loadData(TextureFile textureFile, GLenum colorSpace, GLenum target) {
+bool ce::Texture::loadData(TextureFile textureFile, ColorSpace colorSpace, TextureTarget target) {
 	m_target = target;
 	if (!colorSpace)
 		switch (textureFile.internalColorSpace) {
@@ -57,9 +60,9 @@ bool ce::Texture::loadData(TextureFile textureFile, GLenum colorSpace, GLenum ta
 
 	if (textureFile.data) {
 		bind();
-		glTexImage2D(m_target, 0, textureFile.internalColorSpace, textureFile.width, textureFile.height, 0, colorSpace,
+		glTexImage2D((GLenum)m_target, 0, (GLenum)textureFile.internalColorSpace, textureFile.width, textureFile.height, 0, (GLenum)colorSpace,
 			GL_UNSIGNED_BYTE, textureFile.data);
-		glGenerateMipmap(m_target);
+		glGenerateMipmap((GLenum)m_target);
 		unbind();
 		return true;
 	} else

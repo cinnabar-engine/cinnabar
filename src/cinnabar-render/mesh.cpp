@@ -1,5 +1,7 @@
 #include <cinnabar-render/mesh.hpp>
 
+#include <GL/glew.h>
+
 #include <cinnabar-render/shader.hpp>
 #include <cinnabar-render/vertex.hpp>
 

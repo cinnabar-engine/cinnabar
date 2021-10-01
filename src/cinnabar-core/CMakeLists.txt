@@ -11,5 +11,5 @@ add_library(${NAME}
 )
 
 target_link_libraries(${NAME}
-	${CE_LIBS}
+	${GLFW_LIBS}
 )

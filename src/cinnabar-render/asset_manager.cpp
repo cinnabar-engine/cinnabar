@@ -6,6 +6,7 @@
 #include <string>
 
 #include "stb_image.h"
+#include <GL/glew.h>
 
 #include <cinnabar-core/asset_manager.hpp>
 #include <cinnabar-core/tpnt_log.h>
@@ -46,8 +47,8 @@ ce::TextureFile ce::assetManager::getTextureFile(std::string path) {
 	int channelCount;
 	textureFile.data = stbi_load(
 		(defaults::RESOURCE_FOLDER + "/" + defaults::TEXTURE_FOLDER + "/" + path).c_str(),
-		&textureFile.width,
-		&textureFile.height,
+		(int*)&textureFile.width,
+		(int*)&textureFile.height,
 		&channelCount,
 		0);
 
@@ -104,7 +105,7 @@ struct IndexedVertex {
 };
 
 std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
-	std::vector<GLuint> indices; // TODO: make this work for concave faces
+	std::vector<GLuint> indices; // TODO: make this work for concave faces (concave polygon)
 	for (size_t i = 1; i < sides - 1; i++) {
 		indices.push_back(offset);
 		indices.push_back(i + offset);

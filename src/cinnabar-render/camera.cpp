@@ -5,13 +5,12 @@
 
 #include <cinnabar-render/shader.hpp>
 
-ce::Camera::Camera()
-	: transform(NULL) {
-	this->transform = new Transform();
-}
+ce::Camera::Camera(ce::Transform* transform)
+	: transform(transform) {}
 
 ce::Camera::~Camera() {
-	delete this->transform;
+	//delete this->transform;
+	// TODO: figure out when to delete transform
 }
 
 glm::mat4 ce::Camera::getViewMatrix() {
