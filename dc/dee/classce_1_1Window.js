@@ -4,7 +4,7 @@ var classce_1_1Window =
     [ "KeyCallback", "dc/dee/classce_1_1Window.html#a3f772c1c43e329af197a12e1ebdc4de1", null ],
     [ "MouseButtonCallback", "dc/dee/classce_1_1Window.html#a4efe4cc50656568574a8402a3dee4176", null ],
     [ "WindowSizeCallback", "dc/dee/classce_1_1Window.html#ab843aa983e0f54a1a01e3c848debea15", null ],
-    [ "Window", "dc/dee/classce_1_1Window.html#a31afb98dd54b951c7ab32d3933b4ea22", null ],
+    [ "Window", "dc/dee/classce_1_1Window.html#af7ad1df0f83fb51a2f1f15b5d2352e05", null ],
     [ "~Window", "dc/dee/classce_1_1Window.html#a5dd19a1343e3c0ada2dc87ae08d31035", null ],
     [ "callCursorPosCallback", "dc/dee/classce_1_1Window.html#a76a296dbf4d93a6c1ecd2d6a183c678d", null ],
     [ "callKeyCallback", "dc/dee/classce_1_1Window.html#a6bb59e8231f56c9e176e2f65cd6343f1", null ],
