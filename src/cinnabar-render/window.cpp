@@ -1,5 +1,7 @@
 #include <cinnabar-render/window.hpp>
 
+#include <unordered_map>
+
 #define GLFW_INCLUDE_NONE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -7,30 +9,48 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
-ce::Window::Window(const char* title)
+std::unordered_map<GLFWwindow*, ce::Window*> s_windows;
+
+void glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void glfwCursorPosCallback(GLFWwindow* window, double xpos, double ypos);
+void glfwMouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+void glfwWindowSizeCallback(GLFWwindow* window, int width, int height);
+
+ce::Window::Window(const char* title, int width, int height)
 	: m_window(NULL) {
 
-	if (!glfwInit()) { // TODO: init and terminate glfw seperate from windows
-		LOG_ERROR("Error intialising GLGW");
-		exit(1);
-	}
-	LOG_SUCCESS("GLFW has been initialized");
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	m_window = glfwCreateWindow(1280, 720, title, NULL, NULL);
+	m_window = glfwCreateWindow(width, height, title, NULL, NULL);
 	if (m_window == NULL) {
 		LOG_ERROR("Failed to create GLFW window");
 		glfwTerminate();
 		exit(1);
 	}
 
-	glfwMakeContextCurrent(m_window); // TODO: i think each window comes with its own context, this should probably be a seperate function
+	s_windows.insert({m_window, this});
+
+	makeCurrent();
+
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		LOG_ERROR("GLEW error: %s", (const char*)glewGetErrorString(err));
+	}
+	LOG_INFO("GLEW version: %s", (const char*)glewGetString(GLEW_VERSION));
+
+	// OpenGL Setup
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 ce::Window::~Window() {
 	glfwDestroyWindow(m_window);
+}
+
+void ce::Window::makeCurrent() {
+	glfwMakeContextCurrent(m_window);
 }
 
 void ce::Window::swapBuffers() {
@@ -64,3 +84,35 @@ void ce::Window::setInputMode(int mode, int value) {
 int ce::Window::getInputMode(int mode) {
 	return glfwGetInputMode(m_window, mode);
 }
+
+void ce::Window::setKeyCallback(KeyCallback keyCallback) {
+	m_keyCallback = keyCallback;
+	glfwSetKeyCallback(m_window, (keyCallback ? glfwKeyCallback : NULL));
+}
+void ce::Window::setCursorPosCallback(CursorPosCallback cursorPosCallback) {
+	m_cursorPosCallback = cursorPosCallback;
+	glfwSetCursorPosCallback(m_window, cursorPosCallback ? glfwCursorPosCallback : NULL);
+}
+void ce::Window::setMouseButtonCallback(MouseButtonCallback mouseButtonCallback) {
+	m_mouseButtonCallback = mouseButtonCallback;
+	glfwSetMouseButtonCallback(m_window, mouseButtonCallback ? glfwMouseButtonCallback : NULL);
+}
+void ce::Window::setWindowSizeCallback(WindowSizeCallback windowSizeCallback) {
+	m_windowSizeCallback = windowSizeCallback;
+	glfwSetWindowSizeCallback(m_window, windowSizeCallback ? glfwWindowSizeCallback : NULL);
+}
+
+
+
+void glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	s_windows.find(window)->second->callKeyCallback(key, scancode, action, mods);
+};
+void glfwCursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
+	s_windows.find(window)->second->callCursorPosCallback(xpos, ypos);
+};
+void glfwMouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+	s_windows.find(window)->second->callMouseButtonCallback(button, action, mods);
+};
+void glfwWindowSizeCallback(GLFWwindow* window, int width, int height) {
+	s_windows.find(window)->second->callWindowSizeCallback(width, height);
+};

@@ -2,7 +2,6 @@
 #include <cinnabar-core/transform.hpp>
 
 // render
-#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/asset_manager.hpp>
 #include <cinnabar-render/assets.hpp>
 #include <cinnabar-render/camera.hpp>
@@ -11,4 +10,5 @@
 #include <cinnabar-render/render_engine.hpp>
 #include <cinnabar-render/shader.hpp>
 #include <cinnabar-render/texture.hpp>
+#include <cinnabar-render/types.hpp>
 #include <cinnabar-render/window.hpp>

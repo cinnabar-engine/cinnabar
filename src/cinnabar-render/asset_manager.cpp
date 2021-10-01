@@ -105,7 +105,7 @@ struct IndexedVertex {
 };
 
 std::vector<GLuint> genNgonIndices(std::size_t sides, std::size_t offset) {
-	std::vector<GLuint> indices; // TODO: make this work for concave faces
+	std::vector<GLuint> indices; // TODO: make this work for concave faces (concave polygon)
 	for (size_t i = 1; i < sides - 1; i++) {
 		indices.push_back(offset);
 		indices.push_back(i + offset);

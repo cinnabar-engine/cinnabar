@@ -13,12 +13,13 @@
 namespace ce {
 	class RenderEngine {
 	 public:
-		RenderEngine(glm::vec4 clearColor = glm::vec4());
+		RenderEngine();
 		~RenderEngine();
 
+		void vsync(int divisor) { glfwSwapInterval(divisor); }
 		void setFramebufferSize(glm::vec2 size);
 
-		void setRenderOption(RenderOption option, bool enable); // TODO: create enum for option
+		void setRenderOption(RenderOption option, bool enable);
 
 		void setClearColor(glm::vec4 color);
 		void setClearDepth(glm::float32 depth);
@@ -28,6 +29,8 @@ namespace ce {
 
 		void clear(BufferBit buffer = DEPTH_BUFFER_BIT);
 		void render(Mesh* mesh, Material* material, Transform* transform, Camera* camera);
+
+		int errorCheck();
 
 	 private:
 		void bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera);

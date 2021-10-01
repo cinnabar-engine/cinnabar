@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 
+// TODO: storing all of these as variables is a massive waste of memory and performance, figure out if there's a better way to do this
 namespace ce {
 	const BufferBit
 		COLOR_BUFFER_BIT = GL_COLOR_BUFFER_BIT,

@@ -39,25 +39,23 @@ namespace ce {
 			vertexAttribPointer(Attribute attrib, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void* pointer);
 
 		template <typename T>
-		void setUniform(const std::string name, const T& value);
+		glm::int32 setUniform(const std::string name, const T& value);
 		template <typename T>
 		void setUniform(glm::int32 location, const T& value);
 		template <typename T>
-		void setUniformArray(const std::string name, glm::uint32 count, const T* value);
+		glm::int32 setUniformArray(const std::string name, glm::uint32 count, const T* value);
 		template <typename T>
 		void setUniformArray(glm::int32 location, glm::uint32 count, const T* value);
-		void
+		glm::int32
 			setUniform(const std::string name, float x, float y),
 			setUniform(const std::string name, float x, float y, float z),
-			setUniform(const std::string name, float x, float y, float z, float w),
-
+			setUniform(const std::string name, float x, float y, float z, float w);
+		void
 			setUniform(glm::int32 location, float x, float y),
 			setUniform(glm::int32 location, float x, float y, float z),
 			setUniform(glm::int32 location, float x, float y, float z, float w);
 
 	 private:
-		inline static const glm::int32 MIN_LOC = 0; // TODO: this has no value other than 0, why does it exist?
-
 		glm::uint32 m_program;
 		std::vector<std::string>
 			m_attributes = {

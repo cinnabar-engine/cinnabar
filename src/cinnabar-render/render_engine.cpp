@@ -6,14 +6,26 @@
 
 #include <cinnabar-core/tpnt_log.h>
 
+ce::RenderEngine::RenderEngine() {
+	if (!glfwInit()) {
+		LOG_ERROR("Error intialising GLFW");
+		exit(1);
+	}
+	LOG_SUCCESS("GLFW has been initialized");
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
+ce::RenderEngine::~RenderEngine() {
+	glfwTerminate();
+}
+
 void ce::RenderEngine::clear(BufferBit buffer) {
 	glClear((GLbitfield)buffer);
 }
 
 void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
-	// Update Shader Values TODO: shouldn't this be somewhere else instead of the bind command?
-	material->update();
-
 	// TODO: get rid of unneccecary binding
 	mesh->sendToShader(material->shader, true);
 	material->shader->setUniform("transform.model", transform->getMatrix());
@@ -22,33 +34,6 @@ void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform
 	// Bind Things
 	mesh->bind();
 	material->bind();
-}
-
-ce::RenderEngine::RenderEngine(glm::vec4 clearColor) {
-	GLenum err = glewInit();
-	if (GLEW_OK != err) {
-		LOG_ERROR("GLEW error: %s", (const char*)glewGetErrorString(err));
-	}
-	LOG_INFO("GLEW version: %s", (const char*)glewGetString(GLEW_VERSION));
-	/*if () { // TODO: get GL version
-		LOG_ERROR("Wrong GL version %s", );
-		glfwTerminate();
-		exit(1);
-	}*/
-
-	// OpenGL Setup
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	setClearColor(clearColor);
-}
-ce::RenderEngine::~RenderEngine() {
-	glfwTerminate();
 }
 
 void ce::RenderEngine::setRenderOption(RenderOption option, bool enable) {
@@ -80,4 +65,18 @@ void ce::RenderEngine::render(Mesh* mesh, Material* material, Transform* transfo
 	glDrawElements((GLenum)mesh->format, (GLsizei)mesh->GetIndexCount(), GL_UNSIGNED_INT, NULL);
 	mesh->unbind(); // TODO: is unbinding needed, and does it reduce performance?
 	material->unbind();
+}
+
+int ce::RenderEngine::errorCheck() {
+	int errorCount;
+	while (true) {
+		GLenum err = glGetError();
+		if (err == GL_NO_ERROR)
+			break;
+		else {
+			LOG_ERROR("Uncaught GL error: 0x%04x", err);
+			errorCount++;
+		}
+	}
+	return errorCount;
 }
