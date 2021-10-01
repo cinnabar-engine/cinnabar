@@ -16,10 +16,10 @@ void glfwCursorPosCallback(GLFWwindow* window, double xpos, double ypos);
 void glfwMouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void glfwWindowSizeCallback(GLFWwindow* window, int width, int height);
 
-ce::Window::Window(const char* title, int width, int height)
+ce::Window::Window(const char* title, int width, int height, GLFWmonitor* monitor, ce::Window* share)
 	: m_window(NULL) {
 
-	m_window = glfwCreateWindow(width, height, title, NULL, NULL);
+	m_window = glfwCreateWindow(width, height, title, monitor, share == NULL ? NULL : share->getWindow());
 	if (m_window == NULL) {
 		LOG_ERROR("Failed to create GLFW window");
 		glfwTerminate();

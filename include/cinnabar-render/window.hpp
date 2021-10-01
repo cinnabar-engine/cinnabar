@@ -12,7 +12,7 @@ namespace ce {
 		typedef void (*MouseButtonCallback)(Window* window, int button, int action, int mods);
 		typedef void (*WindowSizeCallback)(Window* window, int width, int height);
 
-		Window(const char* title, int width = 640, int height = 480);
+		Window(const char* title, int width = 640, int height = 480, GLFWmonitor* monitor = NULL, ce::Window* share = NULL);
 		~Window();
 
 		void makeCurrent();
