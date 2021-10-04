@@ -80,6 +80,7 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 
 ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
+
 	ShaderFile shaderFile = ce::assetManager::getShaderFile(vertName, geomName, fragName);
 
 	for (GLuint i = 0; i < m_attributes.size(); i++)
@@ -96,10 +97,13 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.frag, options));
 	if (shaderFile.geom != "")
 		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geom, options));
-	linkProgram(vertexShader, fragmentShader, vertexShader);
+	linkProgram(vertexShader, fragmentShader, geometryShader);
+
+
 	GLint attrCount, uniformCount, customAttrCount;
 	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &attrCount);
 	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
+
 	customAttrCount = attrCount - m_attributes.size();
 	if (customAttrCount > 0) {
 		GLint size;
@@ -196,7 +200,9 @@ void ce::Shader::linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint 
 		glAttachShader(m_program, fragmentShader);
 	if (geometryShader != 0)
 		glAttachShader(m_program, geometryShader);
+
 	glLinkProgram(m_program);
+
 	checkCompileErrors(m_program);
 }
 /*

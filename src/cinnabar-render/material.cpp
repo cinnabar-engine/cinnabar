@@ -32,12 +32,12 @@ void ce::Material::bind() {
 	this->shader->bind();
 	for (GLint i = 0; i < this->textures.size(); i++)
 		if (this->textures[i] != NULL)
-			this->textures[i]->activate(i);
+			this->textures[i]->bind(i);
 }
 
 void ce::Material::unbind() {
 	this->shader->unbind();
 	for (GLint i = 0; i < this->textures.size(); i++)
 		if (this->textures[i] != NULL)
-			this->textures[i]->unbind();
+			this->textures[i]->unbind(i);
 }
