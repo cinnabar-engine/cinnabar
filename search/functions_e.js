@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['vertexattribpointer_469',['vertexAttribPointer',['../d3/d8c/classce_1_1Shader.html#a5702cd84af272c4182da3191ca5330f8',1,'ce::Shader::vertexAttribPointer(std::string attrib, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void *pointer)'],['../d3/d8c/classce_1_1Shader.html#a7db9e24ff1ebbe1ba2d6568951dd63d1',1,'ce::Shader::vertexAttribPointer(Attribute attrib, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void *pointer)']]],
-  ['vsync_470',['vsync',['../d2/df2/classce_1_1RenderEngine.html#ac88c3ba2396fbdb9e4227439c91f6b2d',1,'ce::RenderEngine']]]
+  ['waituntildelta_471',['waitUntilDelta',['../df/d10/classce_1_1Time.html#a68a6066144c2f37751cff9fcfaa25b4c',1,'ce::Time']]],
+  ['window_472',['Window',['../dc/dee/classce_1_1Window.html#af7ad1df0f83fb51a2f1f15b5d2352e05',1,'ce::Window']]],
+  ['windowsizecallback_473',['windowSizeCallback',['../df/d0a/main_8cpp.html#ac361d1ca9db3bf744c641b2b3faabe9f',1,'main.cpp']]]
 ];

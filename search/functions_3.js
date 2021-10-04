@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['deletecontents_384',['deleteContents',['../d5/d2e/classce_1_1Material.html#a5b01305639a85c7f2145c2bd399a654b',1,'ce::Material']]],
-  ['deletetextures_385',['deleteTextures',['../d5/d2e/classce_1_1Material.html#a577cd315b5fb9684b9a84527f77c763a',1,'ce::Material']]]
+  ['errorcheck_386',['errorCheck',['../d2/df2/classce_1_1RenderEngine.html#a9349e48ad49fd9fb0ba3fe033ca22614',1,'ce::RenderEngine']]]
 ];
