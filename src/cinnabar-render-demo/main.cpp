@@ -146,10 +146,19 @@ int main(int argc, char* argv[]) {
 
 	demo::mainWindow = makeWincam()->first;
 	demo::mainWindow->makeCurrent();
+
+	ce::Mesh* axesMesh = new ce::Mesh("axes.obj");
+	ce::Material* axesMaterial = new ce::Material("basic");
+	axesMaterial->textures[0] = new ce::Texture("axes.png");
+	ce::Transform* axesPos = new ce::Transform();
+	axesPos->setPosition(-1.0f, 0.0f, 0.0f);
+	axesPos->setScale(0.5f, 0.5f, 0.5f);
+
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
 	ce::Material* blobMaterial = new ce::Material("matcap");
-	blobMaterial->textures[0] = new ce::Texture("matcap.png");
+	blobMaterial->textures[0] = new ce::Texture("axes.png");
 	ce::Transform* blobPos = new ce::Transform();
+	blobPos->setPosition(1.0f, 0.0f, 0.0f);
 	blobPos->setScale(0.5f, 0.5f, 0.5f);
 
 	ce::Mesh* environmentMesh = new ce::Mesh("environment.obj");
@@ -195,6 +204,7 @@ int main(int argc, char* argv[]) {
 			// render
 			wincam.first->makeCurrent();
 			demo::renderEngine->clear(ce::COLOR_BUFFER_BIT | ce::DEPTH_BUFFER_BIT);
+			demo::renderEngine->render(axesMesh, axesMaterial, axesPos, wincam.second);
 			demo::renderEngine->render(blobMesh, blobMaterial, blobPos, wincam.second);
 			demo::renderEngine->render(environmentMesh, environmentMaterial, environmentPos, wincam.second);
 			wincam.first->swapBuffers();
@@ -208,6 +218,11 @@ int main(int argc, char* argv[]) {
 	}
 
 	close_program:
+
+	delete axesMesh;
+	axesMaterial->deleteContents();
+	delete axesMaterial;
+	delete axesPos;
 
 	delete blobMesh;
 	blobMaterial->deleteContents();
