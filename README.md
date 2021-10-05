@@ -3,6 +3,9 @@
 ![Finished](https://img.shields.io/badge/Finished-no-red?style=flat)
 ![Good](https://img.shields.io/badge/Good-maybe-yellow?style=flat)
 
+[![GitHub issues](https://img.shields.io/github/issues/cinnabar-engine/cinnabar)](https://github.com/cinnabar-engine/cinnabar/issues)
+[![GitHub license](https://img.shields.io/github/license/cinnabar-engine/cinnabar)](https://github.com/cinnabar-engine/cinnabar/blob/develop/LICENSE)
+
 [![Unit Testing](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/UnitTests.yml)
 [![Code Quality](https://github.com/cinnabar-engine/cinnabar/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/codeql-analysis.yml)
 [![Documentation Generation](https://github.com/cinnabar-engine/cinnabar/actions/workflows/Doxygen.yml/badge.svg)](https://github.com/cinnabar-engine/cinnabar/actions/workflows/Doxygen.yml)
