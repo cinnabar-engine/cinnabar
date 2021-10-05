@@ -119,10 +119,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7db05c427b5002384cb57353fb9e76bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76e556978fc7e5db5e4636b98472ede7"><td class="memItemLeft" align="right" valign="top">glm::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d8c/classce_1_1Shader.html#a76e556978fc7e5db5e4636b98472ede7">getShader</a> ()</td></tr>
 <tr class="separator:a76e556978fc7e5db5e4636b98472ede7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05eec3ac4196a115119cb4e1395f6716"><td class="memItemLeft" align="right" valign="top">glm::int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d8c/classce_1_1Shader.html#a05eec3ac4196a115119cb4e1395f6716">getAttribLocation</a> (const std::string name)</td></tr>
-<tr class="separator:a05eec3ac4196a115119cb4e1395f6716"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c89a6b617f6e2bdb3c5f3fdd0b7a948"><td class="memItemLeft" align="right" valign="top">glm::int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d8c/classce_1_1Shader.html#a7c89a6b617f6e2bdb3c5f3fdd0b7a948">getUniformLocation</a> (const std::string name)</td></tr>
-<tr class="separator:a7c89a6b617f6e2bdb3c5f3fdd0b7a948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeaa3dcaf3b17fbbd9f552e9016e8aa1"><td class="memItemLeft" align="right" valign="top">glm::int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d8c/classce_1_1Shader.html#afeaa3dcaf3b17fbbd9f552e9016e8aa1">getAttribLocation</a> (const std::string name, bool invalidWarn=true)</td></tr>
+<tr class="separator:afeaa3dcaf3b17fbbd9f552e9016e8aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd11e8bed882cd0da481c8c56bb957bf"><td class="memItemLeft" align="right" valign="top">glm::int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d8c/classce_1_1Shader.html#abd11e8bed882cd0da481c8c56bb957bf">getUniformLocation</a> (const std::string name, bool invalidWarn=true)</td></tr>
+<tr class="separator:abd11e8bed882cd0da481c8c56bb957bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5702cd84af272c4182da3191ca5330f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d8c/classce_1_1Shader.html#a5702cd84af272c4182da3191ca5330f8">vertexAttribPointer</a> (std::string attrib, glm::int32 size, <a class="el" href="../../d2/dd6/namespacece.html#acdcb6e71fa1f3bb125ed7908b547ccd7">Datatype</a> type, bool normalized, glm::uint32 stride, const void *pointer)</td></tr>
 <tr class="separator:a5702cd84af272c4182da3191ca5330f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7db9e24ff1ebbe1ba2d6568951dd63d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d8c/classce_1_1Shader.html#a7db9e24ff1ebbe1ba2d6568951dd63d1">vertexAttribPointer</a> (<a class="el" href="../../d3/d8c/classce_1_1Shader.html#a69f311ef7f666a490a4273a545a5252b">Attribute</a> attrib, glm::int32 size, <a class="el" href="../../d2/dd6/namespacece.html#acdcb6e71fa1f3bb125ed7908b547ccd7">Datatype</a> type, bool normalized, glm::uint32 stride, const void *pointer)</td></tr>
@@ -335,8 +335,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a05eec3ac4196a115119cb4e1395f6716"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05eec3ac4196a115119cb4e1395f6716">&#9670;&nbsp;</a></span>getAttribLocation()</h2>
+<a id="afeaa3dcaf3b17fbbd9f552e9016e8aa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afeaa3dcaf3b17fbbd9f552e9016e8aa1">&#9670;&nbsp;</a></span>getAttribLocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,8 +345,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">glm::int32 ce::Shader::getAttribLocation </td>
           <td>(</td>
           <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>invalidWarn</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -370,8 +380,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c89a6b617f6e2bdb3c5f3fdd0b7a948"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c89a6b617f6e2bdb3c5f3fdd0b7a948">&#9670;&nbsp;</a></span>getUniformLocation()</h2>
+<a id="abd11e8bed882cd0da481c8c56bb957bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd11e8bed882cd0da481c8c56bb957bf">&#9670;&nbsp;</a></span>getUniformLocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,8 +390,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">glm::int32 ce::Shader::getUniformLocation </td>
           <td>(</td>
           <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>invalidWarn</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
