@@ -34,7 +34,7 @@ std::unordered_map<ce::Window*, ce::Camera*>::iterator makeWincam(ce::Window* sh
 	demo::renderEngine->setFramebufferSize(window->getFramebufferSize());	
 	double deltaTimeMin = 1.0 / 1000.0; // framerate cap
 
-	if (glfwRawMouseMotionSupported()) // TODO: make Window function for this
+	if (ce::Window::rawMouseMotionSupported())
 		window->setInputMode(GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 	window->setKeyCallback(keyCallback);
 	window->setCursorPosCallback(cursorPosCallback);

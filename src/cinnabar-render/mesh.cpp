@@ -26,27 +26,29 @@ void ce::Mesh::setMesh(ce::MeshFile meshfile) {
 }
 
 void ce::Mesh::sendToShader(ce::Shader* shader, bool bind) {
-	if (bind)
-		this->bind(true, false);
+	if (bind) {
+		glBindVertexArray(m_VAO);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	}
 	shader->vertexAttribPointer(ce::Shader::Attribute::POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
 	shader->vertexAttribPointer(ce::Shader::Attribute::NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
 	shader->vertexAttribPointer(ce::Shader::Attribute::UV, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
 	shader->vertexAttribPointer(ce::Shader::Attribute::COLOR, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
-	if (bind)
-		this->unbind(true, false);
+	if (bind) {
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
 }
 
-void ce::Mesh::bind(bool VBO, bool EBO) {
+void ce::Mesh::bind() {
 	glBindVertexArray(m_VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO); // TODO: what cases is each bind needed? what needs to be avalible as options?
-	if (EBO)
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 }
-void ce::Mesh::unbind(bool VBO, bool EBO) {
+void ce::Mesh::unbind() {
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	if (EBO)
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void ce::Mesh::initVAO(Vertex* verts, GLuint* indices) {

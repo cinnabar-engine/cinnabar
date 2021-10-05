@@ -30,6 +30,8 @@ namespace ce {
 
 		static void pollEvents() { glfwPollEvents(); };
 
+		static bool rawMouseMotionSupported() { return glfwRawMouseMotionSupported(); }
+
 		void setInputMode(int mode, int value);
 		int getInputMode(int mode);
 
