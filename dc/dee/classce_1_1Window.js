@@ -18,6 +18,7 @@ var classce_1_1Window =
     [ "getWindowSize", "dc/dee/classce_1_1Window.html#a47058d62baeb5b5d61e30fdc585bac56", null ],
     [ "makeCurrent", "dc/dee/classce_1_1Window.html#a85b4f08f14a0398a3098793fe048c717", null ],
     [ "pollEvents", "dc/dee/classce_1_1Window.html#a78068bfb136a2dfdf957e8a8840be9be", null ],
+    [ "rawMouseMotionSupported", "dc/dee/classce_1_1Window.html#a1ba2544690ac73ba71a19af37cd8a906", null ],
     [ "setCursorPosCallback", "dc/dee/classce_1_1Window.html#a5a7b1370430e367c2d5f522d36b217c4", null ],
     [ "setInputMode", "dc/dee/classce_1_1Window.html#a2dab3a966b0be80d82d9e2e12506afa6", null ],
     [ "setKeyCallback", "dc/dee/classce_1_1Window.html#ae8f0e9f48a55e3e912de1d35a90bee44", null ],
