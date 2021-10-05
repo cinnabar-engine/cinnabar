@@ -14,6 +14,7 @@
 
 namespace demo {
 	ce::Time* time = NULL;
+	ce::Window* mainWindow = NULL;
 	std::unordered_map<ce::Window*, ce::Camera*> wincams = {};
 	ce::RenderEngine* renderEngine = NULL;
 	ce::Transform* cameraTransform = NULL;
@@ -26,8 +27,8 @@ void cursorPosCallback(ce::Window* window, double xpos, double ypos);
 void mouseButtonCallback(ce::Window* window, int button, int action, int mods);
 void windowSizeCallback(ce::Window* window, int width, int height);
 
-std::unordered_map<ce::Window*, ce::Camera*>::iterator makeWincam() {
-	ce::Window* window = new ce::Window(("Cinnabar " + std::to_string(demo::wincams.size())).c_str());
+std::unordered_map<ce::Window*, ce::Camera*>::iterator makeWincam(ce::Window* share = NULL) {
+	ce::Window* window = new ce::Window(("Cinnabar " + std::to_string(demo::wincams.size())).c_str(), 640, 480, NULL, share);
 	window->makeCurrent();
 	demo::renderEngine->vsync(0);
 	demo::renderEngine->setFramebufferSize(window->getFramebufferSize());	
@@ -84,7 +85,7 @@ void keyCallback(ce::Window* window, int key, int scancode, int action, int mods
 					break;
 
 				case GLFW_KEY_EQUAL:
-					makeWincam();
+					makeWincam(demo::mainWindow);
 					break;
 			}
 			break;
@@ -143,7 +144,8 @@ int main(int argc, char* argv[]) {
 	demo::cameraVelocity = glm::vec3(0.0f);
 
 
-	makeWincam()->first->makeCurrent();
+	demo::mainWindow = makeWincam()->first;
+	demo::mainWindow->makeCurrent();
 	ce::Mesh* blobMesh = new ce::Mesh("blob.obj");
 	ce::Material* blobMaterial = new ce::Material("matcap");
 	blobMaterial->textures[0] = new ce::Texture("matcap.png");

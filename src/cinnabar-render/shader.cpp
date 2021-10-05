@@ -80,6 +80,7 @@ std::string setupShaderDefs(std::string source, std::map<std::string, std::strin
 
 ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragName, std::map<std::string, std::string> options)
 	: m_program(glCreateProgram()) {
+
 	ShaderFile shaderFile = ce::assetManager::getShaderFile(vertName, geomName, fragName);
 
 	for (GLuint i = 0; i < m_attributes.size(); i++)
@@ -96,10 +97,13 @@ ce::Shader::Shader(std::string vertName, std::string geomName, std::string fragN
 		fragmentShader = createShader(GL_FRAGMENT_SHADER, setupShaderDefs(shaderFile.frag, options));
 	if (shaderFile.geom != "")
 		geometryShader = createShader(GL_GEOMETRY_SHADER, setupShaderDefs(shaderFile.geom, options));
-	linkProgram(vertexShader, fragmentShader, vertexShader);
+	linkProgram(vertexShader, fragmentShader, geometryShader);
+
+
 	GLint attrCount, uniformCount, customAttrCount;
 	glGetProgramiv(m_program, GL_ACTIVE_ATTRIBUTES, &attrCount);
 	glGetProgramiv(m_program, GL_ACTIVE_UNIFORMS, &uniformCount);
+
 	customAttrCount = attrCount - m_attributes.size();
 	if (customAttrCount > 0) {
 		GLint size;
@@ -161,17 +165,22 @@ glm::uint32 ce::Shader::getShader() {
 	return m_program;
 }
 
-glm::int32 ce::Shader::getAttribLocation(const std::string name) {
+glm::int32 ce::Shader::getAttribLocation(const std::string name, bool invalidWarn) {
 	std::vector<std::string>::iterator location = std::find(m_attributes.begin(), m_attributes.end(), name);
 	if (location == m_attributes.end()) {
-		LOG_WARN("Invalid Attribute: %s", name.c_str());
+		if (invalidWarn) {
+			LOG_WARN("Invalid Attribute: %s", name.c_str());
+		}
+		return -1;
 	}
 	return std::distance(m_attributes.begin(), location);
 }
-glm::int32 ce::Shader::getUniformLocation(const std::string name) {
+glm::int32 ce::Shader::getUniformLocation(const std::string name, bool invalidWarn) {
 	std::vector<std::string>::iterator location = std::find(m_uniforms.begin(), m_uniforms.end(), name);
 	if (location == m_uniforms.end()) {
-		LOG_WARN("Invalid Uniform: %s", name.c_str());
+		if (invalidWarn) {
+			LOG_WARN("Invalid Uniform: %s", name.c_str());
+		}
 		return -1;
 	}
 	return std::distance(m_uniforms.begin(), location);
@@ -196,7 +205,9 @@ void ce::Shader::linkProgram(GLuint vertexShader, GLuint fragmentShader, GLuint 
 		glAttachShader(m_program, fragmentShader);
 	if (geometryShader != 0)
 		glAttachShader(m_program, geometryShader);
+
 	glLinkProgram(m_program);
+
 	checkCompileErrors(m_program);
 }
 /*

@@ -9,11 +9,6 @@
 
 void ce::Texture::init(TextureFile textureFile, ColorSpace colorSpace, TextureTarget target) {
 	glGenTextures(1, (GLuint*)&m_texture);
-	bind();
-	glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_S, GL_REPEAT); // TODO: proper system for setting texture parameters
-	glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri((GLenum)target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri((GLenum)target, GL_TEXTURE_MIN_FILTER, GL_REPEAT);
 
 	if (this->loadData(textureFile, colorSpace, target)) {
 		LOG_SUCCESS("Loaded texture");
@@ -26,19 +21,13 @@ ce::Texture::~Texture() {
 	glDeleteTextures(1, (GLuint*)&m_texture);
 }
 
-void ce::Texture::bind() {
-	glBindTexture((GLenum)m_target, (GLuint)m_texture);
-	glEnable((GLenum)m_target);
-}
-
-void ce::Texture::activate(int slot = 0) {
+void ce::Texture::bind(int slot) {
 	glActiveTexture(GL_TEXTURE0 + slot);
-	bind();
+	glBindTexture((GLenum)m_target, (GLuint)m_texture);
 }
 
-void ce::Texture::unbind() {
-	glDisable((GLenum)m_target);
-	glActiveTexture(0);
+void ce::Texture::unbind(int slot) {
+	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture((GLenum)m_target, 0);
 }
 
@@ -59,11 +48,17 @@ bool ce::Texture::loadData(TextureFile textureFile, ColorSpace colorSpace, Textu
 		}
 
 	if (textureFile.data) {
-		bind();
-		glTexImage2D((GLenum)m_target, 0, (GLenum)textureFile.internalColorSpace, textureFile.width, textureFile.height, 0, (GLenum)colorSpace,
-			GL_UNSIGNED_BYTE, textureFile.data);
+		bind(0);
+
+		glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_S, GL_REPEAT); // TODO: proper system for setting texture parameters
+		glTexParameteri((GLenum)target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri((GLenum)target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri((GLenum)target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+		glTexImage2D((GLenum)m_target, 0, (GLenum)textureFile.internalColorSpace, textureFile.width, textureFile.height, 0, (GLenum)colorSpace, GL_UNSIGNED_BYTE, textureFile.data);
 		glGenerateMipmap((GLenum)m_target);
-		unbind();
+
+		unbind(0);
 		return true;
 	} else
 		return false;

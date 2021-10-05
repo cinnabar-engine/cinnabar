@@ -16,7 +16,7 @@ namespace ce {
 		};
 		~Texture();
 
-		void bind(), unbind(), activate(int slot);
+		void bind(int slot), unbind(int slot);
 
 	 private:
 		glm::uint32 m_texture;

@@ -31,8 +31,8 @@ namespace ce {
 
 		glm::uint32 getShader();
 		glm::int32
-			getAttribLocation(const std::string name),
-			getUniformLocation(const std::string name);
+			getAttribLocation(const std::string name, bool invalidWarn = true),
+			getUniformLocation(const std::string name, bool invalidWarn = true);
 
 		void
 			vertexAttribPointer(std::string attrib, glm::int32 size, Datatype type, bool normalized, glm::uint32 stride, const void* pointer),
