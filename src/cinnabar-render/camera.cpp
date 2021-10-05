@@ -8,11 +8,6 @@
 ce::Camera::Camera(ce::Transform* transform)
 	: transform(transform) {}
 
-ce::Camera::~Camera() {
-	//delete this->transform;
-	// TODO: figure out when to delete transform
-}
-
 glm::mat4 ce::Camera::getViewMatrix() {
 	glm::vec3
 		pos = -this->transform->getPosition(),

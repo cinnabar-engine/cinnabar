@@ -165,17 +165,22 @@ glm::uint32 ce::Shader::getShader() {
 	return m_program;
 }
 
-glm::int32 ce::Shader::getAttribLocation(const std::string name) {
+glm::int32 ce::Shader::getAttribLocation(const std::string name, bool invalidWarn) {
 	std::vector<std::string>::iterator location = std::find(m_attributes.begin(), m_attributes.end(), name);
 	if (location == m_attributes.end()) {
-		LOG_WARN("Invalid Attribute: %s", name.c_str());
+		if (invalidWarn) {
+			LOG_WARN("Invalid Attribute: %s", name.c_str());
+		}
+		return -1;
 	}
 	return std::distance(m_attributes.begin(), location);
 }
-glm::int32 ce::Shader::getUniformLocation(const std::string name) {
+glm::int32 ce::Shader::getUniformLocation(const std::string name, bool invalidWarn) {
 	std::vector<std::string>::iterator location = std::find(m_uniforms.begin(), m_uniforms.end(), name);
 	if (location == m_uniforms.end()) {
-		LOG_WARN("Invalid Uniform: %s", name.c_str());
+		if (invalidWarn) {
+			LOG_WARN("Invalid Uniform: %s", name.c_str());
+		}
 		return -1;
 	}
 	return std::distance(m_uniforms.begin(), location);

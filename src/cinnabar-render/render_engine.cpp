@@ -26,13 +26,12 @@ void ce::RenderEngine::clear(BufferBit buffer) {
 }
 
 void ce::RenderEngine::bind(Mesh* mesh, Material* material, Transform* transform, Camera* camera) {
-	// TODO: get rid of unneccecary binding
-	mesh->sendToShader(material->shader, true);
-	material->shader->setUniform("transform.model", transform->getMatrix());
+	mesh->bind();
+	mesh->sendToShader(material->shader, false);
+
 	camera->sendToShader(material->shader);
 
-	// Bind Things
-	mesh->bind();
+	material->shader->setUniform("transform.model", transform->getMatrix()); // TODO: get rid of unneccecary binding
 	material->bind();
 }
 

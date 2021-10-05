@@ -20,7 +20,7 @@ namespace ce {
 		void sendToShader(ce::Shader* shader, bool bind = true);
 
 		size_t GetIndexCount() { return m_indexArraySize / sizeof(glm::uint32); };
-		void bind(bool VBO = true, bool EBO = true), unbind(bool VBO = true, bool EBO = true);
+		void bind(), unbind();
 
 		MeshFormat format;
 

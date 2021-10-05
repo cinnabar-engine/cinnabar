@@ -54,7 +54,7 @@ sudo apt install build-essential cmake libglfw3-dev libglew-dev libglm-dev libas
 ### Arch
 
 ```bash
-sudo pacman -S base-devel cmake sdl2 glew glm assimp
+sudo pacman -S base-devel cmake glfw glew glm assimp
 ```
 
 ### Redhat/Fedora
@@ -92,7 +92,7 @@ cd res
 
 -   [CMake](https://cmake.org/)
 -   [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
--   [Simple Directmedia Layer](https://www.libsdl.org/)
+-   [GLFW](https://www.glfw.org)
 -   [GLEW](http://glew.sourceforge.net/)
 -   [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
 
@@ -100,7 +100,7 @@ cd res
 
 -   Build Pipeline: [CMake](https://cmake.org/)
 -   Library Helper: [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)
--   Window: [Simple Directmedia Layer](https://www.libsdl.org/)
+-   Window: [GLFW](https://www.glfw.org)
 -   Rendering: [OpenGL](https://www.opengl.org/)
 -   OpenGL Extention Loader: [GLEW](http://glew.sourceforge.net/)
 -   Maths: [OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)

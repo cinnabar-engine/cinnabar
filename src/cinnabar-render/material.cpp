@@ -23,9 +23,12 @@ void ce::Material::deleteTextures() {
 }
 
 void ce::Material::update() {
-	for (GLint i = 0; ; i++)
-		if (this->shader->setUniform("material.textures[" + std::to_string(i) + "]", i) < 0)
+	for (GLint i = 0; ; i++) {
+		glm::int32 location = this->shader->getUniformLocation("material.textures[" + std::to_string(i) + "]", false);
+		if (location < 0)
 			break;
+		this->shader->setUniform(location, i);
+	}
 }
 
 void ce::Material::bind() {
