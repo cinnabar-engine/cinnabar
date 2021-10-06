@@ -20,7 +20,7 @@ void ce::Framebuffer::bind() {
 }
 
 void ce::Framebuffer::unbind() {
-	// I did draw because
+	// we are just going to be drawing to the default buffer
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 }
 
