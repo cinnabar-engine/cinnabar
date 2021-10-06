@@ -12,10 +12,6 @@ namespace ce {
 		Framebuffer(bool renderBuffer);
 		~Framebuffer();
 
-		/**
-		 * @brief Bind the frame buffer
-		 * 
-		 */
 		void bind(),
 
 		/**
